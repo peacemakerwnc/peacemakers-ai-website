@@ -3,264 +3,172 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI Readiness &amp; ROI Audit — Peacemakers AI</title>
+    <title>AI Clarity Audit | Peacemakers AI</title>
     <meta
       name="description"
-      content="A structured AI readiness and ROI audit: workflow review, opportunity mapping, tool recommendations, KPI scorecard, and a 90-day roadmap tied to business outcomes."
+      content="The Peacemakers AI Clarity Audit is a structured 60-minute assessment with a custom roadmap report, ranked use cases, and a 30/60/90-day plan for your business."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="AI Readiness &amp; ROI Audit — Peacemakers AI" />
+    <meta property="og:title" content="AI Clarity Audit | Peacemakers AI" />
     <meta
       property="og:description"
-      content="Discovery through roadmap walkthrough—clear priorities for nonprofits, service businesses, and growing teams."
+      content="Get a practical AI roadmap tailored to your systems, team, and goals. Vendor-neutral and built for service-based businesses."
     />
-    <meta property="og:url" content="https://peacemakers-ai.example/audit.html" />
-    <meta name="twitter:card" content="summary" />
-    <link rel="canonical" href="https://peacemakers-ai.example/audit.html" />
+    <meta property="og:url" content="https://peacemakersai.com/audit.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://peacemakersai.com/audit.html" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="page-audit">
-    <a class="skip-link" href="#main">Skip to content</a>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
     <header class="site-header">
       <div class="container header-inner">
         <a class="logo" href="index.html">Peacemakers AI</a>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="audit-nav"
-          id="nav-toggle"
-        >
-          <span class="sr-only">Open menu</span>
-          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="nav-toggle-line" aria-hidden="true"></span>
         </button>
-        <nav class="site-nav" id="audit-nav" aria-label="Primary">
+        <nav id="site-nav" class="site-nav" aria-label="Primary">
           <ul class="nav-list">
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="#included">What’s included</a></li>
-            <li><a href="#timeline">How it works</a></li>
-            <li><a href="#audit-cta">Apply</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#deliverable">Deliverable</a></li>
+            <li><a href="#fit">Who It&apos;s For</a></li>
           </ul>
-          <div class="nav-actions">
-            <a class="btn btn-secondary btn-sm" href="index.html">Home</a>
-            <button class="btn btn-primary btn-sm" type="button" data-cta="apply-audit" id="cta-apply-header">
-              Apply for Audit
-            </button>
-          </div>
+          <a
+            class="btn btn-primary btn-small"
+            href="https://calendly.com/peacemakersai"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Book Now</a
+          >
         </nav>
-        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme">
-          <span class="theme-icon" aria-hidden="true"></span>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+          <span aria-hidden="true">Theme</span>
         </button>
       </div>
     </header>
 
     <main id="main">
-      <section class="hero hero-audit section" aria-labelledby="audit-hero-title">
-        <div class="container hero-audit-inner">
-          <div class="hero-copy reveal">
-            <p class="eyebrow">Offer · AI Readiness &amp; ROI Audit</p>
-            <h1 id="audit-hero-title">A clear roadmap for AI adoption—tied to outcomes your leadership can defend</h1>
-            <p class="lead">
-              This audit is for organizations that want a practical assessment of where AI can help, what should wait, and how to
-              sequence work for measurable impact. You leave with priorities, a scorecard lens, and a 90-day plan—not a generic tool list.
-            </p>
-            <div class="hero-ctas">
-              <button class="btn btn-primary" type="button" id="cta-apply-hero" data-cta="apply-audit">Apply for Audit</button>
-              <a class="btn btn-secondary" href="index.html#contact">Book Strategy Call</a>
-            </div>
-            <p class="micro-note">
-              Best when you have cross-functional access to workflows and systems owners—or a willingness to coordinate short discovery
-              sessions.
-            </p>
-          </div>
+      <section class="hero section reveal" aria-labelledby="audit-title">
+        <div class="container narrow">
+          <p class="eyebrow">AI Clarity Audit</p>
+          <h1 id="audit-title">Get a clear AI roadmap before you spend on tools.</h1>
+          <p class="hero-sub audit-intro">
+            The AI Clarity Audit gives you a practical path to AI adoption based on your actual systems, team, and
+            priorities. No generic recommendations. No platform lock-in.
+          </p>
+          <p class="price-tag">$1,500 flat fee</p>
+          <a
+            class="btn btn-primary"
+            href="https://calendly.com/peacemakersai"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Book Now</a
+          >
         </div>
       </section>
 
-      <section class="section section-alt" id="who-for" aria-labelledby="who-for-title">
+      <section class="section reveal" id="process" aria-labelledby="process-title">
         <div class="container">
-          <div class="section-head reveal">
-            <h2 id="who-for-title">Who it’s for</h2>
-            <p class="section-lead">If your organization matches one of these profiles, the audit is designed to meet you where you are.</p>
-          </div>
-          <div class="columns-3">
-            <article class="column-block reveal">
-              <h3 class="column-title">Nonprofits</h3>
-              <p>
-                Teams balancing stewardship, compliance, and stretched capacity—where reporting and coordination quietly consume mission
-                time.
-              </p>
+          <h2 id="process-title">What Happens During the 60-Minute Call</h2>
+          <div class="grid-3">
+            <article class="card">
+              <h3>Business context review</h3>
+              <p>We map your goals, bottlenecks, and current systems across operations, client delivery, and reporting.</p>
             </article>
-            <article class="column-block reveal">
-              <h3 class="column-title">Service businesses</h3>
-              <p>
-                Firms where delivery quality depends on handoffs—quotes, scheduling, client communications, and follow-up consistency.
-              </p>
+            <article class="card">
+              <h3>Workflow and tool walkthrough</h3>
+              <p>We document how work moves through your CRM, ERP, communication, and internal processes today.</p>
             </article>
-            <article class="column-block reveal">
-              <h3 class="column-title">Growing teams</h3>
-              <p>
-                Organizations hitting operational bottlenecks as volume grows—where tool sprawl and unclear ownership slow everyone down.
-              </p>
+            <article class="card">
+              <h3>Opportunity and risk capture</h3>
+              <p>We surface where AI can create quick wins, where it can scale value, and where it could create risk.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="included" aria-labelledby="included-title">
+      <section class="section section-alt reveal" id="deliverable" aria-labelledby="deliverable-title">
         <div class="container">
-          <div class="section-head reveal">
-            <h2 id="included-title">What’s included</h2>
-            <p class="section-lead">Deliverables you can hand to leadership—written for decisions, not jargon.</p>
+          <h2 id="deliverable-title">What You Receive: Custom AI Roadmap Report</h2>
+          <div class="grid-2">
+            <article class="card">
+              <h3>Core report sections</h3>
+              <ul>
+                <li>Top 3-5 AI use cases ranked by ROI</li>
+                <li>Tool recommendations matched to your current stack</li>
+                <li>Quick wins vs. long-term plays</li>
+                <li>30/60/90-day implementation plan</li>
+                <li>Risk flags and what not to do</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>How you use it</h3>
+              <ul>
+                <li>Use it as an execution guide for your internal team</li>
+                <li>Use it with Peacemakers AI for an implementation sprint</li>
+                <li>Use it as your baseline for ongoing fractional advisory</li>
+              </ul>
+            </article>
           </div>
-          <ul class="deliverable-list">
-            <li class="deliverable-item reveal">
-              <h3 class="deliverable-title">Workflow and process review</h3>
-              <p>Where work actually happens, where data breaks, and where automation helps—or would add risk.</p>
-            </li>
-            <li class="deliverable-item reveal">
-              <h3 class="deliverable-title">AI opportunity mapping</h3>
-              <p>Prioritized use cases aligned to outcomes: revenue, time, cost, quality, and reporting clarity.</p>
-            </li>
-            <li class="deliverable-item reveal">
-              <h3 class="deliverable-title">Tool stack recommendation</h3>
-              <p>Fit-for-purpose guidance based on constraints: security, budget, adoption, and maintenance capacity.</p>
-            </li>
-            <li class="deliverable-item reveal">
-              <h3 class="deliverable-title">Prioritized automation opportunities</h3>
-              <p>A sequenced list with rationale: what to pilot first, what to defer, and what to solve without AI.</p>
-            </li>
-            <li class="deliverable-item reveal">
-              <h3 class="deliverable-title">KPI / ROI scorecard</h3>
-              <p>Baseline signals and simple tracking so progress is visible—not argued from anecdotes.</p>
-            </li>
-            <li class="deliverable-item reveal">
-              <h3 class="deliverable-title">90-day roadmap</h3>
-              <p>Concrete next steps, owners, and checkpoints—so the plan survives the first busy month.</p>
-            </li>
-          </ul>
         </div>
       </section>
 
-      <section class="section section-alt" id="expect" aria-labelledby="expect-title">
+      <section class="section reveal" id="fit" aria-labelledby="fit-title">
         <div class="container">
-          <div class="section-head reveal">
-            <h2 id="expect-title">What outcomes clients should expect</h2>
-            <p class="section-lead">No inflated promises—just clarity and direction you can execute.</p>
-          </div>
-          <div class="card-grid card-grid-2">
-            <article class="card reveal">
-              <h3 class="card-title">Identify revenue opportunities</h3>
-              <p class="card-body">Tighten follow-up, improve proposal speed, and reduce leakage from inconsistent processes.</p>
+          <h2 id="fit-title">Who This Audit Is For</h2>
+          <div class="grid-2">
+            <article class="card">
+              <h3>Service-based teams (5-100 people)</h3>
+              <ul>
+                <li>Agencies and consultancies</li>
+                <li>Home services and field operations</li>
+                <li>Legal, accounting, and professional support firms</li>
+                <li>Businesses overwhelmed by AI choices</li>
+              </ul>
             </article>
-            <article class="card reveal">
-              <h3 class="card-title">Uncover time savings</h3>
-              <p class="card-body">Expose repetitive work that quietly consumes hours each week across roles.</p>
-            </article>
-            <article class="card reveal">
-              <h3 class="card-title">Reduce operational friction</h3>
-              <p class="card-body">Make handoffs smoother between people, tools, and teams—fewer “where is this?” moments.</p>
-            </article>
-            <article class="card reveal">
-              <h3 class="card-title">Improve visibility for leadership</h3>
-              <p class="card-body">Align metrics and reporting to decisions executives need to make—weekly and monthly.</p>
+            <article class="card">
+              <h3>ERP-connected organizations</h3>
+              <ul>
+                <li>Teams on NetSuite, Salesforce, HubSpot, or similar platforms</li>
+                <li>Finance and operations leaders needing clearer AI reporting</li>
+                <li>Companies ready to unlock AI from systems they already own</li>
+              </ul>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="timeline" aria-labelledby="timeline-title">
-        <div class="container">
-          <div class="section-head reveal">
-            <h2 id="timeline-title">How it works</h2>
-            <p class="section-lead">A short timeline with crisp milestones—so teams know what to expect.</p>
-          </div>
-          <ol class="timeline reveal">
-            <li class="timeline-step">
-              <span class="timeline-marker" aria-hidden="true"></span>
-              <div class="timeline-body">
-                <h3 class="timeline-title">Discovery</h3>
-                <p>Stakeholder interviews, workflow walkthroughs, and a practical inventory of constraints and priorities.</p>
-              </div>
-            </li>
-            <li class="timeline-step">
-              <span class="timeline-marker" aria-hidden="true"></span>
-              <div class="timeline-body">
-                <h3 class="timeline-title">Assessment</h3>
-                <p>Evaluation of opportunities, risks, data readiness, and adoption realities—grounded in how your team works today.</p>
-              </div>
-            </li>
-            <li class="timeline-step">
-              <span class="timeline-marker" aria-hidden="true"></span>
-              <div class="timeline-body">
-                <h3 class="timeline-title">Recommendations</h3>
-                <p>Prioritized plan with tool-fit guidance, automation candidates, KPI definitions, and a 90-day roadmap.</p>
-              </div>
-            </li>
-            <li class="timeline-step">
-              <span class="timeline-marker" aria-hidden="true"></span>
-              <div class="timeline-body">
-                <h3 class="timeline-title">Roadmap walkthrough</h3>
-                <p>A leadership session to align on sequencing, ownership, and what “success” means for the next quarter.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <section class="section cta-final cta-audit" id="audit-cta" aria-labelledby="audit-cta-title">
-        <div class="container cta-inner reveal">
-          <div class="cta-copy">
-            <h2 id="audit-cta-title">Apply for the AI Readiness &amp; ROI Audit</h2>
-            <p>
-              If you want a roadmap tied to measurable outcomes—and a prioritized plan your team can execute—start here. After you apply,
-              you’ll receive next steps to schedule a short fit call.
-            </p>
-          </div>
-          <div class="cta-actions">
-            <button class="btn btn-primary btn-lg" type="button" id="cta-apply-final" data-cta="apply-audit">Apply for Audit</button>
-          </div>
-          <div class="cal-embed-placeholder" id="calendly-embed-placeholder" data-cal-placeholder>
-            <p class="cal-embed-label">Calendar embed placeholder</p>
-            <p class="cal-embed-hint">
-              Replace this block with a Calendly embed or link your booking URL on the Apply buttons via <code>data-cta="apply-audit"</code>.
-            </p>
-            <button class="btn btn-secondary" type="button" data-cta="book-audit-call" id="cta-book-audit-call">
-              Book Audit Call (placeholder)
-            </button>
-          </div>
+      <section class="section section-cta reveal" aria-labelledby="audit-cta-title">
+        <div class="container narrow">
+          <h2 id="audit-cta-title">Ready for clarity?</h2>
+          <p class="cta-sub">
+            Book your AI Clarity Audit for $1,500 and leave with a roadmap your business can actually execute.
+          </p>
+          <a
+            class="btn btn-primary"
+            href="https://calendly.com/peacemakersai"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Book Now</a
+          >
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <p class="footer-brand">Peacemakers AI</p>
-          <p class="footer-tagline">AI readiness and ROI audits for teams that need clarity before they scale spend.</p>
-        </div>
-        <nav class="footer-nav" aria-label="Footer">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#faq">FAQ</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-          </ul>
-        </nav>
-        <div class="footer-contact">
-          <p class="footer-label">Contact</p>
-          <p><a class="footer-email" href="mailto:hello@peacemakersai.com">hello@peacemakersai.com</a></p>
-        </div>
-      </div>
-      <div class="container footer-bottom">
-        <p>&copy; <span id="year"></span> Peacemakers AI. All rights reserved.</p>
+      <div class="container footer-inner">
+        <p>Peacemakers AI | Charlotte, NC | peacemakersai.com</p>
+        <p>Vendor-neutral. Platform-agnostic. Results-focused.</p>
       </div>
     </footer>
 
