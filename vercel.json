@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/peacemakers-ai/index.html" },
+    { "source": "/index.html", "destination": "/peacemakers-ai/index.html" },
+    { "source": "/audit.html", "destination": "/peacemakers-ai/audit.html" },
+    { "source": "/audit", "destination": "/peacemakers-ai/audit.html" },
+    { "source": "/styles.css", "destination": "/peacemakers-ai/styles.css" },
+    { "source": "/script.js", "destination": "/peacemakers-ai/script.js" },
+    { "source": "/assets/:path*", "destination": "/peacemakers-ai/assets/:path*" },
+    {
+      "source": "/peacemakers-ai-website.html",
+      "destination": "/peacemakers-ai/peacemakers-ai-website.html"
+    }
+  ]
+}
