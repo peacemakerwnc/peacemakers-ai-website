@@ -68,13 +68,7 @@
             tools, workflows, and next steps that fit how you actually work.
           </p>
           <div class="hero-actions">
-            <a
-              class="btn btn-primary"
-              href="https://calendly.com/peacemakersai"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Book Your AI Clarity Audit</a
-            >
+            <a class="btn btn-primary" href="#lead-intake">Book Your AI Clarity Audit</a>
             <a class="btn btn-secondary" href="#how-it-works">See How It Works</a>
           </div>
           <p class="hero-proof">Vendor-neutral. Works with any CRM, ERP, or AI platform.</p>
@@ -223,6 +217,94 @@
               </ul>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section class="section section-alt reveal" id="lead-intake" aria-labelledby="lead-form-title">
+        <div class="container">
+          <div class="form-intro">
+            <h2 id="lead-form-title">Tell me a little about your business</h2>
+            <p>Fill this out first, then you’ll be redirected to book a call.</p>
+            <p class="form-note">
+              This helps us make your first conversation practical and focused on where AI can create measurable value.
+            </p>
+          </div>
+          <form
+            class="lead-form"
+            data-lead-form
+            action="https://formspree.io/f/REPLACE_WITH_REAL_FORM_ID"
+            method="POST"
+            novalidate
+          >
+            <!-- Replace REPLACE_WITH_REAL_FORM_ID with your actual Formspree form id. -->
+            <input type="hidden" name="page_source" value="homepage" />
+            <input type="hidden" name="submitted_at" value="" />
+            <input type="hidden" name="_subject" value="New Peacemakers AI Lead" />
+            <input type="hidden" name="utm_source" value="" />
+            <input type="hidden" name="utm_medium" value="" />
+            <input type="hidden" name="utm_campaign" value="" />
+            <input class="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="full-name">Full Name <span aria-hidden="true">*</span></label>
+                <input id="full-name" name="full_name" type="text" autocomplete="name" required />
+                <p class="form-error" data-error-for="full_name" aria-live="polite"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="email">Email <span aria-hidden="true">*</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+                <p class="form-error" data-error-for="email" aria-live="polite"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" />
+                <p class="form-error" data-error-for="phone" aria-live="polite"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="industry">Industry <span aria-hidden="true">*</span></label>
+                <select id="industry" name="industry" required>
+                  <option value="">Select one</option>
+                  <option value="Agency">Agency</option>
+                  <option value="Consulting">Consulting</option>
+                  <option value="Professional Services">Professional Services</option>
+                  <option value="Accounting">Accounting</option>
+                  <option value="Legal">Legal</option>
+                  <option value="Home Services">Home Services</option>
+                  <option value="SaaS">SaaS</option>
+                  <option value="Nonprofit">Nonprofit</option>
+                  <option value="Other">Other</option>
+                </select>
+                <p class="form-error" data-error-for="industry" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="needs"
+                >Details of Needs / What are you hoping AI could help with? <span aria-hidden="true">*</span></label
+              >
+              <textarea
+                id="needs"
+                name="needs"
+                rows="5"
+                minlength="20"
+                required
+                placeholder="Share your current bottlenecks, goals, or questions. At least 20 characters."
+              ></textarea>
+              <p class="form-error" data-error-for="needs" aria-live="polite"></p>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" data-submit-label="Continue to Book a Call">
+                Continue to Book a Call
+              </button>
+            </div>
+
+            <p class="form-status" data-form-status aria-live="polite"></p>
+          </form>
         </div>
       </section>
 

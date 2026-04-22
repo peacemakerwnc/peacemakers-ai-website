@@ -148,6 +148,83 @@
         </div>
       </section>
 
+      <section class="section section-alt reveal" id="audit-intake" aria-labelledby="audit-form-title">
+        <div class="container">
+          <div class="form-intro">
+            <h2 id="audit-form-title">Tell me a little about your business</h2>
+            <p>Fill this out first, then you’ll be redirected to book a call.</p>
+          </div>
+          <form
+            class="lead-form"
+            data-lead-form
+            action="https://formspree.io/f/REPLACE_WITH_REAL_FORM_ID"
+            method="POST"
+            novalidate
+          >
+            <!-- Replace REPLACE_WITH_REAL_FORM_ID with your actual Formspree form id. -->
+            <input type="hidden" name="page_source" value="audit-page" />
+            <input type="hidden" name="submitted_at" value="" />
+            <input type="hidden" name="_subject" value="New Peacemakers AI Lead" />
+            <input type="hidden" name="utm_source" value="" />
+            <input type="hidden" name="utm_medium" value="" />
+            <input type="hidden" name="utm_campaign" value="" />
+            <input class="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="audit-full-name">Full Name <span aria-hidden="true">*</span></label>
+                <input id="audit-full-name" name="full_name" type="text" autocomplete="name" required />
+                <p class="form-error" data-error-for="full_name" aria-live="polite"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="audit-email">Email <span aria-hidden="true">*</span></label>
+                <input id="audit-email" name="email" type="email" autocomplete="email" required />
+                <p class="form-error" data-error-for="email" aria-live="polite"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="audit-phone">Phone</label>
+                <input id="audit-phone" name="phone" type="tel" autocomplete="tel" />
+                <p class="form-error" data-error-for="phone" aria-live="polite"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="audit-industry">Industry <span aria-hidden="true">*</span></label>
+                <select id="audit-industry" name="industry" required>
+                  <option value="">Select one</option>
+                  <option value="Agency">Agency</option>
+                  <option value="Consulting">Consulting</option>
+                  <option value="Professional Services">Professional Services</option>
+                  <option value="Accounting">Accounting</option>
+                  <option value="Legal">Legal</option>
+                  <option value="Home Services">Home Services</option>
+                  <option value="SaaS">SaaS</option>
+                  <option value="Nonprofit">Nonprofit</option>
+                  <option value="Other">Other</option>
+                </select>
+                <p class="form-error" data-error-for="industry" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="audit-needs"
+                >Details of Needs / What are you hoping AI could help with? <span aria-hidden="true">*</span></label
+              >
+              <textarea id="audit-needs" name="needs" rows="5" minlength="20" required></textarea>
+              <p class="form-error" data-error-for="needs" aria-live="polite"></p>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" data-submit-label="Continue to Book a Call">
+                Continue to Book a Call
+              </button>
+            </div>
+            <p class="form-status" data-form-status aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
       <section class="section section-cta reveal" aria-labelledby="audit-cta-title">
         <div class="container narrow">
           <h2 id="audit-cta-title">Ready for clarity?</h2>
