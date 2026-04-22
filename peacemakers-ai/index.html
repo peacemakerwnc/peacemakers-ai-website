@@ -18,6 +18,7 @@
     <meta property="og:image" content="https://peacemakersai.com/assets/peacemakers-ai-logo.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://peacemakersai.com/assets/peacemakers-ai-logo.png" />
+    <meta name="theme-color" content="#1b2a41" />
     <link rel="canonical" href="https://peacemakersai.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,9 +26,11 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="assets/peacemakers-ai-logo.png" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/peacemakers-ai-logo.png" />
-    <!-- TODO: Replace with generated 32x32/16x16/favicon.ico set for best cross-browser favicon support. -->
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -36,7 +39,12 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="site-logo" href="index.html" aria-label="Peacemakers AI home">
-          <img class="site-logo-mark" src="assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" />
+          <img
+            class="site-logo-mark"
+            src="assets/peacemakers-ai-logo.svg"
+            alt="Peacemakers AI logo"
+            onerror="this.onerror=null;this.src='assets/peacemakers-ai-logo.png';"
+          />
           <span class="site-logo-wordmark">Peacemakers AI</span>
         </a>
         <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -396,7 +404,12 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <a class="site-logo footer-logo" href="index.html" aria-label="Peacemakers AI home">
-          <img class="site-logo-mark" src="assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" />
+          <img
+            class="site-logo-mark"
+            src="assets/peacemakers-ai-logo.svg"
+            alt="Peacemakers AI logo"
+            onerror="this.onerror=null;this.src='assets/peacemakers-ai-logo.png';"
+          />
           <span class="site-logo-wordmark">Peacemakers AI</span>
         </a>
         <p>Charlotte, NC | peacemakersai.com</p>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Peacemakers AI logo</title>
+  <desc id="logoDesc">Peacemakers AI symbol and wordmark</desc>
+  <rect x="4" y="4" width="64" height="64" rx="14" fill="#1B2A41" />
+  <path d="M20 36h32M36 20v32" stroke="#5CA79E" stroke-width="4" stroke-linecap="round" />
+  <path d="M24 50l12-24 12 24" stroke="#E8EEF9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".92" />
+  <g fill="#1B2A41">
+    <text x="84" y="34" font-size="22" font-family="Inter, Arial, sans-serif" font-weight="700" letter-spacing="-0.2">Peacemakers</text>
+    <text x="84" y="56" font-size="22" font-family="Inter, Arial, sans-serif" font-weight="700" letter-spacing="-0.2">AI</text>
+  </g>
+</svg>
