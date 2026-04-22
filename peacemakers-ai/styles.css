@@ -167,6 +167,28 @@ li {
   letter-spacing: -0.02em;
 }
 
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.site-logo-mark {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.site-logo-wordmark {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 1rem;
+}
+
 .site-nav {
   margin-left: auto;
   display: flex;
@@ -575,6 +597,10 @@ li {
   background: var(--surface);
 }
 
+.footer-logo {
+  margin-bottom: 0.6rem;
+}
+
 .footer-inner p {
   margin: 0 0 0.35rem;
   font-size: 0.92rem;
@@ -627,6 +653,15 @@ li {
 
   .theme-toggle {
     margin-left: 0;
+  }
+
+  .site-logo-mark {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .site-logo-wordmark {
+    font-size: 0.95rem;
   }
 }
 
