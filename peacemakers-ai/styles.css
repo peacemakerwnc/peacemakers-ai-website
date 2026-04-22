@@ -301,6 +301,7 @@ li {
 
 .hero h1,
 .hero .hero-sub,
+.hero .hero-service-area,
 .hero .eyebrow,
 .hero .hero-proof {
   text-align: center;
@@ -317,6 +318,14 @@ li {
   font-size: 1.15rem;
   max-width: 70ch;
   margin: 0 auto var(--space-4);
+}
+
+.hero-service-area {
+  font-size: 0.98rem;
+  color: var(--muted);
+  max-width: 62ch;
+  margin: -0.35rem auto var(--space-4);
+  line-height: 1.45;
 }
 
 .hero-actions {
@@ -503,6 +512,15 @@ li {
   margin-bottom: 1rem;
 }
 
+.audit-service-area {
+  font-size: 0.98rem;
+  color: var(--muted);
+  max-width: 52ch;
+  margin: 0 auto 1rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
 .price-tag {
   font-size: 1.3rem;
   font-weight: 800;
@@ -623,6 +641,22 @@ li {
 .footer-inner p {
   margin: 0 0 0.35rem;
   font-size: 0.92rem;
+}
+
+.footer-locale {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.footer-domain {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-domain:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
 :focus-visible {
