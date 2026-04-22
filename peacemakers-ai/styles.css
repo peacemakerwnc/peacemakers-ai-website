@@ -345,6 +345,11 @@ li {
   grid-template-columns: 1fr;
 }
 
+.section-intro {
+  max-width: 68ch;
+  margin-bottom: 1rem;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -365,6 +370,48 @@ li {
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--accent);
+}
+
+.stage-flow {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.stage-card {
+  min-height: 100%;
+}
+
+.stage-kicker {
+  margin-bottom: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stage-price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.stage-fit {
+  margin-top: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.stage-connector {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.why-grid h3 {
+  margin-bottom: 0.5rem;
 }
 
 .steps {
@@ -594,6 +641,15 @@ li {
 
   .pricing-grid {
     grid-template-columns: 1.3fr 1fr 1fr;
+  }
+
+  .stage-flow {
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .stage-connector {
+    display: flex;
   }
 
   .form-grid {
