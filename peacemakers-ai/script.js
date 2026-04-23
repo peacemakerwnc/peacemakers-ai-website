@@ -1,6 +1,27 @@
 (function () {
   "use strict";
 
+  var CALENDLY_URL =
+    (document.documentElement && document.documentElement.dataset.calendlyUrl) ||
+    "https://calendly.com/peacemakersai";
+
+  function wireCalendlyLinks() {
+    var calendlyLinks = document.querySelectorAll("[data-calendly-link]");
+    calendlyLinks.forEach(function (link) {
+      link.setAttribute("href", CALENDLY_URL);
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+      link.addEventListener("click", function (event) {
+        if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
+          event.preventDefault();
+          window.Calendly.initPopupWidget({ url: CALENDLY_URL });
+        }
+      });
+    });
+  }
+
+  wireCalendlyLinks();
+
   var doc = document.documentElement;
   doc.classList.remove("no-js");
   doc.classList.add("js");
@@ -210,7 +231,7 @@
           .then(function () {
             setFormStatus(form, "Thanks — your info has been saved. Redirecting you to book your call now...", "success");
             window.setTimeout(function () {
-              window.location.href = "https://calendly.com/peacemakersai";
+              window.location.href = CALENDLY_URL;
             }, 1500);
           })
           .catch(function (error) {
