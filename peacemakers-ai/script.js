@@ -5,6 +5,9 @@
     (document.documentElement && document.documentElement.dataset.calendlyUrl) ||
     "https://calendly.com/peacemakersai";
 
+  var INTRO_CALENDLY_URL =
+    (document.documentElement && document.documentElement.dataset.introCalendlyUrl) || "";
+
   function wireCalendlyLinks() {
     var calendlyLinks = document.querySelectorAll("[data-calendly-link]");
     calendlyLinks.forEach(function (link) {
@@ -20,7 +23,27 @@
     });
   }
 
+  function wireIntroCalendlyLinks() {
+    var introLinks = document.querySelectorAll("[data-intro-calendly-link]");
+    if (!introLinks.length) return;
+    if (!INTRO_CALENDLY_URL || INTRO_CALENDLY_URL.indexOf("REPLACE_WITH_INTRO_CALL_URL") !== -1) {
+      return;
+    }
+    introLinks.forEach(function (link) {
+      link.setAttribute("href", INTRO_CALENDLY_URL);
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+      link.addEventListener("click", function (event) {
+        if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
+          event.preventDefault();
+          window.Calendly.initPopupWidget({ url: INTRO_CALENDLY_URL });
+        }
+      });
+    });
+  }
+
   wireCalendlyLinks();
+  wireIntroCalendlyLinks();
 
   var doc = document.documentElement;
   doc.classList.remove("no-js");
@@ -195,6 +218,8 @@
     formData.set("submitted_at", payload.submitted_at);
     formData.set("page_source", payload.page_source);
 
+    // FORM_ENDPOINT must be a valid Formspree endpoint: https://formspree.io/f/<id>
+    // Endpoint comes from each form's action attribute (not hardcoded in JS).
     var response = await fetch(actionUrl, {
       method: "POST",
       body: formData,
@@ -259,4 +284,15 @@
   }
 
   wireLeadForms();
+
+  // FORMSPREE SETUP (manual step required)
+  // 1) Go to https://formspree.io and sign up or log in.
+  // 2) Create a new form and note the endpoint, which will look like:
+  //    https://formspree.io/f/xxxxxxx
+  // 3) In this project, replace REPLACE_WITH_REAL_FORM_ID in:
+  //    - peacemakers-ai/index.html
+  //    - peacemakers-ai/audit.html
+  //    so the action attribute points to the real endpoint.
+  // 4) Redeploy the site. Submissions will be stored and/or emailed by Formspree,
+  //    and on success the user will be redirected to Calendly as before.
 })();
