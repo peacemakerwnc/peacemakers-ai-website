@@ -1,0 +1,77 @@
+name: Weekly Small Business Blog Batch
+
+on:
+  schedule:
+    # Mondays 9:00 AM US Eastern (14:00 UTC during EDT)
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+    inputs:
+      force_batch_id:
+        description: "Optional batch ID to generate (2-7). Leave empty for auto-detect."
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  queue-batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine due batch
+        id: batch
+        run: |
+          if ! python3 peacemakers-ai/scripts/run-weekly-batch.py --due-only --write-prompt --json > /tmp/batch.json 2>/tmp/batch.stderr; then
+            cat /tmp/batch.stderr
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ ! -s /tmp/batch.json ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          cat /tmp/batch.json
+          python3 -c "import json; b=json.load(open('/tmp/batch.json')); print('batch_id='+str(b['id'])); print('batch_name='+b['name']); print('scheduled='+b['scheduled_date']); print('status='+b.get('status','pending'))" >> "$GITHUB_OUTPUT"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if batch already published
+        if: steps.batch.outputs.skip == 'true' || steps.batch.outputs.status == 'published'
+        run: echo "No batch due this week."
+
+      - name: Open GitHub issue with agent prompt
+        if: steps.batch.outputs.skip != 'true' && steps.batch.outputs.status != 'published'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PROMPT_FILE="peacemakers-ai/scripts/small-business-articles/prompts/batch-${{ steps.batch.outputs.batch_id }}-prompt.md"
+          PROMPT_BODY=$(cat "$PROMPT_FILE")
+          gh issue create \
+            --title "Blog batch ${{ steps.batch.outputs.batch_id }} due: ${{ steps.batch.outputs.batch_name }}" \
+            --label "blog-batch" \
+            --body "$(cat <<EOF
+          ## Weekly AI for Small Business batch
+
+          **Batch:** ${{ steps.batch.outputs.batch_id }} — ${{ steps.batch.outputs.batch_name }}
+          **Scheduled:** ${{ steps.batch.outputs.scheduled }}
+
+          ### Action required
+
+          Run this in **Cursor Agent** (or a Cursor Automation on the same weekly schedule):
+
+          \`\`\`
+          $(cat "$PROMPT_FILE")
+          \`\`\`
+
+          ### After the agent finishes
+
+          - Verify live URLs on peacemakersai.com
+          - Close this issue
+
+          ---
+          _Auto-created by weekly-small-business-blog.yml_
+          EOF
+          )" || echo "Issue creation failed (label 'blog-batch' may need to be created once in GitHub)."

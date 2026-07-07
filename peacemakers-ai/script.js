@@ -5,22 +5,53 @@
     (document.documentElement && document.documentElement.dataset.calendlyUrl) ||
     "https://calendly.com/james-peacemakersai/30min";
 
+  // Intro: use scheduling page until the single-event link is active in Calendly.
+  // Direct slug currently returns "URL is not valid" for inactive event records.
   var INTRO_CALENDLY_URL =
-    (document.documentElement && document.documentElement.dataset.introCalendlyUrl) || "";
+    (document.documentElement && document.documentElement.dataset.introCalendlyUrl) ||
+    "https://calendly.com/james-peacemakersai";
 
-  function wireCalendlyLinks() {
-    var calendlyLinks = document.querySelectorAll("[data-calendly-link]");
-    calendlyLinks.forEach(function (link) {
-      link.setAttribute("href", CALENDLY_URL);
+  function calendlyPopupUrl(url) {
+    try {
+      var parsed = new URL(url);
+      parsed.searchParams.set("embed_domain", window.location.hostname || "www.peacemakersai.com");
+      parsed.searchParams.set("embed_type", "PopupText");
+      return parsed.toString();
+    } catch (error) {
+      return url;
+    }
+  }
+
+  function ensureCalendlyStyles() {
+    if (document.querySelector('link[href*="calendly.com/assets/external/widget.css"]')) {
+      return;
+    }
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    document.head.appendChild(link);
+  }
+
+  function wireCalendlyPopupLinks(links, url) {
+    if (!url || url.indexOf("REPLACE_WITH_INTRO_CALL_URL") !== -1) {
+      return;
+    }
+    ensureCalendlyStyles();
+    links.forEach(function (link) {
+      link.setAttribute("href", url);
       link.setAttribute("target", "_blank");
       link.setAttribute("rel", "noopener noreferrer");
       link.addEventListener("click", function (event) {
         if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
           event.preventDefault();
-          window.Calendly.initPopupWidget({ url: CALENDLY_URL });
+          window.Calendly.initPopupWidget({ url: calendlyPopupUrl(url) });
         }
       });
     });
+  }
+
+  function wireCalendlyLinks() {
+    wireCalendlyPopupLinks(document.querySelectorAll("[data-calendly-link]"), CALENDLY_URL);
   }
 
   function wireIntroCalendlyLinks() {
@@ -202,7 +233,8 @@
   function getFormSuccessRedirect(form) {
     var redirectValue = form.getAttribute("data-success-redirect");
     if (redirectValue === "none") return "";
-    return redirectValue || CALENDLY_URL;
+    // Default to scheduling page — direct event slugs (e.g. /30min) can show "URL is not valid".
+    return redirectValue || INTRO_CALENDLY_URL || CALENDLY_URL;
   }
 
   function revealSuccessNextStep(form) {
@@ -406,6 +438,53 @@
     });
   }
 
+  function wireLeadMagnetForms() {
+    var magnetForms = document.querySelectorAll("[data-lead-magnet-form]");
+    if (!magnetForms.length) return;
+
+    magnetForms.forEach(function (form) {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (form.dataset.submitting === "true") return;
+
+        setFormStatus(form, "");
+        var emailField = form.querySelector('[name="email"]');
+        var emailValue = emailField ? emailField.value.trim() : "";
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailValue) {
+          setFormStatus(form, "Please enter your email.", "error");
+          return;
+        }
+        if (!emailRegex.test(emailValue)) {
+          setFormStatus(form, "Please enter a valid email address.", "error");
+          return;
+        }
+
+        form.dataset.submitting = "true";
+        setSubmitting(form, true);
+
+        var payload = getLeadPayload(form);
+        submitToFormspree(form, payload)
+          .then(function () {
+            var redirect = form.getAttribute("data-success-redirect") || "/resources/ai-starter-kit";
+            setFormStatus(form, "Thanks! Redirecting you to your download...", "success");
+            window.setTimeout(function () {
+              window.location.href = redirect;
+            }, 1200);
+          })
+          .catch(function () {
+            setFormStatus(form, "We could not save your request right now. Please try again.", "error");
+          })
+          .finally(function () {
+            form.dataset.submitting = "false";
+            setSubmitting(form, false);
+          });
+      });
+    });
+  }
+
+  wireLeadMagnetForms();
   wireLeadForms();
   wireScorecardForm();
 

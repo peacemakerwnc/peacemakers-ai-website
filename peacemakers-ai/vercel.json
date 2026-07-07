@@ -3,6 +3,16 @@
   "framework": null,
   "buildCommand": null,
   "rewrites": [
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/blog/ai-for-nonprofits", "destination": "/resources/ai-for-nonprofits/index.html" },
+    { "source": "/blog/ai-for-nonprofits/", "destination": "/resources/ai-for-nonprofits/index.html" },
+    { "source": "/blog/ai-for-nonprofits/:slug", "destination": "/resources/ai-for-nonprofits/:slug.html" },
+    { "source": "/services/ai-strategy-nonprofits", "destination": "/services/ai-strategy-nonprofits.html" },
+    { "source": "/resources/ai-starter-kit", "destination": "/resources/ai-starter-kit.html" },
+    { "source": "/blog/ai-for-small-business", "destination": "/resources/ai-for-small-business/index.html" },
+    { "source": "/blog/ai-for-small-business/", "destination": "/resources/ai-for-small-business/index.html" },
+    { "source": "/blog/ai-for-small-business/:slug", "destination": "/resources/ai-for-small-business/:slug.html" },
+    { "source": "/services/ai-strategy-small-business", "destination": "/services/ai-strategy-small-business.html" },
+    { "source": "/resources/ai-small-business-starter-kit", "destination": "/resources/ai-small-business-starter-kit.html" }
   ]
 }
