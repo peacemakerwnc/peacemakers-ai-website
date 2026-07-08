@@ -6,12 +6,21 @@
   data-intro-calendly-url="https://calendly.com/james-peacemakersai"
 >
   <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-M5L8TPDF');</script>
+  <!-- Google Tag Manager (deferred for performance) -->
+  <script>
+    window.addEventListener('load', function () {
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-M5L8TPDF");
+    });
+  </script>
   <!-- End Google Tag Manager -->
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GTQ5YNER7P"></script>
@@ -28,22 +37,22 @@
   <!-- Note: If GA4 and Microsoft Clarity are later configured inside Google Tag Manager, remove the manual GA4 and Clarity scripts from this page to prevent duplicate tracking. -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Peacemakers AI | Practical AI Automation for Service Businesses</title>
+    <title>Peacemakers AI | AI Automation Consulting</title>
     <meta
       name="description"
-      content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and implementation roadmaps."
+      content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Peacemakers AI | Practical AI Automation for Service Businesses" />
+    <meta property="og:title" content="Peacemakers AI | AI Automation Consulting" />
     <meta
       property="og:description"
-      content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and implementation roadmaps."
+      content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps."
     />
     <meta property="og:url" content="https://www.peacemakersai.com/" />
     <meta property="og:image" content="https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Peacemakers AI | Practical AI Automation for Service Businesses" />
-    <meta name="twitter:description" content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and implementation roadmaps." />
+    <meta name="twitter:title" content="Peacemakers AI | AI Automation Consulting" />
+    <meta name="twitter:description" content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps." />
     <meta name="twitter:image" content="https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp" />
     <meta name="theme-color" content="#1b2a41" />
     <link rel="canonical" href="https://www.peacemakersai.com/" />
@@ -55,42 +64,62 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.webp" sizes="32x32" type="image/webp" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.webp" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": ["ProfessionalService", "Organization"],
-        "name": "Peacemakers AI",
-        "url": "https://www.peacemakersai.com",
-        "logo": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp",
-        "image": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp",
-        "email": "james@peacemakersai.com",
-        "telephone": "[INSERT BUSINESS PHONE]",
-        "description": "Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and implementation roadmaps.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Asheville",
-          "addressRegion": "NC",
-          "addressCountry": "US"
-        },
-        "areaServed": [
-          { "@type": "City", "name": "Asheville" },
-          { "@type": "State", "name": "North Carolina" },
-          { "@type": "AdministrativeArea", "name": "Western North Carolina" },
-          { "@type": "Country", "name": "United States" }
-        ],
-        "serviceType": [
-          "AI Consulting",
-          "Business Process Automation",
-          "Workflow Automation",
-          "AI Implementation Roadmaps"
-        ],
-        "sameAs": [
-          "https://www.linkedin.com/company/peacemakers-ai"
+        "@graph": [
+          {
+            "@type": ["Organization", "ProfessionalService"],
+            "@id": "https://www.peacemakersai.com/#organization",
+            "name": "Peacemakers AI",
+            "url": "https://www.peacemakersai.com",
+            "logo": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp",
+            "image": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp",
+            "email": "james@peacemakersai.com",
+            "description": "Peacemakers AI helps service-based businesses identify practical AI automation opportunities, reduce manual work, and build clear implementation roadmaps.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Asheville",
+              "addressRegion": "NC",
+              "addressCountry": "US"
+            },
+            "areaServed": { "@type": "Country", "name": "United States" },
+            "serviceType": [
+              "AI Consulting",
+              "Business Process Automation",
+              "Workflow Automation",
+              "AI Implementation Roadmaps"
+            ],
+            "sameAs": ["https://www.linkedin.com/company/peacemakers-ai"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.peacemakersai.com/#website",
+            "url": "https://www.peacemakersai.com",
+            "name": "Peacemakers AI",
+            "publisher": { "@id": "https://www.peacemakersai.com/#organization" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://www.peacemakersai.com/#webpage",
+            "url": "https://www.peacemakersai.com/",
+            "name": "Peacemakers AI | AI Automation Consulting",
+            "description": "Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps.",
+            "isPartOf": { "@id": "https://www.peacemakersai.com/#website" },
+            "about": { "@id": "https://www.peacemakersai.com/#organization" }
+          },
+          {
+            "@type": "Service",
+            "name": "AI Automation Consulting",
+            "provider": { "@id": "https://www.peacemakersai.com/#organization" },
+            "areaServed": { "@type": "Country", "name": "United States" },
+            "description": "Practical AI consulting, workflow automation, and implementation planning for service businesses."
+          }
         ]
       }
     </script>
@@ -104,31 +133,15 @@
             "name": "How do I know if my business is ready for AI?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Start with the Free AI Opportunity Scorecard. It is a fast AI readiness assessment that shows whether your workflows, follow-up, and capacity support practical use—before you buy more tools."
+              "text": "Start with our free scorecard. It is a quick automation readiness review that shows whether your workflows and team capacity support practical use before you buy more tools."
             }
           },
           {
             "@type": "Question",
-            "name": "What is an AI opportunity assessment?",
+            "name": "What is an automation opportunity assessment?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "An AI opportunity assessment identifies where automation can save time and improve consistency. Through Peacemakers AI, that assessment begins with the Free AI Opportunity Scorecard and can expand into a full AI Opportunity Blueprint."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is this an AI readiness assessment?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. The Free AI Opportunity Scorecard doubles as an AI readiness assessment and AI readiness checklist for service teams that want clarity before implementation."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How to create an AI implementation roadmap?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Build an AI implementation roadmap by ranking use cases by impact and feasibility, then break it into a clear 30/60/90-day plan. That is what you receive with the AI Opportunity Blueprint."
+              "text": "It identifies where automation can save time and improve consistency. Many teams begin with the free scorecard and move into a full opportunity review when they are ready to prioritize implementation."
             }
           },
           {
@@ -136,7 +149,7 @@
             "name": "Is this just a strategy session?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. You leave with a practical 30/60/90-day roadmap and clear implementation recommendations."
+              "text": "No. You leave with a practical implementation plan and clear next steps, not a one-off brainstorm."
             }
           },
           {
@@ -144,7 +157,7 @@
             "name": "Do you implement the solutions too?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. After the Blueprint, we can implement selected workflows through Quick Win Sprints, Growth Systems, or ongoing advisory."
+              "text": "Yes. After the review, we can implement selected workflows through quick-win sprints, growth systems, or ongoing advisory."
             }
           },
           {
@@ -153,14 +166,6 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Service-based businesses, consultants, agencies, home service companies, nonprofits, finance teams, professional services firms, and growing teams with manual workflows."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What if I only want the Blueprint?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "That is fine. You can execute internally, or we can support implementation if it makes sense."
             }
           },
           {
@@ -176,7 +181,7 @@
             "name": "How do you handle data security and sensitive information?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "We use a client-controlled approach. Your business owns its systems, licenses, accounts, data, approvals, and final decisions. We avoid unnecessary sensitive data, request only the access needed for approved work, and do not make material system changes without written approval. Third-party tools are subject to their own terms, privacy policies, and security practices."
+              "text": "We use a client-controlled approach. Your business owns its systems, licenses, accounts, data, approvals, and final decisions. We avoid unnecessary sensitive data and do not make material system changes without written approval."
             }
           }
         ]
@@ -235,27 +240,26 @@
     <main id="main">
       <section class="hero section reveal" id="top" aria-labelledby="hero-title">
         <div class="container hero-content">
-          <p class="eyebrow">AI consulting for service businesses</p>
-          <h1 id="hero-title">Get an AI Opportunity Blueprint for the Opportunities Hiding Inside Your Business</h1>
+          <p class="eyebrow">AI automation consulting for service businesses</p>
+          <h1 id="hero-title">Practical AI Automation for Service Businesses</h1>
           <p class="hero-sub">
-            As a business AI strategy consultant, Peacemakers AI delivers a practical AI Opportunity Blueprint that shows
-            what to automate, what tools to use, what to ignore, and how to turn AI into real business value without
-            overwhelming your team. It&apos;s practical AI consulting for small business owners who want results, not
-            theory.
+            Peacemakers AI helps service businesses find manual work that can be automated, improve follow-up, and
+            build a clear roadmap for using AI without wasted spending.
           </p>
           <ul class="hero-points">
-            <li>Find where your team is losing time to manual work</li>
-            <li>Identify the best AI use cases for your business</li>
-            <li>Avoid wasting money on the wrong tools</li>
-            <li>Walk away with a clear 30/60/90-day action plan</li>
+            <li>See where your team loses time to manual work</li>
+            <li>Find practical automation opportunities for your business</li>
+            <li>Avoid buying tools you do not need</li>
+            <li>Leave with a clear plan you can act on</li>
           </ul>
           <p class="hero-service-area">
             Peacemakers AI is based in Asheville, North Carolina and helps service-based businesses across the United
-            States reduce manual work with practical AI automation.
+            States use practical AI automation to reduce manual work, improve follow-up, and create clearer operating
+            systems.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#lead-intake">Get My AI Opportunity Blueprint</a>
-            <a class="btn btn-ghost" href="scorecard.html">Get the Free AI Opportunity Scorecard</a>
+            <a class="btn btn-primary" href="#lead-intake">Get an AI Opportunity Review</a>
+            <a class="btn btn-ghost" href="#how-it-works">See How It Works</a>
           </div>
           <p class="hero-secondary-microcopy">
             Have questions first? This short call is for fit, process, and next steps — not a free consulting session.
@@ -271,11 +275,10 @@
 
       <section class="section reveal" id="problem" aria-labelledby="problem-title">
         <div class="container">
-          <h2 id="problem-title">Most Businesses Do Not Have an AI Problem. They Have a Clarity Problem.</h2>
+          <h2 id="problem-title">What Peacemakers AI Does</h2>
           <p class="section-intro">
-            Business owners are being told to use ChatGPT, CRMs, AI agents, chatbots, automation platforms, and
-            reporting tools, but most do not know what to implement first. The result is confusion, wasted
-            subscriptions, scattered tools, and no clear path to ROI.
+            We help service businesses cut through AI noise. Instead of adding more tools, we review your workflows,
+            find where time is wasted, and build a practical plan for automation.
           </p>
           <div class="grid-3">
             <article class="card">
@@ -315,71 +318,50 @@
 
       <section class="section section-alt reveal" id="scorecard" aria-labelledby="scorecard-title">
         <div class="container narrow">
-          <h2 id="scorecard-title">
-            <a class="section-title-link" href="scorecard.html">Free AI Opportunity Scorecard</a>
-          </h2>
+          <h2 id="scorecard-title">How the AI Opportunity Review Works</h2>
           <p class="cta-sub">
-            Not ready for the full Blueprint yet? Start with the
-            <a class="hero-text-link" href="scorecard.html">Free AI Opportunity Scorecard</a> and see where this
-            approach may create the most value inside your business. Think of it as a fast
-            AI readiness assessment for your business.
+            Not ready for a full plan? Start with our free scorecard. It is a quick way to see where automation may
+            create the most value in your business.
           </p>
           <p class="intro-cta-copy">
-            The <a class="hero-text-link" href="scorecard.html">Free AI Opportunity Scorecard</a> is a fast AI readiness
-            assessment—and a practical AI readiness checklist—that shows you exactly where to start. Answer a few simple
-            questions about your workflows, tools, lead follow-up, reporting, and team capacity to see where the AI
-            Opportunity Scorecard points first.
+            The <a class="hero-text-link" href="scorecard.html">free scorecard</a> works like an automation readiness
+            review. Answer a few questions about your workflows, tools, follow-up, reporting, and team capacity. Then
+            you will see where to start before investing in more software.
           </p>
-          <!-- TODO: replace scorecard.html with final hosted scorecard URL only if this page moves externally. -->
-          <!-- Suggested scorecard questions:
-               1) What industry are you in?
-               2) How many employees are on your team?
-               3) What CRM, ERP, or project management tools do you use?
-               4) Where does your team waste the most time?
-               5) How fast do you respond to new leads?
-               6) Are you currently using AI?
-               7) What area do you want to improve first?
-               8) How soon do you want to implement? -->
-          <a class="btn btn-ghost" href="scorecard.html">Get the Free AI Opportunity Scorecard</a>
+          <a class="btn btn-ghost" href="scorecard.html">Take the Free Scorecard</a>
         </div>
       </section>
 
       <section class="section reveal" id="services" aria-labelledby="services-title">
         <div class="container">
-          <h2 id="services-title">
-            The <a class="section-title-link" href="blueprint.html">AI Opportunity Blueprint</a>
-          </h2>
+          <h2 id="services-title">The Full Automation Opportunity Review</h2>
           <p class="section-intro">
-            Get a full
+            When you are ready to go deeper, the
             <a class="hero-text-link" href="blueprint.html">AI Opportunity Blueprint</a>
-            with a clear AI implementation roadmap—broken into a 30/60/90-day plan—for using AI in your business without
-            guessing, tool overload, or unnecessary complexity.
+            gives you a practical implementation plan. You will see what to automate, what tools fit, and what to skip.
           </p>
           <div class="grid-2">
             <article class="card card-featured">
               <h3>What you get</h3>
               <ul>
-                <li><strong>AI Opportunity Map:</strong> where AI can save time, improve response speed, and lift revenue.</li>
-                <li><strong>Workflow Bottleneck Review:</strong> lead flow, admin, reporting, communication, and handoffs.</li>
-                <li><strong>Tool Fit Analysis:</strong> what to keep, what to avoid, and where AI fits your current stack.</li>
-                <li><strong>Top 3-5 Use Cases by ROI:</strong> prioritized by impact, ease, cost, risk, and time-to-value.</li>
-                <li>
-                  <strong>30/60/90-day Roadmap:</strong> an AI implementation plan for small business teams—what to do
-                  now, what can wait, and what to skip.
-                </li>
-                <li><strong>Implementation Estimate:</strong> what we can build, what your team can own, what to outsource.</li>
+                <li><strong>Opportunity map:</strong> where automation can save time and improve response speed.</li>
+                <li><strong>Workflow review:</strong> lead flow, admin, reporting, communication, and handoffs.</li>
+                <li><strong>Tool fit analysis:</strong> what to keep, what to avoid, and what fits your stack.</li>
+                <li><strong>Top use cases:</strong> prioritized by impact, ease, cost, risk, and time-to-value.</li>
+                <li><strong>Implementation plan:</strong> a phased roadmap for what to do now, later, or not at all.</li>
+                <li><strong>Build estimate:</strong> what we can implement, what your team can own, and what to outsource.</li>
               </ul>
             </article>
             <article class="card">
               <h3>Pricing and next step</h3>
               <p class="stage-price">Starting at $1,500</p>
               <p>
-                Your Blueprint gives you a practical plan you can execute internally or with our implementation and
-                advisory support.
+                You get a practical plan you can run internally or with our help. Many teams start with the free
+                scorecard, then move here when they are ready to prioritize.
               </p>
               <div class="cta-stack cta-stack-left">
-                <a class="btn btn-primary" href="#lead-intake">Get My AI Opportunity Blueprint</a>
-                <a class="btn btn-ghost" href="scorecard.html">Get the Free AI Opportunity Scorecard</a>
+                <a class="btn btn-primary" href="#lead-intake">Request an Opportunity Review</a>
+                <a class="btn btn-ghost" href="scorecard.html">Take the Free Scorecard</a>
               </div>
             </article>
           </div>
@@ -388,58 +370,51 @@
 
       <section class="section reveal" id="how-it-works" aria-labelledby="value-ladder-title">
         <div class="container">
-          <h2 id="value-ladder-title">A Practical Path From Confusion to Implementation</h2>
+          <h2 id="value-ladder-title">Where Automation Helps</h2>
           <p class="section-intro">
-            Whether you need light business process automation or a full AI implementation roadmap, there&apos;s an
-            entry point for every stage.
+            Whether you need light workflow automation or a full implementation plan, there is a starting point for
+            every stage.
           </p>
           <div class="grid-3">
             <article class="card">
               <p class="stage-kicker">Free</p>
-              <h3><a class="section-title-link" href="scorecard.html">AI Opportunity Scorecard</a></h3>
-              <p>Find where the Free AI Opportunity Scorecard points to the most value in your business.</p>
-              <a class="hero-text-link" href="scorecard.html">Get the Free AI Opportunity Scorecard</a>
+              <h3><a class="section-title-link" href="scorecard.html">Automation Scorecard</a></h3>
+              <p>A quick review to see where automation may create the most value in your business.</p>
+              <a class="hero-text-link" href="scorecard.html">Take the Free Scorecard</a>
             </article>
             <article class="card">
               <p class="stage-kicker">Entry</p>
-              <h3><a class="section-title-link" href="#lead-intake">AI Quick Win Workshop</a></h3>
-              <p>A focused session to map one workflow and identify a practical AI Quick Win.</p>
+              <h3><a class="section-title-link" href="#lead-intake">Quick Win Workshop</a></h3>
+              <p>A focused session to map one workflow and identify a practical first win.</p>
               <p class="stage-price">Starting at $497</p>
-              <a class="hero-text-link" href="#lead-intake">Book an AI Quick Win Workshop</a>
             </article>
             <article class="card card-featured">
               <p class="stage-kicker">Core</p>
               <h3><a class="section-title-link" href="blueprint.html">AI Opportunity Blueprint</a></h3>
-              <p>A full roadmap showing what to automate, what tools to use, and what to implement first.</p>
+              <p>A full plan showing what to automate, what tools to use, and what to implement first.</p>
               <p class="stage-price">Starting at $1,500</p>
-              <a class="btn btn-primary" href="#lead-intake">Get My AI Opportunity Blueprint</a>
+              <a class="btn btn-primary" href="#lead-intake">Request an Opportunity Review</a>
             </article>
             <article class="card">
               <p class="stage-kicker">Implementation</p>
-              <h3><a class="section-title-link" href="#lead-intake">AI Quick Win Sprint</a></h3>
-              <p>
-                We implement one high-value workflow automation so your team sees meaningful results quickly through
-                focused business process automation.
-              </p>
+              <h3><a class="section-title-link" href="#lead-intake">Quick Win Sprint</a></h3>
+              <p>We implement one high-value workflow so your team sees results quickly.</p>
               <p class="stage-price">Starting at $3,500</p>
-              <a class="btn btn-secondary" href="#lead-intake">Build My AI Quick Win Sprint</a>
+              <a class="btn btn-secondary" href="#lead-intake">Build a Quick Win Sprint</a>
             </article>
             <article class="card">
               <p class="stage-kicker">Growth</p>
-              <h3><a class="section-title-link" href="#lead-intake">AI Growth System</a></h3>
-              <p>
-                A deeper sprint for lead follow-up, CRM workflows, reporting, customer experience, and team adoption—
-                extending workflow automation beyond a single quick win.
-              </p>
+              <h3><a class="section-title-link" href="#lead-intake">Growth System</a></h3>
+              <p>A deeper build for follow-up, CRM workflows, reporting, and team adoption.</p>
               <p class="stage-price">Starting at $7,500+</p>
-              <a class="hero-text-link" href="#lead-intake">Explore the AI Growth System</a>
+              <a class="hero-text-link" href="#lead-intake">Explore a Growth System</a>
             </article>
             <article class="card">
               <p class="stage-kicker">Continuity</p>
-              <h3><a class="section-title-link" href="#lead-intake">AI Advisory Partnership</a></h3>
-              <p>Ongoing strategy, workflow optimization, tool review, team support, and implementation guidance.</p>
+              <h3><a class="section-title-link" href="#lead-intake">Advisory Partnership</a></h3>
+              <p>Ongoing strategy, workflow optimization, tool review, and implementation guidance.</p>
               <p class="stage-price">Starting at $2,500/month</p>
-              <a class="btn btn-secondary" href="#lead-intake">Explore AI Advisory Support</a>
+              <a class="btn btn-secondary" href="#lead-intake">Explore Advisory Support</a>
             </article>
           </div>
         </div>
@@ -447,7 +422,7 @@
 
       <section class="section section-alt reveal" id="fit" aria-labelledby="fit-title">
         <div class="container">
-          <h2 id="fit-title">Is the AI Opportunity Blueprint Right for You?</h2>
+          <h2 id="fit-title">Is This Right for Your Business?</h2>
           <div class="grid-2">
             <article class="card">
               <h3>This is for you if:</h3>
@@ -474,7 +449,7 @@
 
       <section class="section reveal" id="results" aria-labelledby="examples-title">
         <div class="container">
-          <h2 id="examples-title">What the Blueprint Can Uncover</h2>
+          <h2 id="examples-title">Common Automation Use Cases</h2>
           <div class="grid-3">
             <article class="card">
               <h3>
@@ -532,20 +507,18 @@
 
       <section class="section section-alt reveal" id="story" aria-labelledby="story-title">
         <div class="container narrow">
-          <h2 id="story-title">Why Peacemakers AI Exists</h2>
+          <h2 id="story-title">Based in Asheville, Serving Businesses Nationwide</h2>
           <p>
-            If you are looking for an AI consultant for small business who can help you implement AI without tool
-            overload, Peacemakers AI exists for that exact need.
+            Peacemakers AI is based in Asheville, North Carolina. We work with service businesses across the United
+            States that want practical automation—not hype.
           </p>
           <p>
-            Most business owners do not need another person telling them to chase the newest AI tool. They need someone
-            to slow the process down, understand how their business actually works, and help them build a clear path
-            forward.
+            Most owners do not need another person pushing the newest AI tool. They need someone to understand how the
+            business actually runs and help build a clear path forward.
           </p>
           <p>
-            Peacemakers AI was built to bring calm, structure, and execution to AI adoption. We start with your
-            workflows, your team, your customers, and your goals. Then we help you identify the highest-value
-            opportunities and implement practical AI systems that make sense for the way your business operates.
+            That is what we do. We start with your workflows, team, customers, and goals. Then we help you find the
+            best opportunities and implement systems that fit how you operate.
           </p>
         </div>
       </section>
@@ -557,40 +530,25 @@
             <article class="card">
               <h3>How do I know if my business is ready for AI?</h3>
               <p>
-                Start with the Free AI Opportunity Scorecard. It is a fast AI readiness assessment that shows whether
-                your workflows, follow-up, and capacity support practical use—before you buy more tools.
+                Start with our free scorecard. It is a quick automation readiness review that shows whether your
+                workflows and team capacity support practical use before you buy more tools.
               </p>
             </article>
             <article class="card">
-              <h3>What is an AI opportunity assessment?</h3>
+              <h3>What is an automation opportunity assessment?</h3>
               <p>
-                An AI opportunity assessment identifies where automation can save time and improve consistency. Through
-                Peacemakers AI, that assessment begins with the Free AI Opportunity Scorecard and can expand into a full
-                AI Opportunity Blueprint.
-              </p>
-            </article>
-            <article class="card">
-              <h3>Is this an AI readiness assessment?</h3>
-              <p>
-                Yes. The Free AI Opportunity Scorecard doubles as an AI readiness assessment and AI readiness checklist
-                for service teams that want clarity before implementation.
-              </p>
-            </article>
-            <article class="card">
-              <h3>How to create an AI implementation roadmap?</h3>
-              <p>
-                Build an AI implementation roadmap by ranking use cases by impact and feasibility, then break it into a
-                clear 30/60/90-day plan. That is what you receive with the AI Opportunity Blueprint.
+                It shows where automation can save time and improve consistency. Many teams begin with the free
+                scorecard and move into a full opportunity review when they are ready to prioritize implementation.
               </p>
             </article>
             <article class="card">
               <h3>Is this just a strategy session?</h3>
-              <p>No. You leave with a practical 30/60/90-day roadmap and clear implementation recommendations.</p>
+              <p>No. You leave with a practical implementation plan and clear next steps, not a one-off brainstorm.</p>
             </article>
             <article class="card">
               <h3>Do you implement the solutions too?</h3>
               <p>
-                Yes. After the Blueprint, we can implement selected workflows through Quick Win Sprints, Growth Systems,
+                Yes. After the review, we can implement selected workflows through quick-win sprints, growth systems,
                 or ongoing advisory.
               </p>
             </article>
@@ -600,10 +558,6 @@
                 Service-based businesses, consultants, agencies, home service companies, nonprofits, finance teams,
                 professional services firms, and growing teams with manual workflows.
               </p>
-            </article>
-            <article class="card">
-              <h3>What if I only want the Blueprint?</h3>
-              <p>That is fine. You can execute internally, or we can support implementation if it makes sense.</p>
             </article>
             <article class="card">
               <h3>Will this replace my team?</h3>
@@ -616,9 +570,8 @@
               <h3>How do you handle data security and sensitive information?</h3>
               <p>
                 We use a client-controlled approach. Your business owns its systems, licenses, accounts, data,
-                approvals, and final decisions. We avoid unnecessary sensitive data, request only the access needed
-                for approved work, and do not make material system changes without written approval. Third-party tools
-                are subject to their own terms, privacy policies, and security practices.
+                approvals, and final decisions. We avoid unnecessary sensitive data and do not make material system
+                changes without written approval.
               </p>
             </article>
           </div>
@@ -627,7 +580,7 @@
 
       <section class="section section-alt reveal" id="who-we-serve" aria-labelledby="industry-solutions-title">
         <div class="container">
-          <h2 id="industry-solutions-title">AI Solutions by Industry</h2>
+          <h2 id="industry-solutions-title">Who We Help</h2>
           <p class="section-intro">
             Industry pages outline practical opportunities—including business process automation consulting—for the
             teams we serve most often.
@@ -654,11 +607,9 @@
       <section class="section section-alt reveal" id="lead-intake" aria-labelledby="lead-form-title">
         <div class="container">
           <div class="form-intro">
-            <h2 id="lead-form-title">Get My AI Opportunity Blueprint</h2>
+            <h2 id="lead-form-title">Get an AI Opportunity Review</h2>
             <p>Share a few details and we will guide you to the right next step.</p>
-            <p class="form-note">
-              This keeps your first conversation practical, focused, and aligned with real business value.
-            </p>
+            <p class="form-note">This keeps your first conversation practical, focused, and tied to real business outcomes.</p>
           </div>
           <form
             class="lead-form"
@@ -744,15 +695,15 @@
 
       <section class="section section-cta reveal" id="contact" aria-labelledby="cta-title">
         <div class="container">
-          <h2 id="cta-title">Ready to Turn This Into Real Business Value?</h2>
+          <h2 id="cta-title">Ready to Find Practical Automation Opportunities?</h2>
           <p class="cta-sub">
-            Start with the AI Opportunity Blueprint for a full AI implementation roadmap and 30/60/90-day plan, or begin
-            with the Free AI Opportunity Scorecard if you want a lower-commitment first step.
+            Request an AI opportunity review, take the free scorecard, or contact us to talk through your workflows and
+            goals.
           </p>
           <div class="cta-stack">
-            <a class="btn btn-primary" href="#lead-intake">Get My AI Opportunity Blueprint</a>
-            <a class="btn btn-ghost" href="scorecard.html">Get the Free AI Opportunity Scorecard</a>
-            <a class="btn btn-secondary" href="#lead-intake">Explore AI Advisory Support</a>
+            <a class="btn btn-primary" href="#lead-intake">Get an AI Opportunity Review</a>
+            <a class="btn btn-ghost" href="scorecard.html">Take the Free Scorecard</a>
+            <a class="btn btn-secondary" href="contact.html">Contact Peacemakers AI</a>
           </div>
         </div>
       </section>
@@ -783,7 +734,8 @@
           <p class="footer-locale">Peacemakers AI | Asheville, North Carolina | Serving businesses nationwide</p>
           <p class="footer-nap">
             <a href="mailto:james@peacemakersai.com">james@peacemakersai.com</a><br />
-            <a href="tel:[INSERTBUSINESSPHONE]">[INSERT BUSINESS PHONE]</a>
+            <!-- TODO: add tel link when phone number is provided -->
+            Phone: [INSERT BUSINESS PHONE]
           </p>
           <p class="footer-social">
             <a href="https://www.linkedin.com/company/peacemakers-ai" rel="noopener noreferrer" target="_blank">LinkedIn</a>

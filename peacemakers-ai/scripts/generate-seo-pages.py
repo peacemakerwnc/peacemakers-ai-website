@@ -144,7 +144,8 @@ def footer_block(depth: int) -> str:
           <p class="footer-locale">Peacemakers AI | Asheville, North Carolina | Serving businesses nationwide</p>
           <p class="footer-nap">
             <a href="mailto:{EMAIL}">{EMAIL}</a><br />
-            <a href="tel:{PHONE_PLACEHOLDER.replace(' ', '')}">{PHONE_PLACEHOLDER}</a>
+            <!-- TODO: add tel link when phone number is provided -->
+            Phone: {PHONE_PLACEHOLDER}
           </p>
           <p class="footer-social">
             <a href="{LINKEDIN}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
@@ -322,7 +323,7 @@ def generate_core_pages() -> list[str]:
             <h2>Peacemakers AI</h2>
             <p class="footer-nap">
               <strong>Email:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a><br />
-              <strong>Phone:</strong> <a href="tel:{PHONE_PLACEHOLDER.replace(' ', '')}">{PHONE_PLACEHOLDER}</a><br />
+              <strong>Phone:</strong> {PHONE_PLACEHOLDER}<br />
               <strong>Location:</strong> Based in Asheville, North Carolina / Western NC<br />
               <strong>Service area:</strong> Serving businesses nationwide across the United States
             </p>
