@@ -1,0 +1,530 @@
+{
+  "priority_states": [
+    "north-carolina",
+    "south-carolina",
+    "georgia",
+    "florida",
+    "tennessee",
+    "texas",
+    "virginia",
+    "alabama"
+  ],
+  "states": [
+    {
+      "slug": "alabama",
+      "name": "Alabama",
+      "abbrev": "AL",
+      "cities": [
+        { "slug": "birmingham", "name": "Birmingham" },
+        { "slug": "huntsville", "name": "Huntsville" },
+        { "slug": "mobile", "name": "Mobile" },
+        { "slug": "montgomery", "name": "Montgomery" },
+        { "slug": "tuscaloosa", "name": "Tuscaloosa" }
+      ]
+    },
+    {
+      "slug": "alaska",
+      "name": "Alaska",
+      "abbrev": "AK",
+      "cities": [
+        { "slug": "anchorage", "name": "Anchorage" },
+        { "slug": "fairbanks", "name": "Fairbanks" }
+      ]
+    },
+    {
+      "slug": "arizona",
+      "name": "Arizona",
+      "abbrev": "AZ",
+      "cities": [
+        { "slug": "phoenix", "name": "Phoenix" },
+        { "slug": "scottsdale", "name": "Scottsdale" },
+        { "slug": "tucson", "name": "Tucson" },
+        { "slug": "mesa", "name": "Mesa" }
+      ]
+    },
+    {
+      "slug": "arkansas",
+      "name": "Arkansas",
+      "abbrev": "AR",
+      "cities": [
+        { "slug": "little-rock", "name": "Little Rock" },
+        { "slug": "fayetteville", "name": "Fayetteville" }
+      ]
+    },
+    {
+      "slug": "california",
+      "name": "California",
+      "abbrev": "CA",
+      "cities": [
+        { "slug": "los-angeles", "name": "Los Angeles" },
+        { "slug": "san-diego", "name": "San Diego" },
+        { "slug": "san-francisco", "name": "San Francisco" },
+        { "slug": "sacramento", "name": "Sacramento" },
+        { "slug": "san-jose", "name": "San Jose" }
+      ]
+    },
+    {
+      "slug": "colorado",
+      "name": "Colorado",
+      "abbrev": "CO",
+      "cities": [
+        { "slug": "denver", "name": "Denver" },
+        { "slug": "colorado-springs", "name": "Colorado Springs" },
+        { "slug": "boulder", "name": "Boulder" }
+      ]
+    },
+    {
+      "slug": "connecticut",
+      "name": "Connecticut",
+      "abbrev": "CT",
+      "cities": [
+        { "slug": "hartford", "name": "Hartford" },
+        { "slug": "new-haven", "name": "New Haven" },
+        { "slug": "stamford", "name": "Stamford" }
+      ]
+    },
+    {
+      "slug": "delaware",
+      "name": "Delaware",
+      "abbrev": "DE",
+      "cities": [
+        { "slug": "wilmington", "name": "Wilmington" },
+        { "slug": "dover", "name": "Dover" }
+      ]
+    },
+    {
+      "slug": "florida",
+      "name": "Florida",
+      "abbrev": "FL",
+      "cities": [
+        { "slug": "miami", "name": "Miami" },
+        { "slug": "tampa", "name": "Tampa" },
+        { "slug": "orlando", "name": "Orlando" },
+        { "slug": "jacksonville", "name": "Jacksonville" },
+        { "slug": "fort-lauderdale", "name": "Fort Lauderdale" }
+      ]
+    },
+    {
+      "slug": "georgia",
+      "name": "Georgia",
+      "abbrev": "GA",
+      "cities": [
+        { "slug": "atlanta", "name": "Atlanta" },
+        { "slug": "savannah", "name": "Savannah" },
+        { "slug": "augusta", "name": "Augusta" },
+        { "slug": "columbus", "name": "Columbus" },
+        { "slug": "athens", "name": "Athens" }
+      ]
+    },
+    {
+      "slug": "hawaii",
+      "name": "Hawaii",
+      "abbrev": "HI",
+      "cities": [
+        { "slug": "honolulu", "name": "Honolulu" }
+      ]
+    },
+    {
+      "slug": "idaho",
+      "name": "Idaho",
+      "abbrev": "ID",
+      "cities": [
+        { "slug": "boise", "name": "Boise" }
+      ]
+    },
+    {
+      "slug": "illinois",
+      "name": "Illinois",
+      "abbrev": "IL",
+      "cities": [
+        { "slug": "chicago", "name": "Chicago" },
+        { "slug": "naperville", "name": "Naperville" },
+        { "slug": "springfield", "name": "Springfield" }
+      ]
+    },
+    {
+      "slug": "indiana",
+      "name": "Indiana",
+      "abbrev": "IN",
+      "cities": [
+        { "slug": "indianapolis", "name": "Indianapolis" },
+        { "slug": "fort-wayne", "name": "Fort Wayne" }
+      ]
+    },
+    {
+      "slug": "iowa",
+      "name": "Iowa",
+      "abbrev": "IA",
+      "cities": [
+        { "slug": "des-moines", "name": "Des Moines" },
+        { "slug": "cedar-rapids", "name": "Cedar Rapids" }
+      ]
+    },
+    {
+      "slug": "kansas",
+      "name": "Kansas",
+      "abbrev": "KS",
+      "cities": [
+        { "slug": "wichita", "name": "Wichita" },
+        { "slug": "kansas-city", "name": "Kansas City" }
+      ]
+    },
+    {
+      "slug": "kentucky",
+      "name": "Kentucky",
+      "abbrev": "KY",
+      "cities": [
+        { "slug": "louisville", "name": "Louisville" },
+        { "slug": "lexington", "name": "Lexington" }
+      ]
+    },
+    {
+      "slug": "louisiana",
+      "name": "Louisiana",
+      "abbrev": "LA",
+      "cities": [
+        { "slug": "new-orleans", "name": "New Orleans" },
+        { "slug": "baton-rouge", "name": "Baton Rouge" }
+      ]
+    },
+    {
+      "slug": "maine",
+      "name": "Maine",
+      "abbrev": "ME",
+      "cities": [
+        { "slug": "portland", "name": "Portland" },
+        { "slug": "bangor", "name": "Bangor" }
+      ]
+    },
+    {
+      "slug": "maryland",
+      "name": "Maryland",
+      "abbrev": "MD",
+      "cities": [
+        { "slug": "baltimore", "name": "Baltimore" },
+        { "slug": "bethesda", "name": "Bethesda" }
+      ]
+    },
+    {
+      "slug": "massachusetts",
+      "name": "Massachusetts",
+      "abbrev": "MA",
+      "cities": [
+        { "slug": "boston", "name": "Boston" },
+        { "slug": "worcester", "name": "Worcester" },
+        { "slug": "cambridge", "name": "Cambridge" }
+      ]
+    },
+    {
+      "slug": "michigan",
+      "name": "Michigan",
+      "abbrev": "MI",
+      "cities": [
+        { "slug": "detroit", "name": "Detroit" },
+        { "slug": "grand-rapids", "name": "Grand Rapids" },
+        { "slug": "ann-arbor", "name": "Ann Arbor" }
+      ]
+    },
+    {
+      "slug": "minnesota",
+      "name": "Minnesota",
+      "abbrev": "MN",
+      "cities": [
+        { "slug": "minneapolis", "name": "Minneapolis" },
+        { "slug": "saint-paul", "name": "Saint Paul" }
+      ]
+    },
+    {
+      "slug": "mississippi",
+      "name": "Mississippi",
+      "abbrev": "MS",
+      "cities": [
+        { "slug": "jackson", "name": "Jackson" }
+      ]
+    },
+    {
+      "slug": "missouri",
+      "name": "Missouri",
+      "abbrev": "MO",
+      "cities": [
+        { "slug": "kansas-city", "name": "Kansas City" },
+        { "slug": "st-louis", "name": "St. Louis" }
+      ]
+    },
+    {
+      "slug": "montana",
+      "name": "Montana",
+      "abbrev": "MT",
+      "cities": [
+        { "slug": "billings", "name": "Billings" },
+        { "slug": "missoula", "name": "Missoula" }
+      ]
+    },
+    {
+      "slug": "nebraska",
+      "name": "Nebraska",
+      "abbrev": "NE",
+      "cities": [
+        { "slug": "omaha", "name": "Omaha" },
+        { "slug": "lincoln", "name": "Lincoln" }
+      ]
+    },
+    {
+      "slug": "nevada",
+      "name": "Nevada",
+      "abbrev": "NV",
+      "cities": [
+        { "slug": "las-vegas", "name": "Las Vegas" },
+        { "slug": "reno", "name": "Reno" }
+      ]
+    },
+    {
+      "slug": "new-hampshire",
+      "name": "New Hampshire",
+      "abbrev": "NH",
+      "cities": [
+        { "slug": "manchester", "name": "Manchester" },
+        { "slug": "nashua", "name": "Nashua" }
+      ]
+    },
+    {
+      "slug": "new-jersey",
+      "name": "New Jersey",
+      "abbrev": "NJ",
+      "cities": [
+        { "slug": "newark", "name": "Newark" },
+        { "slug": "jersey-city", "name": "Jersey City" },
+        { "slug": "princeton", "name": "Princeton" }
+      ]
+    },
+    {
+      "slug": "new-mexico",
+      "name": "New Mexico",
+      "abbrev": "NM",
+      "cities": [
+        { "slug": "albuquerque", "name": "Albuquerque" },
+        { "slug": "santa-fe", "name": "Santa Fe" }
+      ]
+    },
+    {
+      "slug": "new-york",
+      "name": "New York",
+      "abbrev": "NY",
+      "cities": [
+        { "slug": "new-york-city", "name": "New York City" },
+        { "slug": "buffalo", "name": "Buffalo" },
+        { "slug": "rochester", "name": "Rochester" },
+        { "slug": "albany", "name": "Albany" }
+      ]
+    },
+    {
+      "slug": "north-carolina",
+      "name": "North Carolina",
+      "abbrev": "NC",
+      "cities": [
+        { "slug": "asheville", "name": "Asheville" },
+        { "slug": "charlotte", "name": "Charlotte" },
+        { "slug": "raleigh", "name": "Raleigh" },
+        { "slug": "durham", "name": "Durham" },
+        { "slug": "cary", "name": "Cary" },
+        { "slug": "greensboro", "name": "Greensboro" },
+        { "slug": "winston-salem", "name": "Winston-Salem" },
+        { "slug": "wilmington", "name": "Wilmington" },
+        { "slug": "fayetteville", "name": "Fayetteville" },
+        { "slug": "concord", "name": "Concord" },
+        { "slug": "gastonia", "name": "Gastonia" },
+        { "slug": "high-point", "name": "High Point" },
+        { "slug": "chapel-hill", "name": "Chapel Hill" },
+        { "slug": "hickory", "name": "Hickory" },
+        { "slug": "jacksonville", "name": "Jacksonville" },
+        { "slug": "greenville", "name": "Greenville" },
+        { "slug": "huntersville", "name": "Huntersville" },
+        { "slug": "mooresville", "name": "Mooresville" },
+        { "slug": "apex", "name": "Apex" },
+        { "slug": "wake-forest", "name": "Wake Forest" },
+        { "slug": "boone", "name": "Boone" },
+        { "slug": "hendersonville", "name": "Hendersonville" },
+        { "slug": "waynesville", "name": "Waynesville" },
+        { "slug": "weaverville", "name": "Weaverville" },
+        { "slug": "black-mountain", "name": "Black Mountain" },
+        { "slug": "morganton", "name": "Morganton" },
+        { "slug": "statesville", "name": "Statesville" }
+      ]
+    },
+    {
+      "slug": "north-dakota",
+      "name": "North Dakota",
+      "abbrev": "ND",
+      "cities": [
+        { "slug": "fargo", "name": "Fargo" },
+        { "slug": "bismarck", "name": "Bismarck" }
+      ]
+    },
+    {
+      "slug": "ohio",
+      "name": "Ohio",
+      "abbrev": "OH",
+      "cities": [
+        { "slug": "columbus", "name": "Columbus" },
+        { "slug": "cleveland", "name": "Cleveland" },
+        { "slug": "cincinnati", "name": "Cincinnati" }
+      ]
+    },
+    {
+      "slug": "oklahoma",
+      "name": "Oklahoma",
+      "abbrev": "OK",
+      "cities": [
+        { "slug": "oklahoma-city", "name": "Oklahoma City" },
+        { "slug": "tulsa", "name": "Tulsa" }
+      ]
+    },
+    {
+      "slug": "oregon",
+      "name": "Oregon",
+      "abbrev": "OR",
+      "cities": [
+        { "slug": "portland", "name": "Portland" },
+        { "slug": "eugene", "name": "Eugene" },
+        { "slug": "salem", "name": "Salem" }
+      ]
+    },
+    {
+      "slug": "pennsylvania",
+      "name": "Pennsylvania",
+      "abbrev": "PA",
+      "cities": [
+        { "slug": "philadelphia", "name": "Philadelphia" },
+        { "slug": "pittsburgh", "name": "Pittsburgh" },
+        { "slug": "harrisburg", "name": "Harrisburg" }
+      ]
+    },
+    {
+      "slug": "rhode-island",
+      "name": "Rhode Island",
+      "abbrev": "RI",
+      "cities": [
+        { "slug": "providence", "name": "Providence" }
+      ]
+    },
+    {
+      "slug": "south-carolina",
+      "name": "South Carolina",
+      "abbrev": "SC",
+      "cities": [
+        { "slug": "charleston", "name": "Charleston" },
+        { "slug": "columbia", "name": "Columbia" },
+        { "slug": "greenville", "name": "Greenville" },
+        { "slug": "myrtle-beach", "name": "Myrtle Beach" },
+        { "slug": "spartanburg", "name": "Spartanburg" }
+      ]
+    },
+    {
+      "slug": "south-dakota",
+      "name": "South Dakota",
+      "abbrev": "SD",
+      "cities": [
+        { "slug": "sioux-falls", "name": "Sioux Falls" },
+        { "slug": "rapid-city", "name": "Rapid City" }
+      ]
+    },
+    {
+      "slug": "tennessee",
+      "name": "Tennessee",
+      "abbrev": "TN",
+      "cities": [
+        { "slug": "nashville", "name": "Nashville" },
+        { "slug": "memphis", "name": "Memphis" },
+        { "slug": "knoxville", "name": "Knoxville" },
+        { "slug": "chattanooga", "name": "Chattanooga" },
+        { "slug": "franklin", "name": "Franklin" }
+      ]
+    },
+    {
+      "slug": "texas",
+      "name": "Texas",
+      "abbrev": "TX",
+      "cities": [
+        { "slug": "houston", "name": "Houston" },
+        { "slug": "dallas", "name": "Dallas" },
+        { "slug": "austin", "name": "Austin" },
+        { "slug": "san-antonio", "name": "San Antonio" },
+        { "slug": "fort-worth", "name": "Fort Worth" }
+      ]
+    },
+    {
+      "slug": "utah",
+      "name": "Utah",
+      "abbrev": "UT",
+      "cities": [
+        { "slug": "salt-lake-city", "name": "Salt Lake City" },
+        { "slug": "provo", "name": "Provo" }
+      ]
+    },
+    {
+      "slug": "vermont",
+      "name": "Vermont",
+      "abbrev": "VT",
+      "cities": [
+        { "slug": "burlington", "name": "Burlington" }
+      ]
+    },
+    {
+      "slug": "virginia",
+      "name": "Virginia",
+      "abbrev": "VA",
+      "cities": [
+        { "slug": "richmond", "name": "Richmond" },
+        { "slug": "virginia-beach", "name": "Virginia Beach" },
+        { "slug": "norfolk", "name": "Norfolk" },
+        { "slug": "arlington", "name": "Arlington" },
+        { "slug": "charlottesville", "name": "Charlottesville" }
+      ]
+    },
+    {
+      "slug": "washington",
+      "name": "Washington",
+      "abbrev": "WA",
+      "cities": [
+        { "slug": "seattle", "name": "Seattle" },
+        { "slug": "spokane", "name": "Spokane" },
+        { "slug": "tacoma", "name": "Tacoma" }
+      ]
+    },
+    {
+      "slug": "west-virginia",
+      "name": "West Virginia",
+      "abbrev": "WV",
+      "cities": [
+        { "slug": "charleston", "name": "Charleston" },
+        { "slug": "huntington", "name": "Huntington" }
+      ]
+    },
+    {
+      "slug": "wisconsin",
+      "name": "Wisconsin",
+      "abbrev": "WI",
+      "cities": [
+        { "slug": "milwaukee", "name": "Milwaukee" },
+        { "slug": "madison", "name": "Madison" }
+      ]
+    },
+    {
+      "slug": "wyoming",
+      "name": "Wyoming",
+      "abbrev": "WY",
+      "cities": [
+        { "slug": "cheyenne", "name": "Cheyenne" },
+        { "slug": "casper", "name": "Casper" }
+      ]
+    },
+    {
+      "slug": "district-of-columbia",
+      "name": "Washington, DC",
+      "abbrev": "DC",
+      "cities": [
+        { "slug": "washington-dc", "name": "Washington, DC" }
+      ]
+    }
+  ]
+}

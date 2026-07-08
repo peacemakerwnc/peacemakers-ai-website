@@ -32,6 +32,28 @@
     document.head.appendChild(link);
   }
 
+  var calendlyScriptPromise = null;
+
+  function loadCalendlyScript() {
+    if (window.Calendly) {
+      return Promise.resolve();
+    }
+    if (calendlyScriptPromise) {
+      return calendlyScriptPromise;
+    }
+    calendlyScriptPromise = new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      script.onload = function () {
+        resolve();
+      };
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    return calendlyScriptPromise;
+  }
+
   function wireCalendlyPopupLinks(links, url) {
     if (!url || url.indexOf("REPLACE_WITH_INTRO_CALL_URL") !== -1) {
       return;
@@ -45,7 +67,18 @@
         if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
           event.preventDefault();
           window.Calendly.initPopupWidget({ url: calendlyPopupUrl(url) });
+          return;
         }
+        loadCalendlyScript()
+          .then(function () {
+            if (window.Calendly && typeof window.Calendly.initPopupWidget === "function") {
+              event.preventDefault();
+              window.Calendly.initPopupWidget({ url: calendlyPopupUrl(url) });
+            }
+          })
+          .catch(function () {
+            /* fall through to normal navigation */
+          });
       });
     });
   }

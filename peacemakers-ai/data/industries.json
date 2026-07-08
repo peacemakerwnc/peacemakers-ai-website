@@ -1,0 +1,370 @@
+{
+  "industries": [
+    {
+      "slug": "hvac",
+      "name": "HVAC Companies",
+      "title": "AI Automation for HVAC Companies | Peacemakers AI",
+      "description": "Practical AI automation for HVAC companies: missed-call follow-up, service intake, tune-up reminders, and admin workflow support.",
+      "hero": "AI automation helps HVAC companies respond faster, follow up consistently, and reduce admin load without replacing field teams.",
+      "pain_points": [
+        "Missed calls during peak season",
+        "Slow estimate follow-up",
+        "Manual maintenance plan reminders",
+        "Dispatch and admin coordination",
+        "Seasonal demand spikes",
+        "Inconsistent review requests"
+      ],
+      "opportunities": [
+        "Missed-call text-back and intake routing",
+        "Service request qualification",
+        "Quote and estimate follow-up",
+        "Seasonal tune-up reminders",
+        "Maintenance plan renewal nudges",
+        "Review request workflows",
+        "Dispatch support templates",
+        "Admin workflow reduction"
+      ],
+      "examples": [
+        "After-hours lead capture with structured intake",
+        "Automated follow-up for open estimates",
+        "Maintenance reminder cadence tied to CRM"
+      ]
+    },
+    {
+      "slug": "plumbing",
+      "name": "Plumbing Companies",
+      "title": "AI Automation for Plumbing Companies | Peacemakers AI",
+      "description": "AI automation for plumbers: emergency lead intake, missed-call recovery, estimate follow-up, dispatch support, and customer communication.",
+      "hero": "Plumbing companies lose revenue when response speed slips. Practical AI automation helps recover leads and streamline follow-up.",
+      "pain_points": [
+        "Emergency calls missed after hours",
+        "Estimate follow-up delays",
+        "Dispatch coordination bottlenecks",
+        "Repetitive customer updates",
+        "Review collection inconsistency",
+        "Maintenance reminder gaps"
+      ],
+      "opportunities": [
+        "Emergency lead intake workflows",
+        "Missed-call recovery sequences",
+        "Estimate follow-up automation",
+        "Dispatch communication templates",
+        "Review request workflows",
+        "Maintenance reminder systems",
+        "Customer status updates",
+        "Admin task reduction"
+      ],
+      "examples": [
+        "Structured intake for emergency vs. routine jobs",
+        "Follow-up for estimates not yet approved",
+        "Post-job review and referral prompts"
+      ]
+    },
+    {
+      "slug": "law-firms",
+      "name": "Law Firms",
+      "title": "AI Automation for Law Firms | Peacemakers AI",
+      "description": "Practical AI workflows for law firms: intake automation, lead qualification, consultation scheduling, document collection, and follow-up.",
+      "hero": "Law firms can use AI to improve intake speed and consistency while keeping attorneys focused on high-value work.",
+      "pain_points": [
+        "Slow intake response",
+        "Inconsistent lead qualification",
+        "Manual consultation scheduling",
+        "Document collection delays",
+        "Follow-up gaps on open matters",
+        "Referral tracking overhead"
+      ],
+      "opportunities": [
+        "Intake automation and triage",
+        "Lead qualification workflows",
+        "Consultation scheduling support",
+        "Document collection reminders",
+        "Matter follow-up templates",
+        "FAQ assistants for common questions",
+        "Referral tracking support",
+        "CRM note and task automation"
+      ],
+      "examples": [
+        "Intake form routing by practice area",
+        "Automated reminders for missing documents",
+        "Consultation follow-up sequences"
+      ],
+      "legacy_page": "ai-for-law-firms.html"
+    },
+    {
+      "slug": "real-estate",
+      "name": "Real Estate",
+      "title": "AI Automation for Real Estate | Peacemakers AI",
+      "description": "AI automation for real estate teams: lead follow-up, listing inquiry response, buyer/seller qualification, and CRM updates.",
+      "hero": "Real estate teams win when follow-up is fast and consistent. AI automation supports lead response without adding complexity.",
+      "pain_points": [
+        "Slow listing inquiry response",
+        "Inconsistent buyer/seller follow-up",
+        "CRM update delays",
+        "Open house follow-up gaps",
+        "Nurture campaign inconsistency",
+        "Admin time on repetitive communication"
+      ],
+      "opportunities": [
+        "Lead follow-up automation",
+        "Listing inquiry response workflows",
+        "Buyer and seller qualification",
+        "Open house follow-up sequences",
+        "CRM update support",
+        "Nurture campaign templates",
+        "Showing coordination reminders",
+        "Pipeline visibility summaries"
+      ],
+      "examples": [
+        "Instant acknowledgment for listing inquiries",
+        "Structured follow-up after open houses",
+        "CRM task creation from conversation notes"
+      ],
+      "legacy_page": "ai-for-real-estate.html"
+    },
+    {
+      "slug": "home-builders",
+      "name": "Home Builders & Developers",
+      "title": "AI Automation for Home Builders | Peacemakers AI",
+      "description": "AI automation for builders and developers: lead intake, buyer follow-up, document organization, feasibility checklists, and project communication.",
+      "hero": "Builders and developers juggle leads, documents, and buyer communication. Practical automation creates clarity without replacing project teams.",
+      "pain_points": [
+        "Lead intake scattered across channels",
+        "Buyer follow-up inconsistency",
+        "Document organization overhead",
+        "Feasibility and permitting checklists",
+        "Lot and phase tracking gaps",
+        "Project communication delays"
+      ],
+      "opportunities": [
+        "Lead intake and qualification",
+        "Buyer follow-up workflows",
+        "Document organization support",
+        "Feasibility checklist automation",
+        "Lot and phase tracking reminders",
+        "Project update templates",
+        "Vendor coordination support",
+        "Reporting summaries for leadership"
+      ],
+      "examples": [
+        "Structured intake for buyer inquiries by community",
+        "Checklist-driven document collection",
+        "Weekly project communication summaries"
+      ]
+    },
+    {
+      "slug": "nonprofits",
+      "name": "Nonprofits",
+      "title": "AI Automation for Nonprofits | Peacemakers AI",
+      "description": "AI automation for nonprofits: donor follow-up, pledge tracking, grant workflow support, program intake, and operational reporting.",
+      "hero": "Nonprofits need practical automation that respects limited staff time and improves follow-through on donors and programs.",
+      "pain_points": [
+        "Donor follow-up gaps",
+        "Manual pledge tracking",
+        "Grant workflow bottlenecks",
+        "Program intake delays",
+        "Board reporting overhead",
+        "Volunteer coordination load"
+      ],
+      "opportunities": [
+        "Donor follow-up workflows",
+        "Pledge tracking reminders",
+        "Grant workflow support",
+        "Program intake automation",
+        "Board reporting summaries",
+        "Volunteer coordination templates",
+        "Event follow-up sequences",
+        "Operational reporting support"
+      ],
+      "examples": [
+        "Donor acknowledgment and nurture sequences",
+        "Grant deadline reminder workflows",
+        "Monthly program intake summaries"
+      ],
+      "legacy_page": "ai-for-nonprofits.html"
+    },
+    {
+      "slug": "property-management",
+      "name": "Property Management",
+      "title": "AI Automation for Property Managers | Peacemakers AI",
+      "description": "AI automation for property managers: tenant intake, maintenance requests, owner updates, lease renewals, and vendor coordination.",
+      "hero": "Property managers handle high-volume communication. AI automation helps standardize intake, follow-up, and owner updates.",
+      "pain_points": [
+        "Tenant intake delays",
+        "Maintenance request routing gaps",
+        "Owner update inconsistency",
+        "Lease renewal follow-up gaps",
+        "Vendor coordination overhead",
+        "Review request inconsistency"
+      ],
+      "opportunities": [
+        "Tenant intake workflows",
+        "Maintenance request triage",
+        "Owner update templates",
+        "Lease renewal reminders",
+        "Vendor coordination support",
+        "Review request automation",
+        "Move-in/move-out checklists",
+        "Portfolio reporting summaries"
+      ],
+      "examples": [
+        "Structured maintenance request intake",
+        "Owner update cadence by property",
+        "Lease renewal reminder sequences"
+      ]
+    },
+    {
+      "slug": "roofing",
+      "name": "Roofing Companies",
+      "title": "AI Automation for Roofing Companies | Peacemakers AI",
+      "description": "AI automation for roofers: storm lead intake, estimate follow-up, inspection scheduling, insurance document collection, and reviews.",
+      "hero": "Roofing companies face seasonal spikes and urgent leads. Automation helps capture demand and follow up before competitors do.",
+      "pain_points": [
+        "Storm lead volume spikes",
+        "Slow estimate follow-up",
+        "Inspection scheduling gaps",
+        "Insurance document collection delays",
+        "Review request inconsistency",
+        "Crew dispatch communication load"
+      ],
+      "opportunities": [
+        "Storm lead intake workflows",
+        "Estimate follow-up automation",
+        "Inspection scheduling support",
+        "Insurance document collection",
+        "Review request sequences",
+        "Crew dispatch communication",
+        "Warranty follow-up reminders",
+        "Pipeline reporting for owners"
+      ],
+      "examples": [
+        "Storm-season intake with priority routing",
+        "Follow-up for estimates awaiting approval",
+        "Document checklist for insurance claims"
+      ]
+    },
+    {
+      "slug": "accounting-firms",
+      "name": "Accounting Firms",
+      "title": "AI Automation for Accounting Firms | Peacemakers AI",
+      "description": "AI automation for accounting firms: client document intake, deadline reminders, onboarding, FAQ support, and recurring workflows.",
+      "hero": "Accounting firms can reduce admin drag with practical automation around intake, reminders, and client communication.",
+      "pain_points": [
+        "Client document chase",
+        "Deadline reminder gaps",
+        "Onboarding inconsistency",
+        "Repetitive FAQ responses",
+        "Monthly workflow bottlenecks",
+        "Partner reporting delays"
+      ],
+      "opportunities": [
+        "Client document intake workflows",
+        "Deadline reminder automation",
+        "Onboarding checklists",
+        "FAQ assistants for common questions",
+        "Monthly recurring workflow support",
+        "Engagement letter follow-up",
+        "Task creation from client emails",
+        "Partner reporting summaries"
+      ],
+      "examples": [
+        "Automated document request sequences",
+        "Tax season deadline reminder cadence",
+        "New client onboarding workflow"
+      ],
+      "legacy_page": "ai-for-accounting-firms.html"
+    },
+    {
+      "slug": "medical-practices",
+      "name": "Medical & Wellness Practices",
+      "title": "AI Automation for Medical Practices | Peacemakers AI",
+      "description": "AI workflow support for medical and wellness practices: appointment intake, patient follow-up, forms, FAQ handling, and admin reduction.",
+      "hero": "Medical and wellness practices can streamline intake and follow-up while keeping staff in control of patient communication.",
+      "pain_points": [
+        "Appointment intake delays",
+        "Patient follow-up gaps",
+        "Form collection overhead",
+        "FAQ response load on staff",
+        "Review request inconsistency",
+        "Admin workflow bottlenecks"
+      ],
+      "opportunities": [
+        "Appointment intake workflows",
+        "Patient follow-up templates",
+        "Form collection reminders",
+        "FAQ handling for common questions",
+        "Review request automation",
+        "Recall and reminder sequences",
+        "Insurance verification support",
+        "Operational reporting summaries"
+      ],
+      "examples": [
+        "Structured new patient intake",
+        "Automated form completion reminders",
+        "Post-visit follow-up sequences"
+      ]
+    },
+    {
+      "slug": "home-services",
+      "name": "Home Service Businesses",
+      "title": "AI for Home Service Businesses | Peacemakers AI",
+      "description": "AI automation for home service businesses: missed-call response, follow-up, scheduling, and admin reduction.",
+      "hero": "Home service businesses need faster response and cleaner follow-up. Practical AI automation supports the workflows that drive revenue.",
+      "pain_points": [
+        "Missed calls and slow callbacks",
+        "Inconsistent follow-up",
+        "Scheduling coordination",
+        "Manual admin work",
+        "Review collection gaps",
+        "Tool sprawl without ROI"
+      ],
+      "opportunities": [
+        "Missed-call text-back",
+        "Lead intake automation",
+        "Scheduling support",
+        "Review request workflows",
+        "Dispatch follow-up",
+        "CRM cleanup",
+        "Customer communication templates",
+        "Reporting summaries"
+      ],
+      "examples": [
+        "Intake-to-follow-up automation",
+        "Communication template workflows",
+        "Weekly pipeline summaries"
+      ],
+      "legacy_page": "ai-for-home-service-businesses.html"
+    },
+    {
+      "slug": "consultants",
+      "name": "Consultants & Agencies",
+      "title": "AI for Consultants & Agencies | Peacemakers AI",
+      "description": "AI automation for consultants and agencies: lead follow-up, proposal support, client onboarding, and operational reporting.",
+      "hero": "Consultants and agencies lose time to admin and follow-up gaps. Automation creates consistency without changing how you deliver value.",
+      "pain_points": [
+        "Lead follow-up inconsistency",
+        "Proposal and SOW delays",
+        "Client onboarding overhead",
+        "Project reporting gaps",
+        "CRM hygiene issues",
+        "Scope creep from poor handoffs"
+      ],
+      "opportunities": [
+        "Lead follow-up workflows",
+        "Proposal support templates",
+        "Client onboarding checklists",
+        "Project reporting summaries",
+        "CRM task automation",
+        "Meeting note workflows",
+        "Referral tracking",
+        "Capacity planning visibility"
+      ],
+      "examples": [
+        "Discovery call follow-up sequences",
+        "Onboarding checklist automation",
+        "Weekly client update summaries"
+      ],
+      "legacy_page": "ai-for-consultants.html"
+    }
+  ]
+}
