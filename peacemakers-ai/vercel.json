@@ -8,6 +8,16 @@
       "has": [{ "type": "host", "value": "peacemakersai.com" }],
       "destination": "https://www.peacemakersai.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/self-booking-sites",
+      "destination": "https://bookdirect.peacemakersai.com/",
+      "permanent": true
+    },
+    {
+      "source": "/self-booking-sites.html",
+      "destination": "https://bookdirect.peacemakersai.com/",
+      "permanent": true
     }
   ],
   "rewrites": [
