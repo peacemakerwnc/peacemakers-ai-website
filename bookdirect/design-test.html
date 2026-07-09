@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Direct Rebook Kit — design test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f3ec;
+        --surface: #fffdf9;
+        --text: #2a2622;
+        --muted: #6a625a;
+        --accent: #2f4f44;
+        --border: rgba(42, 38, 34, 0.1);
+        --font-display: "Fraunces", Georgia, serif;
+        --font-body: "DM Sans", system-ui, sans-serif;
+      }
+      [data-theme="dark"] {
+        --bg: #1a1816;
+        --surface: #24211d;
+        --text: #f3ede4;
+        --muted: #b7aea3;
+        --accent: #7fb39a;
+        --border: rgba(243, 237, 228, 0.12);
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 4rem;
+      }
+      h1,
+      h2 {
+        font-family: var(--font-display);
+        line-height: 1.1;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 1.5rem;
+        align-items: end;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 1.2rem;
+      }
+      .btn {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 0.75rem 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        margin-right: 0.5rem;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fffdf9;
+      }
+      .btn-ghost {
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p><button type="button" id="theme">Toggle dark mode</button></p>
+      <div class="grid">
+        <div>
+          <p style="color: var(--muted)">bookdirect.peacemakersai.com · host-to-host · no AI consulting tone</p>
+          <h1>Skip the 15.5% host fee on repeat bookings.</h1>
+          <p style="color: var(--muted)">Fraunces + DM Sans · stone + pine · asymmetric hospitality layout.</p>
+          <a class="btn btn-primary" href="#">See how it works</a>
+          <a class="btn btn-ghost" href="#">Talk to a fellow host</a>
+        </div>
+        <div class="card">
+          <h2>$115 booking</h2>
+          <p>Airbnb fee: $17.80</p>
+          <p>You keep: $97.20</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById("theme").onclick = function () {
+        var r = document.documentElement;
+        r.dataset.theme = r.dataset.theme === "dark" ? "light" : "dark";
+      };
+    </script>
+  </body>
+</html>

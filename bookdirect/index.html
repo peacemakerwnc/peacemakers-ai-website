@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Direct Rebook Kit — Skip the 15.5% Airbnb Host Fee</title>
+    <meta
+      name="description"
+      content="Own your repeat guests with a direct booking site, in-property QR card, and email capture — so rebookings skip Airbnb's 15.5% host fee."
+    />
+    <meta name="theme-color" content="#2f4f44" />
+    <link rel="canonical" href="https://bookdirect.peacemakersai.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Direct Rebook Kit — Skip the 15.5% Airbnb Host Fee" />
+    <meta
+      property="og:description"
+      content="A fellow host-built kit: your own self-booking site, QR card, and guest email capture for fee-free repeat stays."
+    />
+    <meta property="og:url" content="https://bookdirect.peacemakersai.com/" />
+    <meta property="og:image" content="https://bookdirect.peacemakersai.com/assets/direct-rebook-cabin.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Direct Rebook Kit — Skip the 15.5% Airbnb Host Fee" />
+    <meta
+      name="twitter:description"
+      content="Own repeat guests with a direct booking site and skip the 15.5% Airbnb host fee on rebookings."
+    />
+    <meta name="twitter:image" content="https://bookdirect.peacemakersai.com/assets/direct-rebook-cabin.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --stone-50: #f7f3ec;
+        --stone-100: #ebe4d8;
+        --pine-700: #243d34;
+        --pine-600: #2f4f44;
+        --pine-100: #d9e8e1;
+        --bg: var(--stone-50);
+        --surface: #fffdf9;
+        --surface-raised: #fff;
+        --text: #2a2622;
+        --muted: #6a625a;
+        --accent: var(--pine-600);
+        --accent-hover: var(--pine-700);
+        --accent-soft: var(--pine-100);
+        --border: rgba(42, 38, 34, 0.1);
+        --shadow: 0 20px 60px rgba(42, 38, 34, 0.08);
+        --font-display: "Fraunces", Georgia, serif;
+        --font-body: "DM Sans", system-ui, sans-serif;
+        --radius: 20px;
+        --radius-sm: 12px;
+        --container: min(1120px, calc(100% - 2.5rem));
+        --focus: #2f6d58;
+        --mobile-cta-h: 4.25rem;
+      }
+
+      [data-theme="dark"] {
+        --bg: #1a1816;
+        --surface: #24211d;
+        --surface-raised: #2e2a25;
+        --text: #f3ede4;
+        --muted: #b7aea3;
+        --accent: #7fb39a;
+        --accent-hover: #9cc7b3;
+        --accent-soft: rgba(127, 179, 154, 0.12);
+        --border: rgba(243, 237, 228, 0.12);
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        --focus: #9cc7b3;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        font-size: 1.02rem;
+        line-height: 1.65;
+        color: var(--text);
+        background: var(--bg);
+        padding-bottom: var(--mobile-cta-h);
+      }
+      img { display: block; max-width: 100%; height: auto; }
+      a { color: var(--accent); }
+      a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 3px;
+      }
+      .skip-link {
+        position: absolute; left: -9999px; top: 0;
+        background: var(--accent); color: #fff;
+        padding: 0.5rem 0.75rem; z-index: 100;
+      }
+      .skip-link:focus { left: 0.75rem; top: 0.75rem; }
+      h1, h2, h3 {
+        font-family: var(--font-display);
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        margin: 0 0 0.75rem;
+      }
+      h1 { font-size: clamp(2.15rem, 4.8vw, 3.5rem); max-width: 14ch; }
+      h2 { font-size: clamp(1.65rem, 3vw, 2.3rem); max-width: 18ch; }
+      h3 { font-size: 1.18rem; }
+      p { margin: 0 0 1rem; }
+      .container { width: var(--container); margin-inline: auto; }
+      .site-header {
+        position: sticky; top: 0; z-index: 20;
+        backdrop-filter: blur(10px);
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        border-bottom: 1px solid var(--border);
+      }
+      .header-inner {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 1rem; padding: 0.9rem 0;
+      }
+      .brand {
+        display: inline-flex; align-items: center; gap: 0.65rem;
+        text-decoration: none; color: var(--text); font-weight: 600;
+      }
+      .brand svg { width: 2rem; height: 2rem; flex-shrink: 0; }
+      .header-actions { display: flex; align-items: center; gap: 0.55rem; }
+      .theme-toggle, .btn {
+        font: inherit; cursor: pointer; border-radius: 999px;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      }
+      .theme-toggle {
+        border: 1px solid var(--border); background: var(--surface);
+        color: var(--text); padding: 0.5rem 0.85rem; font-size: 0.88rem;
+      }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        text-decoration: none; font-weight: 600;
+        padding: 0.82rem 1.25rem; border: 1px solid transparent;
+      }
+      .btn-primary { background: var(--accent); color: #fffdf9; }
+      .btn-primary:hover { background: var(--accent-hover); }
+      .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+      .btn-ghost:hover { background: var(--surface); }
+      .eyebrow {
+        font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+        text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;
+      }
+      .lead { font-size: 1.08rem; color: var(--muted); max-width: 38rem; }
+      .hero { padding: 3.25rem 0 4rem; }
+      .hero-grid {
+        display: grid; grid-template-columns: 1.05fr 0.95fr;
+        gap: 2rem; align-items: end;
+      }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+      .hero-visual img {
+        border-radius: calc(var(--radius) + 6px);
+        box-shadow: var(--shadow); width: 100%;
+        aspect-ratio: 4 / 3; object-fit: cover;
+      }
+      .hero-note {
+        margin-top: 1rem; max-width: 22rem;
+        background: var(--surface-raised); border: 1px solid var(--border);
+        border-radius: var(--radius-sm); padding: 0.85rem 1rem; font-size: 0.92rem;
+      }
+      .section { padding: 4rem 0; }
+      .section-alt { background: color-mix(in srgb, var(--stone-100) 55%, var(--bg)); }
+      [data-theme="dark"] .section-alt { background: color-mix(in srgb, var(--surface) 70%, #000); }
+      .math-box {
+        background: var(--surface-raised); border: 1px solid var(--border);
+        border-left: 4px solid var(--accent); border-radius: var(--radius);
+        padding: 1.25rem 1.35rem; box-shadow: var(--shadow); max-width: 34rem;
+      }
+      .math-line {
+        display: flex; justify-content: space-between; gap: 1rem;
+        padding: 0.35rem 0; border-bottom: 1px dashed var(--border);
+      }
+      .math-line:last-child { border-bottom: 0; padding-top: 0.6rem; font-weight: 600; }
+      .pivot { font-family: var(--font-display); font-size: 1.2rem; margin-top: 1.25rem; }
+      .kit-flow { display: grid; gap: 2.5rem; margin-top: 2rem; }
+      .kit-item { display: grid; gap: 1.25rem; align-items: center; }
+      .kit-item:nth-child(odd) { grid-template-columns: 1.1fr 0.9fr; }
+      .kit-item:nth-child(even) { grid-template-columns: 0.9fr 1.1fr; }
+      .kit-item:nth-child(even) .kit-copy { order: 2; }
+      .kit-item:nth-child(even) .kit-media { order: 1; }
+      .kit-media img { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; }
+      .kit-tag {
+        display: inline-block; font-size: 0.78rem; font-weight: 600;
+        letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
+        background: var(--accent-soft); padding: 0.3rem 0.55rem;
+        border-radius: 999px; margin-bottom: 0.65rem;
+      }
+      .split { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 2rem; align-items: start; }
+      .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+      .steps li {
+        display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 1rem 1.1rem;
+      }
+      .step-num {
+        width: 2rem; height: 2rem; border-radius: 50%;
+        display: grid; place-items: center;
+        background: var(--accent-soft); color: var(--accent);
+        font-weight: 700; font-size: 0.9rem;
+      }
+      .proof-panel {
+        background: var(--surface-raised); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow);
+      }
+      .proof-list { margin: 0; padding-left: 1.1rem; }
+      .proof-list li { margin-bottom: 0.5rem; }
+      .addon {
+        border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--border));
+        background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface));
+        border-radius: calc(var(--radius) + 4px); padding: 1.5rem;
+      }
+      .addon-label {
+        display: inline-block; font-size: 0.78rem; font-weight: 700;
+        letter-spacing: 0.08em; text-transform: uppercase;
+        color: var(--muted); margin-bottom: 0.75rem;
+      }
+      .addon-grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: 1.5rem; align-items: center; }
+      .pricing-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      .price-card {
+        background: var(--surface-raised); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 1.35rem; box-shadow: var(--shadow);
+      }
+      .price-card.optional { border-style: dashed; background: transparent; box-shadow: none; }
+      .price { font-family: var(--font-display); font-size: 1.65rem; margin: 0.35rem 0 0.75rem; }
+      .contact-wrap { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 2rem; align-items: start; }
+      form { display: grid; gap: 0.9rem; }
+      label { display: grid; gap: 0.35rem; font-weight: 600; font-size: 0.92rem; }
+      input, textarea {
+        width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
+        background: var(--surface); color: var(--text);
+        padding: 0.75rem 0.85rem; font: inherit;
+      }
+      textarea { min-height: 8rem; resize: vertical; }
+      .field-error { color: #9b3b2e; font-size: 0.85rem; min-height: 1rem; }
+      [data-theme="dark"] .field-error { color: #f0a89a; }
+      .form-success {
+        display: none; background: var(--accent-soft); border: 1px solid var(--border);
+        border-radius: var(--radius); padding: 1.25rem;
+      }
+      .form-success.is-visible { display: block; }
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem 0 2.5rem; color: var(--muted); font-size: 0.92rem;
+      }
+      .footer-credit { font-size: 0.82rem; margin-top: 0.5rem; }
+      .mobile-cta {
+        display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+        padding: 0.65rem 1rem calc(0.65rem + env(safe-area-inset-bottom));
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        border-top: 1px solid var(--border); backdrop-filter: blur(8px);
+      }
+      .mobile-cta .btn { width: 100%; }
+      .reveal {
+        opacity: 0; transform: translateY(14px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .js .reveal.is-visible { opacity: 1; transform: none; }
+      @media (max-width: 860px) {
+        .hero-grid, .kit-item, .kit-item:nth-child(even), .split,
+        .addon-grid, .pricing-split, .contact-wrap { grid-template-columns: 1fr; }
+        .kit-item:nth-child(even) .kit-copy, .kit-item:nth-child(even) .kit-media { order: initial; }
+        .mobile-cta { display: block; }
+        .header-actions .btn-ghost { display: none; }
+      }
+      @media (min-width: 861px) { body { padding-bottom: 0; } }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Direct Rebook Kit",
+        "url": "https://bookdirect.peacemakersai.com/",
+        "description": "A direct booking kit for Airbnb and VRBO hosts: branded self-booking site, in-property QR card, and guest email capture so repeat stays skip the 15.5% host fee.",
+        "provider": {
+          "@type": "Person",
+          "name": "James Fullen",
+          "email": "james@peacemakersai.com"
+        },
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "serviceType": "Direct booking site setup for short-term rental hosts"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#" aria-label="Direct Rebook Kit home">
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <rect width="64" height="64" rx="14" fill="currentColor" opacity="0.08"></rect>
+            <path d="M14 38 L32 18 L50 38 V48 H14 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"></path>
+            <path d="M24 48 V34 C24 30 28 27 32 27 C36 27 40 30 40 34 V48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+            <circle cx="44" cy="24" r="4" fill="currentColor"></circle>
+            <path d="M44 28 V36" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+          <span>Direct Rebook Kit</span>
+        </a>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">Dark mode</button>
+          <a class="btn btn-ghost" href="#contact">Talk to a fellow host</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero section" aria-labelledby="hero-title">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">For Airbnb &amp; VRBO hosts</p>
+            <h1 id="hero-title">Airbnb now takes 15.5% straight from your payout. Here's how to keep more of it.</h1>
+            <p class="lead">
+              I'm a software consultant and I host 3 properties with my wife. When the 15.5% host-only fee hit our
+              payouts, we built self-booking sites for our own rentals — and now set up the same system for other hosts.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#how-it-works">See how it works</a>
+              <a class="btn btn-ghost" href="#contact">Talk to a fellow host</a>
+            </div>
+          </div>
+          <div class="hero-visual reveal">
+            <img
+              src="assets/direct-rebook-cabin.webp"
+              alt="Illustration of a cozy short-term rental cabin — a direct booking site helps Airbnb hosts capture repeat guests"
+              width="800"
+              height="600"
+              fetchpriority="high"
+              decoding="async"
+            />
+            <p class="hero-note">This complements Airbnb — it does not replace first-time guest discovery.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" aria-labelledby="problem-title">
+        <div class="container reveal">
+          <p class="eyebrow">The shift</p>
+          <h2 id="problem-title">What changed on Airbnb</h2>
+          <p class="lead">
+            Airbnb moved from a split fee (~3% host / 12–14% guest) to a single <strong>15.5% host-only service fee</strong>.
+            For many PMS-connected accounts, rollout began October 2025 and continued through 2026.
+          </p>
+          <div class="math-box" role="group" aria-label="Airbnb host fee example">
+            <p><strong>$115 booking example</strong></p>
+            <div class="math-line"><span>Guest pays</span><span>$115.00</span></div>
+            <div class="math-line"><span>Airbnb host fee (15.5%)</span><span>− $17.80</span></div>
+            <div class="math-line"><span>You keep (before your costs)</span><span>$97.20</span></div>
+            <p style="margin-top: 0.85rem; font-size: 0.95rem; color: var(--muted)">
+              Cleaning fees can also be subject to the host-side deduction — not just the nightly rate.
+            </p>
+          </div>
+          <p class="pivot">That fee is unavoidable on Airbnb bookings. It's completely avoidable on direct ones.</p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="offer-title">
+        <div class="container">
+          <div class="reveal">
+            <p class="eyebrow">The offer</p>
+            <h2 id="offer-title">Direct Rebook Kit</h2>
+            <p class="lead">Three practical pieces — built once, no revenue share, no lock-in.</p>
+          </div>
+          <div class="kit-flow">
+            <article class="kit-item reveal">
+              <div class="kit-copy">
+                <span class="kit-tag">Part 1</span>
+                <h3>Your own direct booking site</h3>
+                <p>
+                  A branded, mobile-first self-booking page with real availability. Past guests book again without the
+                  OTA — and without the 15.5% host fee on that stay.
+                </p>
+              </div>
+              <div class="kit-media">
+                <img
+                  src="assets/direct-rebook-calendar.webp"
+                  alt="Simple booking calendar mockup for a host direct booking website"
+                  width="720"
+                  height="540"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </article>
+            <article class="kit-item reveal">
+              <div class="kit-copy">
+                <span class="kit-tag">Part 2</span>
+                <h3>QR / tap-to-book card</h3>
+                <p>
+                  A print-ready card for inside your rental. Guests scan on the way out and save your direct booking link
+                  for next time.
+                </p>
+              </div>
+              <div class="kit-media">
+                <img
+                  src="assets/direct-rebook-qr-phone.webp"
+                  alt="Guest scanning a QR code on a phone to open a direct rebooking site at a vacation rental"
+                  width="720"
+                  height="540"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </article>
+            <article class="kit-item reveal">
+              <div class="kit-copy">
+                <span class="kit-tag">Part 3</span>
+                <h3>Guest email capture</h3>
+                <p>
+                  A simple opt-in so you can reach past guests again — on your terms, without paying 15.5% to do it.
+                  No obligation to run campaigns.
+                </p>
+              </div>
+              <div class="kit-media">
+                <div class="math-box" style="max-width: none">
+                  <p><strong>Remember</strong></p>
+                  <p style="margin: 0">Airbnb still brings new guests. This kit is for the ones who already loved your place.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" aria-labelledby="why-title">
+        <div class="container split reveal">
+          <div>
+            <p class="eyebrow">Why it works</p>
+            <h2 id="why-title">Skip the fee on repeat stays</h2>
+            <p>
+              Every direct booking avoids the 15.5% fee. Keep your full rate as extra profit — or price slightly below
+              your Airbnb listing and still net more per night.
+            </p>
+            <p>On a $115 night, that's $17.80 back in your pocket. Multiply that across return guests over a season.</p>
+          </div>
+          <div class="math-box">
+            <p><strong>Two common approaches</strong></p>
+            <p>Match your Airbnb rate on direct → higher margin.</p>
+            <p style="margin: 0">Price a little lower on direct → guest saves, you still beat the OTA payout.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works" aria-labelledby="how-title">
+        <div class="container reveal">
+          <p class="eyebrow">Process</p>
+          <h2 id="how-title">How it works</h2>
+          <ol class="steps">
+            <li>
+              <span class="step-num" aria-hidden="true">1</span>
+              <div><h3>Send property details and photos</h3><p style="margin:0">Rates, availability source, location, and a few images that feel like your place.</p></div>
+            </li>
+            <li>
+              <span class="step-num" aria-hidden="true">2</span>
+              <div><h3>I build your site and QR card</h3><p style="margin:0">Branded direct-booking page plus print-ready tap-to-book artwork.</p></div>
+            </li>
+            <li>
+              <span class="step-num" aria-hidden="true">3</span>
+              <div><h3>Place the card in your rental</h3><p style="margin:0">Guests scan when they're planning a return trip.</p></div>
+            </li>
+            <li>
+              <span class="step-num" aria-hidden="true">4</span>
+              <div><h3>You own the guest relationship</h3><p style="margin:0">Use emails yourself, or add the optional seasonal update service below.</p></div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section-alt" aria-labelledby="proof-title">
+        <div class="container reveal">
+          <p class="eyebrow">Proof</p>
+          <h2 id="proof-title">We use this on our own properties</h2>
+          <div class="proof-panel">
+            <p>
+              My wife and I run three short-term rentals. We built this exact direct rebook system for ourselves before
+              offering it to other hosts — booking site, in-unit QR card, and guest email capture.
+            </p>
+            <ul class="proof-list">
+              <li>Repeat guests rebook without the 15.5% Airbnb host fee</li>
+              <li>We can price direct stays slightly below our OTA listing and still keep more</li>
+              <li>Airbnb stays on for discovery — we are not asking you to leave the platform</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="addon-title">
+        <div class="container addon reveal">
+          <span class="addon-label">Optional — not required</span>
+          <div class="addon-grid">
+            <div>
+              <h2 id="addon-title">Seasonal Guest Update</h2>
+              <p>
+                A small monthly service: I email past guests a short seasonal note — local events, peak-season activities,
+                property updates, and any availability or discounts you want to offer.
+              </p>
+              <p>
+                <strong>Completely optional.</strong> Plenty of hosts want the site built once and nothing else. This is
+                only if you want low-effort seasonal outreach.
+              </p>
+              <p class="price" style="font-size:1.15rem">Starting at $[X]/month · cancel anytime</p>
+            </div>
+            <div>
+              <img
+                src="assets/direct-rebook-email.webp"
+                alt="Seasonal guest update email mockup for direct booking hosts"
+                width="640"
+                height="480"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" aria-labelledby="pricing-title">
+        <div class="container reveal">
+          <p class="eyebrow">Pricing</p>
+          <h2 id="pricing-title">Simple pricing</h2>
+          <div class="pricing-split">
+            <article class="price-card">
+              <h3>Direct Rebook Kit</h3>
+              <p class="price">One-time: $[SETUP FEE]</p>
+              <ul>
+                <li>Branded self-booking site</li>
+                <li>QR / tap-to-book card</li>
+                <li>Guest email capture</li>
+                <li>No revenue share · no lock-in</li>
+              </ul>
+            </article>
+            <article class="price-card optional">
+              <h3>Seasonal Guest Update</h3>
+              <p class="price">$[X]/month</p>
+              <p><strong>Optional — add anytime</strong></p>
+              <p>Seasonal emails to past guests. Cancel anytime.</p>
+            </article>
+          </div>
+          <p style="margin-top:1.25rem">Start with just the site. Add email updates later if it fits your budget.</p>
+        </div>
+      </section>
+
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-wrap reveal">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2 id="contact-title">Curious how this could work for your place?</h2>
+            <p>Happy to walk through it — no pitch, just a conversation between hosts.</p>
+            <p>Email: <a href="mailto:james@peacemakersai.com">james@peacemakersai.com</a></p>
+          </div>
+          <div>
+            <div class="form-success" id="form-success" role="status" aria-live="polite">
+              <h3>Thanks — message received.</h3>
+              <p style="margin:0">I'll reply personally within a business day or two.</p>
+            </div>
+            <form id="contact-form" action="https://formspree.io/f/maqaaddz" method="POST" novalidate>
+              <input type="hidden" name="page_source" value="bookdirect.peacemakersai.com" />
+              <input type="hidden" name="_subject" value="Direct Rebook Kit inquiry (bookdirect)" />
+              <label>
+                Name
+                <input type="text" name="full_name" id="full_name" autocomplete="name" required />
+                <span class="field-error" id="err-name" aria-live="polite"></span>
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" id="email" autocomplete="email" required />
+                <span class="field-error" id="err-email" aria-live="polite"></span>
+              </label>
+              <label>
+                Property location
+                <input type="text" name="property_location" id="property_location" placeholder="City, state / region" required />
+                <span class="field-error" id="err-location" aria-live="polite"></span>
+              </label>
+              <label>
+                Message
+                <textarea name="message" id="message" required minlength="12" placeholder="Tell me about your property and PMS."></textarea>
+                <span class="field-error" id="err-message" aria-live="polite"></span>
+              </label>
+              <button class="btn btn-primary" type="submit" id="submit-btn">Send message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p><strong>Direct Rebook Kit</strong> · Built by a host, for hosts · Asheville, NC · Serving hosts nationwide</p>
+        <p class="footer-credit">part of <a href="https://www.peacemakersai.com/">Peacemakers AI</a></p>
+      </div>
+    </footer>
+
+    <div class="mobile-cta" aria-hidden="false">
+      <a class="btn btn-primary" href="#contact">Talk to a fellow host</a>
+    </div>
+
+    <script defer>
+      (function () {
+        "use strict";
+        var root = document.documentElement;
+        root.classList.remove("no-js");
+        root.classList.add("js");
+
+        var themeBtn = document.getElementById("theme-toggle");
+        function applyTheme(theme) {
+          root.dataset.theme = theme;
+          var dark = theme === "dark";
+          themeBtn.setAttribute("aria-pressed", dark);
+          themeBtn.textContent = dark ? "Light mode" : "Dark mode";
+        }
+        var saved = localStorage.getItem("drk-theme");
+        if (saved === "dark" || saved === "light") applyTheme(saved);
+        else if (window.matchMedia("(prefers-color-scheme: dark)").matches) applyTheme("dark");
+        themeBtn.addEventListener("click", function () {
+          var next = root.dataset.theme === "dark" ? "light" : "dark";
+          applyTheme(next);
+          localStorage.setItem("drk-theme", next);
+        });
+
+        var reveals = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+            });
+          }, { threshold: 0.12 });
+          reveals.forEach(function (el) { io.observe(el); });
+        } else {
+          reveals.forEach(function (el) { el.classList.add("is-visible"); });
+        }
+
+        var form = document.getElementById("contact-form");
+        var success = document.getElementById("form-success");
+        var submitBtn = document.getElementById("submit-btn");
+        var errs = {
+          full_name: document.getElementById("err-name"),
+          email: document.getElementById("err-email"),
+          property_location: document.getElementById("err-location"),
+          message: document.getElementById("err-message")
+        };
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          Object.keys(errs).forEach(function (k) { errs[k].textContent = ""; });
+          var valid = true;
+          if (!form.full_name.value.trim()) { errs.full_name.textContent = "Please enter your name."; valid = false; }
+          if (!form.email.value.trim() || !form.email.validity.valid) { errs.email.textContent = "Please enter a valid email."; valid = false; }
+          if (!form.property_location.value.trim()) { errs.property_location.textContent = "Please enter a location."; valid = false; }
+          if (!form.message.value.trim() || form.message.value.trim().length < 12) {
+            errs.message.textContent = "Please add a short message (12+ characters).";
+            valid = false;
+          }
+          if (!valid) return;
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending…";
+          fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" }
+          })
+            .then(function (res) {
+              if (!res.ok) throw new Error("fail");
+              form.hidden = true;
+              success.classList.add("is-visible");
+              success.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            })
+            .catch(function () {
+              errs.message.textContent = "Something went wrong. Email james@peacemakersai.com directly.";
+            })
+            .finally(function () {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Send message";
+            });
+        });
+      })();
+    </script>
+  </body>
+</html>
