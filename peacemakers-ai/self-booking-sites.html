@@ -111,6 +111,18 @@
         top: 0.75rem;
       }
 
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       h1,
       h2,
       h3 {
@@ -388,6 +400,30 @@
         align-items: start;
       }
 
+      .split {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .proof-panel {
+        background: var(--surface-raised);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+      }
+
+      .proof-list {
+        margin: 0;
+        padding-left: 1.1rem;
+      }
+
+      .proof-list li {
+        margin-bottom: 0.5rem;
+      }
+
       .steps {
         list-style: none;
         margin: 0;
@@ -419,48 +455,135 @@
         font-size: 0.9rem;
       }
 
-      .addon {
-        border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--border));
-        background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface));
-        border-radius: calc(var(--radius) + 4px);
-        padding: 1.5rem;
+      .pricing-table-wrap {
+        overflow-x: auto;
+        margin: 1.5rem 0 2rem;
+        -webkit-overflow-scrolling: touch;
       }
 
-      .addon-label {
-        display: inline-block;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+      .pricing-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.86rem;
+        min-width: 680px;
+      }
+
+      .pricing-table th,
+      .pricing-table td {
+        padding: 0.6rem 0.7rem;
+        border: 1px solid var(--border);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .pricing-table th {
+        background: var(--surface-raised);
+        font-weight: 600;
+      }
+
+      .pricing-table td:first-child {
+        font-weight: 600;
+        background: color-mix(in srgb, var(--surface) 80%, transparent);
+      }
+
+      .pricing-table .yes {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .pricing-table .no {
         color: var(--muted);
-        margin-bottom: 0.75rem;
       }
 
-      .addon-grid {
+      .tier-grid {
         display: grid;
-        grid-template-columns: 1fr 0.85fr;
-        gap: 1.5rem;
-        align-items: center;
-      }
-
-      .pricing-split {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.25rem;
+        margin-top: 2rem;
       }
 
-      .price-card {
+      .tier-card {
         background: var(--surface-raised);
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 1.35rem;
         box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
       }
 
-      .price-card.optional {
-        border-style: dashed;
-        background: transparent;
-        box-shadow: none;
+      .tier-card.tier-primary {
+        border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+      }
+
+      .tier-num {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.35rem;
+      }
+
+      .tier-price {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        margin: 0.25rem 0 0.35rem;
+        line-height: 1.25;
+      }
+
+      .tier-monthly {
+        font-size: 0.92rem;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .tier-fit {
+        font-size: 0.92rem;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .tier-card ul {
+        margin: 0 0 1rem;
+        padding-left: 1.1rem;
+        flex-grow: 1;
+      }
+
+      .tier-tagline {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        margin: 0;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .tier-media img {
+        border-radius: var(--radius-sm);
+        margin-bottom: 0.85rem;
+        width: 100%;
+      }
+
+      .math-tiers {
+        display: grid;
+        gap: 0.85rem;
+        margin-top: 1.25rem;
+      }
+
+      .math-tier-item {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+      }
+
+      .pricing-note {
+        margin-top: 1.5rem;
+        padding: 1rem 1.15rem;
+        background: var(--accent-soft);
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
       }
 
       .price {
@@ -537,8 +660,8 @@
         .kit-item,
         .kit-item:nth-child(even),
         .profit-grid,
-        .addon-grid,
-        .pricing-split,
+        .split,
+        .tier-grid,
         .contact-wrap {
           grid-template-columns: 1fr;
         }
@@ -596,6 +719,7 @@
         </a>
         <div class="header-actions">
           <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">Dark mode</button>
+          <a class="btn btn-ghost" href="#pricing">See pricing</a>
           <a class="btn btn-ghost" href="#contact">Talk to a fellow host</a>
         </div>
       </div>
@@ -642,19 +766,26 @@
           <h2 id="problem-title">What changed on Airbnb</h2>
           <p class="lead">
             Airbnb moved from a split fee model — roughly 3% from hosts and 12–14% from guests — to a single
-            <strong>15.5% host-only service fee</strong>. For many hosts on PMS-connected accounts, that rollout started
-            in October 2025 and continued standardizing through 2026.
+            <strong>15.5% host-only service fee</strong>, shifted entirely onto hosts starting October 2025. For many
+            PMS-connected accounts, rollout continued through 2026.
           </p>
-          <div class="math-box" role="group" aria-label="Booking fee example">
-            <p><strong>Concrete example</strong></p>
-            <div class="math-line"><span>$115 booking</span><span>guest pays $115</span></div>
-            <div class="math-line"><span>Airbnb host fee (15.5%)</span><span>− $17.80</span></div>
-            <div class="math-line"><span>You keep (before your costs)</span><span>$97.20</span></div>
-            <p style="margin-top: 0.85rem; font-size: 0.95rem; color: var(--muted)">
-              Cleaning fees can also be subject to the same host-side deduction — so the fee hits more than just the
-              nightly rate.
-            </p>
+          <div class="split" style="margin-top: 1.5rem">
+            <div class="math-box" role="group" aria-label="Airbnb host fee example at $115">
+              <p><strong>$115 booking</strong></p>
+              <div class="math-line"><span>Guest pays</span><span>$115.00</span></div>
+              <div class="math-line"><span>Airbnb host fee (15.5%)</span><span>− $17.80</span></div>
+              <div class="math-line"><span>You keep (before your costs)</span><span>$97.20</span></div>
+            </div>
+            <div class="math-box" role="group" aria-label="Airbnb host fee example at $200 per night">
+              <p><strong>$200/night stay</strong></p>
+              <div class="math-line"><span>Nightly rate</span><span>$200.00</span></div>
+              <div class="math-line"><span>Airbnb host fee (15.5%)</span><span>− $31.00</span></div>
+              <div class="math-line"><span>Per booking, every time</span><span>unless guests rebook direct</span></div>
+            </div>
           </div>
+          <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--muted)">
+            Cleaning fees can also be subject to the host-side deduction — not just the nightly rate.
+          </p>
           <p class="pivot">That fee is unavoidable on Airbnb bookings. It's completely avoidable on direct ones.</p>
         </div>
       </section>
@@ -776,24 +907,23 @@
             <li>
               <span class="step-num" aria-hidden="true">2</span>
               <div>
-                <h3>I build your site + QR / tap card</h3>
-                <p style="margin: 0">Branded direct-booking page and a print-ready card file for in-property display.</p>
+                <h3>Site + QR card built in 5–7 business days</h3>
+                <p style="margin: 0">Branded direct-booking page plus print-ready tap-to-book artwork. No tech setup required on your end.</p>
               </div>
             </li>
             <li>
               <span class="step-num" aria-hidden="true">3</span>
               <div>
-                <h3>Place the card in your rental</h3>
-                <p style="margin: 0">Guests scan when they're leaving (or when they're already planning a return trip).</p>
+                <h3>Place the QR card in your rental</h3>
+                <p style="margin: 0">Past guests scan when they're planning a return trip.</p>
               </div>
             </li>
             <li>
               <span class="step-num" aria-hidden="true">4</span>
               <div>
-                <h3>You collect emails — your call from there</h3>
+                <h3>Add monthly services anytime — or don't</h3>
                 <p style="margin: 0">
-                  Use the list yourself, or add the optional seasonal email service below if you want help staying in
-                  touch.
+                  Keep it at the flat-fee site, or add post-stay emails, seasonal updates, or SEO later. Entirely your call.
                 </p>
               </div>
             </li>
@@ -801,63 +931,226 @@
         </div>
       </section>
 
-      <section class="section section-alt" aria-labelledby="addon-title">
-        <div class="container addon reveal">
-          <span class="addon-label">Optional add-on — not required</span>
-          <div class="addon-grid">
-            <div>
-              <h2 id="addon-title">Seasonal Guest Update</h2>
-              <p>
-                A small monthly service where I send past guests a short seasonal email: what's happening in your area
-                that season (events, peak activities, attractions), any news about your property, and availability or
-                discounts you want to offer.
-              </p>
-              <p>
-                <strong>This is completely optional.</strong> Plenty of hosts just want the site built once and stop
-                there — that works too. This is only for hosts who want a simple, low-effort way to stay in touch each
-                season.
-              </p>
-              <p class="price" style="font-size: 1.15rem">Starting at $[X]/month · cancel anytime</p>
-            </div>
-            <div>
-              <img
-                src="assets/direct-rebook/direct-rebook-email.webp"
-                alt="Illustration of a simple seasonal update email on a laptop screen"
-                width="640"
-                height="480"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+      <section class="section section-alt" aria-labelledby="proof-title">
+        <div class="container reveal">
+          <p class="eyebrow">Proof</p>
+          <h2 id="proof-title">We use this on our own properties</h2>
+          <div class="proof-panel">
+            <p>
+              My wife and I host 3 properties across TN and NC. The 15.5% fee shift is why we built our own direct-booking
+              sites first — booking site, in-unit QR card, and guest email capture — and why we now help other hosts do the same.
+            </p>
+            <ul class="proof-list">
+              <li>Repeat guests rebook without the 15.5% Airbnb host fee</li>
+              <li>We can price direct stays slightly below our OTA listing and still keep more</li>
+              <li>Airbnb stays on for discovery — we're not asking you to leave the platform</li>
+              <li>No revenue share, no lock-in, no contracts</li>
+            </ul>
+            <p style="margin: 1rem 0 0">Happy to connect — reach out anytime.</p>
           </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="pricing-title">
+      <section class="section" id="pricing" aria-labelledby="pricing-title">
         <div class="container reveal">
           <p class="eyebrow">Pricing</p>
-          <h2 id="pricing-title">Simple, separated pricing</h2>
-          <div class="pricing-split">
-            <article class="price-card">
-              <h3>Core — Direct Rebook Kit</h3>
-              <p class="price">One-time setup: $[SETUP FEE]</p>
+          <h2 id="pricing-title">Built for hosts ready to keep more of what they earn</h2>
+          <p class="lead">
+            Four tiers — from a flat-fee site with no monthly commitment to full ongoing SEO. All monthly services are
+            optional, cancel anytime, no contracts. Also at
+            <a href="https://bookdirect.peacemakersai.com/">bookdirect.peacemakersai.com</a>.
+          </p>
+
+          <div class="pricing-table-wrap" tabindex="0" aria-label="Pricing comparison table — scroll horizontally on small screens">
+            <table class="pricing-table">
+              <caption class="sr-only">Direct Rebook Kit pricing tiers at a glance</caption>
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Just the Site</th>
+                  <th scope="col">Direct Rebook Kit</th>
+                  <th scope="col">Rebook + Seasonal</th>
+                  <th scope="col">Full Visibility</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Best for</th>
+                  <td>Direct-booking home base, no monthly commitment</td>
+                  <td>Automated post-stay follow-up + Google presence</td>
+                  <td>Seasonal nurture for past guests, hands-off</td>
+                  <td>2+ properties or competitive tourist markets</td>
+                </tr>
+                <tr>
+                  <th scope="row">Setup fee</th>
+                  <td>$750 (1 property)<br>$1,000 (2–3)</td>
+                  <td>$1,250–$1,750</td>
+                  <td>$1,750–$2,500</td>
+                  <td>$2,500–$3,500</td>
+                </tr>
+                <tr>
+                  <th scope="row">Monthly (optional)</th>
+                  <td>None</td>
+                  <td>$49–$99/mo</td>
+                  <td>$99–$179/mo</td>
+                  <td>$249–$399/mo</td>
+                </tr>
+                <tr>
+                  <th scope="row">Booking site + QR card</th>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <th scope="row">Guest email capture</th>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <th scope="row">Post-stay email sequence</th>
+                  <td class="no">—</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <th scope="row">Google Business Profile</th>
+                  <td class="no">—</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <th scope="row">Basic on-page SEO</th>
+                  <td class="no">—</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <th scope="row">Seasonal guest emails</th>
+                  <td class="no">—</td>
+                  <td class="no">—</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <th scope="row">Local SEO content pages</th>
+                  <td class="no">—</td>
+                  <td class="no">—</td>
+                  <td class="yes">✓</td>
+                  <td class="yes">✓</td>
+                </tr>
+                <tr>
+                  <th scope="row">Full ongoing SEO</th>
+                  <td class="no">—</td>
+                  <td class="no">—</td>
+                  <td class="no">—</td>
+                  <td class="yes">✓</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tier-grid">
+            <article class="tier-card">
+              <p class="tier-num">Tier 1</p>
+              <h3>Just the Site</h3>
+              <p class="tier-price">$750 (1 property) · $1,000 (2–3)</p>
+              <p class="tier-monthly">One-time · no monthly commitment</p>
+              <p class="tier-fit">A direct-booking home base and QR card in your rental — nothing more, nothing less.</p>
               <ul>
-                <li>Branded direct-booking site</li>
-                <li>QR / tap-to-book card artwork</li>
-                <li>Guest email capture</li>
-                <li>No revenue share · no lock-in</li>
-                <li>0% Airbnb fee on direct bookings</li>
+                <li>Branded direct-booking website with your photos, details, and amenities</li>
+                <li>Live booking widget with availability calendar and secure checkout</li>
+                <li>Printable QR rebook card for inside your rental</li>
+                <li>Basic guest email capture form</li>
+                <li>One revision round, delivered in 5–7 business days</li>
               </ul>
+              <p class="tier-tagline">"Start here. Nothing else required."</p>
             </article>
-            <article class="price-card optional">
-              <h3>Optional — Seasonal Guest Update</h3>
-              <p class="price">$[X]/month</p>
-              <p><strong>Optional — add anytime</strong></p>
-              <p>Seasonal email to past guests. Cancel anytime. No contract.</p>
+
+            <article class="tier-card tier-primary">
+              <p class="tier-num">Tier 2</p>
+              <h3>Direct Rebook Kit</h3>
+              <p class="tier-price">Setup: $1,250–$1,750</p>
+              <p class="tier-monthly">Optional: $49–$99/month</p>
+              <p class="tier-fit">Past guests get an automatic rebook offer after checkout, and new guests start finding you on Google.</p>
+              <ul>
+                <li>Everything in Just the Site</li>
+                <li>Post-stay email sequence (thank-you, rebook offer, referral invite)</li>
+                <li>Google Business Profile setup</li>
+                <li>Basic on-page SEO — title tags, meta descriptions, property keywords</li>
+                <li>Monthly performance summary (visits, inquiries, direct bookings)</li>
+              </ul>
+              <p class="tier-tagline">"Set it up once. Let it work while you host."</p>
+            </article>
+
+            <article class="tier-card">
+              <p class="tier-num">Tier 3</p>
+              <h3>Rebook + Seasonal</h3>
+              <p class="tier-price">Setup: $1,750–$2,500</p>
+              <p class="tier-monthly">Optional: $99–$179/month</p>
+              <p class="tier-fit">Stay top-of-mind with past guests all year — fall foliage, ski season, summer weekends.</p>
+              <div class="tier-media">
+                <img
+                  src="assets/direct-rebook/direct-rebook-email.webp"
+                  alt="Seasonal guest update email mockup for direct booking hosts"
+                  width="640"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <ul>
+                <li>Everything in Direct Rebook Kit</li>
+                <li>Monthly seasonal guest email — local events, property news, booking offers</li>
+                <li>3–5 local SEO content pages (area guides, attractions, seasonal travel)</li>
+                <li>Google Search Console setup and monthly ranking check</li>
+              </ul>
+              <p class="tier-tagline">"Stay in front of past guests all year without lifting a finger."</p>
+            </article>
+
+            <article class="tier-card">
+              <p class="tier-num">Tier 4</p>
+              <h3>Full Visibility</h3>
+              <p class="tier-price">Setup: $2,500–$3,500</p>
+              <p class="tier-monthly">Optional: $249–$399/month</p>
+              <p class="tier-fit">2+ properties or a competitive tourist market — brand-new guests finding you on Google, not just repeats.</p>
+              <ul>
+                <li>Everything in Rebook + Seasonal</li>
+                <li>Ongoing local SEO: keyword targeting, content, backlink building</li>
+                <li>Monthly blog or area guide post (e.g. "cabin rentals near [your area]")</li>
+                <li>Monthly ranking and traffic report</li>
+              </ul>
+              <p class="tier-tagline">"Turn your site into a booking engine that works 24/7."</p>
             </article>
           </div>
+
+          <div class="split" style="margin-top: 2.5rem">
+            <div>
+              <h3>The math that makes this simple</h3>
+              <p>At these rates, one extra direct booking per month often covers the monthly fee entirely.</p>
+              <div class="math-tiers">
+                <p class="math-tier-item"><strong>Tier 2 at $99/month</strong> — one $150/night direct booking saves $23.25 in Airbnb fees. Two bookings covers the monthly fee with room to spare.</p>
+                <p class="math-tier-item"><strong>Tier 3 at $149/month</strong> — two direct bookings per month covers the fee and nets you ahead vs. paying Airbnb on every stay.</p>
+                <p class="math-tier-item"><strong>Tier 4 at $299/month</strong> — two to three direct bookings per month covers the fee; every booking after that is pure margin improvement.</p>
+              </div>
+            </div>
+            <div class="math-box">
+              <p><strong>Flat-fee site payback</strong></p>
+              <p>The one-time site pays for itself after just <strong>11–15 direct bookings</strong> — and every direct booking after that is extra margin in your pocket.</p>
+              <p style="margin: 0">No revenue share. No lock-in. Cancel monthly services anytime.</p>
+            </div>
+          </div>
+
+          <p class="pricing-note">
+            <strong>Start with just the site.</strong> Add post-stay emails, seasonal updates, or full SEO later — only if it fits your budget and goals.
+          </p>
           <p style="margin-top: 1.25rem">
-            Start with just the site. Add the email updates later if it makes sense for your budget.
+            <a class="btn btn-primary" href="#contact">Talk to a fellow host</a>
           </p>
         </div>
       </section>
