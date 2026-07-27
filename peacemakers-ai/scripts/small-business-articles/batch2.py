@@ -602,6 +602,7 @@ ARTICLES = {
 <h2>Measure content quality, not just volume</h2>
 <p>AI makes it easy to create more posts. More is not always better. Track useful metrics: comments from real prospects, saves, shares, website clicks, lead inquiries, booked calls, newsletter signups, and customer questions. Also track whether the content still sounds like your business.</p>
 <p>If AI helps you publish five posts a week but none of them connect with customers, the workflow needs adjustment. If it helps you publish two high-quality posts consistently and answer common objections, it is working.</p>
+<p>Review the calendar monthly and remove post types that do not support a business goal. Automation should make your marketing more intentional, not just more frequent.</p>
 
 <h2>Avoid common AI social media mistakes</h2>
 <p>Do not let AI make up testimonials, case studies, statistics, awards, or customer stories. Do not use posts that sound polished but empty. Do not chase every trend if it does not fit your audience. And do not publish advice that your team would not confidently stand behind in a customer conversation.</p>
