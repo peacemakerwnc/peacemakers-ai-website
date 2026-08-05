@@ -91,6 +91,14 @@ describe("workflow stage transitions and next actions", () => {
     await prisma.activity.deleteMany();
     await prisma.note.deleteMany();
     await prisma.auditEvent.deleteMany();
+    await prisma.processConnection.deleteMany();
+    await prisma.processParticipant.deleteMany();
+    await prisma.processApproval.deleteMany();
+    await prisma.processStep.deleteMany();
+    await prisma.processVersion.deleteMany();
+    await prisma.formProcessStep.deleteMany();
+    await prisma.formProcess.deleteMany();
+    await prisma.process.deleteMany();
     await prisma.formResponse.deleteMany();
     await prisma.formInvitation.deleteMany();
     await prisma.opportunity.deleteMany();

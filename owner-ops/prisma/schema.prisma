@@ -83,6 +83,106 @@ enum ProjectStatus {
   CANCELLED
 }
 
+// Phase 1.1 Increment 1 — relational process graph
+enum ProcessStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum ProcessVersionClassification {
+  AS_IS
+  FUTURE_STATE
+}
+
+enum ProcessVersionStatus {
+  DRAFT
+  SUBMITTED
+  OWNER_REFINED
+  APPROVED
+  SUPERSEDED
+}
+
+enum ProcessAuthorType {
+  CLIENT
+  OWNER
+  SYSTEM
+}
+
+enum ProcessStepType {
+  TRIGGER
+  HUMAN_TASK
+  AUTOMATED_TASK
+  COMMUNICATION
+  DATA_ENTRY
+  DOCUMENT_CREATION
+  DECISION
+  APPROVAL
+  HANDOFF
+  WAITING_PERIOD
+  EXCEPTION
+  SUBPROCESS
+  PROCESS_END
+}
+
+enum ProcessExecutionType {
+  HUMAN
+  SYSTEM
+  HYBRID
+}
+
+enum ProcessConnectionType {
+  NORMAL
+  CONDITIONAL
+  APPROVED
+  REJECTED
+  RETURNED_FOR_CORRECTION
+  PARALLEL
+  LOOP
+  REWORK
+  ESCALATION
+  TIMEOUT
+  FAILURE
+  TERMINATION
+}
+
+enum ProcessParticipantType {
+  ROLE
+  PERSON
+  DEPARTMENT
+  CUSTOMER
+  VENDOR
+  SYSTEM
+  EXTERNAL
+}
+
+enum ProcessResponsibilityType {
+  ACCOUNTABLE
+  RESPONSIBLE
+  CONSULTED
+  INFORMED
+  APPROVER
+  EXECUTOR
+}
+
+enum ProcessApprovalType {
+  AS_IS_BASELINE
+  FUTURE_STATE_BASELINE
+  OWNER_REVIEW
+}
+
+enum ProcessApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  RETURNED
+}
+
+enum FormProcessMigrationStatus {
+  UNREVIEWED
+  PRESERVED_LINEAR
+  LINKED_TO_GRAPH
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -125,6 +225,7 @@ model Company {
   agreements     Agreement[]
   payments       Payment[]
   projects       Project[]
+  processes      Process[]
 }
 
 model Contact {
@@ -246,6 +347,7 @@ model Opportunity {
   payments         Payment[]
   projects         Project[]
   proposedServices ProposedService[]
+  processes        Process[]
 
   @@index([stageId])
   @@index([companyId])
@@ -327,18 +429,19 @@ model FormResponse {
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
 
-  invitation FormInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
-  reviewedBy User?          @relation("ResponseReviewer", fields: [reviewedById], references: [id])
-  processes  Process[]
-  tools      CompanyTool[]
-  files      FileAttachment[]
+  invitation   FormInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+  reviewedBy   User?          @relation("ResponseReviewer", fields: [reviewedById], references: [id])
+  formProcesses FormProcess[]
+  tools        CompanyTool[]
+  files        FileAttachment[]
 
   @@unique([invitationId, version])
   @@index([invitationId, status])
 }
 
-model Process {
-  id                    String   @id @default(cuid())
+/// Legacy Blueprint-form capture (Phase 1). Linear prose/order only — not the graph source of truth.
+model FormProcess {
+  id                    String                     @id @default(cuid())
   formResponseId        String
   name                  String
   department            String?
@@ -349,53 +452,254 @@ model Process {
   businessImportance    String?
   frustrationLevel      String?
   errorReworkFrequency  String?
-  affectsRevenue        Boolean  @default(false)
-  affectsCustomerExp    Boolean  @default(false)
-  affectsCost           Boolean  @default(false)
-  affectsRisk           Boolean  @default(false)
-  affectsWorkload       Boolean  @default(false)
-  wantDetailedMap       Boolean  @default(false)
+  affectsRevenue        Boolean                    @default(false)
+  affectsCustomerExp    Boolean                    @default(false)
+  affectsCost           Boolean                    @default(false)
+  affectsRisk           Boolean                    @default(false)
+  affectsWorkload       Boolean                    @default(false)
+  wantDetailedMap       Boolean                    @default(false)
   category              String?
-  isDetailedMap         Boolean  @default(false)
+  isDetailedMap         Boolean                    @default(false)
   businessObjective     String?
   averageVolume         String?
   averageCompletionTime String?
-  detailJson            String   @default("{}")
-  sortOrder             Int      @default(0)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  detailJson            String                     @default("{}")
+  sortOrder             Int                        @default(0)
+  /// Increment 1: preserved without fabricating graph edges.
+  migrationStatus       FormProcessMigrationStatus @default(UNREVIEWED)
+  linkedProcessId       String?
+  createdAt             DateTime                   @default(now())
+  updatedAt             DateTime                   @updatedAt
 
-  formResponse FormResponse  @relation(fields: [formResponseId], references: [id], onDelete: Cascade)
-  steps        ProcessStep[]
+  formResponse FormResponse      @relation(fields: [formResponseId], references: [id], onDelete: Cascade)
+  steps        FormProcessStep[]
+  linkedProcess Process?         @relation(fields: [linkedProcessId], references: [id], onDelete: SetNull)
 
   @@index([formResponseId])
+  @@index([migrationStatus])
+  @@index([linkedProcessId])
+}
+
+model FormProcessStep {
+  id                  String   @id @default(cuid())
+  processId           String
+  stepNumber          Int
+  responsibleRole     String?
+  exactAction         String?
+  toolUsed            String?
+  informationReceived String?
+  informationChanged  String?
+  outputRecipient     String?
+  decisionInvolved    String?
+  expectedTime        String?
+  waitingTime         String?
+  notificationSent    String?
+  completionEvidence  String?
+  problems            String?
+  exceptions          String?
+  workaround          String?
+  sortOrder           Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  process FormProcess @relation(fields: [processId], references: [id], onDelete: Cascade)
+
+  @@index([processId, sortOrder])
+}
+
+/// Durable business-process identity for the relational graph (Phase 1.1).
+model Process {
+  id                           String        @id @default(cuid())
+  companyId                    String
+  opportunityId                String?
+  name                         String
+  purpose                      String?
+  customerOutcome              String?
+  processOwner                 String?
+  status                       ProcessStatus @default(ACTIVE)
+  currentDraftVersionId        String?
+  currentApprovedAsIsVersionId String?
+  currentFutureStateVersionId  String?
+  createdAt                    DateTime      @default(now())
+  updatedAt                    DateTime      @updatedAt
+
+  company     Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity Opportunity?     @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  versions    ProcessVersion[]
+  formSources FormProcess[]
+
+  @@index([companyId])
+  @@index([opportunityId])
+  @@index([status])
+}
+
+model ProcessVersion {
+  id                    String                       @id @default(cuid())
+  processId             String
+  versionNumber         Int
+  versionLabel          String?
+  classification        ProcessVersionClassification
+  status                ProcessVersionStatus         @default(DRAFT)
+  parentVersionId       String?
+  derivedFromVersionId  String?
+  authorType            ProcessAuthorType            @default(OWNER)
+  authorUserId          String?
+  authorLabel           String?
+  purpose               String?
+  outcome               String?
+  startTrigger          String?
+  endEvent              String?
+  startBoundary         String?
+  endBoundary           String?
+  frequency             String?
+  averageVolume         String?
+  peakVolume            String?
+  averageCompletionTime String?
+  governingRules        String?
+  policies              String?
+  contractualObligations String?
+  deadlines             String?
+  serviceExpectations   String?
+  successMeasures       String?
+  currentPerformance    String?
+  internalNotes         String?
+  clientNotes           String?
+  completenessStatus    String?
+  confidenceStatus      String?
+  createdAt             DateTime                     @default(now())
+  updatedAt             DateTime                     @updatedAt
+  submittedAt           DateTime?
+  approvedAt            DateTime?
+  supersededAt          DateTime?
+
+  process      Process              @relation(fields: [processId], references: [id], onDelete: Cascade)
+  parent       ProcessVersion?      @relation("VersionParent", fields: [parentVersionId], references: [id], onDelete: SetNull)
+  children     ProcessVersion[]     @relation("VersionParent")
+  derivedFrom  ProcessVersion?      @relation("VersionDerived", fields: [derivedFromVersionId], references: [id], onDelete: SetNull)
+  derivatives  ProcessVersion[]     @relation("VersionDerived")
+  steps        ProcessStep[]
+  connections  ProcessConnection[]
+  participants ProcessParticipant[]
+  approvals    ProcessApproval[]
+
+  @@unique([processId, versionNumber])
+  @@index([processId, status])
+  @@index([classification])
+  @@index([parentVersionId])
+  @@index([derivedFromVersionId])
 }
 
 model ProcessStep {
-  id                 String   @id @default(cuid())
-  processId          String
-  stepNumber         Int
-  responsibleRole    String?
-  exactAction        String?
-  toolUsed           String?
-  informationReceived String?
-  informationChanged String?
-  outputRecipient    String?
-  decisionInvolved   String?
-  expectedTime       String?
-  waitingTime        String?
-  notificationSent   String?
-  completionEvidence String?
-  problems           String?
-  exceptions         String?
-  workaround         String?
-  sortOrder          Int      @default(0)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id                   String               @id @default(cuid())
+  processVersionId     String
+  displayOrder         Int                  @default(0)
+  shortName            String
+  detailedDescription  String?
+  stepType             ProcessStepType
+  responsibleRole      String?
+  responsiblePerson    String?
+  department           String?
+  executionType        ProcessExecutionType @default(HUMAN)
+  toolOrSystem         String?
+  requiredInputs       String?
+  dataReceived         String?
+  informationHandled   String?
+  outputProduced       String?
+  outputRecipient      String?
+  expectedWorkTime     String?
+  typicalWaitingTime   String?
+  deadline             String?
+  serviceExpectation   String?
+  notification         String?
+  evidenceOfCompletion String?
+  problems             String?
+  workarounds          String?
+  valueClassification  String?
+  automationSuitability String?
+  internalNotes        String?
+  clientNotes          String?
+  unresolvedQuestions  String?
+  completenessStatus   String?
+  confidenceStatus     String?
+  /// Presentation only — never workflow truth.
+  canvasX              Float?
+  canvasY              Float?
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
 
-  process Process @relation(fields: [processId], references: [id], onDelete: Cascade)
+  processVersion ProcessVersion       @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  outgoing       ProcessConnection[]  @relation("ConnectionSource")
+  incoming       ProcessConnection[]  @relation("ConnectionTarget")
+  participants   ProcessParticipant[]
 
-  @@index([processId, sortOrder])
+  @@index([processVersionId, displayOrder])
+  @@index([stepType])
+}
+
+model ProcessConnection {
+  id                   String                @id @default(cuid())
+  processVersionId     String
+  sourceStepId         String
+  targetStepId         String
+  connectionType       ProcessConnectionType
+  displayLabel         String?
+  condition            String?
+  businessRule         String?
+  priority             Int                   @default(0)
+  isDefaultPath        Boolean               @default(false)
+  exceptionMetadata    String?
+  escalationMetadata   String?
+  presentationRouteJson String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+
+  processVersion ProcessVersion       @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  sourceStep     ProcessStep          @relation("ConnectionSource", fields: [sourceStepId], references: [id], onDelete: Restrict)
+  targetStep     ProcessStep          @relation("ConnectionTarget", fields: [targetStepId], references: [id], onDelete: Restrict)
+
+  @@index([processVersionId])
+  @@index([sourceStepId])
+  @@index([targetStepId])
+  @@index([connectionType])
+}
+
+model ProcessParticipant {
+  id                 String                    @id @default(cuid())
+  processVersionId   String
+  processStepId      String?
+  participantType    ProcessParticipantType
+  role               String?
+  personLabel        String?
+  contactId          String?
+  department         String?
+  externalDesignation String?
+  responsibilityType ProcessResponsibilityType @default(RESPONSIBLE)
+  createdAt          DateTime                  @default(now())
+  updatedAt          DateTime                  @updatedAt
+
+  processVersion ProcessVersion @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  processStep    ProcessStep?   @relation(fields: [processStepId], references: [id], onDelete: Cascade)
+
+  @@index([processVersionId])
+  @@index([processStepId])
+  @@index([contactId])
+}
+
+model ProcessApproval {
+  id               String                @id @default(cuid())
+  processVersionId String
+  approvalType     ProcessApprovalType
+  status           ProcessApprovalStatus @default(PENDING)
+  approverUserId   String?
+  approverRole     String?
+  criteriaOrNotes  String?
+  decidedAt        DateTime?
+  createdAt        DateTime              @default(now())
+
+  processVersion ProcessVersion @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+
+  @@index([processVersionId])
+  @@index([status])
 }
 
 model Tool {

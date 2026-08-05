@@ -53,10 +53,10 @@ async function syncRelationalFromPayload(
   companyId: string,
   payload: BlueprintPayload,
 ) {
-  await tx.processStep.deleteMany({
+  await tx.formProcessStep.deleteMany({
     where: { process: { formResponseId } },
   });
-  await tx.process.deleteMany({ where: { formResponseId } });
+  await tx.formProcess.deleteMany({ where: { formResponseId } });
   await tx.companyTool.deleteMany({ where: { formResponseId } });
 
   for (let i = 0; i < payload.section3.tools.length; i++) {
@@ -83,7 +83,7 @@ async function syncRelationalFromPayload(
 
   for (let i = 0; i < payload.section4.processes.length; i++) {
     const p = payload.section4.processes[i];
-    await tx.process.create({
+    await tx.formProcess.create({
       data: {
         formResponseId,
         name: p.name,
@@ -104,13 +104,14 @@ async function syncRelationalFromPayload(
         wantDetailedMap: Boolean(p.wantDetailedMap),
         isDetailedMap: false,
         sortOrder: i,
+        migrationStatus: "UNREVIEWED",
       },
     });
   }
 
   for (let i = 0; i < payload.section5.detailedProcesses.length; i++) {
     const p = payload.section5.detailedProcesses[i];
-    const process = await tx.process.create({
+    const process = await tx.formProcess.create({
       data: {
         formResponseId,
         name: p.name,
@@ -124,12 +125,13 @@ async function syncRelationalFromPayload(
         wantDetailedMap: true,
         detailJson: JSON.stringify(p),
         sortOrder: 1000 + i,
+        migrationStatus: "PRESERVED_LINEAR",
       },
     });
 
     for (let s = 0; s < p.steps.length; s++) {
       const step = p.steps[s];
-      await tx.processStep.create({
+      await tx.formProcessStep.create({
         data: {
           processId: process.id,
           stepNumber: step.stepNumber || s + 1,

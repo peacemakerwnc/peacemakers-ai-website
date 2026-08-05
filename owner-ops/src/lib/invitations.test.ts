@@ -204,7 +204,13 @@ describe("invitation + response lifecycle", () => {
     await prisma.nextAction.deleteMany();
     await prisma.activity.deleteMany();
     await prisma.auditEvent.deleteMany();
+    await prisma.formProcessStep.deleteMany();
+    await prisma.formProcess.deleteMany();
+    await prisma.processConnection.deleteMany();
+    await prisma.processParticipant.deleteMany();
+    await prisma.processApproval.deleteMany();
     await prisma.processStep.deleteMany();
+    await prisma.processVersion.deleteMany();
     await prisma.process.deleteMany();
     await prisma.companyTool.deleteMany();
     await prisma.formResponse.deleteMany();
@@ -388,7 +394,7 @@ describe("invitation + response lifecycle", () => {
       ResponseLockedError,
     );
 
-    const processes = await prisma.process.findMany({
+    const processes = await prisma.formProcess.findMany({
       where: { formResponseId: invitation!.responses[0].id },
       include: { steps: true },
     });

@@ -93,6 +93,9 @@ export default async function OpsPipelinePage({
           <Link href="/ops/forms" className="text-[var(--accent)]">
             Forms
           </Link>
+          <Link href="/ops/processes" className="text-[var(--accent)]">
+            Processes
+          </Link>
           <form action={logoutAction}>
             <button
               type="submit"
