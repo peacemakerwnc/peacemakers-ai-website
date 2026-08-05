@@ -6,7 +6,7 @@ import { CreateInvitationForm } from "./create-form";
 export const dynamic = "force-dynamic";
 
 export default async function FormsPage() {
-  await requireOwnerSession();
+  await requireOwnerSession({ returnTo: "/ops/forms" });
   const invitations = await prisma.formInvitation.findMany({
     orderBy: { createdAt: "desc" },
     take: 50,

@@ -7,15 +7,15 @@ import {
   SESSION_COOKIE,
   createSessionValue,
   sessionCookieOptions,
+  safeOpsReturnPath,
+  getSession,
 } from "@/lib/session";
 import { recordAudit } from "@/lib/audit";
-import { getSession } from "@/lib/session";
 
 export async function loginAction(formData: FormData) {
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
-  const next = String(formData.get("next") ?? "/ops");
-  const safeNext = next.startsWith("/ops") ? next : "/ops";
+  const safeNext = safeOpsReturnPath(String(formData.get("next") ?? "")) ?? "/ops";
 
   const user = await authenticateOwner(email, password);
   if (!user) {

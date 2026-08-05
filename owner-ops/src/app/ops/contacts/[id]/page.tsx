@@ -13,8 +13,8 @@ export default async function ContactPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ company?: string }>;
 }) {
-  await requireOwnerSession();
   const { id } = await params;
+  await requireOwnerSession({ returnTo: `/ops/contacts/${id}` });
   const { company: companyId } = await searchParams;
 
   const contact = await prisma.contact.findUnique({
@@ -151,6 +151,9 @@ export default async function ContactPage({
 
       <section className="mt-8">
         <h2 className="text-xl">Meetings & files</h2>
+        <p className="mt-1 text-xs text-[var(--muted)]">
+          Meeting create/edit is on the related opportunity record.
+        </p>
         <div className="mt-3 grid gap-4 text-sm sm:grid-cols-2">
           <ul>
             {contact.meetings.length === 0 ? (
@@ -159,6 +162,17 @@ export default async function ContactPage({
               contact.meetings.map((m) => (
                 <li key={m.id}>
                   {m.title} · {m.status}
+                  {m.opportunityId ? (
+                    <>
+                      {" · "}
+                      <Link
+                        href={`/ops/opportunities/${m.opportunityId}`}
+                        className="text-[var(--accent)]"
+                      >
+                        Opportunity
+                      </Link>
+                    </>
+                  ) : null}
                 </li>
               ))
             )}

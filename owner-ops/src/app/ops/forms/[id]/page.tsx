@@ -12,8 +12,8 @@ export default async function InvitationDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireOwnerSession();
   const { id } = await params;
+  await requireOwnerSession({ returnTo: `/ops/forms/${id}` });
   const invitation = await prisma.formInvitation.findUnique({
     where: { id },
     include: {

@@ -85,6 +85,8 @@ describe("workflow stage transitions and next actions", () => {
 
   beforeEach(async () => {
     resetEnvCache();
+    await prisma.proposedService.deleteMany();
+    await prisma.meeting.deleteMany();
     await prisma.nextAction.deleteMany();
     await prisma.activity.deleteMany();
     await prisma.note.deleteMany();

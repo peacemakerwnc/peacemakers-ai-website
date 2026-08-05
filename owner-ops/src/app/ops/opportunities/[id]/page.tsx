@@ -8,17 +8,29 @@ import {
   addNextActionAction,
   completeActionAction,
   addNoteAction,
+  createMeetingAction,
+  updateMeetingAction,
+  updateEstimatedValueAction,
+  addProposedServiceAction,
+  updateProposedServiceAction,
+  deleteProposedServiceAction,
 } from "../../workflow-actions";
 
 export const dynamic = "force-dynamic";
+
+function toDatetimeLocal(d: Date | null | undefined): string {
+  if (!d) return "";
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
 
 export default async function OpportunityPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireOwnerSession();
   const { id } = await params;
+  await requireOwnerSession({ returnTo: `/ops/opportunities/${id}` });
 
   const opportunity = await prisma.opportunity.findUnique({
     where: { id },
@@ -32,6 +44,7 @@ export default async function OpportunityPage({
       notes: { orderBy: { createdAt: "desc" }, take: 20 },
       meetings: { orderBy: { scheduledAt: "desc" } },
       nextActions: { orderBy: [{ status: "asc" }, { dueAt: "asc" }] },
+      proposedServices: { orderBy: { sortOrder: "asc" } },
       formInvitations: {
         orderBy: { createdAt: "desc" },
         include: {
@@ -68,6 +81,13 @@ export default async function OpportunityPage({
     });
   }
 
+  const upcomingMeetings = opportunity.meetings.filter(
+    (m) => m.status === "SCHEDULED",
+  );
+  const pastMeetings = opportunity.meetings.filter(
+    (m) => m.status !== "SCHEDULED",
+  );
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
       <Link href="/ops" className="text-sm text-[var(--accent)]">
@@ -86,6 +106,10 @@ export default async function OpportunityPage({
           {opportunity.company.name}
           {" · "}
           {opportunity.stage.name}
+          {" · "}
+          {opportunity.estimatedValue != null
+            ? `$${opportunity.estimatedValue.toLocaleString()}`
+            : "Value unset"}
         </p>
       </header>
 
@@ -174,6 +198,104 @@ export default async function OpportunityPage({
           </section>
 
           <section className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-5">
+            <h2 className="text-lg">Proposed services</h2>
+            {opportunity.proposedServices.length === 0 ? (
+              <p className="mt-2 text-sm text-[var(--muted)]">None yet</p>
+            ) : (
+              <ul className="mt-3 space-y-4">
+                {opportunity.proposedServices.map((svc) => (
+                  <li
+                    key={svc.id}
+                    className="border-b border-[var(--line)] pb-4 text-sm last:border-0"
+                  >
+                    <form action={updateProposedServiceAction} className="space-y-2">
+                      <input type="hidden" name="serviceId" value={svc.id} />
+                      <input
+                        type="hidden"
+                        name="opportunityId"
+                        value={opportunity.id}
+                      />
+                      <input
+                        name="name"
+                        required
+                        defaultValue={svc.name}
+                        className="w-full rounded-md border border-[var(--line)] px-3 py-2"
+                      />
+                      <div className="flex flex-wrap gap-2">
+                        <select
+                          name="status"
+                          defaultValue={svc.status}
+                          className="rounded-md border border-[var(--line)] px-2 py-1.5"
+                        >
+                          <option value="proposed">proposed</option>
+                          <option value="accepted">accepted</option>
+                          <option value="declined">declined</option>
+                          <option value="deferred">deferred</option>
+                        </select>
+                        <button
+                          type="submit"
+                          className="rounded-md border border-[var(--line)] px-3 py-1.5"
+                        >
+                          Save
+                        </button>
+                      </div>
+                      <textarea
+                        name="notes"
+                        rows={2}
+                        defaultValue={svc.notes ?? ""}
+                        placeholder="Notes (optional)"
+                        className="w-full rounded-md border border-[var(--line)] px-3 py-2"
+                      />
+                    </form>
+                    <form action={deleteProposedServiceAction} className="mt-2">
+                      <input type="hidden" name="serviceId" value={svc.id} />
+                      <input
+                        type="hidden"
+                        name="opportunityId"
+                        value={opportunity.id}
+                      />
+                      <button type="submit" className="text-xs text-[var(--danger)]">
+                        Remove
+                      </button>
+                    </form>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <form action={addProposedServiceAction} className="mt-4 space-y-2">
+              <input type="hidden" name="opportunityId" value={opportunity.id} />
+              <input
+                name="name"
+                required
+                placeholder="Service name"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              />
+              <select
+                name="status"
+                defaultValue="proposed"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              >
+                <option value="proposed">proposed</option>
+                <option value="accepted">accepted</option>
+                <option value="declined">declined</option>
+                <option value="deferred">deferred</option>
+              </select>
+              <textarea
+                name="notes"
+                rows={2}
+                placeholder="Notes (optional)"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              />
+              <button
+                type="submit"
+                className="rounded-md border border-[var(--line)] px-3 py-1.5 text-sm"
+              >
+                Add service
+              </button>
+            </form>
+          </section>
+
+          <section className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-5">
             <h2 className="text-lg">Activity</h2>
             <ol className="mt-3 space-y-3 text-sm">
               {opportunity.activities.map((a) => (
@@ -189,6 +311,39 @@ export default async function OpportunityPage({
         </div>
 
         <aside className="space-y-6">
+          <section className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-5">
+            <h2 className="text-lg">Estimated value</h2>
+            <p className="mt-1 text-xs text-[var(--muted)]">
+              Whole dollars. Leave blank for unknown (distinct from $0).
+            </p>
+            <form action={updateEstimatedValueAction} className="mt-3 space-y-2">
+              <input type="hidden" name="opportunityId" value={opportunity.id} />
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-[var(--muted)]">$</span>
+                <input
+                  name="estimatedValue"
+                  type="number"
+                  min={0}
+                  step={1}
+                  inputMode="numeric"
+                  defaultValue={
+                    opportunity.estimatedValue != null
+                      ? String(opportunity.estimatedValue)
+                      : ""
+                  }
+                  placeholder="Unknown"
+                  className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+                />
+              </div>
+              <button
+                type="submit"
+                className="rounded-md bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white"
+              >
+                Save value
+              </button>
+            </form>
+          </section>
+
           <section className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-5">
             <h2 className="text-lg">Move stage</h2>
             <form action={changeStageAction} className="mt-3 space-y-3">
@@ -223,20 +378,35 @@ export default async function OpportunityPage({
             <h2 className="text-lg">Next actions</h2>
             <ul className="mt-3 space-y-2 text-sm">
               {opportunity.nextActions.map((action) => (
-                <li key={action.id} className="flex items-start justify-between gap-2 border-b border-[var(--line)] pb-2">
+                <li
+                  key={action.id}
+                  className="flex items-start justify-between gap-2 border-b border-[var(--line)] pb-2"
+                >
                   <div>
-                    <p className={action.status === "DONE" ? "line-through text-[var(--muted)]" : ""}>
+                    <p
+                      className={
+                        action.status === "DONE"
+                          ? "line-through text-[var(--muted)]"
+                          : ""
+                      }
+                    >
                       {action.title}
                     </p>
                     <p className="text-xs text-[var(--muted)]">
                       {action.status}
-                      {action.dueAt ? ` · due ${action.dueAt.toLocaleDateString()}` : ""}
+                      {action.dueAt
+                        ? ` · due ${action.dueAt.toLocaleDateString()}`
+                        : ""}
                     </p>
                   </div>
                   {action.status === "OPEN" ? (
                     <form action={completeActionAction}>
                       <input type="hidden" name="actionId" value={action.id} />
-                      <input type="hidden" name="opportunityId" value={opportunity.id} />
+                      <input
+                        type="hidden"
+                        name="opportunityId"
+                        value={opportunity.id}
+                      />
                       <button type="submit" className="text-xs text-[var(--accent)]">
                         Done
                       </button>
@@ -300,18 +470,161 @@ export default async function OpportunityPage({
 
           <section className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-5">
             <h2 className="text-lg">Meetings</h2>
-            {opportunity.meetings.length === 0 ? (
-              <p className="mt-2 text-sm text-[var(--muted)]">No meetings recorded</p>
+            <h3 className="mt-3 text-sm font-medium">Upcoming / scheduled</h3>
+            {upcomingMeetings.length === 0 ? (
+              <p className="mt-1 text-sm text-[var(--muted)]">None scheduled</p>
             ) : (
-              <ul className="mt-2 space-y-2 text-sm">
-                {opportunity.meetings.map((m) => (
-                  <li key={m.id}>
-                    {m.title} · {m.status}
-                    {m.scheduledAt ? ` · ${m.scheduledAt.toLocaleString()}` : ""}
+              <ul className="mt-2 space-y-4">
+                {upcomingMeetings.map((m) => (
+                  <li key={m.id} className="border-b border-[var(--line)] pb-3 text-sm">
+                    <form action={updateMeetingAction} className="space-y-2">
+                      <input type="hidden" name="meetingId" value={m.id} />
+                      <input
+                        type="hidden"
+                        name="opportunityId"
+                        value={opportunity.id}
+                      />
+                      <input
+                        name="title"
+                        required
+                        defaultValue={m.title}
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      />
+                      <input
+                        name="scheduledAt"
+                        type="datetime-local"
+                        defaultValue={toDatetimeLocal(m.scheduledAt)}
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      />
+                      <select
+                        name="status"
+                        defaultValue={m.status}
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      >
+                        <option value="SCHEDULED">SCHEDULED</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                        <option value="NO_SHOW">NO_SHOW</option>
+                      </select>
+                      <input
+                        name="locationOrUrl"
+                        defaultValue={m.locationOrUrl ?? ""}
+                        placeholder="Location or URL"
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      />
+                      <textarea
+                        name="notes"
+                        rows={2}
+                        defaultValue={m.notes ?? ""}
+                        placeholder="Notes"
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      />
+                      <button
+                        type="submit"
+                        className="rounded-md border border-[var(--line)] px-2 py-1 text-xs"
+                      >
+                        Update meeting
+                      </button>
+                    </form>
                   </li>
                 ))}
               </ul>
             )}
+            <h3 className="mt-4 text-sm font-medium">Completed / other</h3>
+            {pastMeetings.length === 0 ? (
+              <p className="mt-1 text-sm text-[var(--muted)]">None</p>
+            ) : (
+              <ul className="mt-2 space-y-4">
+                {pastMeetings.map((m) => (
+                  <li key={m.id} className="border-b border-[var(--line)] pb-3 text-sm">
+                    <form action={updateMeetingAction} className="space-y-2">
+                      <input type="hidden" name="meetingId" value={m.id} />
+                      <input
+                        type="hidden"
+                        name="opportunityId"
+                        value={opportunity.id}
+                      />
+                      <input
+                        name="title"
+                        required
+                        defaultValue={m.title}
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      />
+                      <input
+                        name="scheduledAt"
+                        type="datetime-local"
+                        defaultValue={toDatetimeLocal(m.scheduledAt)}
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      />
+                      <select
+                        name="status"
+                        defaultValue={m.status}
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      >
+                        <option value="SCHEDULED">SCHEDULED</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                        <option value="NO_SHOW">NO_SHOW</option>
+                      </select>
+                      <textarea
+                        name="notes"
+                        rows={2}
+                        defaultValue={m.notes ?? ""}
+                        className="w-full rounded-md border border-[var(--line)] px-2 py-1.5"
+                      />
+                      <button
+                        type="submit"
+                        className="rounded-md border border-[var(--line)] px-2 py-1 text-xs"
+                      >
+                        Update meeting
+                      </button>
+                    </form>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <form action={createMeetingAction} className="mt-4 space-y-2 border-t border-[var(--line)] pt-4">
+              <p className="text-sm font-medium">Schedule meeting</p>
+              <input type="hidden" name="opportunityId" value={opportunity.id} />
+              <input
+                name="title"
+                required
+                placeholder="Title"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              />
+              <input
+                name="scheduledAt"
+                type="datetime-local"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              />
+              <select
+                name="status"
+                defaultValue="SCHEDULED"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              >
+                <option value="SCHEDULED">SCHEDULED</option>
+                <option value="COMPLETED">COMPLETED</option>
+                <option value="CANCELLED">CANCELLED</option>
+                <option value="NO_SHOW">NO_SHOW</option>
+              </select>
+              <input
+                name="locationOrUrl"
+                placeholder="Location or URL"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              />
+              <textarea
+                name="notes"
+                rows={2}
+                placeholder="Notes"
+                className="w-full rounded-md border border-[var(--line)] px-3 py-2 text-sm"
+              />
+              <button
+                type="submit"
+                className="rounded-md border border-[var(--line)] px-3 py-1.5 text-sm"
+              >
+                Create meeting
+              </button>
+            </form>
           </section>
 
           <section className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-5">
@@ -329,6 +642,14 @@ export default async function OpportunityPage({
                 ))}
               </ul>
             )}
+          </section>
+
+          <section className="rounded-lg border border-dashed border-[var(--line)] bg-[var(--surface)] p-5">
+            <h2 className="text-lg">Proposals & agreements</h2>
+            <p className="mt-2 text-sm text-[var(--muted)]">
+              Not available in Phase 1 — proposal documents, e-sign, and
+              agreements ship in a later increment.
+            </p>
           </section>
         </aside>
       </div>

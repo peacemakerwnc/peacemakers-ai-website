@@ -14,15 +14,20 @@ export default async function ReviewPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ version?: string }>;
 }) {
-  await requireOwnerSession();
   const { id } = await params;
+  await requireOwnerSession({ returnTo: `/ops/forms/${id}/review` });
   const { version } = await searchParams;
 
   const invitation = await prisma.formInvitation.findUnique({
     where: { id },
     include: {
       contact: true,
-      opportunity: { include: { company: true } },
+      opportunity: {
+        include: {
+          company: true,
+          proposedServices: { orderBy: { sortOrder: "asc" } },
+        },
+      },
       responses: { orderBy: { version: "desc" } },
     },
   });
@@ -155,6 +160,38 @@ export default async function ReviewPage({
       </section>
       <ReviewBlock title="Priorities" data={payload.section7} />
       <ReviewBlock title="Confirmations" data={payload.section8} />
+
+      <section className="mt-8">
+        <h2 className="text-xl">Proposed services (opportunity)</h2>
+        {invitation.opportunity.proposedServices.length === 0 ? (
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            None recorded yet. Manage on the{" "}
+            <Link
+              href={`/ops/opportunities/${invitation.opportunityId}`}
+              className="text-[var(--accent)] print:hidden"
+            >
+              opportunity
+            </Link>
+            .
+          </p>
+        ) : (
+          <ul className="mt-3 space-y-2 text-sm">
+            {invitation.opportunity.proposedServices.map((svc) => (
+              <li key={svc.id} className="border-b border-[var(--line)] pb-2">
+                <p className="font-medium">
+                  {svc.name}{" "}
+                  <span className="font-normal text-[var(--muted)]">
+                    ({svc.status})
+                  </span>
+                </p>
+                {svc.notes ? (
+                  <p className="text-[var(--muted)]">{svc.notes}</p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }

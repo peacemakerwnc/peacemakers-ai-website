@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getSession } from "@/lib/session";
+import { requireOwnerApiSession } from "@/lib/session";
 import { prisma } from "@/lib/db";
 import { getStorageAdapter } from "@/lib/storage";
 import { recordAudit } from "@/lib/audit";
@@ -10,7 +10,7 @@ export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
-  const session = await getSession();
+  const session = await requireOwnerApiSession();
   if (!session) {
     return new Response("Unauthorized", { status: 401 });
   }

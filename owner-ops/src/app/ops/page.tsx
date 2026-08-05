@@ -20,7 +20,7 @@ export default async function OpsPipelinePage({
     sort?: string;
   }>;
 }) {
-  const session = await requireOwnerSession();
+  const session = await requireOwnerSession({ returnTo: "/ops" });
   const params = await searchParams;
   const q = (params.q ?? "").trim();
   const stageFilter = params.stage ?? "";

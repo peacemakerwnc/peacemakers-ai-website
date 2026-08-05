@@ -209,6 +209,8 @@ describe("invitation + response lifecycle", () => {
     await prisma.companyTool.deleteMany();
     await prisma.formResponse.deleteMany();
     await prisma.formInvitation.deleteMany();
+    await prisma.proposedService.deleteMany();
+    await prisma.meeting.deleteMany();
     await prisma.opportunity.deleteMany();
     await prisma.companyContact.deleteMany();
     await prisma.contact.deleteMany();

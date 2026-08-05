@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getSession } from "@/lib/session";
+import { getSession, safeOpsReturnPath } from "@/lib/session";
 import { LoginForm } from "./login-form";
 
 export default async function LoginPage({
@@ -9,8 +9,9 @@ export default async function LoginPage({
 }) {
   const session = await getSession();
   const params = await searchParams;
+  const nextPath = safeOpsReturnPath(params.next) ?? "/ops";
   if (session) {
-    redirect(params.next && params.next.startsWith("/ops") ? params.next : "/ops");
+    redirect(nextPath);
   }
 
   return (
@@ -29,7 +30,7 @@ export default async function LoginPage({
           Invalid email or password.
         </p>
       ) : null}
-      <LoginForm nextPath={params.next?.startsWith("/ops") ? params.next : "/ops"} />
+      <LoginForm nextPath={nextPath} />
     </main>
   );
 }

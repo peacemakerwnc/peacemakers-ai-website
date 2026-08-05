@@ -230,27 +230,43 @@ model Opportunity {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 
-  pipeline        Pipeline         @relation(fields: [pipelineId], references: [id])
-  stage           PipelineStage    @relation(fields: [stageId], references: [id])
-  contact         Contact          @relation(fields: [contactId], references: [id])
-  company         Company          @relation(fields: [companyId], references: [id])
-  owner           User?            @relation("OpportunityOwner", fields: [ownerUserId], references: [id])
-  formInvitations FormInvitation[]
-  activities      Activity[]
-  notes           Note[]
-  meetings        Meeting[]
-  nextActions     NextAction[]
-  files           FileAttachment[]
-  proposals       Proposal[]
-  agreements      Agreement[]
-  payments        Payment[]
-  projects        Project[]
+  pipeline         Pipeline          @relation(fields: [pipelineId], references: [id])
+  stage            PipelineStage     @relation(fields: [stageId], references: [id])
+  contact          Contact           @relation(fields: [contactId], references: [id])
+  company          Company           @relation(fields: [companyId], references: [id])
+  owner            User?             @relation("OpportunityOwner", fields: [ownerUserId], references: [id])
+  formInvitations  FormInvitation[]
+  activities       Activity[]
+  notes            Note[]
+  meetings         Meeting[]
+  nextActions      NextAction[]
+  files            FileAttachment[]
+  proposals        Proposal[]
+  agreements       Agreement[]
+  payments         Payment[]
+  projects         Project[]
+  proposedServices ProposedService[]
 
   @@index([stageId])
   @@index([companyId])
   @@index([contactId])
   @@index([status])
   @@index([nextActionDueAt])
+}
+
+model ProposedService {
+  id            String   @id @default(cuid())
+  opportunityId String
+  name          String
+  status        String   @default("proposed")
+  notes         String?
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@index([opportunityId, sortOrder])
 }
 
 model FormTemplate {
