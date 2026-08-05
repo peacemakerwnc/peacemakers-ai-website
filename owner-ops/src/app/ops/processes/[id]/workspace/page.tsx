@@ -2,7 +2,10 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { requireOwnerSession } from "@/lib/session";
 import { listProcessVersions } from "@/lib/process-graph";
-import { loadWorkspace } from "@/lib/process-workspace";
+import {
+  listRelatedProcessesForWorkspace,
+  loadWorkspace,
+} from "@/lib/process-workspace";
 import { ProcessWorkspaceClient } from "./workspace-client";
 
 export const dynamic = "force-dynamic";
@@ -12,10 +15,15 @@ export default async function ProcessWorkspacePage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ version?: string; mode?: string }>;
+  searchParams: Promise<{
+    version?: string;
+    mode?: string;
+    view?: string;
+  }>;
 }) {
   const { id } = await params;
   const sp = await searchParams;
+  const view = sp.view === "process" ? "process" : "all";
   await requireOwnerSession({
     returnTo: `/ops/processes/${id}/workspace`,
   });
@@ -31,7 +39,10 @@ export default async function ProcessWorkspacePage({
     redirect(`/ops/processes/${id}`);
   }
 
-  const versions = await listProcessVersions(id);
+  const [versions, related] = await Promise.all([
+    listProcessVersions(id),
+    listRelatedProcessesForWorkspace(id),
+  ]);
   const presentation = sp.mode === "present";
 
   return (
@@ -56,6 +67,8 @@ export default async function ProcessWorkspacePage({
         processId={id}
         initialVersionId={workspace.version.id}
         versions={versions}
+        relatedProcesses={related.processes}
+        initialView={view}
         initialPresentation={presentation}
       />
     </main>

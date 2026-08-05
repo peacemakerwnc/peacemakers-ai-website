@@ -64,6 +64,196 @@ export async function loadWorkspace(processId: string, versionId?: string) {
   };
 }
 
+export type RelatedProcessCard = {
+  id: string;
+  name: string;
+  purpose: string | null;
+  processOwner: string | null;
+  status: string;
+  opportunityId: string | null;
+  opportunityTitle: string | null;
+  companyId: string;
+  companyName: string;
+  versionId: string | null;
+  versionStatus: string | null;
+  classification: string | null;
+  startTrigger: string | null;
+  endEvent: string | null;
+  outcome: string | null;
+  stepCount: number;
+  painPointCount: number;
+  opportunityCount: number;
+  blueprintItemCount: number;
+  validationOk: boolean | null;
+  /** Shared opportunity or questionnaire — not a process-to-process handoff. */
+  contextAssociation: "same_opportunity" | "same_questionnaire" | "same_company";
+  contextAssociationLabel: string;
+};
+
+/**
+ * All Processes landscape: company-scoped related processes.
+ * Prefer same opportunity when the anchor process has one; never invent
+ * process-to-process handoff edges (none exist in the schema).
+ */
+export async function listRelatedProcessesForWorkspace(
+  processId: string,
+): Promise<{
+  anchor: { id: string; companyId: string; opportunityId: string | null };
+  processes: RelatedProcessCard[];
+}> {
+  const anchor = await prisma.process.findUnique({
+    where: { id: processId },
+    include: {
+      company: { select: { id: true, name: true } },
+      opportunity: { select: { id: true, title: true } },
+      versions: {
+        where: { formResponseId: { not: null } },
+        select: { formResponseId: true },
+        take: 5,
+      },
+    },
+  });
+  if (!anchor) throw new ProcessGraphError("Process not found", "not_found");
+
+  const formResponseIds = [
+    ...new Set(
+      anchor.versions
+        .map((v) => v.formResponseId)
+        .filter((id): id is string => Boolean(id)),
+    ),
+  ];
+
+  const where =
+    anchor.opportunityId != null
+      ? {
+          companyId: anchor.companyId,
+          OR: [{ opportunityId: anchor.opportunityId }, { id: processId }],
+        }
+      : { companyId: anchor.companyId };
+
+  const rows = await prisma.process.findMany({
+    where,
+    include: {
+      company: { select: { id: true, name: true } },
+      opportunity: { select: { id: true, title: true } },
+      versions: {
+        orderBy: { versionNumber: "desc" },
+        include: {
+          steps: {
+            select: { id: true, discussDuringBlueprint: true },
+          },
+          connections: { select: { id: true } },
+          painPoints: { select: { id: true } },
+          opportunities: { select: { id: true } },
+        },
+      },
+    },
+    orderBy: { name: "asc" },
+  });
+
+  // Cross-company hard exclude (defense in depth)
+  const sameCompany = rows.filter((p) => p.companyId === anchor.companyId);
+
+  const filtered = sameCompany.filter((p) => {
+    if (p.id === processId) return true;
+    if (anchor.opportunityId) {
+      if (p.opportunityId === anchor.opportunityId) return true;
+      if (
+        formResponseIds.length &&
+        p.versions.some(
+          (v) => v.formResponseId && formResponseIds.includes(v.formResponseId),
+        )
+      ) {
+        return true;
+      }
+      return false;
+    }
+    return p.status === "ACTIVE";
+  });
+
+  const processes: RelatedProcessCard[] = [];
+  for (const p of filtered) {
+    const preferred =
+      p.versions.find((v) => v.id === p.currentApprovedAsIsVersionId) ??
+      p.versions.find(
+        (v) => v.status === "SUBMITTED" && v.classification === "AS_IS",
+      ) ??
+      p.versions.find((v) => v.status === "SUBMITTED") ??
+      p.versions.find(
+        (v) =>
+          v.id === p.currentDraftVersionId && v.classification === "AS_IS",
+      ) ??
+      p.versions.find((v) => v.classification === "AS_IS") ??
+      p.versions.find((v) => v.id === p.currentDraftVersionId) ??
+      p.versions[0] ??
+      null;
+
+    let contextAssociation: RelatedProcessCard["contextAssociation"] =
+      "same_company";
+    let contextAssociationLabel = "Same company (no process-to-process link recorded)";
+    if (
+      anchor.opportunityId &&
+      p.opportunityId &&
+      p.opportunityId === anchor.opportunityId
+    ) {
+      contextAssociation = "same_opportunity";
+      contextAssociationLabel = "Same opportunity (inferred shared context)";
+    } else if (
+      formResponseIds.length &&
+      preferred?.formResponseId &&
+      formResponseIds.includes(preferred.formResponseId)
+    ) {
+      contextAssociation = "same_questionnaire";
+      contextAssociationLabel = "Same questionnaire response (inferred shared context)";
+    }
+
+    let validationOk: boolean | null = null;
+    if (preferred) {
+      try {
+        const v = await validateGraphIntegrity(preferred.id);
+        validationOk = v.ok;
+      } catch {
+        validationOk = null;
+      }
+    }
+
+    processes.push({
+      id: p.id,
+      name: p.name,
+      purpose: preferred?.purpose ?? p.purpose,
+      processOwner: p.processOwner,
+      status: p.status,
+      opportunityId: p.opportunityId,
+      opportunityTitle: p.opportunity?.title ?? null,
+      companyId: p.companyId,
+      companyName: p.company.name,
+      versionId: preferred?.id ?? null,
+      versionStatus: preferred?.status ?? null,
+      classification: preferred?.classification ?? null,
+      startTrigger: preferred?.startTrigger ?? null,
+      endEvent: preferred?.endEvent ?? null,
+      outcome: preferred?.outcome ?? p.customerOutcome,
+      stepCount: preferred?.steps.length ?? 0,
+      painPointCount: preferred?.painPoints.length ?? 0,
+      opportunityCount: preferred?.opportunities.length ?? 0,
+      blueprintItemCount:
+        preferred?.steps.filter((s) => s.discussDuringBlueprint).length ?? 0,
+      validationOk,
+      contextAssociation,
+      contextAssociationLabel,
+    });
+  }
+
+  return {
+    anchor: {
+      id: anchor.id,
+      companyId: anchor.companyId,
+      opportunityId: anchor.opportunityId,
+    },
+    processes,
+  };
+}
+
 export async function saveStepPositions(
   versionId: string,
   positions: Array<{ stepId: string; canvasX: number; canvasY: number }>,

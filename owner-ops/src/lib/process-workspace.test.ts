@@ -34,6 +34,7 @@ import {
   createPainPoint,
   createSwimlane,
   isOwnerEditableStatus,
+  listRelatedProcessesForWorkspace,
   reorderSwimlanes,
   saveStepPositions,
   saveViewport,
@@ -402,5 +403,107 @@ describe("owner visual process workspace", () => {
     const result = await workspaceValidation(version.id);
     expect(result.issues.some((i) => i.severity === "error")).toBe(true);
     expect(result.advisory.some((i) => i.code === "blueprint_item")).toBe(true);
+  });
+
+  it("lists related processes for landscape with company isolation", async () => {
+    const company = await prisma.company.create({
+      data: { name: `Landscape Co ${Date.now()}` },
+    });
+    const other = await prisma.company.create({
+      data: { name: `Other Co ${Date.now()}` },
+    });
+    const contact = await prisma.contact.create({
+      data: {
+        firstName: "Pat",
+        lastName: "Owner",
+        email: `pat-${Date.now()}@example.com`,
+      },
+    });
+    await prisma.companyContact.create({
+      data: { companyId: company.id, contactId: contact.id },
+    });
+    const pipeline = await prisma.pipeline.findFirstOrThrow();
+    const stage = await prisma.pipelineStage.findFirstOrThrow({
+      where: { pipelineId: pipeline.id },
+    });
+    const opp = await prisma.opportunity.create({
+      data: {
+        companyId: company.id,
+        contactId: contact.id,
+        pipelineId: pipeline.id,
+        stageId: stage.id,
+        title: "Landscape opp",
+      },
+    });
+    const otherOpp = await prisma.opportunity.create({
+      data: {
+        companyId: company.id,
+        contactId: contact.id,
+        pipelineId: pipeline.id,
+        stageId: stage.id,
+        title: "Other opp",
+      },
+    });
+
+    const a = await createProcess({
+      companyId: company.id,
+      opportunityId: opp.id,
+      name: "Process A",
+    });
+    const b = await createProcess({
+      companyId: company.id,
+      opportunityId: opp.id,
+      name: "Process B",
+    });
+    await createProcess({
+      companyId: company.id,
+      opportunityId: otherOpp.id,
+      name: "Wrong opportunity",
+    });
+    await createProcess({
+      companyId: other.id,
+      name: "Wrong company",
+    });
+
+    const landscape = await listRelatedProcessesForWorkspace(a.process.id);
+    const names = landscape.processes.map((p) => p.name).sort();
+    expect(names).toEqual(["Process A", "Process B"]);
+    expect(landscape.processes.every((p) => p.companyId === company.id)).toBe(
+      true,
+    );
+    expect(b.process.id).toBeTruthy();
+  });
+
+  it("auto-arrange positions do not alter connection records", async () => {
+    const { version } = await seedGraph();
+    const before = await prisma.processConnection.findMany({
+      where: { processVersionId: version.id },
+    });
+    const steps = await prisma.processStep.findMany({
+      where: { processVersionId: version.id },
+    });
+    const { computeAutoArrangePositions } = await import("./process-map-layout");
+    const positions = computeAutoArrangePositions(steps, before);
+    await saveStepPositions(
+      version.id,
+      positions.map((p) => ({
+        stepId: p.stepId,
+        canvasX: p.canvasX,
+        canvasY: p.canvasY,
+      })),
+    );
+    const after = await prisma.processConnection.findMany({
+      where: { processVersionId: version.id },
+    });
+    expect(after.map((c) => c.id).sort()).toEqual(
+      before.map((c) => c.id).sort(),
+    );
+    expect(after.map((c) => c.sourceStepId + c.targetStepId).sort()).toEqual(
+      before.map((c) => c.sourceStepId + c.targetStepId).sort(),
+    );
+    const moved = await prisma.processStep.findMany({
+      where: { processVersionId: version.id },
+    });
+    expect(moved.every((s) => s.canvasX != null)).toBe(true);
   });
 });

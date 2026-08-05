@@ -29,6 +29,7 @@ import {
   createPainPoint,
   createSwimlane,
   deriveFutureStateDraft,
+  listRelatedProcessesForWorkspace,
   loadWorkspace,
   refineAsOwnerDraft,
   reorderSwimlanes,
@@ -53,6 +54,16 @@ export async function loadWorkspaceAction(processId: string, versionId?: string)
   await owner();
   try {
     const data = await loadWorkspace(processId, versionId);
+    return { ok: true as const, data };
+  } catch (err) {
+    return { ok: false as const, error: errMsg(err) };
+  }
+}
+
+export async function listRelatedProcessesAction(processId: string) {
+  await owner();
+  try {
+    const data = await listRelatedProcessesForWorkspace(processId);
     return { ok: true as const, data };
   } catch (err) {
     return { ok: false as const, error: errMsg(err) };
