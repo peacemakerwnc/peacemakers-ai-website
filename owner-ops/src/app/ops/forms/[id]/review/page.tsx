@@ -1,0 +1,144 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { requireOwnerSession } from "@/lib/session";
+import { prisma } from "@/lib/db";
+import type { BlueprintPayload } from "@/lib/form-schema";
+
+export const dynamic = "force-dynamic";
+
+export default async function ReviewPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ version?: string }>;
+}) {
+  await requireOwnerSession();
+  const { id } = await params;
+  const { version } = await searchParams;
+
+  const invitation = await prisma.formInvitation.findUnique({
+    where: { id },
+    include: {
+      contact: true,
+      opportunity: { include: { company: true } },
+      responses: { orderBy: { version: "desc" } },
+    },
+  });
+  if (!invitation) notFound();
+
+  const response = version
+    ? invitation.responses.find((r) => String(r.version) === version)
+    : invitation.responses.find((r) => r.status === "SUBMITTED") ??
+      invitation.responses[0];
+  if (!response) notFound();
+
+  let payload: BlueprintPayload;
+  try {
+    payload = JSON.parse(response.payloadJson) as BlueprintPayload;
+  } catch {
+    payload = {} as BlueprintPayload;
+  }
+
+  return (
+    <div className="mx-auto max-w-3xl px-6 py-10 print:max-w-none print:px-0">
+      <div className="mb-6 flex items-center justify-between print:hidden">
+        <Link href={`/ops/forms/${id}`} className="text-sm text-[var(--accent)]">
+          ← Invitation
+        </Link>
+        <p className="text-sm text-[var(--muted)]">Use your browser Print for a clean copy</p>
+      </div>
+
+      <header className="border-b border-[var(--line)] pb-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+          Peacemakers AI
+        </p>
+        <h1 className="mt-2 text-3xl">Blueprint response summary</h1>
+        <p className="mt-2 text-sm text-[var(--muted)]">
+          {invitation.contact.firstName} {invitation.contact.lastName} ·{" "}
+          {invitation.opportunity.company.name} · v{response.version} ·{" "}
+          {response.status}
+        </p>
+      </header>
+
+      <ReviewBlock title="Contact and company" data={payload.section1} />
+      <ReviewBlock title="Business overview" data={payload.section2} />
+      <section className="mt-8">
+        <h2 className="text-xl">Tools</h2>
+        {(payload.section3?.tools ?? []).length === 0 ? (
+          <p className="mt-2 text-sm text-[var(--muted)]">None</p>
+        ) : (
+          (payload.section3.tools ?? []).map((t) => (
+            <div key={t.id} className="mt-3 border-b border-[var(--line)] pb-3 text-sm">
+              <p className="font-medium">{t.name}</p>
+              <p className="text-[var(--muted)]">{t.category}</p>
+              <p>{t.usedFor}</p>
+            </div>
+          ))
+        )}
+      </section>
+      <section className="mt-8">
+        <h2 className="text-xl">Process inventory</h2>
+        {(payload.section4?.processes ?? []).map((p) => (
+          <div key={p.id} className="mt-3 border-b border-[var(--line)] pb-3 text-sm">
+            <p className="font-medium">{p.name}</p>
+            <p className="text-[var(--muted)]">{p.category}</p>
+          </div>
+        ))}
+      </section>
+      <section className="mt-8">
+        <h2 className="text-xl">Detailed process maps</h2>
+        {(payload.section5?.detailedProcesses ?? []).map((p) => (
+          <article key={p.id} className="mt-4 space-y-2 border border-[var(--line)] p-4 text-sm">
+            <h3 className="text-lg">{p.name}</h3>
+            <p>
+              <strong>Objective:</strong> {p.businessObjective}
+            </p>
+            <p>
+              <strong>Trigger:</strong> {p.trigger}
+            </p>
+            <ol className="list-decimal space-y-2 pl-5">
+              {p.steps.map((s) => (
+                <li key={s.id}>
+                  <strong>{s.exactAction}</strong> — {s.responsibleRole} via{" "}
+                  {s.toolUsed}
+                </li>
+              ))}
+            </ol>
+            <p>
+              <strong>If perfect:</strong> {p.ifPerfect}
+            </p>
+          </article>
+        ))}
+      </section>
+      <ReviewBlock title="Priorities" data={payload.section7} />
+      <ReviewBlock title="Confirmations" data={payload.section8} />
+    </div>
+  );
+}
+
+function ReviewBlock({
+  title,
+  data,
+}: {
+  title: string;
+  data: Record<string, unknown> | undefined;
+}) {
+  if (!data) return null;
+  const entries = Object.entries(data).filter(
+    ([, v]) => v !== undefined && v !== "" && v !== null,
+  );
+  return (
+    <section className="mt-8">
+      <h2 className="text-xl">{title}</h2>
+      <dl className="mt-3 space-y-2 text-sm">
+        {entries.map(([k, v]) => (
+          <div key={k}>
+            <dt className="text-[var(--muted)]">{k}</dt>
+            <dd className="whitespace-pre-wrap">{String(v)}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}

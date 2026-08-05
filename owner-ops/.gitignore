@@ -44,6 +44,8 @@ yarn-error.log*
 # local sqlite + private uploads (never public)
 /prisma/*.db
 /prisma/*.db-journal
+/prisma/vitest.db
+/prisma/test-invitations.db
 /storage/**
 !/storage/.gitkeep
 /storage-test
