@@ -109,6 +109,13 @@ async function RelationalProcessReview({
                 >
                   Open graph diagnostic
                 </Link>
+                {" · "}
+                <Link
+                  href={`/ops/processes/${v.processId}/workspace?version=${v.id}`}
+                  className="text-[var(--accent)] underline"
+                >
+                  Open visual workspace
+                </Link>
               </p>
             </article>
           );

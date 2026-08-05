@@ -231,6 +231,9 @@ export type StepInput = {
   confidenceStatus?: string | null;
   canvasX?: number | null;
   canvasY?: number | null;
+  swimlaneId?: string | null;
+  sourceStepId?: string | null;
+  discussDuringBlueprint?: boolean;
 };
 
 export async function addStep(versionId: string, input: StepInput) {
@@ -276,6 +279,9 @@ export async function addStep(versionId: string, input: StepInput) {
       confidenceStatus: input.confidenceStatus ?? null,
       canvasX: input.canvasX ?? null,
       canvasY: input.canvasY ?? null,
+      swimlaneId: input.swimlaneId ?? null,
+      sourceStepId: input.sourceStepId ?? null,
+      discussDuringBlueprint: input.discussDuringBlueprint ?? false,
     },
   });
 }
@@ -327,6 +333,18 @@ export async function updateDraftStep(
         : {}),
       ...(patch.canvasX !== undefined ? { canvasX: patch.canvasX } : {}),
       ...(patch.canvasY !== undefined ? { canvasY: patch.canvasY } : {}),
+      ...(patch.swimlaneId !== undefined
+        ? { swimlaneId: patch.swimlaneId }
+        : {}),
+      ...(patch.discussDuringBlueprint !== undefined
+        ? { discussDuringBlueprint: patch.discussDuringBlueprint }
+        : {}),
+      ...(patch.expectedWorkTime !== undefined
+        ? { expectedWorkTime: patch.expectedWorkTime }
+        : {}),
+      ...(patch.typicalWaitingTime !== undefined
+        ? { typicalWaitingTime: patch.typicalWaitingTime }
+        : {}),
       ...(patch.problems !== undefined ? { problems: patch.problems } : {}),
       ...(patch.workarounds !== undefined
         ? { workarounds: patch.workarounds }
@@ -336,6 +354,12 @@ export async function updateDraftStep(
         : {}),
       ...(patch.clientNotes !== undefined
         ? { clientNotes: patch.clientNotes }
+        : {}),
+      ...(patch.unresolvedQuestions !== undefined
+        ? { unresolvedQuestions: patch.unresolvedQuestions }
+        : {}),
+      ...(patch.automationSuitability !== undefined
+        ? { automationSuitability: patch.automationSuitability }
         : {}),
     },
   });
@@ -718,9 +742,30 @@ async function copyVersionContents(
     participants: Awaited<
       ReturnType<typeof prisma.processParticipant.findMany>
     >;
+    swimlanes?: Awaited<ReturnType<typeof prisma.processSwimlane.findMany>>;
   },
   targetVersionId: string,
 ) {
+  const laneMap = new Map<string, string>();
+  const sourceLanes =
+    source.swimlanes ??
+    (await tx.processSwimlane.findMany({
+      where: { processVersionId: source.id },
+      orderBy: { displayOrder: "asc" },
+    }));
+  for (const lane of sourceLanes) {
+    const created = await tx.processSwimlane.create({
+      data: {
+        processVersionId: targetVersionId,
+        name: lane.name,
+        kind: lane.kind,
+        displayOrder: lane.displayOrder,
+        colorHint: lane.colorHint,
+      },
+    });
+    laneMap.set(lane.id, created.id);
+  }
+
   const stepMap = new Map<string, string>();
   for (const step of source.steps) {
     const created = await tx.processStep.create({
@@ -753,10 +798,15 @@ async function copyVersionContents(
         internalNotes: step.internalNotes,
         clientNotes: step.clientNotes,
         unresolvedQuestions: step.unresolvedQuestions,
+        discussDuringBlueprint: step.discussDuringBlueprint,
         completenessStatus: step.completenessStatus,
         confidenceStatus: step.confidenceStatus,
         canvasX: step.canvasX,
         canvasY: step.canvasY,
+        swimlaneId: step.swimlaneId
+          ? (laneMap.get(step.swimlaneId) ?? null)
+          : null,
+        sourceStepId: step.id,
       },
     });
     stepMap.set(step.id, created.id);
@@ -802,7 +852,88 @@ async function copyVersionContents(
     });
   }
 
+  if (source.viewportJson) {
+    await tx.processVersion.update({
+      where: { id: targetVersionId },
+      data: { viewportJson: source.viewportJson },
+    });
+  }
+
   return stepMap;
+}
+
+/**
+ * Create an OWNER_REFINED draft from an immutable submitted/approved As-Is version.
+ * Source version remains unchanged (does not supersede unless it was DRAFT).
+ */
+export async function refineAsOwnerDraft(
+  versionId: string,
+  opts?: { actorUserId?: string; actorLabel?: string },
+) {
+  const source = await prisma.processVersion.findUnique({
+    where: { id: versionId },
+    include: {
+      process: true,
+      steps: { orderBy: { displayOrder: "asc" } },
+      connections: true,
+      participants: true,
+      swimlanes: { orderBy: { displayOrder: "asc" } },
+    },
+  });
+  if (!source) throw new ProcessGraphError("Version not found", "not_found");
+  if (
+    source.status !== ProcessVersionStatus.SUBMITTED &&
+    source.status !== ProcessVersionStatus.APPROVED &&
+    source.status !== ProcessVersionStatus.OWNER_REFINED
+  ) {
+    throw new ProcessGraphError(
+      "Only submitted, approved, or refined versions can be refined",
+      "conflict",
+    );
+  }
+
+  const draft = await prisma.$transaction(async (tx) => {
+    const max = await tx.processVersion.aggregate({
+      where: { processId: source.processId },
+      _max: { versionNumber: true },
+    });
+    const nextNum = (max._max.versionNumber ?? 0) + 1;
+    const created = await tx.processVersion.create({
+      data: {
+        processId: source.processId,
+        versionNumber: nextNum,
+        versionLabel: `v${nextNum} owner refined`,
+        classification: source.classification,
+        status: ProcessVersionStatus.OWNER_REFINED,
+        parentVersionId: source.id,
+        authorType: ProcessAuthorType.OWNER,
+        authorUserId: opts?.actorUserId ?? null,
+        authorLabel: opts?.actorLabel ?? "owner",
+        purpose: source.purpose,
+        outcome: source.outcome,
+        startTrigger: source.startTrigger,
+        endEvent: source.endEvent,
+        frequency: source.frequency,
+        formResponseId: null,
+      },
+    });
+    await copyVersionContents(tx, source, created.id);
+    await tx.process.update({
+      where: { id: source.processId },
+      data: { currentDraftVersionId: created.id },
+    });
+    return created;
+  });
+
+  await recordAudit({
+    action: "process_version.owner_refined",
+    actorUserId: opts?.actorUserId,
+    actorLabel: opts?.actorLabel,
+    entityType: "ProcessVersion",
+    entityId: draft.id,
+    details: { sourceVersionId: versionId, processId: source.processId },
+  });
+  return draft;
 }
 
 export async function submitVersion(
@@ -859,6 +990,7 @@ export async function reopenAsNewDraft(
       steps: { orderBy: { displayOrder: "asc" } },
       connections: true,
       participants: true,
+      swimlanes: { orderBy: { displayOrder: "asc" } },
     },
   });
   if (!source) throw new ProcessGraphError("Version not found", "not_found");
@@ -927,6 +1059,7 @@ export async function deriveFutureStateDraft(
       steps: { orderBy: { displayOrder: "asc" } },
       connections: true,
       participants: true,
+      swimlanes: { orderBy: { displayOrder: "asc" } },
     },
   });
   if (!source) throw new ProcessGraphError("Version not found", "not_found");
@@ -1083,6 +1216,10 @@ export async function getProcessGraph(
       connections: { orderBy: [{ priority: "asc" }, { createdAt: "asc" }] },
       participants: true,
       approvals: { orderBy: { createdAt: "desc" } },
+      swimlanes: { orderBy: { displayOrder: "asc" } },
+      painPoints: { orderBy: { createdAt: "asc" } },
+      metrics: { orderBy: { createdAt: "asc" } },
+      opportunities: { orderBy: { createdAt: "asc" } },
       parent: { select: { id: true, versionNumber: true, status: true } },
       derivedFrom: {
         select: { id: true, versionNumber: true, classification: true },

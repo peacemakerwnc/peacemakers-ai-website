@@ -177,6 +177,88 @@ enum ProcessApprovalStatus {
   RETURNED
 }
 
+// Phase 1.1 Increment 3 — owner visual workspace analytics
+enum ProcessSwimlaneKind {
+  ROLE
+  DEPARTMENT
+  PARTICIPANT
+  SYSTEM
+  EXTERNAL
+  UNASSIGNED
+}
+
+enum PainPointCategory {
+  DELAY_WAITING
+  DUPLICATE_ENTRY
+  MANUAL_TRANSFER
+  ERROR_REWORK
+  APPROVAL_BOTTLENECK
+  HANDOFF_FAILURE
+  SYSTEM_LIMITATION
+  MISSING_INFORMATION
+  COMMUNICATION_FAILURE
+  COMPLIANCE_RISK
+  CUSTOMER_EXPERIENCE
+  OTHER
+}
+
+enum PainPointSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum MetricType {
+  VOLUME
+  WORK_TIME
+  WAIT_TIME
+  TOTAL_CYCLE_TIME
+  ERROR_RATE
+  REWORK_RATE
+  APPROVAL_TIME
+  COST
+  CUSTOMER_RESPONSE_TIME
+  COMPLETION_RATE
+  OTHER
+}
+
+enum MetricDataSource {
+  CLIENT_PROVIDED
+  OWNER_ESTIMATE
+  VERIFIED_MEASUREMENT
+}
+
+enum ImprovementCategory {
+  ELIMINATE
+  SIMPLIFY
+  STANDARDIZE
+  AUTOMATE
+  INTEGRATE
+  IMPROVE_HANDOFF
+  IMPROVE_CONTROLS
+  IMPROVE_REPORTING
+  IMPROVE_CUSTOMER_COMMUNICATION
+  REDESIGN_RESPONSIBILITY
+  OTHER
+}
+
+enum ImprovementStatus {
+  CAPTURED
+  UNDER_REVIEW
+  CANDIDATE
+  DEFERRED
+  REJECTED
+  IMPLEMENTED
+}
+
+enum ImprovementPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
 enum FormProcessMigrationStatus {
   UNREVIEWED
   PRESERVED_LINEAR
@@ -569,6 +651,8 @@ model ProcessVersion {
   confidenceStatus      String?
   /// Questionnaire response version that owns this process version (Increment 2).
   formResponseId        String?
+  /// Presentation-only viewport JSON for the owner workspace (Increment 3).
+  viewportJson          String?
   createdAt             DateTime                     @default(now())
   updatedAt             DateTime                     @updatedAt
   submittedAt           DateTime?
@@ -585,6 +669,10 @@ model ProcessVersion {
   connections  ProcessConnection[]
   participants ProcessParticipant[]
   approvals    ProcessApproval[]
+  swimlanes    ProcessSwimlane[]
+  painPoints   ProcessPainPoint[]
+  metrics      ProcessMetric[]
+  opportunities ImprovementOpportunity[]
 
   @@unique([processId, versionNumber])
   @@index([processId, status])
@@ -631,16 +719,28 @@ model ProcessStep {
   /// Presentation only — never workflow truth.
   canvasX              Float?
   canvasY              Float?
+  /// Swimlane assignment — presentation/responsibility only (Increment 3).
+  swimlaneId           String?
+  /// Step copied from this source step id when refining/deriving (Increment 3).
+  sourceStepId         String?
   createdAt            DateTime             @default(now())
   updatedAt            DateTime             @updatedAt
 
   processVersion ProcessVersion       @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  swimlane       ProcessSwimlane?     @relation(fields: [swimlaneId], references: [id], onDelete: SetNull)
+  sourceStep     ProcessStep?         @relation("StepLineage", fields: [sourceStepId], references: [id], onDelete: SetNull)
+  derivedSteps   ProcessStep[]        @relation("StepLineage")
   outgoing       ProcessConnection[]  @relation("ConnectionSource")
   incoming       ProcessConnection[]  @relation("ConnectionTarget")
   participants   ProcessParticipant[]
+  painPoints     ProcessPainPoint[]
+  metrics        ProcessMetric[]
+  opportunities  ImprovementOpportunity[]
 
   @@index([processVersionId, displayOrder])
   @@index([stepType])
+  @@index([swimlaneId])
+  @@index([sourceStepId])
 }
 
 model ProcessConnection {
@@ -707,6 +807,119 @@ model ProcessApproval {
 
   @@index([processVersionId])
   @@index([status])
+}
+
+/// Owner-managed swimlane — presentation / responsibility grouping only.
+model ProcessSwimlane {
+  id               String              @id @default(cuid())
+  processVersionId String
+  name             String
+  kind             ProcessSwimlaneKind @default(ROLE)
+  displayOrder     Int                 @default(0)
+  colorHint        String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  processVersion ProcessVersion @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  steps          ProcessStep[]
+
+  @@index([processVersionId, displayOrder])
+}
+
+model ProcessPainPoint {
+  id                     String            @id @default(cuid())
+  processVersionId       String
+  processStepId          String?
+  processConnectionId    String?
+  title                  String
+  description            String?
+  category               PainPointCategory @default(OTHER)
+  severity               PainPointSeverity @default(MEDIUM)
+  frequency              String?
+  estimatedTimeImpact    String?
+  estimatedFinancialImpact String?
+  financialImpactSource  String?
+  customerImpact         String?
+  complianceOrOpsRisk    String?
+  evidenceSource         String?
+  currentWorkaround      String?
+  confidence             String?
+  ownerNotes             String?
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+
+  processVersion ProcessVersion            @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  processStep    ProcessStep?              @relation(fields: [processStepId], references: [id], onDelete: SetNull)
+  opportunities  ImprovementOpportunity[]
+
+  @@index([processVersionId])
+  @@index([processStepId])
+  @@index([category])
+  @@index([severity])
+}
+
+model ProcessMetric {
+  id               String           @id @default(cuid())
+  processVersionId String
+  processStepId    String?
+  name             String
+  description      String?
+  metricType       MetricType       @default(OTHER)
+  currentValue     String?
+  unit             String?
+  targetValue      String?
+  measurementPeriod String?
+  dataSource       MetricDataSource @default(OWNER_ESTIMATE)
+  confidence       String?
+  notes            String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  processVersion ProcessVersion           @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  processStep    ProcessStep?             @relation(fields: [processStepId], references: [id], onDelete: SetNull)
+  opportunities  ImprovementOpportunity[]
+
+  @@index([processVersionId])
+  @@index([processStepId])
+  @@index([metricType])
+}
+
+model ImprovementOpportunity {
+  id                 String               @id @default(cuid())
+  processVersionId   String
+  processStepId      String?
+  processConnectionId String?
+  painPointId        String?
+  metricId           String?
+  title              String
+  problemAddressed   String?
+  proposedChange     String?
+  category           ImprovementCategory  @default(OTHER)
+  expectedBenefit    String?
+  estimatedImpact    String?
+  estimatedEffort    String?
+  priority           ImprovementPriority  @default(MEDIUM)
+  confidence         String?
+  dependencies       String?
+  risks              String?
+  assumptions        String?
+  validationNeeded   String?
+  status             ImprovementStatus    @default(CAPTURED)
+  ownerNotes         String?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  processVersion ProcessVersion    @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  processStep    ProcessStep?      @relation(fields: [processStepId], references: [id], onDelete: SetNull)
+  painPoint      ProcessPainPoint? @relation(fields: [painPointId], references: [id], onDelete: SetNull)
+  metric         ProcessMetric?    @relation(fields: [metricId], references: [id], onDelete: SetNull)
+
+  @@index([processVersionId])
+  @@index([processStepId])
+  @@index([painPointId])
+  @@index([metricId])
+  @@index([status])
+  @@index([priority])
 }
 
 model Tool {

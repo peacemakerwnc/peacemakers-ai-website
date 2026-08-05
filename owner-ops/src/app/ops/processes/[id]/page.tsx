@@ -57,6 +57,14 @@ export default async function ProcessDiagnosticPage({
       <h1 className="mt-2 text-2xl font-semibold text-[var(--navy)]">
         {process.name}
       </h1>
+      <p className="mt-2">
+        <Link
+          href={`/ops/processes/${id}/workspace${sp.version ? `?version=${sp.version}` : ""}`}
+          className="rounded bg-[var(--accent)] px-3 py-1.5 text-sm text-white"
+        >
+          Open visual workspace
+        </Link>
+      </p>
       <p className="mt-1 text-sm text-[var(--muted)]">
         Company: {process.company.name}
         {process.opportunity ? ` · ${process.opportunity.title}` : ""} · Status:{" "}

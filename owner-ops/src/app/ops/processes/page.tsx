@@ -77,6 +77,13 @@ export default async function ProcessesIndexPage() {
               >
                 {p.name}
               </Link>
+              {" · "}
+              <Link
+                href={`/ops/processes/${p.id}/workspace`}
+                className="text-sm underline"
+              >
+                Workspace
+              </Link>
               <p className="text-sm text-[var(--muted)]">
                 {p.company.name}
                 {p.opportunity ? ` · ${p.opportunity.title}` : ""}
