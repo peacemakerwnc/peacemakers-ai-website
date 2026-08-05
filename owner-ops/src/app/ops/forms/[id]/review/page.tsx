@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { requireOwnerSession } from "@/lib/session";
 import { prisma } from "@/lib/db";
 import type { BlueprintPayload } from "@/lib/form-schema";
+import { markReviewedAction } from "../../../workflow-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -42,12 +43,44 @@ export default async function ReviewPage({
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-10 print:max-w-none print:px-0">
-      <div className="mb-6 flex items-center justify-between print:hidden">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 print:hidden">
         <Link href={`/ops/forms/${id}`} className="text-sm text-[var(--accent)]">
           ← Invitation
         </Link>
-        <p className="text-sm text-[var(--muted)]">Use your browser Print for a clean copy</p>
+        <p className="text-sm text-[var(--muted)]">
+          Use your browser Print for a clean copy
+        </p>
       </div>
+
+      {response.status === "SUBMITTED" ? (
+        <form
+          action={markReviewedAction}
+          className="mb-6 space-y-2 rounded-lg border border-[var(--line)] bg-[var(--surface)] p-4 print:hidden"
+        >
+          <input type="hidden" name="responseId" value={response.id} />
+          <input type="hidden" name="invitationId" value={invitation.id} />
+          <label className="block text-sm">
+            <span className="font-medium">Internal review notes</span>
+            <textarea
+              name="internalNotes"
+              defaultValue={response.internalNotes ?? ""}
+              rows={3}
+              className="mt-1 w-full rounded-md border border-[var(--line)] px-3 py-2"
+            />
+          </label>
+          <button
+            type="submit"
+            className="rounded-md bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white"
+          >
+            {response.reviewedAt ? "Update review" : "Mark reviewed"}
+          </button>
+          {response.reviewedAt ? (
+            <p className="text-xs text-[var(--muted)]">
+              Reviewed {response.reviewedAt.toLocaleString()}
+            </p>
+          ) : null}
+        </form>
+      ) : null}
 
       <header className="border-b border-[var(--line)] pb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
@@ -69,7 +102,10 @@ export default async function ReviewPage({
           <p className="mt-2 text-sm text-[var(--muted)]">None</p>
         ) : (
           (payload.section3.tools ?? []).map((t) => (
-            <div key={t.id} className="mt-3 border-b border-[var(--line)] pb-3 text-sm">
+            <div
+              key={t.id}
+              className="mt-3 border-b border-[var(--line)] pb-3 text-sm"
+            >
               <p className="font-medium">{t.name}</p>
               <p className="text-[var(--muted)]">{t.category}</p>
               <p>{t.usedFor}</p>
@@ -80,7 +116,10 @@ export default async function ReviewPage({
       <section className="mt-8">
         <h2 className="text-xl">Process inventory</h2>
         {(payload.section4?.processes ?? []).map((p) => (
-          <div key={p.id} className="mt-3 border-b border-[var(--line)] pb-3 text-sm">
+          <div
+            key={p.id}
+            className="mt-3 border-b border-[var(--line)] pb-3 text-sm"
+          >
             <p className="font-medium">{p.name}</p>
             <p className="text-[var(--muted)]">{p.category}</p>
           </div>
@@ -89,7 +128,10 @@ export default async function ReviewPage({
       <section className="mt-8">
         <h2 className="text-xl">Detailed process maps</h2>
         {(payload.section5?.detailedProcesses ?? []).map((p) => (
-          <article key={p.id} className="mt-4 space-y-2 border border-[var(--line)] p-4 text-sm">
+          <article
+            key={p.id}
+            className="mt-4 space-y-2 border border-[var(--line)] p-4 text-sm"
+          >
             <h3 className="text-lg">{p.name}</h3>
             <p>
               <strong>Objective:</strong> {p.businessObjective}

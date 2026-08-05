@@ -21,7 +21,20 @@ npm run db:seed
 npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001). Owner UI: `/ops` (login at `/ops/login`).
+Open [http://localhost:3001](http://localhost:3001).
+
+| Surface | URL |
+|---------|-----|
+| Owner login | `/ops/login` |
+| Pipeline | `/ops` |
+| Form management | `/ops/forms` |
+| Invitation detail | `/ops/forms/[id]` |
+| Submission review | `/ops/forms/[id]/review` |
+| Opportunity record | `/ops/opportunities/[id]` |
+| Contact/company | `/ops/contacts/[id]` |
+| Client form | `/f/[token]` |
+
+Default seed owner email comes from `.env` (`OWNER_EMAIL`). Change `OWNER_PASSWORD` and `SESSION_SECRET` before use.
 
 ## Scripts
 

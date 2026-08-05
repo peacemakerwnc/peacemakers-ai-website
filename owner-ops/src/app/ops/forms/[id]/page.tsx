@@ -90,12 +90,14 @@ export default async function InvitationDetailPage({
                 {r.submittedAt ? ` · ${r.submittedAt.toLocaleString()}` : ""}
               </span>
               {r.status === "SUBMITTED" || r.status === "SUPERSEDED" ? (
-                <Link
-                  href={`/ops/forms/${invitation.id}/review?version=${r.version}`}
-                  className="text-[var(--accent)]"
-                >
-                  Review
-                </Link>
+                <span className="flex gap-3">
+                  <Link
+                    href={`/ops/forms/${invitation.id}/review?version=${r.version}`}
+                    className="text-[var(--accent)]"
+                  >
+                    Review
+                  </Link>
+                </span>
               ) : (
                 <span className="text-[var(--muted)]">Draft</span>
               )}
