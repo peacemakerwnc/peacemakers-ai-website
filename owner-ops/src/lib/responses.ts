@@ -18,6 +18,12 @@ import { calculateCompletionPct } from "./completion";
 import { recordAudit } from "./audit";
 import { getEnv } from "./env";
 import { getEmailAdapter } from "./mail";
+import {
+  freezeProcessVersionsForResponse,
+  forkProcessVersionsForReopen,
+  countProcessesForResponse,
+} from "./client-process-builder";
+import { ProcessGraphError } from "./process-graph";
 
 export class ResponseLockedError extends Error {
   constructor(message = "Submitted responses cannot be edited") {
@@ -170,7 +176,6 @@ export async function saveDraftByToken(
     throw new InvitationError("Invalid form data", "invalid");
   }
 
-  const completionPct = calculateCompletionPct(parsed.data);
   const draft = getActiveDraft(invitation.responses);
   if (!draft) {
     throw new InvitationError("No editable draft", "invalid");
@@ -178,6 +183,12 @@ export async function saveDraftByToken(
   if (draft.status !== FormResponseStatus.DRAFT) {
     throw new ResponseLockedError();
   }
+
+  const processCount = await countProcessesForResponse(draft.id);
+  const completionPct = calculateCompletionPct(parsed.data, {
+    relationalProcessCount: processCount,
+    relationalRequiredOk: processCount > 0,
+  });
 
   const now = new Date();
   const updated = await prisma.$transaction(async (tx) => {
@@ -242,6 +253,23 @@ export async function submitByToken(rawToken: string, rawPayload: unknown) {
   const draft = getActiveDraft(invitation.responses);
   if (!draft || draft.status !== FormResponseStatus.DRAFT) {
     throw new ResponseLockedError();
+  }
+
+  const processCount = await countProcessesForResponse(draft.id);
+  if (processCount > 0) {
+    try {
+      await freezeProcessVersionsForResponse(draft.id);
+    } catch (err) {
+      if (err instanceof ProcessGraphError) {
+        throw new InvitationError(err.message, "invalid");
+      }
+      throw err;
+    }
+  } else if (!parsed.data.section5.detailedProcesses.length) {
+    throw new InvitationError(
+      "Add at least one process under Your Processes before submitting",
+      "invalid",
+    );
   }
 
   const completionPct = 100;
@@ -458,6 +486,8 @@ export async function reopenSubmittedResponse(
 
     return created;
   });
+
+  await forkProcessVersionsForReopen(submitted.id, draft.id);
 
   await recordAudit({
     action: "form.reopened",

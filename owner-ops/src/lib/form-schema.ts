@@ -298,13 +298,10 @@ export const submitPayloadSchema = blueprintPayloadSchema.superRefine(
         });
       }
     }
-    if (!data.section5.detailedProcesses.length) {
-      ctx.addIssue({
-        code: "custom",
-        message: "At least one detailed process map is required",
-        path: ["section5", "detailedProcesses"],
-      });
-    } else if (
+    // Section 5 JSON detailed maps are legacy/optional. Increment 2 requires
+    // at least one relational process under Your Processes (enforced in submitByToken).
+    if (
+      data.section5.detailedProcesses.length > 0 &&
       data.section5.detailedProcesses.some((p) => !p.name || !p.name.trim())
     ) {
       ctx.addIssue({

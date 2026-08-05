@@ -4,8 +4,119 @@ import { requireOwnerSession } from "@/lib/session";
 import { prisma } from "@/lib/db";
 import type { BlueprintPayload } from "@/lib/form-schema";
 import { markReviewedAction } from "../../../workflow-actions";
+import {
+  evaluateClientProcessCompleteness,
+  listClientProcessesForResponse,
+} from "@/lib/client-process-builder";
 
 export const dynamic = "force-dynamic";
+
+async function RelationalProcessReview({
+  formResponseId,
+}: {
+  formResponseId: string;
+}) {
+  const versions = await listClientProcessesForResponse(formResponseId);
+  if (!versions.length) {
+    return (
+      <section className="mt-8">
+        <h2 className="text-xl">Your Processes (relational)</h2>
+        <p className="mt-2 text-sm text-[var(--muted)]">
+          No relational process versions linked to this response.
+        </p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="mt-8 space-y-6">
+      <h2 className="text-xl">Your Processes (relational graph)</h2>
+      {await Promise.all(
+        versions.map(async (v) => {
+          const completeness = await evaluateClientProcessCompleteness(v.id);
+          const stepName = new Map(v.steps.map((s) => [s.id, s.shortName]));
+          return (
+            <article
+              key={v.id}
+              className="space-y-3 rounded border border-[var(--line)] p-4 text-sm"
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="text-lg font-medium">{v.process.name}</h3>
+                <p className="text-xs text-[var(--muted)]">
+                  {v.classification} · {v.status} · v{v.versionNumber}
+                </p>
+              </div>
+              <p>
+                <strong>Purpose:</strong> {v.purpose ?? v.process.purpose ?? "—"}
+              </p>
+              <p>
+                <strong>Trigger:</strong> {v.startTrigger ?? "—"}
+              </p>
+              <p>
+                <strong>Outcome / end:</strong>{" "}
+                {v.outcome ?? v.endEvent ?? "—"}
+              </p>
+              <p>
+                Validation:{" "}
+                {completeness.validation.ok ? "PASS" : "FAIL"} · Completeness{" "}
+                {completeness.scorePct}%
+              </p>
+              <div>
+                <p className="font-medium">Participants</p>
+                <ul className="list-disc pl-5">
+                  {v.participants.map((p) => (
+                    <li key={p.id}>
+                      {p.role || p.personLabel || p.participantType}
+                      {p.department ? ` · ${p.department}` : ""}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="font-medium">Steps</p>
+                <ol className="list-decimal space-y-1 pl-5">
+                  {v.steps.map((s) => (
+                    <li key={s.id}>
+                      {s.shortName}{" "}
+                      <span className="text-[var(--muted)]">({s.stepType})</span>
+                      {s.discussDuringBlueprint
+                        ? " — discuss on Blueprint call"
+                        : ""}
+                      {s.toolOrSystem ? ` · ${s.toolOrSystem}` : ""}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div>
+                <p className="font-medium">Directed connections</p>
+                <ul className="list-disc pl-5">
+                  {v.connections.map((c) => (
+                    <li key={c.id}>
+                      {stepName.get(c.sourceStepId) ?? c.sourceStepId} →{" "}
+                      {stepName.get(c.targetStepId) ?? c.targetStepId}{" "}
+                      <span className="text-[var(--muted)]">
+                        ({c.connectionType}
+                        {c.condition ? `: ${c.condition}` : ""})
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <p>
+                <Link
+                  href={`/ops/processes/${v.processId}?version=${v.id}`}
+                  className="text-[var(--accent)] underline"
+                >
+                  Open graph diagnostic
+                </Link>
+              </p>
+            </article>
+          );
+        }),
+      )}
+    </section>
+  );
+}
 
 export default async function ReviewPage({
   params,
@@ -131,7 +242,7 @@ export default async function ReviewPage({
         ))}
       </section>
       <section className="mt-8">
-        <h2 className="text-xl">Detailed process maps</h2>
+        <h2 className="text-xl">Detailed process maps (legacy JSON)</h2>
         {(payload.section5?.detailedProcesses ?? []).map((p) => (
           <article
             key={p.id}
@@ -158,6 +269,8 @@ export default async function ReviewPage({
           </article>
         ))}
       </section>
+
+      <RelationalProcessReview formResponseId={response.id} />
       <ReviewBlock title="Priorities" data={payload.section7} />
       <ReviewBlock title="Confirmations" data={payload.section8} />
 

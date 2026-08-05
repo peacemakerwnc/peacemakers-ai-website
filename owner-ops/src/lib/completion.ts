@@ -19,8 +19,12 @@ function objectCompletion(
 /**
  * Weighted completion across sections for autosave / progress UI.
  * Not a security control — server still validates on submit.
+ * Section 5 score prefers relational Your Processes when processCount > 0.
  */
-export function calculateCompletionPct(payload: BlueprintPayload): number {
+export function calculateCompletionPct(
+  payload: BlueprintPayload,
+  opts?: { relationalProcessCount?: number; relationalRequiredOk?: boolean },
+): number {
   const s1Keys = [
     "firstName",
     "lastName",
@@ -43,16 +47,24 @@ export function calculateCompletionPct(payload: BlueprintPayload): number {
     "greatestFinancialValue",
   ];
 
+  let section5Score = 0;
+  if ((opts?.relationalProcessCount ?? 0) > 0) {
+    section5Score = opts?.relationalRequiredOk ? 1 : 0.5;
+  } else if (payload.section5.detailedProcesses.some((p) => p.steps.length > 0)) {
+    section5Score = 1;
+  } else if (payload.section5.detailedProcesses.length > 0) {
+    section5Score = 0.5;
+  }
+
   const sections = [
     objectCompletion(payload.section1 as Record<string, unknown>, s1Keys),
     objectCompletion(payload.section2 as Record<string, unknown>, s2Keys),
     payload.section3.tools.length > 0 ? 1 : 0,
-    payload.section4.processes.length > 0 ? 1 : 0,
-    payload.section5.detailedProcesses.some((p) => p.steps.length > 0)
+    payload.section4.processes.length > 0 ||
+    (opts?.relationalProcessCount ?? 0) > 0
       ? 1
-      : payload.section5.detailedProcesses.length > 0
-        ? 0.5
-        : 0,
+      : 0,
+    section5Score,
     payload.section6.acknowledgedSensitiveWarning ? 1 : 0,
     objectCompletion(payload.section7 as Record<string, unknown>, s7Keys),
     [

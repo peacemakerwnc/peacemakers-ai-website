@@ -429,9 +429,10 @@ model FormResponse {
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
 
-  invitation   FormInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
-  reviewedBy   User?          @relation("ResponseReviewer", fields: [reviewedById], references: [id])
+  invitation FormInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+  reviewedBy User?          @relation("ResponseReviewer", fields: [reviewedById], references: [id])
   formProcesses FormProcess[]
+  processVersions ProcessVersion[]
   tools        CompanyTool[]
   files        FileAttachment[]
 
@@ -566,6 +567,8 @@ model ProcessVersion {
   clientNotes           String?
   completenessStatus    String?
   confidenceStatus      String?
+  /// Questionnaire response version that owns this process version (Increment 2).
+  formResponseId        String?
   createdAt             DateTime                     @default(now())
   updatedAt             DateTime                     @updatedAt
   submittedAt           DateTime?
@@ -573,6 +576,7 @@ model ProcessVersion {
   supersededAt          DateTime?
 
   process      Process              @relation(fields: [processId], references: [id], onDelete: Cascade)
+  formResponse FormResponse?        @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
   parent       ProcessVersion?      @relation("VersionParent", fields: [parentVersionId], references: [id], onDelete: SetNull)
   children     ProcessVersion[]     @relation("VersionParent")
   derivedFrom  ProcessVersion?      @relation("VersionDerived", fields: [derivedFromVersionId], references: [id], onDelete: SetNull)
@@ -587,6 +591,7 @@ model ProcessVersion {
   @@index([classification])
   @@index([parentVersionId])
   @@index([derivedFromVersionId])
+  @@index([formResponseId])
 }
 
 model ProcessStep {
@@ -619,6 +624,8 @@ model ProcessStep {
   internalNotes        String?
   clientNotes          String?
   unresolvedQuestions  String?
+  /// Client marker: explain during Blueprint call (Increment 2).
+  discussDuringBlueprint Boolean            @default(false)
   completenessStatus   String?
   confidenceStatus     String?
   /// Presentation only — never workflow truth.
