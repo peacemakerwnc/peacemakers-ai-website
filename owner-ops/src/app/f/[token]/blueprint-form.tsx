@@ -51,7 +51,28 @@ export function BlueprintForm({
   const [section, setSection] = useState(1);
   const [payload, setPayload] = useState<BlueprintPayload>(() => {
     try {
-      return { ...emptyBlueprintPayload(), ...(initialPayload as object) };
+      const base = emptyBlueprintPayload();
+      const incoming = (initialPayload ?? {}) as Partial<BlueprintPayload>;
+      return {
+        ...base,
+        ...incoming,
+        section1: { ...base.section1, ...(incoming.section1 ?? {}) },
+        section2: { ...base.section2, ...(incoming.section2 ?? {}) },
+        section3: {
+          tools: incoming.section3?.tools ?? base.section3.tools,
+        },
+        section4: {
+          processes: incoming.section4?.processes ?? base.section4.processes,
+        },
+        section5: {
+          detailedProcesses:
+            incoming.section5?.detailedProcesses ??
+            base.section5.detailedProcesses,
+        },
+        section6: { ...base.section6, ...(incoming.section6 ?? {}) },
+        section7: { ...base.section7, ...(incoming.section7 ?? {}) },
+        section8: { ...base.section8, ...(incoming.section8 ?? {}) },
+      };
     } catch {
       return emptyBlueprintPayload();
     }
@@ -104,7 +125,7 @@ export function BlueprintForm({
 
   function go(next: number) {
     startTransition(() => {
-      void save().then(() => setSection(next));
+      void save().finally(() => setSection(next));
     });
   }
 

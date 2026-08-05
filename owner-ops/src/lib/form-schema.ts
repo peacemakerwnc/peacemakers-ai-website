@@ -239,8 +239,52 @@ export type BlueprintPayload = z.infer<typeof blueprintPayloadSchema>;
 export const emptyBlueprintPayload = (): BlueprintPayload =>
   blueprintPayloadSchema.parse({});
 
-/** Draft saves allow partial data; submit validates more strictly. */
-export const draftPayloadSchema = blueprintPayloadSchema;
+/** Draft saves allow incomplete nested entries (empty names while typing). */
+export const draftPayloadSchema = z.object({
+  section1: contactCompanySchema.partial().default({}),
+  section2: businessOverviewSchema.partial().default({}),
+  section3: z
+    .object({
+      tools: z
+        .array(
+          toolEntrySchema.extend({
+            name: z.string().max(200),
+          }),
+        )
+        .default([]),
+    })
+    .default({ tools: [] }),
+  section4: z
+    .object({
+      processes: z
+        .array(
+          processInventoryEntrySchema.extend({
+            name: z.string().max(200),
+          }),
+        )
+        .default([]),
+    })
+    .default({ processes: [] }),
+  section5: z
+    .object({
+      detailedProcesses: z
+        .array(
+          detailedProcessSchema.extend({
+            name: z.string().max(200),
+          }),
+        )
+        .default([]),
+    })
+    .default({ detailedProcesses: [] }),
+  section6: z
+    .object({
+      notes: optionalString,
+      acknowledgedSensitiveWarning: z.boolean().optional(),
+    })
+    .default({}),
+  section7: prioritiesSchema.partial().default({}),
+  section8: confirmationSchema.partial().default({}),
+});
 
 export const submitPayloadSchema = blueprintPayloadSchema.superRefine(
   (data, ctx) => {
@@ -258,6 +302,14 @@ export const submitPayloadSchema = blueprintPayloadSchema.superRefine(
       ctx.addIssue({
         code: "custom",
         message: "At least one detailed process map is required",
+        path: ["section5", "detailedProcesses"],
+      });
+    } else if (
+      data.section5.detailedProcesses.some((p) => !p.name || !p.name.trim())
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Each detailed process needs a name",
         path: ["section5", "detailedProcesses"],
       });
     }

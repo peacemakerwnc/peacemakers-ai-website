@@ -397,6 +397,48 @@ describe("invitation + response lifecycle", () => {
     );
   });
 
+  it("reopens with the same token and accepts a corrected resubmission", async () => {
+    const lead = await createContactCompanyOpportunity({
+      firstName: "Corr",
+      lastName: "Ected",
+      email: `correct-${Date.now()}@example.test`,
+      companyName: `Correct Co ${Date.now()}`,
+    });
+    const created = await createInvitation({
+      contactId: lead.contact.id,
+      opportunityId: lead.opportunity.id,
+    });
+    const payload = validSubmitPayload();
+    payload.section1.email = lead.contact.email;
+    payload.section1.companyName = lead.company.name;
+    payload.section1.industry = "Original industry";
+    await submitByToken(created.rawToken, payload);
+
+    const owner = (await prisma.user.findFirst())!;
+    await reopenSubmittedResponse(created.invitation.id, owner.id);
+
+    const corrected = validSubmitPayload();
+    corrected.section1.email = lead.contact.email;
+    corrected.section1.companyName = lead.company.name;
+    corrected.section1.industry = "Corrected industry";
+    await saveDraftByToken(created.rawToken, corrected);
+    await submitByToken(created.rawToken, corrected);
+
+    const responses = await prisma.formResponse.findMany({
+      where: { invitationId: created.invitation.id },
+      orderBy: { version: "asc" },
+    });
+    expect(responses).toHaveLength(2);
+    expect(responses[0].status).toBe(FormResponseStatus.SUPERSEDED);
+    expect(responses[1].status).toBe(FormResponseStatus.SUBMITTED);
+    expect(JSON.parse(responses[0].payloadJson).section1.industry).toBe(
+      "Original industry",
+    );
+    expect(JSON.parse(responses[1].payloadJson).section1.industry).toBe(
+      "Corrected industry",
+    );
+  });
+
   it("regenerates a new token after revoke and supports explicit reopen versioning", async () => {
     const lead = await createContactCompanyOpportunity({
       firstName: "Kate",

@@ -1,22 +1,15 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useActionState } from "react";
 import { loginAction } from "../actions";
 
 export function LoginForm({ nextPath }: { nextPath: string }) {
-  const [pending, startTransition] = useTransition();
-  const [error, setError] = useState(false);
+  const [state, formAction, pending] = useActionState(loginAction, null);
 
   return (
     <form
       className="flex flex-col gap-4 rounded-lg border border-[var(--line)] bg-[var(--surface)] p-6"
-      action={(formData) => {
-        setError(false);
-        startTransition(async () => {
-          const result = await loginAction(formData);
-          if (result?.error) setError(true);
-        });
-      }}
+      action={formAction}
     >
       <input type="hidden" name="next" value={nextPath} />
       <label className="flex flex-col gap-1 text-sm">
@@ -40,7 +33,7 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
           className="rounded-md border border-[var(--line)] px-3 py-2"
         />
       </label>
-      {error ? (
+      {state?.error ? (
         <p className="text-sm text-[var(--danger)]" role="alert">
           Invalid email or password.
         </p>

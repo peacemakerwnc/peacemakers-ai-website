@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { authenticateOwner } from "@/lib/auth";
 import {
   SESSION_COOKIE,
@@ -12,24 +13,30 @@ import {
 } from "@/lib/session";
 import { recordAudit } from "@/lib/audit";
 
-export async function loginAction(formData: FormData) {
+export async function loginAction(
+  _prevState: { error: "invalid" } | null,
+  formData: FormData,
+) {
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
-  const safeNext = safeOpsReturnPath(String(formData.get("next") ?? "")) ?? "/ops";
+  const safeNext =
+    safeOpsReturnPath(String(formData.get("next") ?? "")) ?? "/ops";
 
-  const user = await authenticateOwner(email, password);
-  if (!user) {
+  try {
+    const user = await authenticateOwner(email, password);
+    if (!user) {
+      return { error: "invalid" as const };
+    }
+
+    const jar = await cookies();
+    const sessionValue = createSessionValue(user.id, user.email);
+    jar.set(SESSION_COOKIE, sessionValue, sessionCookieOptions());
+
+    redirect(safeNext);
+  } catch (err) {
+    if (isRedirectError(err)) throw err;
     return { error: "invalid" as const };
   }
-
-  const jar = await cookies();
-  jar.set(
-    SESSION_COOKIE,
-    createSessionValue(user.id, user.email),
-    sessionCookieOptions(),
-  );
-
-  redirect(safeNext);
 }
 
 export async function logoutAction() {

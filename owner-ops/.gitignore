@@ -48,12 +48,10 @@ yarn-error.log*
 /prisma/test-invitations.db
 /storage/**
 !/storage/.gitkeep
+/storage/uat-demo/
 /storage-test
 /coverage
 
-# Prisma agent skill installs (not part of the app)
-.agents/
-.claude/
-.windsurf/
-skills-lock.json
+# Local UAT demo seed (may be present for acceptance; do not commit raw tokens)
+prisma/seed-demo-uat.ts
 

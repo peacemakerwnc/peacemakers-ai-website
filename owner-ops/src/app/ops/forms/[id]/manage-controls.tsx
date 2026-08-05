@@ -47,13 +47,17 @@ export function InvitationManageControls({
               const res = await regenerateInvitationAction(invitationId);
               if (res.ok) {
                 setNewUrl(res.formUrl);
-                setMessage("New link generated — copy now.");
+                setMessage(
+                  "New invitation created — the previous link is revoked. Copy the new link now.",
+                );
                 await resendInvitationAction(
                   res.invitationId,
                   res.formUrl,
                   email,
                 );
-                setMessage("New link generated and mock email logged.");
+                setMessage(
+                  "New invitation created and mock email logged. Previous link is revoked.",
+                );
               }
             })
           }
@@ -67,13 +71,19 @@ export function InvitationManageControls({
           onClick={() =>
             startTransition(async () => {
               await reopenFormAction(invitationId);
-              setMessage("Submission reopened as a new draft version.");
+              setMessage(
+                "Submission reopened as a new draft version. The client should reuse the existing form link (do not regenerate).",
+              );
             })
           }
         >
           Reopen for edits
         </button>
       </div>
+      <p className="text-xs text-[var(--muted)]">
+        After reopen, keep the existing client link. Regenerate revokes the old
+        invitation and starts a new one.
+      </p>
       {newUrl ? (
         <p className="break-all font-mono text-xs">{newUrl}</p>
       ) : null}

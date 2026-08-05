@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { z } from "zod";
 
 const envSchema = z.object({
@@ -19,9 +21,76 @@ export type AppEnv = z.infer<typeof envSchema>;
 
 let cached: AppEnv | null = null;
 
+function parseEnvFile(filePath: string): Record<string, string> {
+  if (!fs.existsSync(filePath)) return {};
+  const out: Record<string, string> = {};
+  for (const line of fs.readFileSync(filePath, "utf8").split(/\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eq = trimmed.indexOf("=");
+    if (eq < 0) continue;
+    const key = trimmed.slice(0, eq).trim();
+    let val = trimmed.slice(eq + 1).trim();
+    if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) {
+      val = val.slice(1, -1);
+    }
+    out[key] = val;
+  }
+  return out;
+}
+
+function readRuntimeEnv(key: string): string | undefined {
+  // Dynamic access avoids Turbopack inlining missing keys as undefined.
+  const value = process.env[key];
+  return value === "" || value === undefined ? undefined : value;
+}
+
+function fileEnv(): Record<string, string> {
+  const candidates = [
+    path.join(process.cwd(), ".env"),
+    path.join(process.cwd(), ".env.local"),
+    path.join(process.cwd(), ".env.example"),
+    path.resolve(process.cwd(), "owner-ops/.env"),
+    path.resolve(process.cwd(), "owner-ops/.env.example"),
+    path.resolve(__dirname, "../../.env"),
+    path.resolve(__dirname, "../../.env.example"),
+  ];
+  const merged: Record<string, string> = {};
+  // Later files win; load examples first so real `.env` overrides.
+  for (const envPath of [
+    ...candidates.filter((p) => p.endsWith(".example")),
+    ...candidates.filter((p) => !p.endsWith(".example")),
+  ]) {
+    Object.assign(merged, parseEnvFile(envPath));
+  }
+  return merged;
+}
+
+/**
+ * Resolve env for server actions/pages.
+ * Prefer live process.env, then fall back to package `.env` file values.
+ * Next/Turbopack can expose env keys that still resolve to undefined inside
+ * server-action bundles and may ignore runtime process.env assignment.
+ */
 export function getEnv(): AppEnv {
   if (cached) return cached;
-  const parsed = envSchema.safeParse(process.env);
+  const fromFile = fileEnv();
+  const pick = (key: string) => readRuntimeEnv(key) ?? fromFile[key];
+  const parsed = envSchema.safeParse({
+    NODE_ENV: pick("NODE_ENV"),
+    DATABASE_URL: pick("DATABASE_URL"),
+    OWNER_EMAIL: pick("OWNER_EMAIL"),
+    OWNER_NAME: pick("OWNER_NAME"),
+    OWNER_PASSWORD: pick("OWNER_PASSWORD"),
+    SESSION_SECRET: pick("SESSION_SECRET"),
+    STORAGE_ROOT: pick("STORAGE_ROOT"),
+    APP_BASE_URL: pick("APP_BASE_URL"),
+    FORM_INVITATION_EXPIRY_DAYS: pick("FORM_INVITATION_EXPIRY_DAYS"),
+    REVIEW_ACTION_DUE_DAYS: pick("REVIEW_ACTION_DUE_DAYS"),
+  });
   if (!parsed.success) {
     const issues = parsed.error.issues
       .map((i) => `${i.path.join(".")}: ${i.message}`)
