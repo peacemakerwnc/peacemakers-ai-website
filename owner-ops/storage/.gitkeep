@@ -1,0 +1,2 @@
+# Private upload root for local development only.
+# Never serve this directory publicly. Not for Vercel production.
