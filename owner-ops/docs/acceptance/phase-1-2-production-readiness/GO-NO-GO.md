@@ -20,11 +20,11 @@
 - Restoration test **BLOCKED**
 - Deployed fictional rehearsal **BLOCKED** — not claimed PASS
 - Real invitation send not authorized
+- Local implementation gates: **PASS** (Phase 1.2B post-cleanup) — not sufficient for pilot GO
 
 ## What the owner may do next
 
-- Approve and provision infrastructure per [owner-actions-required.md](../../production-readiness/owner-actions-required.md)
-- Complete local quality gates and fill [QUALITY-GATES.md](./QUALITY-GATES.md)
+- Approve provisioning of the fictional pilot environment (Vercel iad1, Neon, Resend, Upstash)
 - Run non-prod restore drill and fictional rehearsal after provision
 - Revisit this file to upgrade the decision
 

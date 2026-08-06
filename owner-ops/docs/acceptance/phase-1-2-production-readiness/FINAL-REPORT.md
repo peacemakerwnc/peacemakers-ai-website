@@ -1,9 +1,10 @@
 # Phase 1.2 Final Report — First Paying-Client Pilot Production Readiness
 
 **Date:** 2026-08-06  
-**Overall verdict:** **BLOCKED / NO-GO** (local controls prepared; production verification incomplete)  
+**Overall verdict:** **BLOCKED / NO-GO** (local gates PASS; production verification incomplete)  
 **Pilot go/no-go:** **NO-GO** — do not send a real-client invitation  
-**Recommended next action:** Approve and provision the pilot stack (Vercel `iad1` + Neon Postgres + Resend + Upstash Redis), set production env vars in the host UI (names only in docs), then re-run local quality gates and authorize the deployed fictional rehearsal.
+**Local implementation gates:** **PASS** · **Ready for infrastructure provisioning:** **YES**  
+**Recommended next action:** Approve provisioning and configuration of the fictional pilot environment using Vercel iad1, Neon Postgres, Resend, and Upstash, followed by the deployed fictional rehearsal.
 
 ---
 
@@ -60,8 +61,9 @@ See `docs/production-readiness/owner-actions-required.md` (A1–A11). No paid se
 |------|---------|
 | Local privacy/token/email/rate-limit/header/health **code** | Implemented (local) |
 | Production database / hosting / restore / deployed rehearsal | **BLOCKED** |
-| Local quality gates (lint/typecheck/test/build) | **BLOCKED** (Prisma CLI hang) |
-| Safe for fictional/internal testing (local) | CONDITIONAL — after gates recover |
+| Local quality gates (lint/typecheck/test/build) | **PASS** (Phase 1.2B post-cleanup) |
+| Ready for infrastructure provisioning | **YES** |
+| Safe for fictional/internal testing (local) | **PASS** (local only) |
 | Safe for one controlled paying-client pilot | **FAIL / NO-GO** |
 | Safe for general client launch | **FAIL** (by design) |
 | Ready for Phase 2 planning | CONDITIONAL after pilot |
@@ -69,4 +71,4 @@ See `docs/production-readiness/owner-actions-required.md` (A1–A11). No paid se
 
 ## 6. Exactly one recommended next action
 
-**Approve and provision the pilot stack (Vercel iad1 + Neon Postgres + Resend + Upstash), set production secrets in the host env UI, restore Prisma CLI/`prisma generate`, re-run local quality gates, then authorize the deployed fictional rehearsal.**
+**Approve provisioning and configuration of the fictional pilot environment using Vercel iad1, Neon Postgres, Resend, and Upstash, followed by the deployed fictional rehearsal.**

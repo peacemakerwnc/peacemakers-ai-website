@@ -1,40 +1,39 @@
-# Phase 1.2B — Post-reboot host verification
+# Phase 1.2B — Post-cleanup host + local quality-gate verification
 
 **Date:** 2026-08-06  
-**HEAD:** `eca41a3`  
-**Stopped before Prisma:** YES — host readiness requirements not met  
-**Local implementation gates:** **FAIL** (not run)  
-**Ready for infrastructure provisioning:** **NO**  
-**Phase 1.2 pilot go/no-go:** remains **NO-GO**
+**Starting HEAD:** `44eb7d7`  
+**Stopped before Prisma:** NO — host readiness met after cleanup  
+**Local implementation gates:** **PASS**  
+**Ready for infrastructure provisioning:** **YES**  
+**Phase 1.2 pilot go/no-go:** remains **NO-GO** (deployed acceptance not run)
 
 ## Baseline
 
 | Item | Result |
 |------|--------|
 | Branch | `main` |
-| HEAD | `eca41a3` |
-| Ancestors `4e9905a` / `caf1e55` / `ef5c356` / `eca41a3` | OK |
-| Ahead of `origin/main` | 16 |
+| HEAD (start) | `44eb7d7` |
+| Ancestors `4e9905a` / `caf1e55` / `ef5c356` / `eca41a3` / `44eb7d7` | OK |
+| Ahead of `origin/main` (start) | 17 |
 | `.git/index.lock` | Absent |
-| Unrelated work | Preserved (peacemakers-ai, bookdirect, Family Financial Dashboard, prisma skill trees) |
+| Unrelated work | Preserved (peacemakers-ai, bookdirect, Family Financial Dashboard, staged prisma skill trees) |
 
-## Host readiness
+## Host readiness (post-cleanup)
 
 | Check | Result | Detail |
-|-------|--------|--------|
-| Data volume free > 20% | **FAIL** | ~10% free (~18 GiB free of ~228 GiB; capacity ~90% used) |
-| Memory pressure | **FAIL** | Free pages ~4k; compressor heavily used; swap **used ≈14.4 GiB / 15.4 GiB** (~0.96 GiB free) |
-| Stale owner-ops Node/Prisma/Vitest/tsc | None requiring kill | Only Cursor agent-worker for owner-ops (left running); Family Financial Dashboard on :3000 (untouched) |
+|------|--------|--------|
+| Data volume free > 20% | **PASS** | ~45 GiB free of ~228 GiB (~23% free; 77% used) |
+| Memory pressure | **PASS** | Not severe; free pages healthy; system free % reported ~75% during run |
+| Swap vs prior 14.4 GiB | **PASS** | Swap used **0** |
+| Stale owner-ops Node/Prisma/Vitest | None requiring kill | |
 | `node --version` | PASS | v25.9.0 |
 | `npm --version` | PASS | 11.12.1 |
-| Lightweight `node -e` | PASS | completed |
-| `npm pkg get name` | PASS | `"owner-ops"` (exit 0) |
-| `npm ls --depth=0` | PASS | exit 0 (~37s); warns `Unknown env config "devdir"`; some extraneous `@emnapi/*` packages listed |
+| Lightweight Node / `npm pkg get name` / `npm ls --depth=0` | PASS | |
 
-## Prisma / quality gates
+## Prisma + quality gates
 
-**Not started** — blocked by Data-volume free-space requirement and severe memory/swap pressure.
+Completed — see [QUALITY-GATES.md](./QUALITY-GATES.md) Phase 1.2B post-cleanup table.
 
-## Narrowest unblock
+## Narrowest next action
 
-Free enough space on `/System/Volumes/Data` to exceed **20% free**, and reduce memory/swap pressure (close heavy apps or reboot after freeing disk). Then re-run Phase 1.2B from Prisma verification onward.
+Approve provisioning and configuration of the fictional pilot environment using Vercel iad1, Neon Postgres, Resend, and Upstash, followed by the deployed fictional rehearsal.

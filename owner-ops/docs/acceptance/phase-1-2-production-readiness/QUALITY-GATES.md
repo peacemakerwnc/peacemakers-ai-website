@@ -1,30 +1,34 @@
-# Quality gates — Phase 1.2 / 1.2A
+# Quality gates — Phase 1.2 / 1.2A / 1.2B
 
 Run from `owner-ops/`. Do not copy older increment results as deploy proof.  
-**Phase 1.2 infrastructure NO-GO is unchanged.** This file records local toolchain recovery attempts only.
+**Phase 1.2 infrastructure / pilot go-no-go remains NO-GO** until deployed fictional rehearsal passes.
 
-## Recorded run — Phase 1.2A (2026-08-06 Desktop)
+## Recorded run — Phase 1.2B post-cleanup (2026-08-06)
 
-Working directory for all commands: `/Users/jamesfullen/Desktop/Peacemakers AI/owner-ops`  
-Timeouts use hard process alarms; exit **142** = SIGALRM (timed out / hung). Empty stdout after the script banner means the tool never completed.
+Working directory: `/Users/jamesfullen/Desktop/Peacemakers AI/owner-ops`  
+HEAD at start: `44eb7d7` · Branch: `main`  
+Host: Data volume ~45 GiB free / 228 GiB (~23% free, 77% used); swap **0**; memory pressure not severe.
 
-| Gate | Exact command | Start (UTC) | End duration | Exit | Result |
-|------|---------------|-------------|--------------|------|--------|
-| Prisma version | `./node_modules/.bin/prisma -v` | 05:41:21 | 53s | 142 | **FAIL / hang** — zero stdout/stderr |
-| Prisma validate | `./node_modules/.bin/prisma validate --schema=prisma/schema.prisma` | 05:42:14 | 60s | 142 | **FAIL / hang** |
-| Prisma generate | `./node_modules/.bin/prisma generate --schema=prisma/schema.prisma` | 05:43:14 | 91s | 142 | **FAIL / hang** (client already present from earlier 00:34 generate; see note) |
-| Prisma migrate status | `./node_modules/.bin/prisma migrate status --schema=prisma/schema.prisma` | 05:44:45 | 60s | 142 | **FAIL / hang** |
-| npm ls | `npm ls --depth=0` | 05:47:09 | 60s | 142 | **FAIL / hang** |
-| Vitest | `npm test` → `vitest run` | 05:48:09 | 300s | 142 | **FAIL / hang** — prints banner only; no test totals |
-| ESLint | `npm run lint` → `eslint` | 05:53:09 | 180s | 142 | **FAIL / hang** — no lint report |
-| Typecheck | `npm run typecheck` → `tsc --noEmit` | 05:56:09 | 180s | 142 | **FAIL / hang** — no diagnostics emitted |
-| Production build | `npm run build` → `prisma generate && next build` | 05:59:09 | 300s | 142 | **FAIL / hang** — stuck at prisma generate step |
-| Health smoke (local) | not run | — | — | — | **NOT RUN** — build/server not available |
-| Health smoke (deployed) | — | — | — | — | **BLOCKED** — not in scope for 1.2A |
-| Deployed rehearsal | — | — | — | — | **BLOCKED** — unchanged |
-| Restoration test | — | — | — | — | **BLOCKED** — unchanged |
+| Gate | Exact command | Start (UTC) | End (UTC) | Exit | Result |
+|------|---------------|-------------|-----------|------|--------|
+| Prisma version | `./node_modules/.bin/prisma -v` | 12:10:40 | 12:10:41 | 0 | **PASS** — prisma 6.19.3 / client 6.19.3 |
+| Prisma format | `./node_modules/.bin/prisma format --schema=prisma/schema.prisma` | 12:10:41 | 12:10:41 | 0 | **PASS** |
+| Prisma validate | `./node_modules/.bin/prisma validate --schema=prisma/schema.prisma` | 12:10:41 | 12:10:42 | 0 | **PASS** |
+| Prisma generate | `./node_modules/.bin/prisma generate --schema=prisma/schema.prisma` | 12:10:42 | 12:10:43 | 0 | **PASS** |
+| Prisma migrate status | `./node_modules/.bin/prisma migrate status --schema=prisma/schema.prisma` | 12:10:43 | 12:10:43 | 0 | **PASS** — 7 migrations; SQLite up to date |
+| npm ls | `npm ls --depth=0` | 12:10:43 | 12:10:43 | 0 | **PASS** |
+| Vitest | `npm test` → `vitest run` | 12:11:58 | 12:12:04 | 0 | **PASS** — 13 files / 88 tests |
+| ESLint | `npm run lint` → `eslint` | 12:12:04 | 12:12:07 | 0 | **PASS** — 0 errors, 8 warnings (legacy acceptance `.mjs`) |
+| Typecheck | `npm run typecheck` → `tsc --noEmit` | 12:12:07 | 12:12:08 | 0 | **PASS** (re-confirmed after removing Finder duplicate `.next/types/* 2.ts`) |
+| Production build | `npm run build` → `prisma generate && next build` | 12:12:08 | 12:12:16 | 0 | **PASS** |
+| npm audit (prod) | `npm audit --omit=dev` | 12:12:16 | 12:12:17 | 1 | **REVIEWED** — 3 high (transitive `next`→`postcss`, `sharp`); `audit fix --force` would jump Next outside range — deferred |
+| Secret scan | ripgrep for live key / PEM patterns under `src` `prisma` `scripts` | — | — | 0 | **PASS** — no matches |
+| Health live | `curl /api/health?mode=live` against `next start :3001` | 12:13:03 | 12:13:11 | 0 | **PASS** — `{"status":"ok","check":"live"}` |
+| Health ready + smoke | `APP_BASE_URL=http://127.0.0.1:3001 npm run pilot:health-check` | 12:13:11 | ~12:13:15 | 0 | **PASS** — database=up; config=fail expected on local SQLite production start |
+| Deployed rehearsal | — | — | — | — | **BLOCKED** — not provisioned |
+| Restoration test | — | — | — | — | **BLOCKED** — not provisioned |
 
-### DB record verification (sqlite3; exit 0)
+### DB record verification (sqlite3 `prisma/dev.db`; exit 0)
 
 ```
 FormProcess|24
@@ -32,46 +36,45 @@ FormProcessStep|8
 Company|Optimum Demo Contractors
 ```
 
-### Prisma client note
+### Test totals (final)
 
-`node_modules/.prisma/client/` timestamps **2026-08-06 00:34** include `privacyAcknowledgedAt` / email metadata fields (61 references in `index.d.ts`). That earlier generate succeeded; **CLI commands hang again in this 1.2A session** and cannot be re-verified via `prisma generate`.
+- Test files: **13 passed / 13**
+- Tests: **88 passed / 88**
+- Failed: **0**
+- Skipped: **0**
+- Duration: ~5.3–5.7s
 
-### Schema-engine binary (works)
+### Corrections applied this increment (local only)
 
-`./node_modules/@prisma/engines/schema-engine-darwin-arm64 --version` → exit 0 (engine binary itself is healthy).
+1. Vitest `DATABASE_URL` corrected to schema-relative `file:./vitest.db` (was nesting `prisma/prisma/vitest.db`).
+2. `resetSqliteTestDatabase` ROOT fix + SQLite FormProcessStep FK repair after Process→FormProcess rename/recreate.
+3. `pilot:health-check` no longer false-fails on configErrors that *name* env vars (still rejects echoed secret values).
+4. Regression coverage in `pilot-readiness.test.ts` for URL + FormProcessStep FK target.
 
-### Test totals
+### Warnings / environmental notes
 
-Not available — Vitest never executed cases (hang after startup banner).
+- `npm warn Unknown env config "devdir"` on npm invocations.
+- ESLint: 8 unused-var warnings in older Playwright acceptance helpers (exit 0).
+- Transient typecheck FAIL if macOS creates `.next/types/* 2.ts` duplicates; delete and re-run (not an app defect).
+- Local `next start` ready check correctly reports production config fail against SQLite.
 
-### Warnings
+### Local implementation / infra readiness (this increment only)
 
-- `npm warn Unknown env config "devdir"` on every npm invocation (`npm_config_devdir` present in environment).
-- Data volume disk ~91–95% full during runs; free RAM pages critically low (~4k–8k pages × 16 KiB).
+| Verdict | Value |
+|---------|--------|
+| Local implementation gates | **PASS** |
+| Ready for infrastructure provisioning | **YES** |
+| Phase 1.2 pilot go/no-go | remains **NO-GO** |
+| Production readiness / deploy acceptance | **not established** |
 
-### Environmental limitation / root cause (evidence-backed)
+---
 
-1. **Prisma CLI hang:** process samples show startup stuck in `uv_fs_read` while loading the large CLI bundle; Network/CFNetwork frameworks also present. No command output is ever produced.
-2. **Broader Node hang:** after clearing owner-ops orphans, `npm ls`, Vitest, ESLint, and `tsc` also timed out — consistent with **host resource pressure** (disk nearly full + low free memory), not a single Phase 1.2 code defect.
-3. **Not claimed:** local implementation PASS, deploy PASS, restore PASS, or permission to send a real invitation.
+## Prior runs (retained)
 
-### Unblock for local gates (narrowest)
+### Phase 1.2A (2026-08-06 Desktop) — FAIL / hang under disk+memory pressure
 
-1. Free substantial disk space on `/System/Volumes/Data` (aim for >20% free) and reduce memory pressure (close heavy apps or reboot).
-2. Confirm no leftover owner-ops `tsc`/`eslint`/`prisma` PIDs.
-3. Re-run: `cd owner-ops && npx prisma generate && npm test && npm run lint && npm run typecheck && npm run build`.
-4. Optionally use Node LTS (20/22) if Node **v25.9.0** continues to interact poorly with Prisma 6.19.3 CLI startup after resources are healthy.
+See historical table in git history / [PHASE-1-2A-TOOLCHAIN.md](./PHASE-1-2A-TOOLCHAIN.md). Prisma/`npm test`/lint/tsc/build timed out (exit 142).
 
-## Recorded run — Phase 1.2B (2026-08-06 post-reboot attempt)
+### Phase 1.2B pre-cleanup — stopped before Prisma
 
-**Stopped before Prisma.** Host readiness failed.
-
-| Check | Result |
-|-------|--------|
-| Data volume free > 20% | **FAIL** (~10% free / ~90% used) |
-| Memory / swap | **FAIL** (swap ~14.4/15.4 GiB used) |
-| Lightweight Node/npm probes | PASS (`node`, `npm pkg get name`, `npm ls --depth=0`) |
-| Prisma CLI / generate / migrate status | **NOT RUN** |
-| `npm test` / lint / typecheck / build | **NOT RUN** |
-
-See [PHASE-1-2B-HOST.md](./PHASE-1-2B-HOST.md).
+See [PHASE-1-2B-HOST.md](./PHASE-1-2B-HOST.md) (~10% free disk, swap ~14.4 GiB).

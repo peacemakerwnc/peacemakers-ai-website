@@ -24,7 +24,7 @@ Most deployed/infra items are **BLOCKED** or **FAIL** until owner provisions ser
 | 16 | Deploy + rollback runbook | **PASS** (doc) | Execution **BLOCKED** |
 | 17 | Incident response pack (§27) | **PASS** (doc) | |
 | 18 | Pilot operating checklist | **PASS** (doc) | |
-| 19 | Local quality gates green | **BLOCKED** | Fill QUALITY-GATES.md |
+| 19 | Local quality gates green | **PASS** (local) | Phase 1.2B post-cleanup; see QUALITY-GATES.md. Deployed gates still BLOCKED |
 | 20 | Deployed fictional rehearsal | **BLOCKED** | Do not claim PASS |
 | 21 | Monitoring without form bodies | **PASS** (code) | Sentry optional / unwired hard SDK |
 | 22 | Single-owner auth acceptable for pilot | **PASS** (policy) | Not for general launch |
