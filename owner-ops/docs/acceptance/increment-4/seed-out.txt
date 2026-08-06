@@ -1,0 +1,10 @@
+npm warn Unknown env config "devdir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+{
+  "meetingId": "cmsgxlzhw0001itfbflxqdx30",
+  "transcriptId": "cmsgxlzi8000bitfbsa2zz31f",
+  "originalBody": "Facilitator: Thanks for joining.\nCasey: Field photo reporting usually takes about six hours on a large remodel.\nCasey: B",
+  "status": "FINALIZED",
+  "uploadExeOk": false,
+  "uploadTxtOk": true,
+  "storageMsg": "Secure transcript file storage is not configured in this increment. Paste transcript or notes text instead."
+}

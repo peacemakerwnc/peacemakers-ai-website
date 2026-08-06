@@ -1,0 +1,96 @@
+{
+  "base": "http://127.0.0.1:3001",
+  "results": [
+    {
+      "id": "owner_login",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "invitation_create",
+      "status": "PASS",
+      "detail": "token length 43"
+    },
+    {
+      "id": "questionnaire_loads",
+      "status": "PASS",
+      "detail": "Business Blueprint Preparation"
+    },
+    {
+      "id": "estimated_time_visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "secrets_warning",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "progress_visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "save_continue_later",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "refresh_preserves",
+      "status": "PASS",
+      "detail": "Fictional Optimum Demo answer — discuss "
+    },
+    {
+      "id": "review_before_submit",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "submission",
+      "status": "CONDITIONAL",
+      "detail": "may fail validation if incomplete"
+    },
+    {
+      "id": "submitted_readonly",
+      "status": "CONDITIONAL",
+      "detail": ""
+    },
+    {
+      "id": "client_owner_isolation_note",
+      "status": "INFO",
+      "detail": "Retested with fresh context below"
+    },
+    {
+      "id": "client_cannot_access_packet",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "forged_invitation",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "evidence_hub",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "meeting_create",
+      "status": "FAIL",
+      "detail": "http://127.0.0.1:3001/ops/opportunities/cmsgg70vx0004itn1ybw2bg0s/evidence"
+    },
+    {
+      "id": "transcript_paste",
+      "status": "FAIL",
+      "detail": ""
+    },
+    {
+      "id": "uncaught",
+      "status": "FAIL",
+      "detail": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('section').filter({ hasText: 'Proposed findings' }).locator('input').first()\n"
+    }
+  ],
+  "at": "2026-08-06T02:58:20.474Z"
+}

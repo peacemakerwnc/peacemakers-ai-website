@@ -1,0 +1,120 @@
+{
+  "results": [
+    {
+      "id": "owner_login",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "meeting_page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "transcript_visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "consultant_notes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "accepted_finding",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "corrected_finding",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "rejected_finding",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "conflict_visible",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "conflict_resolved",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "unified_hub",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "readiness",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "client_no_internal",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "client_has_accepted",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "client_no_rejected",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "client_no_roi",
+      "status": "FAIL",
+      "detail": ""
+    },
+    {
+      "id": "client_no_token",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "internal_label",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "internal_rejected",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "print",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "forged_meeting",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "anon_blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "tablet",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "mobile_packet",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "at": "2026-08-06T03:04:23.914Z"
+}
