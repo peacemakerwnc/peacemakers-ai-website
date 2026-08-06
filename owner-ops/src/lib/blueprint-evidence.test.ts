@@ -612,6 +612,99 @@ describe("Increment 4 blueprint evidence foundation", () => {
       finalizeEvidenceSource(source.id, b.company.id),
     ).rejects.toMatchObject({ code: "isolation" });
   });
+
+  it("A4-1: create returns meeting id once; cross-company process fails with no partial row", async () => {
+    const { a, b } = await setupPair();
+    const before = await prisma.blueprintMeeting.count({
+      where: { companyId: a.company.id },
+    });
+    const meeting = await createBlueprintMeeting({
+      companyId: a.company.id,
+      opportunityId: a.opportunity.id,
+      title: "Optimum Blueprint Discovery — Unit Correction",
+      facilitatorLabel: "James Fullen",
+    });
+    expect(meeting.id).toBeTruthy();
+    expect(meeting.title).toContain("Unit Correction");
+    const afterOk = await prisma.blueprintMeeting.count({
+      where: { companyId: a.company.id },
+    });
+    expect(afterOk).toBe(before + 1);
+
+    const foreignProcess = await prisma.process.create({
+      data: {
+        companyId: b.company.id,
+        opportunityId: b.opportunity.id,
+        name: "Foreign process",
+      },
+    });
+    await expect(
+      createBlueprintMeeting({
+        companyId: a.company.id,
+        opportunityId: a.opportunity.id,
+        title: "Should not persist",
+        processIds: [foreignProcess.id],
+      }),
+    ).rejects.toMatchObject({ code: "isolation" });
+    const afterFail = await prisma.blueprintMeeting.count({
+      where: { companyId: a.company.id },
+    });
+    expect(afterFail).toBe(afterOk);
+    await expect(
+      createBlueprintMeeting({
+        companyId: a.company.id,
+        opportunityId: b.opportunity.id,
+        title: "Forged opportunity",
+      }),
+    ).rejects.toBeTruthy();
+  });
+
+  it("A4-3: Client Review packet omits rejected findings (print-safe content)", async () => {
+    const { a } = await setupPair();
+    const meeting = await createBlueprintMeeting({
+      companyId: a.company.id,
+      opportunityId: a.opportunity.id,
+      title: "Packet check",
+    });
+    const source = await addEvidenceSource({
+      companyId: a.company.id,
+      opportunityId: a.opportunity.id,
+      meetingId: meeting.id,
+      sourceType: EvidenceSourceType.CONSULTANT_NOTE,
+      title: "Notes",
+      bodyText: "Rejected claim about ROI.",
+      finalize: true,
+    });
+    const finding = await createProposedFinding({
+      sourceId: source.id,
+      companyId: a.company.id,
+      opportunityId: a.opportunity.id,
+      meetingId: meeting.id,
+      title: "Should not appear in client packet",
+      excerpt: "ROI",
+      sourceLocation: "notes:1",
+      confidence: "LOW",
+    });
+    await reviewFinding(finding.id, a.company.id, { type: "reject" });
+    const client = await buildBlueprintReviewPacket({
+      opportunityId: a.opportunity.id,
+      mode: "client",
+      preparedBy: "owner",
+    });
+    const serialized = JSON.stringify(client);
+    expect(serialized).not.toContain("Should not appear in client packet");
+    expect(serialized).not.toMatch(/sk_live|Bearer |password/i);
+    const findings = client.sections.meeting_findings as
+      | {
+          rejectedOrDuplicate?: { title: string }[];
+          proposed?: { title: string }[];
+        }
+      | null;
+    if (findings) {
+      expect(findings.rejectedOrDuplicate).toBeUndefined();
+      expect(findings.proposed).toBeUndefined();
+    }
+  });
 });
 
 describe("future recommendation policy boundary", () => {

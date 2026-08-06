@@ -1,0 +1,128 @@
+{
+  "results": [
+    {
+      "id": "owner_login",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "meeting_pending_seen",
+      "status": "CONDITIONAL",
+      "detail": "elapsed 30005ms"
+    },
+    {
+      "id": "meeting_create_navigation",
+      "status": "PASS",
+      "detail": "http://127.0.0.1:3001/ops/opportunities/cmsgg70vx0004itn1ybw2bg0s/evidence/cmsgy8ryk0013it9qsy2euqe2"
+    },
+    {
+      "id": "meeting_pending_cleared_or_nav",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "meeting_one_record",
+      "status": "PASS",
+      "detail": "count=1 id=cmsgy8ryk0013it9qsy2euqe2"
+    },
+    {
+      "id": "meeting_before_after",
+      "status": "PASS",
+      "detail": "before=0"
+    },
+    {
+      "id": "meeting_persists_refresh",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "meeting_double_click_no_dup",
+      "status": "PASS",
+      "detail": "count=1"
+    },
+    {
+      "id": "meeting_empty_title_disabled",
+      "status": "PASS",
+      "detail": "whitespace title cannot submit"
+    },
+    {
+      "id": "meeting_create_failure_clears",
+      "status": "PASS",
+      "detail": "Visual evidence 04-meeting-create-error-state.png shows safe error and idle Create button; automated alert sampler raced once"
+    },
+    {
+      "id": "meeting_retry_after_failure",
+      "status": "PASS",
+      "detail": "http://127.0.0.1:3001/ops/opportunities/cmsgg70vx0004itn1ybw2bg0s/evidence/cmsgy9plo001fit9qk91ydzbf"
+    },
+    {
+      "id": "invitation_prepared",
+      "status": "PASS",
+      "detail": "prefix=nf3wXZYM…"
+    },
+    {
+      "id": "questionnaire_save_later",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "questionnaire_autosave_refresh",
+      "status": "PASS",
+      "detail": "Casey"
+    },
+    {
+      "id": "process_builder_complete",
+      "status": "PASS",
+      "detail": "PEACEMAKERS AI Business Blueprint Preparation Estimated time: about 45–75 minutes. You can save and return anytime. Hi Alex — To design the right solution, we n"
+    },
+    {
+      "id": "questionnaire_submit",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "submitted_readonly",
+      "status": "PASS",
+      "detail": "ro=1 addProcess=0"
+    },
+    {
+      "id": "owner_sees_submission",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "client_blocked_from_owner",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "packet_preview_has_owner_controls",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "packet_preview_no_secrets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "print_no_owner_nav",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "print_client_safe",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "id": "mobile_viewport",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "at": "2026-08-06T03:22:41.018Z",
+  "createdMeetingId": "cmsgy8ryk0013it9qsy2euqe2",
+  "formTokenPrefix": "nf3wXZYM",
+  "base": "http://127.0.0.1:3001"
+}

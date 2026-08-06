@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { createBlueprintMeetingAction } from "@/app/ops/evidence-actions";
 
 type MeetingSummary = {
@@ -41,22 +40,28 @@ export function EvidenceHubClient(props: {
   rejectedFindings: FindingSummary[];
   unresolvedConflicts: ConflictSummary[];
 }) {
-  const router = useRouter();
-  const [pending, startTransition] = useTransition();
+  const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [title, setTitle] = useState("Blueprint meeting");
   const [meetingDate, setMeetingDate] = useState("");
   const [facilitator, setFacilitator] = useState("James Fullen");
   const [selectedProcesses, setSelectedProcesses] = useState<string[]>([]);
 
-  function createMeeting() {
+  async function createMeeting() {
+    if (creating) return;
+    const trimmed = title.trim();
+    if (!trimmed) {
+      setError("Enter a meeting title.");
+      return;
+    }
     setError(null);
-    startTransition(async () => {
+    setCreating(true);
+    try {
       const result = await createBlueprintMeetingAction({
         companyId: props.companyId,
         opportunityId: props.opportunityId,
         formResponseId: props.formResponseId,
-        title,
+        title: trimmed,
         meetingDate: meetingDate || undefined,
         facilitatorLabel: facilitator,
         processIds: selectedProcesses,
@@ -64,15 +69,23 @@ export function EvidenceHubClient(props: {
           { name: "James Fullen", role: "Facilitator", isClient: false },
         ]),
       });
-      if (!result.ok) {
-        setError(result.error);
+      if (!result?.ok) {
+        setError(
+          result?.error ?? "Could not create the meeting. Please try again.",
+        );
         return;
       }
-      router.push(
+      // Hard navigate: soft router.push + refresh inside useTransition left the
+      // control stuck on "Creating…" under next start even though the meeting
+      // was created and an RSC prefetch for the new meeting fired.
+      window.location.assign(
         `/ops/opportunities/${props.opportunityId}/evidence/${result.meetingId}`,
       );
-      router.refresh();
-    });
+    } catch {
+      setError("Could not create the meeting. Please try again.");
+    } finally {
+      setCreating(false);
+    }
   }
 
   return (
@@ -175,11 +188,11 @@ export function EvidenceHubClient(props: {
           ) : null}
           <button
             type="button"
-            onClick={createMeeting}
-            disabled={pending || !title.trim()}
+            onClick={() => void createMeeting()}
+            disabled={creating || !title.trim()}
             className="mt-4 rounded-md bg-[var(--navy)] px-4 py-2 text-sm text-white disabled:opacity-50"
           >
-            {pending ? "Creating…" : "Create Blueprint meeting"}
+            {creating ? "Creating…" : "Create Blueprint meeting"}
           </button>
         </div>
       </section>
