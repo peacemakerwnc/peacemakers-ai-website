@@ -1,13 +1,15 @@
 # Architecture — current state vs pilot
 
-## Current state (local / Phase 1.1 accepted)
+## Current state (C1A PostgreSQL-compatible candidate)
 
 | Concern | Today |
 |---------|--------|
 | App | Next.js **16.2.x**, React 19, Zod 4, port **3001** |
-| ORM | Prisma **6.19.x**; `prisma/schema.prisma` provider = **`sqlite`** |
-| Database | Local `DATABASE_URL=file:./dev.db` |
-| Host | Local `next dev` / `next start` only — not a production pilot host |
+| ORM | Prisma **6.19.x**; active `prisma/schema.prisma` provider = **`postgresql`** |
+| Database URLs | `DATABASE_URL` (runtime; Neon pooled in Production) + `DIRECT_URL` (migrate tooling; Neon direct) |
+| Migration history | Active path: one PostgreSQL baseline under `prisma/migrations/`. SQLite history archived at `prisma/migrations-sqlite-archive/` (inactive) |
+| Local / test DB | PostgreSQL required for application and DB-backed tests. Default `npm test` is database-independent. `npm run test:db` requires separately authorized `OWNER_OPS_TEST_DATABASE_URL` |
+| Host | Local `next dev` / `next start`; Vercel project prepared with no-deploy safeguard until later approvals |
 | Auth | Single-owner email + scrypt password; HMAC-signed httpOnly cookie (`owner_ops_session`) |
 | Email | `EmailAdapter` with default **log** provider (`src/lib/mail.ts`); Resend adapter present |
 | Storage | Local disk under `STORAGE_ROOT` (`src/lib/storage.ts`) — ephemeral on serverless |
@@ -18,7 +20,7 @@
 | Headers | CSP / HSTS / frame deny via `next.config.ts` + `vercel.json` region `iad1` |
 | Monitoring | Structured `[monitor:*]` console events; Sentry DSN env accepted but not wired as hard dependency |
 
-**Production gaps (blocking real client data):** managed Postgres not provisioned; Prisma provider still sqlite for local; Resend/Upstash/Vercel production project not configured; restoration test not run; deployed fictional rehearsal not run.
+**C1A scope:** repository PostgreSQL compatibility only. No Neon migrate, no Vercel change, no Production credential use, no deploy.
 
 ## Proposed pilot architecture (chosen)
 
@@ -31,7 +33,7 @@ Client browser
            ▼
     Vercel (Next.js Node runtime, region iad1)
            │
-           ├─ Neon Postgres (SSL)  ← DATABASE_URL postgresql://…
+           ├─ Neon Postgres (SSL)  ← DATABASE_URL pooled; DIRECT_URL for migrate
            ├─ Resend               ← EMAIL_PROVIDER=resend
            ├─ Upstash Redis REST   ← RATE_LIMIT_BACKEND=upstash
            └─ Optional Sentry      ← SENTRY_DSN (errors only; no form bodies)
@@ -40,25 +42,23 @@ Client browser
 | Layer | Choice | Rationale |
 |-------|--------|-----------|
 | Host | **Vercel** | Matches Next.js 16 app; `vercel.json` already sets `iad1` + basic headers |
-| DB | **Neon Postgres** | Managed Postgres + SSL; PITR/backups; separate prod project from any sandbox |
+| DB | **Neon Postgres** | Managed Postgres + SSL; PITR/backups; single active Prisma provider |
 | Email | **Resend** via `EmailAdapter` | Existing adapter; transactional invite send without rebuilding mail |
 | Rate limit | **Upstash Redis REST** | Works across serverless instances; memory is local-only |
 | Monitoring | Structured logs + **optional** Sentry | Fail-safe without mandatory paid APM |
 | Auth | Keep **single-owner password + httpOnly cookie** | Controlled pilot only; not long-term multi-user model |
 | Storage | **`DISABLE_CLIENT_UPLOADS=true`** | Paste-first; avoid ephemeral Vercel filesystem for attachments |
-| Local | **SQLite remains for local** | Production fails closed if `DATABASE_URL` is `file:` / sqlite |
+| Local/test | **PostgreSQL** | Same provider as Production; no dual SQLite/Postgres schema |
 
 ## Alternatives considered
 
 | Option | Why not for this pilot |
 |--------|------------------------|
 | SQLite on Vercel | Ephemeral / wrong durability model; guards reject `file:` in production |
+| Dual active Prisma schemas (SQLite + Postgres) | Allows provider-specific drift from Production; rejected in C1A |
 | Self-hosted Postgres / VPS | Higher ops burden than managed Neon for one controlled pilot |
-| Prisma Postgres / other managed PG | Acceptable alternatives; Neon chosen for PITR clarity and free-tier pilot fit |
-| SendGrid / SES / SMTP | Extra config surface; Resend adapter already in tree |
 | Durable object storage (S3/R2) | Deferred — uploads disabled for pilot |
 | OAuth / multi-user IdP | Deferred until general launch; single operator for pilot |
-| In-memory rate limits alone | Not distributed across serverless instances |
 
 ## Security boundaries
 
@@ -76,15 +76,15 @@ Client browser
 4. Owner reviews submission, evidence, and packet in `/ops`.
 5. Deletion (if requested) uses `previewCompanyDeletion` → confirm name → `executeCompanyDeletion` (does not purge backups).
 
-## Deployment flow (target)
+## Deployment flow (target gated sequence)
 
-Local quality gates → set Vercel/Neon/Resend/Upstash env → `prisma migrate deploy` against Neon → Vercel deploy → `/api/health` ready → fictional rehearsal → owner GO checklist.
+C1A repository candidate → independent verification → authorized non-Production Postgres test DB (optional for gates) → **C2** Neon `migrate deploy` + minimal seed → **C3** one controlled Vercel deploy → **C4** smoke → **C5** email/rate-limit.
 
-**Current:** deployment rehearsal **BLOCKED** (infra not approved/provisioned).
+**Forbidden in Production:** `prisma db push`, `prisma migrate reset`, `npm run db:reset` (removed), `prisma/seed-demo-uat.ts`.
 
 ## Backup and recovery approach
 
-Neon managed backups / PITR on the **production** project. Restoration tests only into a **non-production** Neon branch/database. See [backup-restoration.md](./backup-restoration.md). Restoration test status: **BLOCKED** until Neon is provisioned.
+Neon managed backups / PITR on the **production** project. Restoration tests only into a **non-production** Neon branch/database. See [backup-restoration.md](./backup-restoration.md).
 
 ## Known limitations (pilot)
 
@@ -92,6 +92,7 @@ Neon managed backups / PITR on the **production** project. Restoration tests onl
 - Client file uploads disabled; paste text evidence only.
 - Sentry optional and may be unset; rely on Vercel/Neon logs + structured console events.
 - Company deletion does not purge provider backups (documented retention lag).
+- Database-backed Vitest suites deferred until a separately authorized non-Production Postgres test URL exists.
 - Legal review of privacy copy may still be required before broader launch.
 
 ## Assumptions requiring owner confirmation

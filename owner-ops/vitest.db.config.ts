@@ -2,22 +2,17 @@ import { defineConfig } from "vitest/config";
 import path from "path";
 
 /**
- * Default suite: database-independent unit tests only.
- * Database-backed suites are `*.db.test.ts` and run via `npm run test:db`
- * after a separately authorized non-Production Postgres test DB exists.
+ * Database-backed suite. Requires OWNER_OPS_TEST_DATABASE_URL pointing at a
+ * separately authorized non-Production PostgreSQL database.
+ * Does not run under the default `npm test` command.
  */
 export default defineConfig({
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts"],
-    exclude: ["src/**/*.db.test.ts", "node_modules/**"],
+    include: ["src/**/*.db.test.ts"],
+    setupFiles: ["./vitest.db.setup.ts"],
     fileParallelism: false,
     env: {
-      // Placeholder only — default suite must not connect to a database.
-      DATABASE_URL:
-        "postgresql://c1a_placeholder:c1a_placeholder@127.0.0.1:5432/c1a_placeholder?schema=public",
-      DIRECT_URL:
-        "postgresql://c1a_placeholder:c1a_placeholder@127.0.0.1:5432/c1a_placeholder?schema=public",
       OWNER_EMAIL: "owner@example.com",
       OWNER_NAME: "Owner",
       OWNER_PASSWORD: "change-me-before-use",

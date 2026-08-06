@@ -1,6 +1,4 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { execSync } from "child_process";
-import path from "path";
 import {
   ProcessConnectionType,
   ProcessStepType,
@@ -40,7 +38,7 @@ import {
   saveViewport,
   workspaceValidation,
 } from "./process-workspace";
-import { resetSqliteTestDatabase } from "./test-db";
+import { applyOwnerOpsTestDatabaseEnv } from "./test-db";
 
 async function seedMinimal() {
   await prisma.user.upsert({
@@ -98,15 +96,9 @@ async function seedMinimal() {
 
 describe("owner visual process workspace", () => {
   beforeAll(() => {
+    // Requires OWNER_OPS_TEST_DATABASE_URL (non-Production Postgres). Fails hard if unset.
+    applyOwnerOpsTestDatabaseEnv();
     resetEnvCache();
-    const root = path.resolve(__dirname, "../..");
-    const dbFile = path.join(root, "prisma/vitest.db");
-    try {
-      execSync(`rm -f "${dbFile}" "${dbFile}-journal"`, { stdio: "pipe" });
-    } catch {
-      /* ignore */
-    }
-    resetSqliteTestDatabase("prisma/vitest.db");
   }, 60_000);
 
   beforeEach(async () => {

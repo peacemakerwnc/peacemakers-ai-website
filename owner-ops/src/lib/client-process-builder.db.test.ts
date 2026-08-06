@@ -1,6 +1,4 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { execSync } from "child_process";
-import path from "path";
 import {
   FormInvitationStatus,
   ProcessConnectionType,
@@ -40,7 +38,7 @@ import {
 import { ProcessGraphError } from "./process-graph";
 import { LogEmailAdapter, setEmailAdapter } from "./mail";
 import { resetRateLimits } from "./rate-limit";
-import { resetSqliteTestDatabase } from "./test-db";
+import { applyOwnerOpsTestDatabaseEnv } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -126,19 +124,9 @@ describe("client process builder", () => {
   const mail = new LogEmailAdapter();
 
   beforeAll(() => {
+    // Requires OWNER_OPS_TEST_DATABASE_URL (non-Production Postgres). Fails hard if unset.
+    applyOwnerOpsTestDatabaseEnv();
     resetEnvCache();
-    const root = path.resolve(__dirname, "../..");
-    const dbFile = path.join(root, "prisma/vitest.db");
-    const nested = path.join(root, "prisma/prisma/vitest.db");
-    try {
-      execSync(
-        `rm -f "${dbFile}" "${dbFile}-journal" "${nested}" "${nested}-journal"`,
-        { stdio: "pipe" },
-      );
-    } catch {
-      /* ignore */
-    }
-    resetSqliteTestDatabase("prisma/vitest.db");
   }, 60_000);
 
   beforeEach(async () => {

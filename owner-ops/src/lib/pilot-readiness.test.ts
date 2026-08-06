@@ -139,22 +139,42 @@ describe("monitoring sanitization", () => {
   });
 });
 
-describe("vitest sqlite database url", () => {
-  it("uses schema-relative path and FormProcessStep FK to FormProcess", async () => {
-    const { VITEST_SQLITE_DATABASE_URL, resetSqliteTestDatabase } = await import(
-      "./test-db"
-    );
-    expect(process.env.DATABASE_URL).toBe(VITEST_SQLITE_DATABASE_URL);
-    expect(VITEST_SQLITE_DATABASE_URL).toBe("file:./vitest.db");
-    resetSqliteTestDatabase("prisma/vitest.db");
-    const { prisma } = await import("./db");
-    const tables = await prisma.$queryRawUnsafe<{ name: string }[]>(
-      "SELECT name FROM sqlite_master WHERE type='table' AND name='NextAction'",
-    );
-    expect(tables.length).toBe(1);
-    const fks = await prisma.$queryRawUnsafe<{ table_name: string }[]>(
-      'SELECT "table" AS table_name FROM pragma_foreign_key_list(\'FormProcessStep\')',
-    );
-    expect(fks.map((r) => r.table_name)).toEqual(["FormProcess"]);
+describe("postgres test-database URL guards", () => {
+  it("rejects missing OWNER_OPS_TEST_DATABASE_URL without skipping", async () => {
+    const {
+      requireOwnerOpsTestDatabaseUrl,
+      TestDatabaseConfigError,
+      OWNER_OPS_TEST_DATABASE_URL_ENV,
+    } = await import("./test-db");
+    const prev = process.env[OWNER_OPS_TEST_DATABASE_URL_ENV];
+    delete process.env[OWNER_OPS_TEST_DATABASE_URL_ENV];
+    try {
+      expect(() => requireOwnerOpsTestDatabaseUrl(process.env)).toThrow(
+        TestDatabaseConfigError,
+      );
+    } finally {
+      if (prev === undefined) delete process.env[OWNER_OPS_TEST_DATABASE_URL_ENV];
+      else process.env[OWNER_OPS_TEST_DATABASE_URL_ENV] = prev;
+    }
+  });
+
+  it("rejects sqlite and obvious production-looking URLs", async () => {
+    const {
+      assertSafeOwnerOpsTestDatabaseUrl,
+      TestDatabaseConfigError,
+    } = await import("./test-db");
+    expect(() =>
+      assertSafeOwnerOpsTestDatabaseUrl("file:./vitest.db"),
+    ).toThrow(TestDatabaseConfigError);
+    expect(() =>
+      assertSafeOwnerOpsTestDatabaseUrl(
+        "postgresql://u:p@ep-x.us-east-1.aws.neon.tech/neondb",
+      ),
+    ).toThrow(TestDatabaseConfigError);
+    expect(() =>
+      assertSafeOwnerOpsTestDatabaseUrl(
+        "postgresql://u:p@127.0.0.1:5432/owner_ops_test",
+      ),
+    ).not.toThrow();
   });
 });

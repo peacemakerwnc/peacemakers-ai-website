@@ -1,18 +1,21 @@
 # Deployment and rollback runbook
 
 **Scope:** Controlled pilot on Vercel + Neon.  
-**Forbidden:** Production reset (`prisma migrate reset`, `npm run db:reset`, drop-database, destructive schema rollback presented as “safe”).
+**Forbidden in Production:** `prisma migrate reset`, `prisma db push`, drop-database, destructive schema rollback presented as “safe”, and `prisma/seed-demo-uat.ts`.
 
-**Current execution status:** End-to-end deploy rehearsal **BLOCKED** pending owner approval and credentials ([owner-actions-required.md](./owner-actions-required.md)).
+**Current execution status:** C1A = repository candidate only. Neon migrate / deploy / smoke remain **NOT AUTHORIZED** until later gates.
 
 ## Pre-deployment quality gates
 
-From `owner-ops/`:
+From `owner-ops/` (use nonsecret placeholder URLs for Prisma CLI; never source Production `.env` for C1A):
 
 ```bash
-npx prisma validate
-npx prisma migrate status
-npm test
+export DATABASE_URL='postgresql://c1a_placeholder:c1a_placeholder@127.0.0.1:5432/c1a_placeholder?schema=public'
+export DIRECT_URL="$DATABASE_URL"
+npm run db:validate
+npm run db:generate
+npm test                 # database-independent unit tests
+# npm run test:db        # only with authorized OWNER_OPS_TEST_DATABASE_URL — not C1A
 npm run lint
 npm run typecheck
 npm run build
@@ -23,55 +26,56 @@ Record results in [`../acceptance/phase-1-2-production-readiness/QUALITY-GATES.m
 ## Environment validation
 
 1. Confirm Vercel Production env matches [env-contract.md](./env-contract.md).
-2. With production values loaded (CI or one-off secret shell — never commit):
+2. Confirm **`DIRECT_URL`** is available to the migrate host before C2 (separate authorization if adding to Vercel).
+3. With production values loaded (CI or one-off secret shell — never commit):
 
    ```bash
    NODE_ENV=production npm run pilot:assert-env
    ```
 
-3. Confirm `DISABLE_CLIENT_UPLOADS=true`, `EMAIL_PROVIDER=resend`, `RATE_LIMIT_BACKEND=upstash`, Postgres `DATABASE_URL`, HTTPS `APP_BASE_URL`.
+4. Confirm `DISABLE_CLIENT_UPLOADS=true`, `EMAIL_PROVIDER=resend`, `RATE_LIMIT_BACKEND=upstash`, Postgres `DATABASE_URL`, HTTPS `APP_BASE_URL`.
 
-## Migration preview / status
+## Migration preview / status (C2 — not C1A)
 
 ```bash
-# Against Neon using DATABASE_URL in the environment only
+# Requires DIRECT_URL (and DATABASE_URL) against Neon — separately authorized
 npx prisma migrate status
-```
-
-If pending migrations exist, review SQL. Prefer forward-fix over reverse.
-
-## Backup confirmation
-
-Before migrate/deploy on a database that already has data: confirm Neon backup/PITR available for the project. First empty provision: note “empty baseline” and proceed.
-
-## Controlled migration execution
-
-```bash
 npx prisma migrate deploy
 ```
 
-**Never** `prisma migrate reset` / `db:reset` on production.
+Active history is the PostgreSQL baseline under `prisma/migrations/`.  
+Archived SQLite SQL under `prisma/migrations-sqlite-archive/` must **not** be applied.
 
-## Application deployment
+**Never** `prisma migrate reset` / `db push` on production.
 
-1. Deploy `owner-ops` to Vercel (Production), region `iad1`.
-2. Confirm deployment ID / URL recorded in the acceptance folder.
-3. Do not seed fictional Optimum demo data into production if a real client company will share that DB — use a clean company for the client; keep fictional rehearsal isolated.
+## Minimal Production initialization (C2)
+
+After successful `migrate deploy`, run **only** `npm run db:seed` (`prisma/seed.ts`) with Production `OWNER_*` to create:
+
+- Owner account
+- Default pipeline / stages / checklists
+- Blueprint form template
+- Operational SOP/email templates
+- One seed audit event
+
+**Exclude:** `prisma/seed-demo-uat.ts`, Optimum Demo Contractors, invitations, submitted questionnaires, fake client files.
+
+## Application deployment (C3)
+
+1. Keep no-deploy safeguard until C3 authorization.
+2. Deploy exactly one controlled Production deployment of `owner-ops` (region `iad1`).
+3. Confirm deployment ID / URL recorded in the acceptance folder.
 
 ## Post-deploy verification
 
-| Step | Check |
-|------|--------|
-| Health live | `GET /api/health?mode=live` → 200 |
-| Health ready | `GET /api/health?mode=ready` → 200, `database: up`, `config: ok` |
-| Smoke script | `APP_BASE_URL=https://… npm run pilot:health-check` |
-| Owner login | `/ops/login` with prod credentials |
-| Fictional client link | Create/send to **owner-controlled** test inbox only |
-| Monitoring | Structured logs visible in Vercel; Sentry optional |
-| Email | Resend dashboard shows test delivery |
-| Go/no-go | Update [`GO-NO-GO.md`](../acceptance/phase-1-2-production-readiness/GO-NO-GO.md) |
-
-Deployed fictional rehearsal: **BLOCKED** until infra exists. Do not mark PASS prematurely.
+| Step | Gate | Check |
+|------|------|--------|
+| Health live | C4 | `GET /api/health?mode=live` → 200 |
+| Health ready | C4 | `GET /api/health?mode=ready` → 200, `database: up`, `config: ok` |
+| Smoke script | C4 | `APP_BASE_URL=https://… npm run pilot:health-check` |
+| Owner login | C4 | `/ops/login` with prod credentials |
+| Email / rate-limit | C5 | Owner-controlled test inbox only; Upstash path exercised |
+| Go/no-go | later | Update [`GO-NO-GO.md`](../acceptance/phase-1-2-production-readiness/GO-NO-GO.md) |
 
 ## Rollback
 

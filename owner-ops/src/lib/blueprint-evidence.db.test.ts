@@ -1,6 +1,4 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { execSync } from "child_process";
-import path from "path";
 import {
   EvidenceConflictStatus,
   EvidenceFindingReviewStatus,
@@ -35,7 +33,7 @@ import {
 import { calculateBlueprintReadiness } from "./blueprint-readiness";
 import { buildBlueprintReviewPacket } from "./blueprint-review-packet";
 import { createProcess, addStep, submitVersion } from "./process-graph";
-import { resetSqliteTestDatabase } from "./test-db";
+import { applyOwnerOpsTestDatabaseEnv } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -139,20 +137,9 @@ async function createSubmittedResponse(opts: {
 
 describe("Increment 4 blueprint evidence foundation", () => {
   beforeAll(() => {
-    process.env.DATABASE_URL = "file:./vitest.db";
+    // Requires OWNER_OPS_TEST_DATABASE_URL (non-Production Postgres). Fails hard if unset.
+    applyOwnerOpsTestDatabaseEnv();
     resetEnvCache();
-    const root = path.resolve(__dirname, "../..");
-    const dbFile = path.join(root, "prisma/vitest.db");
-    const nested = path.join(root, "prisma/prisma/vitest.db");
-    try {
-      execSync(
-        `rm -f "${dbFile}" "${dbFile}-journal" "${nested}" "${nested}-journal"`,
-        { stdio: "pipe" },
-      );
-    } catch {
-      /* ignore */
-    }
-    resetSqliteTestDatabase("prisma/vitest.db");
   }, 60_000);
 
   beforeEach(async () => {

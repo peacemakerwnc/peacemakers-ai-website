@@ -16,7 +16,7 @@ For Approval A evidence and later gates, see:
 | **Upstash Redis** | Distributed rate limits (REST) | Free Redis `owner-ops-fictional-pilot-ratelimit` (`437c7d0e-0513-4cb8-96a5-90f4d0a3c2fe`) in **us-east-1**; no commands/data | **Yes** (Approval A) |
 | **Sentry** | Optional APM | **Deferred** — structured `[monitor:*]` + Vercel logs | **No** |
 
-Local development continues to use **SQLite** and does not require these services.
+Local development and tests use **PostgreSQL** (same provider as Production). Do not use Production Neon credentials for local or `test:db`.
 
 ## Estimated monthly cost (fictional stack band)
 
@@ -37,7 +37,7 @@ Approval A is **COMPLETE**. Do **not** proceed to Git connect, DNS, env injectio
 
 ## What is already in-repo (no vendor create)
 
-- Application code, Prisma migrations (local sqlite history), health checks, production guards.
+- Application code, Prisma PostgreSQL baseline migrations (SQLite history archived inactive), health checks, production guards.
 - Email / rate-limit / storage **adapters**.
 - `vercel.json` region + header hints.
 

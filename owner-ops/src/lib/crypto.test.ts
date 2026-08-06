@@ -61,7 +61,10 @@ describe("invitation tokens", () => {
 
 describe("session cookies", () => {
   beforeEach(() => {
-    process.env.DATABASE_URL = "file:./test.db";
+    process.env.DATABASE_URL =
+      "postgresql://c1a_placeholder:c1a_placeholder@127.0.0.1:5432/c1a_placeholder?schema=public";
+    process.env.DIRECT_URL =
+      "postgresql://c1a_placeholder:c1a_placeholder@127.0.0.1:5432/c1a_placeholder?schema=public";
     process.env.OWNER_EMAIL = "owner@example.com";
     process.env.OWNER_NAME = "Owner";
     process.env.OWNER_PASSWORD = "change-me-before-use";

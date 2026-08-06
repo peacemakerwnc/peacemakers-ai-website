@@ -1,6 +1,4 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { execSync } from "child_process";
-import path from "path";
 import { MeetingStatus } from "@prisma/client";
 import { prisma } from "./db";
 import { hashPassword } from "./crypto";
@@ -21,7 +19,7 @@ import {
   parseEstimatedValueDollars,
   WorkflowValidationError,
 } from "./opportunity-ops";
-import { resetSqliteTestDatabase } from "./test-db";
+import { applyOwnerOpsTestDatabaseEnv } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -92,11 +90,10 @@ describe("parseEstimatedValueDollars", () => {
 
 describe("opportunity meetings, value, and proposed services", () => {
   beforeAll(() => {
+    // Requires OWNER_OPS_TEST_DATABASE_URL (non-Production Postgres). Fails hard if unset.
+    applyOwnerOpsTestDatabaseEnv();
     resetEnvCache();
-    const dbFile = path.join(__dirname, "../../prisma/vitest.db");
-    execSync(`rm -f "${dbFile}" "${dbFile}-journal"`, { stdio: "pipe" });
-    resetSqliteTestDatabase("prisma/vitest.db");
-  });
+  }, 60_000);
 
   beforeEach(async () => {
     resetEnvCache();

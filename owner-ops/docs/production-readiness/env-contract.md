@@ -1,12 +1,14 @@
 # Environment variable contract
 
-Source of truth for names: `src/lib/env.ts` and `.env.example`.  
+Source of truth for names: `src/lib/env.ts`, Prisma schema (`DATABASE_URL` / `DIRECT_URL`), and `.env.example`.  
 **Never commit real secrets.** Set production values in the host env UI (Vercel) and provider dashboards only.
 
 | Variable | Purpose | Local | Pilot production (Vercel) | Required in prod? |
 |----------|---------|-------|---------------------------|-------------------|
 | `NODE_ENV` | Runtime mode; enables production guards | Usually unset / `development` | `production` (set by host) | Yes (host) |
-| `DATABASE_URL` | Prisma connection string | `file:./dev.db` (SQLite) | `postgresql://…?sslmode=require` (Neon) | Yes — **must not** be `file:` / sqlite |
+| `DATABASE_URL` | Prisma **runtime** connection | Local Postgres URL | Neon **pooled** `postgresql://…` | Yes — **must not** be `file:` / sqlite |
+| `DIRECT_URL` | Prisma **migrate** direct connection | Same host direct URL (or non-pooled) | Neon **direct / non-pooled** | Yes for migrate tooling; add under a separate authorization before C2 if not yet present on the migrate host |
+| `OWNER_OPS_TEST_DATABASE_URL` | Dedicated non-Production URL for `npm run test:db` | Local Docker / authorized test Postgres only | **Never** Production Neon | No (tests only) |
 | `OWNER_EMAIL` | Owner login identity; seed upsert | `.env` | Vercel env | Yes |
 | `OWNER_NAME` | Display / email From fallback | `.env` | Vercel env | Yes |
 | `OWNER_PASSWORD` | Owner password (≥12); hashed at rest | `.env` (dev) | Vercel env (strong unique) | Yes — never `change-me-before-use` |
@@ -25,19 +27,25 @@ Source of truth for names: `src/lib/env.ts` and `.env.example`.
 | `SENTRY_DSN` | Optional error monitoring | Unset | Optional Vercel env | No |
 | `DISABLE_CLIENT_UPLOADS` | Reject client file uploads | Optional false locally | **`true`** for pilot | Yes (`true`) |
 
+## Pooled vs direct (Neon)
+
+- **Runtime (Vercel app):** `DATABASE_URL` = pooled connection string.
+- **Migrations (`prisma migrate deploy`):** `DIRECT_URL` = direct/non-pooled connection string.
+- C1A does **not** add `DIRECT_URL` to Vercel and does **not** open Production credentials.
+
 ## Where set
 
 | Environment | Where |
 |-------------|--------|
 | Local development | `owner-ops/.env` (gitignored); template `.env.example` |
-| Unit / scripts | `process.env` or `.env` loaded by tooling |
+| Unit / scripts | Placeholder process env for static validation; never Production secrets |
+| DB-backed tests | `OWNER_OPS_TEST_DATABASE_URL` only (never Production Neon) |
 | Pilot production | **Vercel Project → Settings → Environment Variables** (Production) |
-| Neon | Connection string copied into `DATABASE_URL` (Vercel); not stored in git |
-| Resend / Upstash / Sentry | Provider dashboards → values only in Vercel env |
+| Neon | Connection strings in Vercel / authorized migrate shell only; not in git |
 
 ## Validation
 
-- Runtime: Zod schema in `getEnv()` (`src/lib/env.ts`).
+- Runtime: Zod schema in `getEnv()` (`src/lib/env.ts`) for application vars.
 - Production fail-closed: `assertProductionConfig()` (`src/lib/production-guards.ts`).
 - CLI: `NODE_ENV=production npm run pilot:assert-env` (uses current env; expect FAIL until prod values are present).
 - Ready probe: `GET /api/health?mode=ready` reports config ok/fail without leaking secrets.
@@ -45,5 +53,6 @@ Source of truth for names: `src/lib/env.ts` and `.env.example`.
 ## Explicit non-goals
 
 - Do not put secrets in `vercel.json`, README, or acceptance JSON.
+- Do not use Production Neon URLs for local development or `test:db`.
 - Do not use `ALLOW_LOG_EMAIL_IN_PRODUCTION=true` for a real client send.
 - Do not point production `DATABASE_URL` at a shared sandbox used for experiments.

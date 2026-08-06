@@ -1,6 +1,4 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { execSync } from "child_process";
-import path from "path";
 import { prisma } from "./db";
 import { hashPassword } from "./crypto";
 import { createContactCompanyOpportunity } from "./crm";
@@ -15,7 +13,7 @@ import {
   DEFAULT_STAGES,
   BLUEPRINT_FORM_TEMPLATE_SLUG,
 } from "./pipeline-seed-data";
-import { resetSqliteTestDatabase } from "./test-db";
+import { applyOwnerOpsTestDatabaseEnv } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -74,11 +72,10 @@ async function seedMinimal() {
 
 describe("workflow stage transitions and next actions", () => {
   beforeAll(() => {
+    // Requires OWNER_OPS_TEST_DATABASE_URL (non-Production Postgres). Fails hard if unset.
+    applyOwnerOpsTestDatabaseEnv();
     resetEnvCache();
-    const dbFile = path.join(__dirname, "../../prisma/vitest.db");
-    execSync(`rm -f "${dbFile}" "${dbFile}-journal"`, { stdio: "pipe" });
-    resetSqliteTestDatabase("prisma/vitest.db");
-  });
+  }, 60_000);
 
   beforeEach(async () => {
     resetEnvCache();

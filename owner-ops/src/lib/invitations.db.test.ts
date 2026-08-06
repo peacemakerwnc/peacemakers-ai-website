@@ -3,8 +3,6 @@ import {
   FormInvitationStatus,
   FormResponseStatus,
 } from "@prisma/client";
-import { execSync } from "child_process";
-import path from "path";
 import { prisma } from "./db";
 import { hashPassword } from "./crypto";
 import { createContactCompanyOpportunity } from "./crm";
@@ -31,7 +29,7 @@ import {
   BLUEPRINT_FORM_TEMPLATE_SLUG,
 } from "./pipeline-seed-data";
 import { resetRateLimits } from "./rate-limit";
-import { resetSqliteTestDatabase } from "./test-db";
+import { applyOwnerOpsTestDatabaseEnv } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -186,16 +184,10 @@ describe("invitation + response lifecycle", () => {
   const mail = new LogEmailAdapter();
 
   beforeAll(() => {
+    // Requires OWNER_OPS_TEST_DATABASE_URL (non-Production Postgres). Fails hard if unset.
+    applyOwnerOpsTestDatabaseEnv();
     resetEnvCache();
-    const dbFile = path.join(__dirname, "../../prisma/vitest.db");
-    try {
-      // Local disposable SQLite test DB only — never production.
-      execSync(`rm -f "${dbFile}" "${dbFile}-journal"`, { stdio: "pipe" });
-    } catch {
-      /* ignore */
-    }
-    resetSqliteTestDatabase("prisma/vitest.db");
-  });
+  }, 60_000);
 
   beforeEach(async () => {
     resetEnvCache();

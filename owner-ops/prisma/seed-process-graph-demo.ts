@@ -1,6 +1,9 @@
 /**
  * Seed fictional Optimum field-photo process graph for Increment 1 diagnostic UI.
- * Run: npx tsx prisma/seed-process-graph-demo.ts
+ * Run manually only: `npx tsx prisma/seed-process-graph-demo.ts`
+ *
+ * NEVER wire into package.json build/deploy/migrate scripts.
+ * NEVER run against Production Neon or the fictional-pilot Production database.
  * Idempotent. Does not fabricate secrets.
  */
 import { config } from "dotenv";
@@ -10,7 +13,10 @@ import { PrismaClient } from "@prisma/client";
 config({ path: path.join(process.cwd(), ".env") });
 
 const defaults: Record<string, string> = {
-  DATABASE_URL: "file:./dev.db",
+  DATABASE_URL:
+    "postgresql://owner_ops_demo:owner_ops_demo@127.0.0.1:5432/owner_ops_demo?schema=public",
+  DIRECT_URL:
+    "postgresql://owner_ops_demo:owner_ops_demo@127.0.0.1:5432/owner_ops_demo?schema=public",
   OWNER_EMAIL: "owner@peacemakersai.com",
   SESSION_SECRET: "dev-only-replace-with-long-random-secret-32chars-min",
   STORAGE_ROOT: "./storage",

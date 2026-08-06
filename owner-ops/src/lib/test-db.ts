@@ -1,106 +1,98 @@
 /**
- * Apply local SQLite schema for Vitest without invoking the Prisma CLI.
- * Migrations are applied via SQL for hermetic local tests.
+ * PostgreSQL test-database helpers for owner-ops.
  *
- * Prisma resolves file: URLs relative to prisma/schema.prisma. Vitest must use
- * DATABASE_URL=file:./vitest.db so the client opens owner-ops/prisma/vitest.db
- * (the same file this helper migrates). file:./prisma/vitest.db incorrectly
- * opens prisma/prisma/vitest.db.
+ * Database-backed suites live in `*.db.test.ts` and run only via
+ * `npm run test:db` once a separately authorized non-Production Postgres
+ * test database is available.
  *
- * SQLite note: after Process→FormProcess rename + recreate of Process (graph),
- * FormProcessStep's FK can still target the new Process table. Rebuild so
- * processId references FormProcess (matches schema.prisma). Postgres migrate
- * deploy is unaffected.
+ * C1A does not create, migrate, or connect to any database.
  */
-import fs from "fs";
-import path from "path";
-import { execSync } from "child_process";
 
-// src/lib -> owner-ops package root
-const ROOT = path.join(__dirname, "../..");
-const MIGRATIONS = path.join(ROOT, "prisma/migrations");
-const NESTED_STALE = path.join(ROOT, "prisma/prisma/vitest.db");
+/** Env var name for the dedicated non-Production Postgres test URL. */
+export const OWNER_OPS_TEST_DATABASE_URL_ENV = "OWNER_OPS_TEST_DATABASE_URL";
 
-/** Schema-relative SQLite URL expected by Vitest (see vitest.config.ts). */
-export const VITEST_SQLITE_DATABASE_URL = "file:./vitest.db";
+export class TestDatabaseConfigError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "TestDatabaseConfigError";
+  }
+}
 
-const FORM_PROCESS_STEP_FK_REPAIR = `
-PRAGMA foreign_keys=OFF;
-DROP TABLE IF EXISTS "FormProcessStep_fixed";
-CREATE TABLE "FormProcessStep_fixed" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "processId" TEXT NOT NULL,
-    "stepNumber" INTEGER NOT NULL,
-    "responsibleRole" TEXT,
-    "exactAction" TEXT,
-    "toolUsed" TEXT,
-    "informationReceived" TEXT,
-    "informationChanged" TEXT,
-    "outputRecipient" TEXT,
-    "decisionInvolved" TEXT,
-    "expectedTime" TEXT,
-    "waitingTime" TEXT,
-    "notificationSent" TEXT,
-    "completionEvidence" TEXT,
-    "problems" TEXT,
-    "exceptions" TEXT,
-    "workaround" TEXT,
-    "sortOrder" INTEGER NOT NULL DEFAULT 0,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "FormProcessStep_processId_fkey" FOREIGN KEY ("processId") REFERENCES "FormProcess" ("id") ON DELETE CASCADE ON UPDATE CASCADE
-);
-INSERT INTO "FormProcessStep_fixed" SELECT * FROM "FormProcessStep";
-DROP TABLE "FormProcessStep";
-ALTER TABLE "FormProcessStep_fixed" RENAME TO "FormProcessStep";
-CREATE INDEX IF NOT EXISTS "FormProcessStep_processId_sortOrder_idx" ON "FormProcessStep"("processId", "sortOrder");
-PRAGMA foreign_keys=ON;
-`;
-
-export function resetSqliteTestDatabase(dbRelativePath: string): void {
-  const dbFile = path.isAbsolute(dbRelativePath)
-    ? dbRelativePath
-    : path.join(ROOT, dbRelativePath);
-  try {
-    execSync(
-      `rm -f "${dbFile}" "${dbFile}-journal" "${NESTED_STALE}" "${NESTED_STALE}-journal"`,
-      { stdio: "pipe" },
+/**
+ * Reject URLs that look like Production / shared pilot Neon hosts or pooled
+ * production naming. Placeholders and obvious local docker URLs are allowed
+ * for static config checks; connection is still deferred until authorized.
+ */
+export function assertSafeOwnerOpsTestDatabaseUrl(url: string): void {
+  const trimmed = url.trim();
+  if (!trimmed) {
+    throw new TestDatabaseConfigError(
+      `${OWNER_OPS_TEST_DATABASE_URL_ENV} is empty`,
     );
-  } catch {
-    /* ignore */
+  }
+  if (trimmed.startsWith("file:") || /sqlite/i.test(trimmed)) {
+    throw new TestDatabaseConfigError(
+      `${OWNER_OPS_TEST_DATABASE_URL_ENV} must be PostgreSQL (not SQLite file:)`,
+    );
+  }
+  if (!/^postgres(ql)?:\/\//i.test(trimmed)) {
+    throw new TestDatabaseConfigError(
+      `${OWNER_OPS_TEST_DATABASE_URL_ENV} must use postgres:// or postgresql://`,
+    );
   }
 
-  if (!fs.existsSync(MIGRATIONS)) {
-    throw new Error(`Migrations directory missing: ${MIGRATIONS}`);
-  }
-
-  const dirs = fs
-    .readdirSync(MIGRATIONS)
-    .filter((name) => fs.statSync(path.join(MIGRATIONS, name)).isDirectory())
-    .sort();
-
-  for (const dir of dirs) {
-    const sqlPath = path.join(MIGRATIONS, dir, "migration.sql");
-    if (!fs.existsSync(sqlPath)) continue;
-    execSync(`sqlite3 "${dbFile}" < "${sqlPath}"`, {
-      stdio: "pipe",
-      shell: "/bin/zsh",
-    });
-  }
-
-  // Repair SQLite rename/recreate FK artifact (see file header).
-  const repairPath = `${dbFile}.fk-repair.sql`;
-  fs.writeFileSync(repairPath, FORM_PROCESS_STEP_FK_REPAIR, "utf8");
-  try {
-    execSync(`sqlite3 "${dbFile}" < "${repairPath}"`, {
-      stdio: "pipe",
-      shell: "/bin/zsh",
-    });
-  } finally {
-    try {
-      fs.unlinkSync(repairPath);
-    } catch {
-      /* ignore */
+  const lower = trimmed.toLowerCase();
+  const forbiddenSubstrings = [
+    // Obvious Production / fictional-pilot identifiers (never use for local tests)
+    "owner-ops-fictional-pilot",
+    "plain-fire-35687465",
+    "vercel.app",
+    // Hosted Neon endpoints require a separately authorized test project;
+    // block by default so C1A/default suites cannot point at Production Neon.
+    "neon.tech",
+  ];
+  for (const needle of forbiddenSubstrings) {
+    if (lower.includes(needle)) {
+      throw new TestDatabaseConfigError(
+        `${OWNER_OPS_TEST_DATABASE_URL_ENV} looks like a Production or shared hosted URL (` +
+          `${needle}). Use a separately authorized non-Production Postgres test database only.`,
+      );
     }
   }
+}
+
+/**
+ * Resolve and validate the dedicated test database URL.
+ * Does not open a connection.
+ */
+export function requireOwnerOpsTestDatabaseUrl(
+  fromEnv: NodeJS.ProcessEnv = process.env,
+): string {
+  const url = fromEnv[OWNER_OPS_TEST_DATABASE_URL_ENV];
+  if (!url) {
+    throw new TestDatabaseConfigError(
+      `${OWNER_OPS_TEST_DATABASE_URL_ENV} is required for database-backed tests. ` +
+        `Provide a separately authorized non-Production PostgreSQL URL. ` +
+        `Do not use Production Neon credentials. C1A deferred DB tests until that gate.`,
+    );
+  }
+  assertSafeOwnerOpsTestDatabaseUrl(url);
+  return url;
+}
+
+/**
+ * Apply the validated test URL to process.env for Prisma Client.
+ * Does not connect, migrate, or seed.
+ */
+export function applyOwnerOpsTestDatabaseEnv(
+  fromEnv: NodeJS.ProcessEnv = process.env,
+): string {
+  const url = requireOwnerOpsTestDatabaseUrl(fromEnv);
+  fromEnv.DATABASE_URL = url;
+  // Migrate tooling is out of scope for the test harness; keep DIRECT_URL
+  // aligned only when already set to a non-secret test direct URL.
+  if (!fromEnv.DIRECT_URL) {
+    fromEnv.DIRECT_URL = url;
+  }
+  return url;
 }

@@ -1,14 +1,17 @@
 // Owner Operations Dashboard — Phase 1
-// SQLite for local development. Schema kept Postgres-compatible
-// (portable types; switch provider + DATABASE_URL for production).
+// Active datasource is PostgreSQL for local, test, and Production.
+// Historical SQLite migrations are archived under prisma/migrations-sqlite-archive/
+// and are not part of the active migrate path.
+// DATABASE_URL = runtime (pooled on Neon). DIRECT_URL = migrate tooling (direct).
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum OpportunityStatus {
