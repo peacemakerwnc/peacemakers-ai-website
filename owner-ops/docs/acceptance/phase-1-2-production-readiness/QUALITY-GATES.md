@@ -61,3 +61,17 @@ Not available — Vitest never executed cases (hang after startup banner).
 2. Confirm no leftover owner-ops `tsc`/`eslint`/`prisma` PIDs.
 3. Re-run: `cd owner-ops && npx prisma generate && npm test && npm run lint && npm run typecheck && npm run build`.
 4. Optionally use Node LTS (20/22) if Node **v25.9.0** continues to interact poorly with Prisma 6.19.3 CLI startup after resources are healthy.
+
+## Recorded run — Phase 1.2B (2026-08-06 post-reboot attempt)
+
+**Stopped before Prisma.** Host readiness failed.
+
+| Check | Result |
+|-------|--------|
+| Data volume free > 20% | **FAIL** (~10% free / ~90% used) |
+| Memory / swap | **FAIL** (swap ~14.4/15.4 GiB used) |
+| Lightweight Node/npm probes | PASS (`node`, `npm pkg get name`, `npm ls --depth=0`) |
+| Prisma CLI / generate / migrate status | **NOT RUN** |
+| `npm test` / lint / typecheck / build | **NOT RUN** |
+
+See [PHASE-1-2B-HOST.md](./PHASE-1-2B-HOST.md).
