@@ -20,7 +20,8 @@
       "name": "Automation quick-wins",
       "briefs": [5, 12, 17, 18, 22, 36],
       "scheduled_date": "2026-07-14",
-      "status": "pending",
+      "status": "published",
+      "published_date": "2026-08-06",
       "module": "batch2.py"
     },
     {
