@@ -46,6 +46,9 @@ yarn-error.log*
 /prisma/*.db-journal
 /prisma/vitest.db
 /prisma/test-invitations.db
+/prisma/prisma/
+/dev.db
+/dev.db-journal
 /storage/**
 !/storage/.gitkeep
 /storage/uat-demo/
