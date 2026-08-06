@@ -27,7 +27,6 @@ import {
   ProcessGraphError,
 } from "./process-graph";
 import {
-import { resetSqliteTestDatabase } from "./test-db";
   assignStepSwimlane,
   compareAsIsToFutureState,
   createImprovementOpportunity,
@@ -41,6 +40,7 @@ import { resetSqliteTestDatabase } from "./test-db";
   saveViewport,
   workspaceValidation,
 } from "./process-workspace";
+import { resetSqliteTestDatabase } from "./test-db";
 
 async function seedMinimal() {
   await prisma.user.upsert({

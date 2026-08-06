@@ -11,11 +11,11 @@ import {
 } from "./workflow";
 import { resetEnvCache } from "./env";
 import {
-import { resetSqliteTestDatabase } from "./test-db";
   DEFAULT_PIPELINE_SLUG,
   DEFAULT_STAGES,
   BLUEPRINT_FORM_TEMPLATE_SLUG,
 } from "./pipeline-seed-data";
+import { resetSqliteTestDatabase } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");

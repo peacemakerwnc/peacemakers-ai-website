@@ -7,7 +7,9 @@ export default defineConfig({
     include: ["src/**/*.test.ts"],
     fileParallelism: false,
     env: {
-      DATABASE_URL: "file:./prisma/vitest.db",
+      // Relative to prisma/schema.prisma (not package root). Nested
+      // file:./prisma/vitest.db resolves to prisma/prisma/vitest.db and breaks tests.
+      DATABASE_URL: "file:./vitest.db",
       OWNER_EMAIL: "owner@example.com",
       OWNER_NAME: "Owner",
       OWNER_PASSWORD: "change-me-before-use",

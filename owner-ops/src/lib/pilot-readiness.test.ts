@@ -51,14 +51,15 @@ describe("production guards", () => {
   });
 
   it("rejects sqlite DATABASE_URL in production", () => {
-    const prev = process.env.NODE_ENV;
-    const prevDb = process.env.DATABASE_URL;
-    process.env.NODE_ENV = "production";
-    process.env.DATABASE_URL = "file:./dev.db";
+    const env = process.env as Record<string, string | undefined>;
+    const prev = env.NODE_ENV;
+    const prevDb = env.DATABASE_URL;
+    env.NODE_ENV = "production";
+    env.DATABASE_URL = "file:./dev.db";
     resetEnvCache();
     const result = assertProductionConfig();
-    process.env.NODE_ENV = prev;
-    process.env.DATABASE_URL = prevDb;
+    env.NODE_ENV = prev;
+    env.DATABASE_URL = prevDb;
     resetEnvCache();
     expect(result.ok).toBe(false);
     expect(result.errors.some((e) => e.includes("Postgres"))).toBe(true);
@@ -115,7 +116,10 @@ describe("invitation email template", () => {
     expect(content.html).toContain("Open your secure form");
     expect(content.text).not.toContain("opportunityId");
     expect(content.text).not.toContain("SESSION_SECRET");
-    expect(content.html).not.toContain("password");
+    // Safety copy may mention "password(s)" as a warning; forbid secret material.
+    expect(content.html).not.toContain("SESSION_SECRET");
+    expect(content.html).not.toMatch(/scrypt\$/);
+    expect(content.html).not.toContain("rawToken");
   });
 });
 
@@ -132,5 +136,25 @@ describe("monitoring sanitization", () => {
         },
       }),
     ).not.toThrow();
+  });
+});
+
+describe("vitest sqlite database url", () => {
+  it("uses schema-relative path and FormProcessStep FK to FormProcess", async () => {
+    const { VITEST_SQLITE_DATABASE_URL, resetSqliteTestDatabase } = await import(
+      "./test-db"
+    );
+    expect(process.env.DATABASE_URL).toBe(VITEST_SQLITE_DATABASE_URL);
+    expect(VITEST_SQLITE_DATABASE_URL).toBe("file:./vitest.db");
+    resetSqliteTestDatabase("prisma/vitest.db");
+    const { prisma } = await import("./db");
+    const tables = await prisma.$queryRawUnsafe<{ name: string }[]>(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='NextAction'",
+    );
+    expect(tables.length).toBe(1);
+    const fks = await prisma.$queryRawUnsafe<{ table_name: string }[]>(
+      'SELECT "table" AS table_name FROM pragma_foreign_key_list(\'FormProcessStep\')',
+    );
+    expect(fks.map((r) => r.table_name)).toEqual(["FormProcess"]);
   });
 });

@@ -274,55 +274,55 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  assignedOpportunities Opportunity[] @relation("OpportunityOwner")
-  assignedActions       NextAction[]  @relation("ActionAssignee")
+  assignedOpportunities Opportunity[]  @relation("OpportunityOwner")
+  assignedActions       NextAction[]   @relation("ActionAssignee")
   notes                 Note[]
   auditEvents           AuditEvent[]
   reviewedResponses     FormResponse[] @relation("ResponseReviewer")
 }
 
 model Company {
-  id                    String   @id @default(cuid())
-  name                  String
-  website               String?
-  primaryLocation       String?
-  serviceAreas          String?
-  industry              String?
-  yearsInBusiness       Int?
-  employeeCount         Int?
-  adminEmployeeCount    Int?
-  customersPerMonth     Int?
-  annualRevenueRange    String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  name               String
+  website            String?
+  primaryLocation    String?
+  serviceAreas       String?
+  industry           String?
+  yearsInBusiness    Int?
+  employeeCount      Int?
+  adminEmployeeCount Int?
+  customersPerMonth  Int?
+  annualRevenueRange String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
-  contacts       CompanyContact[]
-  opportunities  Opportunity[]
-  tools          CompanyTool[]
-  files          FileAttachment[]
-  notes          Note[]
-  activities     Activity[]
-  meetings       Meeting[]
+  contacts          CompanyContact[]
+  opportunities     Opportunity[]
+  tools             CompanyTool[]
+  files             FileAttachment[]
+  notes             Note[]
+  activities        Activity[]
+  meetings          Meeting[]
   blueprintMeetings BlueprintMeeting[]
-  proposals      Proposal[]
-  agreements     Agreement[]
-  payments       Payment[]
-  projects       Project[]
-  processes      Process[]
-  evidenceSources EvidenceSource[]
-  evidenceFindings EvidenceFinding[]
+  proposals         Proposal[]
+  agreements        Agreement[]
+  payments          Payment[]
+  projects          Project[]
+  processes         Process[]
+  evidenceSources   EvidenceSource[]
+  evidenceFindings  EvidenceFinding[]
   evidenceConflicts EvidenceConflict[]
 }
 
 model Contact {
-  id              String   @id @default(cuid())
-  firstName       String
-  lastName        String
-  email           String
-  phone           String?
-  jobTitle        String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  jobTitle  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   companies       CompanyContact[]
   opportunities   Opportunity[]
@@ -363,25 +363,25 @@ model Pipeline {
 }
 
 model PipelineStage {
-  id                 String   @id @default(cuid())
-  pipelineId         String
-  name               String
-  slug               String
-  sortOrder          Int
-  objective          String
-  requiredInformation String @default("")
-  requiredOwnerAction String @default("")
+  id                   String   @id @default(cuid())
+  pipelineId           String
+  name                 String
+  slug                 String
+  sortOrder            Int
+  objective            String
+  requiredInformation  String   @default("")
+  requiredOwnerAction  String   @default("")
   clientFacingArtifact String?
-  suggestedMessage   String?
-  relevantSopSlug    String?
-  exitCriteria       String  @default("")
-  nextStageSlug      String?
-  isTerminal         Boolean @default(false)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  suggestedMessage     String?
+  relevantSopSlug      String?
+  exitCriteria         String   @default("")
+  nextStageSlug        String?
+  isTerminal           Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 
-  pipeline    Pipeline         @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
-  checklists  StageChecklist[]
+  pipeline      Pipeline         @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  checklists    StageChecklist[]
   opportunities Opportunity[]
 
   @@unique([pipelineId, slug])
@@ -389,11 +389,11 @@ model PipelineStage {
 }
 
 model StageChecklist {
-  id          String  @id @default(cuid())
-  stageId     String
-  label       String
-  sortOrder   Int     @default(0)
-  isRequired  Boolean @default(true)
+  id         String  @id @default(cuid())
+  stageId    String
+  label      String
+  sortOrder  Int     @default(0)
+  isRequired Boolean @default(true)
 
   stage PipelineStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
 
@@ -401,42 +401,42 @@ model StageChecklist {
 }
 
 model Opportunity {
-  id              String            @id @default(cuid())
+  id              String                @id @default(cuid())
   pipelineId      String
   stageId         String
   contactId       String
   companyId       String
   ownerUserId     String?
   title           String
-  status          OpportunityStatus @default(OPEN)
+  status          OpportunityStatus     @default(OPEN)
   estimatedValue  Int?
   formStatus      FormInvitationStatus?
   lastActivityAt  DateTime?
   nextActionDueAt DateTime?
   source          String?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
 
-  pipeline         Pipeline          @relation(fields: [pipelineId], references: [id])
-  stage            PipelineStage     @relation(fields: [stageId], references: [id])
-  contact          Contact           @relation(fields: [contactId], references: [id])
-  company          Company           @relation(fields: [companyId], references: [id])
-  owner            User?             @relation("OpportunityOwner", fields: [ownerUserId], references: [id])
-  formInvitations  FormInvitation[]
-  activities       Activity[]
-  notes            Note[]
-  meetings         Meeting[]
+  pipeline          Pipeline           @relation(fields: [pipelineId], references: [id])
+  stage             PipelineStage      @relation(fields: [stageId], references: [id])
+  contact           Contact            @relation(fields: [contactId], references: [id])
+  company           Company            @relation(fields: [companyId], references: [id])
+  owner             User?              @relation("OpportunityOwner", fields: [ownerUserId], references: [id])
+  formInvitations   FormInvitation[]
+  activities        Activity[]
+  notes             Note[]
+  meetings          Meeting[]
   blueprintMeetings BlueprintMeeting[]
-  nextActions      NextAction[]
-  files            FileAttachment[]
-  proposals        Proposal[]
-  agreements       Agreement[]
-  payments         Payment[]
-  projects         Project[]
-  proposedServices ProposedService[]
-  processes        Process[]
-  evidenceSources  EvidenceSource[]
-  evidenceFindings EvidenceFinding[]
+  nextActions       NextAction[]
+  files             FileAttachment[]
+  proposals         Proposal[]
+  agreements        Agreement[]
+  payments          Payment[]
+  projects          Project[]
+  proposedServices  ProposedService[]
+  processes         Process[]
+  evidenceSources   EvidenceSource[]
+  evidenceFindings  EvidenceFinding[]
   evidenceConflicts EvidenceConflict[]
 
   @@index([stageId])
@@ -476,31 +476,31 @@ model FormTemplate {
 }
 
 model FormInvitation {
-  id                     String                @id @default(cuid())
-  tokenHash              String                @unique
-  tokenPrefix            String
-  formTemplateId         String
-  contactId              String
-  opportunityId          String
-  status                 FormInvitationStatus  @default(PENDING)
-  expiresAt              DateTime
-  revokedAt              DateTime?
-  firstOpenedAt          DateTime?
-  lastSavedAt            DateTime?
-  submittedAt            DateTime?
-  completionPct          Int                   @default(0)
+  id                    String               @id @default(cuid())
+  tokenHash             String               @unique
+  tokenPrefix           String
+  formTemplateId        String
+  contactId             String
+  opportunityId         String
+  status                FormInvitationStatus @default(PENDING)
+  expiresAt             DateTime
+  revokedAt             DateTime?
+  firstOpenedAt         DateTime?
+  lastSavedAt           DateTime?
+  submittedAt           DateTime?
+  completionPct         Int                  @default(0)
   /// Pilot privacy notice version acknowledged by the client (e.g. pilot-2026-08-05)
-  privacyNoticeVersion   String?
-  privacyAcknowledgedAt  DateTime?
-  lastEmailSentAt        DateTime?
-  lastEmailProvider      String?
-  lastEmailMessageId     String?
-  createdAt              DateTime              @default(now())
-  updatedAt              DateTime              @updatedAt
+  privacyNoticeVersion  String?
+  privacyAcknowledgedAt DateTime?
+  lastEmailSentAt       DateTime?
+  lastEmailProvider     String?
+  lastEmailMessageId    String?
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
 
-  formTemplate FormTemplate   @relation(fields: [formTemplateId], references: [id])
-  contact      Contact        @relation(fields: [contactId], references: [id])
-  opportunity  Opportunity    @relation(fields: [opportunityId], references: [id])
+  formTemplate FormTemplate     @relation(fields: [formTemplateId], references: [id])
+  contact      Contact          @relation(fields: [contactId], references: [id])
+  opportunity  Opportunity      @relation(fields: [opportunityId], references: [id])
   responses    FormResponse[]
   files        FileAttachment[]
   activities   Activity[]
@@ -512,27 +512,27 @@ model FormInvitation {
 }
 
 model FormResponse {
-  id              String             @id @default(cuid())
-  invitationId    String
-  version         Int                @default(1)
-  status          FormResponseStatus @default(DRAFT)
-  payloadJson     String             @default("{}")
-  completionPct   Int                @default(0)
-  submittedAt     DateTime?
-  reviewedAt      DateTime?
-  reviewedById    String?
-  internalNotes   String?
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
+  id            String             @id @default(cuid())
+  invitationId  String
+  version       Int                @default(1)
+  status        FormResponseStatus @default(DRAFT)
+  payloadJson   String             @default("{}")
+  completionPct Int                @default(0)
+  submittedAt   DateTime?
+  reviewedAt    DateTime?
+  reviewedById  String?
+  internalNotes String?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
 
-  invitation FormInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
-  reviewedBy User?          @relation("ResponseReviewer", fields: [reviewedById], references: [id])
-  formProcesses FormProcess[]
-  processVersions ProcessVersion[]
-  tools        CompanyTool[]
-  files        FileAttachment[]
+  invitation        FormInvitation     @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+  reviewedBy        User?              @relation("ResponseReviewer", fields: [reviewedById], references: [id])
+  formProcesses     FormProcess[]
+  processVersions   ProcessVersion[]
+  tools             CompanyTool[]
+  files             FileAttachment[]
   blueprintMeetings BlueprintMeeting[]
-  evidenceSources EvidenceSource[]
+  evidenceSources   EvidenceSource[]
 
   @@unique([invitationId, version])
   @@index([invitationId, status])
@@ -570,9 +570,9 @@ model FormProcess {
   createdAt             DateTime                   @default(now())
   updatedAt             DateTime                   @updatedAt
 
-  formResponse FormResponse      @relation(fields: [formResponseId], references: [id], onDelete: Cascade)
-  steps        FormProcessStep[]
-  linkedProcess Process?         @relation(fields: [linkedProcessId], references: [id], onDelete: SetNull)
+  formResponse  FormResponse      @relation(fields: [formResponseId], references: [id], onDelete: Cascade)
+  steps         FormProcessStep[]
+  linkedProcess Process?          @relation(fields: [linkedProcessId], references: [id], onDelete: SetNull)
 
   @@index([formResponseId])
   @@index([migrationStatus])
@@ -633,61 +633,61 @@ model Process {
 }
 
 model ProcessVersion {
-  id                    String                       @id @default(cuid())
-  processId             String
-  versionNumber         Int
-  versionLabel          String?
-  classification        ProcessVersionClassification
-  status                ProcessVersionStatus         @default(DRAFT)
-  parentVersionId       String?
-  derivedFromVersionId  String?
-  authorType            ProcessAuthorType            @default(OWNER)
-  authorUserId          String?
-  authorLabel           String?
-  purpose               String?
-  outcome               String?
-  startTrigger          String?
-  endEvent              String?
-  startBoundary         String?
-  endBoundary           String?
-  frequency             String?
-  averageVolume         String?
-  peakVolume            String?
-  averageCompletionTime String?
-  governingRules        String?
-  policies              String?
+  id                     String                       @id @default(cuid())
+  processId              String
+  versionNumber          Int
+  versionLabel           String?
+  classification         ProcessVersionClassification
+  status                 ProcessVersionStatus         @default(DRAFT)
+  parentVersionId        String?
+  derivedFromVersionId   String?
+  authorType             ProcessAuthorType            @default(OWNER)
+  authorUserId           String?
+  authorLabel            String?
+  purpose                String?
+  outcome                String?
+  startTrigger           String?
+  endEvent               String?
+  startBoundary          String?
+  endBoundary            String?
+  frequency              String?
+  averageVolume          String?
+  peakVolume             String?
+  averageCompletionTime  String?
+  governingRules         String?
+  policies               String?
   contractualObligations String?
-  deadlines             String?
-  serviceExpectations   String?
-  successMeasures       String?
-  currentPerformance    String?
-  internalNotes         String?
-  clientNotes           String?
-  completenessStatus    String?
-  confidenceStatus      String?
+  deadlines              String?
+  serviceExpectations    String?
+  successMeasures        String?
+  currentPerformance     String?
+  internalNotes          String?
+  clientNotes            String?
+  completenessStatus     String?
+  confidenceStatus       String?
   /// Questionnaire response version that owns this process version (Increment 2).
-  formResponseId        String?
+  formResponseId         String?
   /// Presentation-only viewport JSON for the owner workspace (Increment 3).
-  viewportJson          String?
-  createdAt             DateTime                     @default(now())
-  updatedAt             DateTime                     @updatedAt
-  submittedAt           DateTime?
-  approvedAt            DateTime?
-  supersededAt          DateTime?
+  viewportJson           String?
+  createdAt              DateTime                     @default(now())
+  updatedAt              DateTime                     @updatedAt
+  submittedAt            DateTime?
+  approvedAt             DateTime?
+  supersededAt           DateTime?
 
-  process      Process              @relation(fields: [processId], references: [id], onDelete: Cascade)
-  formResponse FormResponse?        @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
-  parent       ProcessVersion?      @relation("VersionParent", fields: [parentVersionId], references: [id], onDelete: SetNull)
-  children     ProcessVersion[]     @relation("VersionParent")
-  derivedFrom  ProcessVersion?      @relation("VersionDerived", fields: [derivedFromVersionId], references: [id], onDelete: SetNull)
-  derivatives  ProcessVersion[]     @relation("VersionDerived")
-  steps        ProcessStep[]
-  connections  ProcessConnection[]
-  participants ProcessParticipant[]
-  approvals    ProcessApproval[]
-  swimlanes    ProcessSwimlane[]
-  painPoints   ProcessPainPoint[]
-  metrics      ProcessMetric[]
+  process       Process                  @relation(fields: [processId], references: [id], onDelete: Cascade)
+  formResponse  FormResponse?            @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
+  parent        ProcessVersion?          @relation("VersionParent", fields: [parentVersionId], references: [id], onDelete: SetNull)
+  children      ProcessVersion[]         @relation("VersionParent")
+  derivedFrom   ProcessVersion?          @relation("VersionDerived", fields: [derivedFromVersionId], references: [id], onDelete: SetNull)
+  derivatives   ProcessVersion[]         @relation("VersionDerived")
+  steps         ProcessStep[]
+  connections   ProcessConnection[]
+  participants  ProcessParticipant[]
+  approvals     ProcessApproval[]
+  swimlanes     ProcessSwimlane[]
+  painPoints    ProcessPainPoint[]
+  metrics       ProcessMetric[]
   opportunities ImprovementOpportunity[]
 
   @@unique([processId, versionNumber])
@@ -699,55 +699,55 @@ model ProcessVersion {
 }
 
 model ProcessStep {
-  id                   String               @id @default(cuid())
-  processVersionId     String
-  displayOrder         Int                  @default(0)
-  shortName            String
-  detailedDescription  String?
-  stepType             ProcessStepType
-  responsibleRole      String?
-  responsiblePerson    String?
-  department           String?
-  executionType        ProcessExecutionType @default(HUMAN)
-  toolOrSystem         String?
-  requiredInputs       String?
-  dataReceived         String?
-  informationHandled   String?
-  outputProduced       String?
-  outputRecipient      String?
-  expectedWorkTime     String?
-  typicalWaitingTime   String?
-  deadline             String?
-  serviceExpectation   String?
-  notification         String?
-  evidenceOfCompletion String?
-  problems             String?
-  workarounds          String?
-  valueClassification  String?
-  automationSuitability String?
-  internalNotes        String?
-  clientNotes          String?
-  unresolvedQuestions  String?
+  id                     String               @id @default(cuid())
+  processVersionId       String
+  displayOrder           Int                  @default(0)
+  shortName              String
+  detailedDescription    String?
+  stepType               ProcessStepType
+  responsibleRole        String?
+  responsiblePerson      String?
+  department             String?
+  executionType          ProcessExecutionType @default(HUMAN)
+  toolOrSystem           String?
+  requiredInputs         String?
+  dataReceived           String?
+  informationHandled     String?
+  outputProduced         String?
+  outputRecipient        String?
+  expectedWorkTime       String?
+  typicalWaitingTime     String?
+  deadline               String?
+  serviceExpectation     String?
+  notification           String?
+  evidenceOfCompletion   String?
+  problems               String?
+  workarounds            String?
+  valueClassification    String?
+  automationSuitability  String?
+  internalNotes          String?
+  clientNotes            String?
+  unresolvedQuestions    String?
   /// Client marker: explain during Blueprint call (Increment 2).
-  discussDuringBlueprint Boolean            @default(false)
-  completenessStatus   String?
-  confidenceStatus     String?
+  discussDuringBlueprint Boolean              @default(false)
+  completenessStatus     String?
+  confidenceStatus       String?
   /// Presentation only — never workflow truth.
-  canvasX              Float?
-  canvasY              Float?
+  canvasX                Float?
+  canvasY                Float?
   /// Swimlane assignment — presentation/responsibility only (Increment 3).
-  swimlaneId           String?
+  swimlaneId             String?
   /// Step copied from this source step id when refining/deriving (Increment 3).
-  sourceStepId         String?
-  createdAt            DateTime             @default(now())
-  updatedAt            DateTime             @updatedAt
+  sourceStepId           String?
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
 
-  processVersion ProcessVersion       @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
-  swimlane       ProcessSwimlane?     @relation(fields: [swimlaneId], references: [id], onDelete: SetNull)
-  sourceStep     ProcessStep?         @relation("StepLineage", fields: [sourceStepId], references: [id], onDelete: SetNull)
-  derivedSteps   ProcessStep[]        @relation("StepLineage")
-  outgoing       ProcessConnection[]  @relation("ConnectionSource")
-  incoming       ProcessConnection[]  @relation("ConnectionTarget")
+  processVersion ProcessVersion           @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  swimlane       ProcessSwimlane?         @relation(fields: [swimlaneId], references: [id], onDelete: SetNull)
+  sourceStep     ProcessStep?             @relation("StepLineage", fields: [sourceStepId], references: [id], onDelete: SetNull)
+  derivedSteps   ProcessStep[]            @relation("StepLineage")
+  outgoing       ProcessConnection[]      @relation("ConnectionSource")
+  incoming       ProcessConnection[]      @relation("ConnectionTarget")
   participants   ProcessParticipant[]
   painPoints     ProcessPainPoint[]
   metrics        ProcessMetric[]
@@ -760,25 +760,25 @@ model ProcessStep {
 }
 
 model ProcessConnection {
-  id                   String                @id @default(cuid())
-  processVersionId     String
-  sourceStepId         String
-  targetStepId         String
-  connectionType       ProcessConnectionType
-  displayLabel         String?
-  condition            String?
-  businessRule         String?
-  priority             Int                   @default(0)
-  isDefaultPath        Boolean               @default(false)
-  exceptionMetadata    String?
-  escalationMetadata   String?
+  id                    String                @id @default(cuid())
+  processVersionId      String
+  sourceStepId          String
+  targetStepId          String
+  connectionType        ProcessConnectionType
+  displayLabel          String?
+  condition             String?
+  businessRule          String?
+  priority              Int                   @default(0)
+  isDefaultPath         Boolean               @default(false)
+  exceptionMetadata     String?
+  escalationMetadata    String?
   presentationRouteJson String?
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @updatedAt
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
 
-  processVersion ProcessVersion       @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
-  sourceStep     ProcessStep          @relation("ConnectionSource", fields: [sourceStepId], references: [id], onDelete: Restrict)
-  targetStep     ProcessStep          @relation("ConnectionTarget", fields: [targetStepId], references: [id], onDelete: Restrict)
+  processVersion ProcessVersion @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  sourceStep     ProcessStep    @relation("ConnectionSource", fields: [sourceStepId], references: [id], onDelete: Restrict)
+  targetStep     ProcessStep    @relation("ConnectionTarget", fields: [targetStepId], references: [id], onDelete: Restrict)
 
   @@index([processVersionId])
   @@index([sourceStepId])
@@ -787,18 +787,18 @@ model ProcessConnection {
 }
 
 model ProcessParticipant {
-  id                 String                    @id @default(cuid())
-  processVersionId   String
-  processStepId      String?
-  participantType    ProcessParticipantType
-  role               String?
-  personLabel        String?
-  contactId          String?
-  department         String?
+  id                  String                    @id @default(cuid())
+  processVersionId    String
+  processStepId       String?
+  participantType     ProcessParticipantType
+  role                String?
+  personLabel         String?
+  contactId           String?
+  department          String?
   externalDesignation String?
-  responsibilityType ProcessResponsibilityType @default(RESPONSIBLE)
-  createdAt          DateTime                  @default(now())
-  updatedAt          DateTime                  @updatedAt
+  responsibilityType  ProcessResponsibilityType @default(RESPONSIBLE)
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
 
   processVersion ProcessVersion @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
   processStep    ProcessStep?   @relation(fields: [processStepId], references: [id], onDelete: Cascade)
@@ -843,29 +843,29 @@ model ProcessSwimlane {
 }
 
 model ProcessPainPoint {
-  id                     String            @id @default(cuid())
-  processVersionId       String
-  processStepId          String?
-  processConnectionId    String?
-  title                  String
-  description            String?
-  category               PainPointCategory @default(OTHER)
-  severity               PainPointSeverity @default(MEDIUM)
-  frequency              String?
-  estimatedTimeImpact    String?
+  id                       String            @id @default(cuid())
+  processVersionId         String
+  processStepId            String?
+  processConnectionId      String?
+  title                    String
+  description              String?
+  category                 PainPointCategory @default(OTHER)
+  severity                 PainPointSeverity @default(MEDIUM)
+  frequency                String?
+  estimatedTimeImpact      String?
   estimatedFinancialImpact String?
-  financialImpactSource  String?
-  customerImpact         String?
-  complianceOrOpsRisk    String?
-  evidenceSource         String?
-  currentWorkaround      String?
-  confidence             String?
-  ownerNotes             String?
-  createdAt              DateTime          @default(now())
-  updatedAt              DateTime          @updatedAt
+  financialImpactSource    String?
+  customerImpact           String?
+  complianceOrOpsRisk      String?
+  evidenceSource           String?
+  currentWorkaround        String?
+  confidence               String?
+  ownerNotes               String?
+  createdAt                DateTime          @default(now())
+  updatedAt                DateTime          @updatedAt
 
-  processVersion ProcessVersion            @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
-  processStep    ProcessStep?              @relation(fields: [processStepId], references: [id], onDelete: SetNull)
+  processVersion ProcessVersion           @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
+  processStep    ProcessStep?             @relation(fields: [processStepId], references: [id], onDelete: SetNull)
   opportunities  ImprovementOpportunity[]
 
   @@index([processVersionId])
@@ -875,21 +875,21 @@ model ProcessPainPoint {
 }
 
 model ProcessMetric {
-  id               String           @id @default(cuid())
-  processVersionId String
-  processStepId    String?
-  name             String
-  description      String?
-  metricType       MetricType       @default(OTHER)
-  currentValue     String?
-  unit             String?
-  targetValue      String?
+  id                String           @id @default(cuid())
+  processVersionId  String
+  processStepId     String?
+  name              String
+  description       String?
+  metricType        MetricType       @default(OTHER)
+  currentValue      String?
+  unit              String?
+  targetValue       String?
   measurementPeriod String?
-  dataSource       MetricDataSource @default(OWNER_ESTIMATE)
-  confidence       String?
-  notes            String?
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  dataSource        MetricDataSource @default(OWNER_ESTIMATE)
+  confidence        String?
+  notes             String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
 
   processVersion ProcessVersion           @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
   processStep    ProcessStep?             @relation(fields: [processStepId], references: [id], onDelete: SetNull)
@@ -901,29 +901,29 @@ model ProcessMetric {
 }
 
 model ImprovementOpportunity {
-  id                 String               @id @default(cuid())
-  processVersionId   String
-  processStepId      String?
+  id                  String              @id @default(cuid())
+  processVersionId    String
+  processStepId       String?
   processConnectionId String?
-  painPointId        String?
-  metricId           String?
-  title              String
-  problemAddressed   String?
-  proposedChange     String?
-  category           ImprovementCategory  @default(OTHER)
-  expectedBenefit    String?
-  estimatedImpact    String?
-  estimatedEffort    String?
-  priority           ImprovementPriority  @default(MEDIUM)
-  confidence         String?
-  dependencies       String?
-  risks              String?
-  assumptions        String?
-  validationNeeded   String?
-  status             ImprovementStatus    @default(CAPTURED)
-  ownerNotes         String?
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
+  painPointId         String?
+  metricId            String?
+  title               String
+  problemAddressed    String?
+  proposedChange      String?
+  category            ImprovementCategory @default(OTHER)
+  expectedBenefit     String?
+  estimatedImpact     String?
+  estimatedEffort     String?
+  priority            ImprovementPriority @default(MEDIUM)
+  confidence          String?
+  dependencies        String?
+  risks               String?
+  assumptions         String?
+  validationNeeded    String?
+  status              ImprovementStatus   @default(CAPTURED)
+  ownerNotes          String?
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
 
   processVersion ProcessVersion    @relation(fields: [processVersionId], references: [id], onDelete: Cascade)
   processStep    ProcessStep?      @relation(fields: [processStepId], references: [id], onDelete: SetNull)
@@ -976,27 +976,27 @@ model CompanyTool {
 }
 
 model FileAttachment {
-  id               String          @id @default(cuid())
-  storageKey       String          @unique
-  originalName     String
-  mimeType         String
-  sizeBytes        Int
-  sha256           String
-  accessLevel      FileAccessLevel @default(OWNER_ONLY)
-  category         String?
-  companyId        String?
-  contactId        String?
-  opportunityId    String?
-  invitationId     String?
-  formResponseId   String?
-  uploadedByOwner  Boolean         @default(false)
-  createdAt        DateTime        @default(now())
+  id              String          @id @default(cuid())
+  storageKey      String          @unique
+  originalName    String
+  mimeType        String
+  sizeBytes       Int
+  sha256          String
+  accessLevel     FileAccessLevel @default(OWNER_ONLY)
+  category        String?
+  companyId       String?
+  contactId       String?
+  opportunityId   String?
+  invitationId    String?
+  formResponseId  String?
+  uploadedByOwner Boolean         @default(false)
+  createdAt       DateTime        @default(now())
 
-  company      Company?       @relation(fields: [companyId], references: [id], onDelete: SetNull)
-  contact      Contact?       @relation(fields: [contactId], references: [id], onDelete: SetNull)
-  opportunity  Opportunity?   @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  company      Company?        @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  contact      Contact?        @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  opportunity  Opportunity?    @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
   invitation   FormInvitation? @relation(fields: [invitationId], references: [id], onDelete: SetNull)
-  formResponse FormResponse?  @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
+  formResponse FormResponse?   @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
 
   @@index([opportunityId])
   @@index([invitationId])
@@ -1148,18 +1148,18 @@ model Project {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
-  opportunity Opportunity?  @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
-  company     Company?      @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  opportunity Opportunity?   @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  company     Company?       @relation(fields: [companyId], references: [id], onDelete: SetNull)
   stages      ProjectStage[]
 }
 
 model ProjectStage {
-  id         String    @id @default(cuid())
-  projectId  String
-  name       String
-  sortOrder  Int       @default(0)
-  status     String    @default("pending")
-  startedAt  DateTime?
+  id          String    @id @default(cuid())
+  projectId   String
+  name        String
+  sortOrder   Int       @default(0)
+  status      String    @default("pending")
+  startedAt   DateTime?
   completedAt DateTime?
 
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -1168,37 +1168,37 @@ model ProjectStage {
 }
 
 model Sop {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  title       String
-  body        String
-  stageSlug   String?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  body      String
+  stageSlug String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Template {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  title       String
-  kind        String
-  body        String
-  stageSlug   String?
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  kind      String
+  body      String
+  stageSlug String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AuditEvent {
-  id         String   @id @default(cuid())
-  action     String
+  id          String   @id @default(cuid())
+  action      String
   actorUserId String?
-  actorLabel String   @default("system")
-  entityType String?
-  entityId   String?
-  detailsJson String  @default("{}")
-  createdAt  DateTime @default(now())
+  actorLabel  String   @default("system")
+  entityType  String?
+  entityId    String?
+  detailsJson String   @default("{}")
+  createdAt   DateTime @default(now())
 
   actor User? @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
 
@@ -1305,32 +1305,32 @@ enum EvidenceExtractionMethod {
 }
 
 model BlueprintMeeting {
-  id                 String                 @id @default(cuid())
-  companyId          String
-  opportunityId      String
-  formResponseId     String?
-  title              String
-  meetingDate        DateTime?
-  startedAt          DateTime?
-  endedAt            DateTime?
-  durationMinutes    Int?
-  facilitatorLabel   String?
-  status             BlueprintMeetingStatus @default(PLANNED)
-  processingStatus   String?
-  reviewStatus       String?
-  summaryManual      String?
-  decisionsJson      String                 @default("[]")
-  openQuestionsJson  String                 @default("[]")
-  followUpsJson      String                 @default("[]")
-  createdByUserId    String?
-  updatedByUserId    String?
-  supersededById     String?
-  createdAt          DateTime               @default(now())
-  updatedAt          DateTime               @updatedAt
+  id                String                 @id @default(cuid())
+  companyId         String
+  opportunityId     String
+  formResponseId    String?
+  title             String
+  meetingDate       DateTime?
+  startedAt         DateTime?
+  endedAt           DateTime?
+  durationMinutes   Int?
+  facilitatorLabel  String?
+  status            BlueprintMeetingStatus @default(PLANNED)
+  processingStatus  String?
+  reviewStatus      String?
+  summaryManual     String?
+  decisionsJson     String                 @default("[]")
+  openQuestionsJson String                 @default("[]")
+  followUpsJson     String                 @default("[]")
+  createdByUserId   String?
+  updatedByUserId   String?
+  supersededById    String?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
 
-  company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  opportunity  Opportunity   @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
-  formResponse FormResponse? @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
+  company      Company                    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity  Opportunity                @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  formResponse FormResponse?              @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
   attendees    BlueprintMeetingAttendee[]
   processes    BlueprintMeetingProcess[]
   sources      EvidenceSource[]
@@ -1395,10 +1395,10 @@ model EvidenceSource {
   createdAt        DateTime             @default(now())
   updatedAt        DateTime             @updatedAt
 
-  company      Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  opportunity  Opportunity?      @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
-  formResponse FormResponse?     @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
-  meeting      BlueprintMeeting? @relation(fields: [meetingId], references: [id], onDelete: SetNull)
+  company      Company            @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity  Opportunity?       @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  formResponse FormResponse?      @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
+  meeting      BlueprintMeeting?  @relation(fields: [meetingId], references: [id], onDelete: SetNull)
   findings     EvidenceFinding[]
   conflictAsA  EvidenceConflict[] @relation("ConflictSourceA")
   conflictAsB  EvidenceConflict[] @relation("ConflictSourceB")
@@ -1411,33 +1411,33 @@ model EvidenceSource {
 }
 
 model EvidenceFinding {
-  id                 String                      @id @default(cuid())
-  companyId          String
-  opportunityId      String?
-  meetingId          String?
-  processId          String?
-  sourceId           String
-  category           EvidenceFindingCategory     @default(OTHER)
-  title              String
-  body               String                      @default("")
-  excerpt            String?
-  sourceLocation     String?
-  speakerOrAuthor    String?
-  confidence         String?
-  extractionMethod   EvidenceExtractionMethod    @default(MANUAL_OWNER)
-  reviewStatus       EvidenceFindingReviewStatus @default(PROPOSED)
-  correctedTitle     String?
-  correctedBody      String?
-  reviewedByUserId   String?
-  reviewedAt         DateTime?
-  duplicateOfId      String?
-  createdAt          DateTime                    @default(now())
-  updatedAt          DateTime                    @updatedAt
+  id               String                      @id @default(cuid())
+  companyId        String
+  opportunityId    String?
+  meetingId        String?
+  processId        String?
+  sourceId         String
+  category         EvidenceFindingCategory     @default(OTHER)
+  title            String
+  body             String                      @default("")
+  excerpt          String?
+  sourceLocation   String?
+  speakerOrAuthor  String?
+  confidence       String?
+  extractionMethod EvidenceExtractionMethod    @default(MANUAL_OWNER)
+  reviewStatus     EvidenceFindingReviewStatus @default(PROPOSED)
+  correctedTitle   String?
+  correctedBody    String?
+  reviewedByUserId String?
+  reviewedAt       DateTime?
+  duplicateOfId    String?
+  createdAt        DateTime                    @default(now())
+  updatedAt        DateTime                    @updatedAt
 
-  company     Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  opportunity Opportunity?      @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
-  meeting     BlueprintMeeting? @relation(fields: [meetingId], references: [id], onDelete: SetNull)
-  source      EvidenceSource    @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  company     Company            @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity Opportunity?       @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  meeting     BlueprintMeeting?  @relation(fields: [meetingId], references: [id], onDelete: SetNull)
+  source      EvidenceSource     @relation(fields: [sourceId], references: [id], onDelete: Cascade)
   conflictsA  EvidenceConflict[] @relation("ConflictFindingA")
   conflictsB  EvidenceConflict[] @relation("ConflictFindingB")
 
@@ -1450,28 +1450,28 @@ model EvidenceFinding {
 }
 
 model EvidenceConflict {
-  id                      String                     @id @default(cuid())
-  companyId               String
-  opportunityId           String?
-  meetingId               String?
-  processId               String?
-  subject                 String
-  explanation             String?
-  materiality             EvidenceConflictMateriality @default(MEDIUM)
-  status                  EvidenceConflictStatus      @default(UNRESOLVED)
-  sourceAId               String?
-  sourceBId               String?
-  findingAId              String?
-  findingBId              String?
-  statementA              String
-  statementB              String
-  resolutionRationale     String?
-  correctedValue          String?
-  requiresClientConfirm   Boolean                     @default(false)
-  resolvedByUserId        String?
-  resolvedAt              DateTime?
-  createdAt               DateTime                    @default(now())
-  updatedAt               DateTime                    @updatedAt
+  id                    String                      @id @default(cuid())
+  companyId             String
+  opportunityId         String?
+  meetingId             String?
+  processId             String?
+  subject               String
+  explanation           String?
+  materiality           EvidenceConflictMateriality @default(MEDIUM)
+  status                EvidenceConflictStatus      @default(UNRESOLVED)
+  sourceAId             String?
+  sourceBId             String?
+  findingAId            String?
+  findingBId            String?
+  statementA            String
+  statementB            String
+  resolutionRationale   String?
+  correctedValue        String?
+  requiresClientConfirm Boolean                     @default(false)
+  resolvedByUserId      String?
+  resolvedAt            DateTime?
+  createdAt             DateTime                    @default(now())
+  updatedAt             DateTime                    @updatedAt
 
   company     Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
   opportunity Opportunity?      @relation(fields: [opportunityId], references: [id], onDelete: SetNull)

@@ -12,7 +12,6 @@ import {
   BLUEPRINT_FORM_TEMPLATE_SLUG,
 } from "./pipeline-seed-data";
 import {
-import { resetSqliteTestDatabase } from "./test-db";
   createMeeting,
   updateMeeting,
   updateEstimatedValue,
@@ -22,6 +21,7 @@ import { resetSqliteTestDatabase } from "./test-db";
   parseEstimatedValueDollars,
   WorkflowValidationError,
 } from "./opportunity-ops";
+import { resetSqliteTestDatabase } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");

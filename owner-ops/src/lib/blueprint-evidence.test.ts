@@ -139,7 +139,7 @@ async function createSubmittedResponse(opts: {
 
 describe("Increment 4 blueprint evidence foundation", () => {
   beforeAll(() => {
-    process.env.DATABASE_URL = "file:./prisma/vitest.db";
+    process.env.DATABASE_URL = "file:./vitest.db";
     resetEnvCache();
     const root = path.resolve(__dirname, "../..");
     const dbFile = path.join(root, "prisma/vitest.db");
