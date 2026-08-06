@@ -1,47 +1,39 @@
 # Infrastructure inventory
 
-**Provisioning status:** None of the production services below are assumed to exist.  
-**Owner approval is required before creating accounts, projects, domains, or paid plans.**
+**Provisioning status (fictional Phase 1.2C Approval A):** Vercel project, Neon Free project, Resend sending-only API key, and Upstash Free Redis are **created**. Sentry is **deferred**. Git connection, Resend domain/DNS, Vercel env values, deploy, migrate, and email remain **not authorized**.
 
-## Target stack
+For Approval A evidence and later gates, see:
 
-| Service | Role | Pilot setting | Provisioned? |
-|---------|------|---------------|--------------|
-| **Vercel** | Host Next.js 16 app | Region **`iad1`** (`vercel.json`) | **No** (approval pending) |
-| **Neon Postgres** | Managed production DB (SSL) | Separate **prod** project; not shared with toys/sandbox | **No** |
-| **Resend** | Transactional invitation email | Verified sender; `EMAIL_PROVIDER=resend` | **No** |
-| **Upstash Redis** | Distributed rate limits (REST) | `RATE_LIMIT_BACKEND=upstash` | **No** |
-| **Sentry** (optional) | Error aggregation | Set `SENTRY_DSN` only if owner opts in | **No** / optional |
+[`../acceptance/phase-1-2-production-readiness/PHASE-1-2C-INVENTORY.md`](../acceptance/phase-1-2-production-readiness/PHASE-1-2C-INVENTORY.md)
+
+## Target stack (summary)
+
+| Service | Role | Fictional rehearsal | Provisioned? |
+|---------|------|---------------------|--------------|
+| **Vercel** | Host Next.js 16 app | Region **`iad1`**, plan **Pro**, project `owner-ops-fictional-pilot`; $30 spend + pause; undeployed; Git disconnected | **Yes** (Approval A) |
+| **Neon Postgres** | Managed pilot DB (SSL) | Free project `plain-fire-35687465` (aws-us-east-1); main + restore branch + baseline snapshot; fictional only | **Yes** (Approval A) |
+| **Resend** | Transactional invitation email | Free; Sending-access key `owner-ops-fictional-pilot` off-repo; **no** domain/DNS yet | **Key only** (Approval A); domain = Approval B |
+| **Upstash Redis** | Distributed rate limits (REST) | Free Redis `owner-ops-fictional-pilot-ratelimit` (`437c7d0e-0513-4cb8-96a5-90f4d0a3c2fe`) in **us-east-1**; no commands/data | **Yes** (Approval A) |
+| **Sentry** | Optional APM | **Deferred** — structured `[monitor:*]` + Vercel logs | **No** |
 
 Local development continues to use **SQLite** and does not require these services.
 
-## Estimated monthly cost (pilot)
+## Estimated monthly cost (fictional stack band)
 
-Assuming quiet single-operator traffic and free-tier eligibility:
+| Service | Typical fictional-month cost |
+|---------|------------------------------|
+| Vercel **Pro** | **$20 / month** base + possible metered usage after included allocations / $20 credit ($30 on-demand pause) |
+| Neon Free | $0 (fictional only; not auto-approved for real pilot) |
+| Resend Free | $0 (fictional only) |
+| Upstash Free | $0 (fictional only) |
+| Sentry | Deferred — $0 |
+| **Baseline estimate** | **$20 / month** (not ~$0) |
 
-| Service | Typical pilot cost |
-|---------|-------------------|
-| Vercel Hobby / free allowance | ~$0 |
-| Neon free tier | ~$0 |
-| Resend free tier | ~$0 (low volume invites) |
-| Upstash free tier | ~$0 |
-| Sentry free tier (optional) | ~$0 |
-| **Blended estimate** | **~$0–40 / month** if free tiers apply; higher if owner chooses Pro plans or custom domain billing |
-
-Exact pricing changes; treat this as a planning band, not a quote. Confirm current vendor pricing before approving spend.
+Passing fictional rehearsal on Free tiers **does not** authorize those Free tiers for the paying-client pilot — see mandatory pre-real-pilot review in the Phase 1.2C inventory.
 
 ## Approval gate
 
-Do **not** provision until the owner explicitly approves:
-
-1. Creating a Vercel project for `owner-ops` (and any team linkage).
-2. Creating a Neon **production** project (and whether a separate staging/branch DB is wanted).
-3. Creating Resend + verifying a sending domain or onboarding sender.
-4. Creating Upstash Redis database.
-5. Optional Sentry project.
-6. Any paid plan upgrade or custom domain purchase.
-
-Record approvals in [owner-actions-required.md](./owner-actions-required.md).
+Approval A is **COMPLETE**. Do **not** proceed to Git connect, DNS, env injection, deploy, migrate, or email until the owner explicitly grants the matching later approval (B / C / D).
 
 ## What is already in-repo (no vendor create)
 
@@ -54,3 +46,4 @@ Record approvals in [owner-actions-required.md](./owner-actions-required.md).
 - Object storage (S3/R2) — uploads disabled (`DISABLE_CLIENT_UPLOADS=true`).
 - Separate Redis protocol client — REST only via Upstash.
 - Self-hosted Postgres / Docker DB in production.
+- Sentry project (deferred for fictional acceptance).
