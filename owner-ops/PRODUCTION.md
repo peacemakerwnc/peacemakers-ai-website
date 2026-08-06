@@ -1,23 +1,38 @@
-# Production readiness (required before real client data)
+# Production readiness
 
-Phase 1 `owner-ops` is **local development only**.
+Phase 1.2 documentation for the **controlled paying-client pilot** lives here:
 
-Do **not** use on Vercel production with:
+**→ [`docs/production-readiness/README.md`](./docs/production-readiness/README.md)**
 
-- SQLite
-- Local filesystem uploads
-- Single shared password auth as the long-term model
-- In-memory rate limiting alone
+Acceptance evidence stubs:
 
-Before production, complete a separate production-readiness phase covering:
+**→ [`docs/acceptance/phase-1-2-production-readiness/`](./docs/acceptance/phase-1-2-production-readiness/)**
 
-1. Managed Postgres
-2. Production-grade authentication
-3. Durable private file storage (e.g. private object store)
-4. Rate limiting that works across serverless instances
-5. Email provider configuration (replace log adapter)
-6. Backup and recovery
-7. Privacy and retention policies
-8. Security testing
+## Chosen pilot architecture
 
-Interfaces already exist for email (`src/lib/mail.ts`) and storage (`src/lib/storage.ts`) so providers can be swapped without rebuilding the application.
+| Layer | Choice |
+|-------|--------|
+| Host | Vercel (Next.js 16), region `iad1` |
+| DB | Neon Postgres (SSL, separate prod project) |
+| Email | Resend via `EmailAdapter` |
+| Rate limit | Upstash Redis REST |
+| Monitoring | Structured logs + optional Sentry DSN |
+| Auth | Single-owner password + httpOnly signed cookie (**pilot only**) |
+| Storage | `DISABLE_CLIENT_UPLOADS=true` (paste-first); local disk not for prod |
+| Local | SQLite; production **fails closed** on `file:` `DATABASE_URL` |
+
+Privacy notice: `pilot-2026-08-05` · Support: `james@peacemakersai.com`
+
+## Remaining gates (not cleared)
+
+Do **not** send a real client invitation until these are done:
+
+1. Owner approvals + credentials ([docs/production-readiness/owner-actions-required.md](./docs/production-readiness/owner-actions-required.md))
+2. Provision Vercel + Neon + Resend + Upstash (optional Sentry)
+3. Production env assertion + `/api/health` ready on the deployed host
+4. Neon restoration test into **non-prod** (currently **BLOCKED**)
+5. Deployed fictional rehearsal (currently **BLOCKED** — do not claim PASS)
+6. Recorded GO / GO WITH CONDITIONS in acceptance `GO-NO-GO.md`
+7. Pilot operating checklist completed for the specific recipient
+
+Interfaces for email (`src/lib/mail.ts`) and storage (`src/lib/storage.ts`) remain the swap points for providers. Phase 2 remains out of scope.
