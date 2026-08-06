@@ -1,5 +1,6 @@
 import { openFormAction } from "../actions";
 import { BlueprintForm } from "./blueprint-form";
+import { getPrivacyNotice } from "@/lib/privacy";
 
 export default async function PublicFormPage({
   params,
@@ -21,6 +22,8 @@ export default async function PublicFormPage({
     );
   }
 
+  const notice = getPrivacyNotice();
+
   return (
     <BlueprintForm
       token={token}
@@ -30,6 +33,8 @@ export default async function PublicFormPage({
       readOnly={opened.submitted}
       contactFirstName={opened.contactFirstName}
       companyName={opened.companyName}
+      initialPrivacyAcknowledged={opened.privacyAcknowledged}
+      privacyNotice={notice}
     />
   );
 }

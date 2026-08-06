@@ -35,6 +35,7 @@ import {
 import { calculateBlueprintReadiness } from "./blueprint-readiness";
 import { buildBlueprintReviewPacket } from "./blueprint-review-packet";
 import { createProcess, addStep, submitVersion } from "./process-graph";
+import { resetSqliteTestDatabase } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -151,11 +152,7 @@ describe("Increment 4 blueprint evidence foundation", () => {
     } catch {
       /* ignore */
     }
-    execSync("npx prisma db push --skip-generate", {
-      cwd: root,
-      env: { ...process.env, DATABASE_URL: "file:./prisma/vitest.db" },
-      stdio: "pipe",
-    });
+    resetSqliteTestDatabase("prisma/vitest.db");
   }, 60_000);
 
   beforeEach(async () => {

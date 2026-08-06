@@ -12,8 +12,10 @@ import {
   saveDraftAction,
   submitFormAction,
   uploadFormFileAction,
+  acknowledgePrivacyAction,
 } from "../actions";
 import { ProcessBuilder } from "./process-builder";
+import type { PrivacyNotice } from "@/lib/privacy";
 
 const SECTIONS = [
   { id: 1, title: "Contact and company" },
@@ -38,6 +40,8 @@ type Props = {
   readOnly: boolean;
   contactFirstName: string;
   companyName: string;
+  initialPrivacyAcknowledged: boolean;
+  privacyNotice: PrivacyNotice;
 };
 
 export function BlueprintForm({
@@ -48,8 +52,14 @@ export function BlueprintForm({
   readOnly,
   contactFirstName,
   companyName,
+  initialPrivacyAcknowledged,
+  privacyNotice,
 }: Props) {
   const [section, setSection] = useState(1);
+  const [privacyOk, setPrivacyOk] = useState(
+    readOnly || initialPrivacyAcknowledged,
+  );
+  const [privacyChecked, setPrivacyChecked] = useState(false);
   const [payload, setPayload] = useState<BlueprintPayload>(() => {
     try {
       const base = emptyBlueprintPayload();
@@ -57,6 +67,7 @@ export function BlueprintForm({
       return {
         ...base,
         ...incoming,
+        privacy: { ...base.privacy, ...(incoming.privacy ?? {}) },
         section1: { ...base.section1, ...(incoming.section1 ?? {}) },
         section2: { ...base.section2, ...(incoming.section2 ?? {}) },
         section3: {
@@ -87,6 +98,7 @@ export function BlueprintForm({
     { id: string; originalName: string; sizeBytes: number }[]
   >([]);
   const [pending, startTransition] = useTransition();
+  const [submitting, setSubmitting] = useState(false);
   const dirty = useRef(false);
   const payloadRef = useRef(payload);
 
@@ -103,26 +115,39 @@ export function BlueprintForm({
   }, [readOnly, submitted]);
 
   const save = useCallback(async () => {
-    if (readOnly || submitted) return;
+    if (readOnly || submitted || !privacyOk) return false;
     setError(null);
     setSaveStatus("Saving…");
     const result = await saveDraftAction(token, payloadRef.current);
     if (!result.ok) {
-      setSaveStatus("Save failed");
+      setSaveStatus("Save failed — retry");
       setError(result.error);
-      return;
+      return false;
     }
     dirty.current = false;
     setSaveStatus(`Saved ${new Date(result.savedAt!).toLocaleTimeString()}`);
-  }, [token, readOnly, submitted]);
+    return true;
+  }, [token, readOnly, submitted, privacyOk]);
 
   useEffect(() => {
-    if (readOnly || submitted) return;
+    if (readOnly || submitted || !privacyOk) return;
     const id = window.setInterval(() => {
       if (dirty.current) void save();
     }, 20000);
     return () => window.clearInterval(id);
-  }, [save, readOnly, submitted]);
+  }, [save, readOnly, submitted, privacyOk]);
+
+  useEffect(() => {
+    if (readOnly || submitted) return;
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (dirty.current) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
+  }, [readOnly, submitted]);
 
   function go(next: number) {
     startTransition(() => {
@@ -130,16 +155,50 @@ export function BlueprintForm({
     });
   }
 
-  async function onSubmit() {
+  async function onAcknowledgePrivacy() {
+    if (!privacyChecked) {
+      setError("Please confirm you have read the privacy notice.");
+      return;
+    }
     setError(null);
+    const result = await acknowledgePrivacyAction(token, privacyNotice.version);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    update((prev) => ({
+      ...prev,
+      privacy: {
+        noticeVersion: privacyNotice.version,
+        acknowledged: true,
+        acknowledgedAt: result.acknowledgedAt,
+      },
+    }));
+    setPrivacyOk(true);
+  }
+
+  async function onSubmit() {
+    if (submitting) return;
+    setError(null);
+    setSubmitting(true);
     startTransition(async () => {
-      const result = await submitFormAction(token, payloadRef.current);
-      if (!result.ok) {
-        setError(result.error);
-        return;
+      try {
+        const saved = await save();
+        if (saved === false && dirty.current) {
+          setError("Save your answers before submitting, then try again.");
+          return;
+        }
+        const result = await submitFormAction(token, payloadRef.current);
+        if (!result.ok) {
+          setError(result.error);
+          return;
+        }
+        dirty.current = false;
+        setSubmitted(true);
+        setSaveStatus("Submitted");
+      } finally {
+        setSubmitting(false);
       }
-      setSubmitted(true);
-      setSaveStatus("Submitted");
     });
   }
 
@@ -170,6 +229,56 @@ export function BlueprintForm({
           {companyName ? ` for ${companyName}` : ""}. A confirmation has been
           queued, and our team will review them before your Blueprint discussion.
         </p>
+      </main>
+    );
+  }
+
+  if (!privacyOk) {
+    return (
+      <main className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+          Peacemakers AI
+        </p>
+        <h1 className="mt-2 text-3xl">{privacyNotice.title}</h1>
+        <p className="mt-2 text-sm text-[var(--muted)]">
+          Hello{contactFirstName ? ` ${contactFirstName}` : ""}
+          {companyName ? ` — ${companyName}` : ""}. Estimated time: 45–90 minutes.
+        </p>
+        <div className="mt-6 space-y-4 text-sm leading-relaxed text-[var(--foreground)]">
+          {privacyNotice.paragraphs.map((p) => (
+            <p key={p.slice(0, 40)}>{p}</p>
+          ))}
+          <ul className="list-disc space-y-2 pl-5">
+            {privacyNotice.bullets.map((b) => (
+              <li key={b.slice(0, 40)}>{b}</li>
+            ))}
+          </ul>
+          <p className="text-xs text-[var(--muted)]">
+            Notice version: {privacyNotice.version}
+          </p>
+        </div>
+        <label className="mt-6 flex items-start gap-3 text-sm">
+          <input
+            type="checkbox"
+            className="mt-1"
+            checked={privacyChecked}
+            onChange={(e) => setPrivacyChecked(e.target.checked)}
+          />
+          <span>{privacyNotice.acknowledgementLabel}</span>
+        </label>
+        {error ? (
+          <p className="mt-3 text-sm text-[var(--danger)]" role="alert">
+            {error}
+          </p>
+        ) : null}
+        <button
+          type="button"
+          className="mt-6 rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+          onClick={() => void onAcknowledgePrivacy()}
+          disabled={!privacyChecked}
+        >
+          Continue to questionnaire
+        </button>
       </main>
     );
   }
@@ -235,8 +344,17 @@ export function BlueprintForm({
             </div>
             <span className="text-[var(--muted)]">{completion}% complete</span>
           </div>
-          <span className="text-[var(--muted)]" aria-live="polite">
-            {pending ? "Working…" : saveStatus}
+          <span className="flex items-center gap-2 text-[var(--muted)]" aria-live="polite">
+            {pending || submitting ? "Working…" : saveStatus}
+            {saveStatus.startsWith("Save failed") ? (
+              <button
+                type="button"
+                className="underline"
+                onClick={() => void save()}
+              >
+                Retry save
+              </button>
+            ) : null}
           </span>
         </div>
       </header>
@@ -557,11 +675,11 @@ export function BlueprintForm({
           ) : (
             <button
               type="button"
-              className="rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)]"
+              className="rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-60"
               onClick={() => void onSubmit()}
-              disabled={pending}
+              disabled={pending || submitting}
             >
-              Submit Blueprint form
+              {submitting ? "Submitting…" : "Submit Blueprint form"}
             </button>
           )}
         </div>

@@ -212,7 +212,14 @@ export const confirmationSchema = z.object({
   authorizedToProvide: z.literal(true),
 });
 
+export const privacyAckSchema = z.object({
+  noticeVersion: z.string().max(64).optional(),
+  acknowledged: z.boolean().optional(),
+  acknowledgedAt: z.string().max(64).optional(),
+});
+
 export const blueprintPayloadSchema = z.object({
+  privacy: privacyAckSchema.default({}),
   section1: contactCompanySchema.partial().default({}),
   section2: businessOverviewSchema.partial().default({}),
   section3: z.object({ tools: z.array(toolEntrySchema).default([]) }).default({
@@ -241,6 +248,7 @@ export const emptyBlueprintPayload = (): BlueprintPayload =>
 
 /** Draft saves allow incomplete nested entries (empty names while typing). */
 export const draftPayloadSchema = z.object({
+  privacy: privacyAckSchema.default({}),
   section1: contactCompanySchema.partial().default({}),
   section2: businessOverviewSchema.partial().default({}),
   section3: z
@@ -288,6 +296,13 @@ export const draftPayloadSchema = z.object({
 
 export const submitPayloadSchema = blueprintPayloadSchema.superRefine(
   (data, ctx) => {
+    if (data.privacy.acknowledged !== true || !data.privacy.noticeVersion) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Privacy notice must be acknowledged",
+        path: ["privacy", "acknowledged"],
+      });
+    }
     const s1 = data.section1;
     for (const key of ["firstName", "lastName", "email", "companyName"] as const) {
       if (!s1[key] || String(s1[key]).trim() === "") {

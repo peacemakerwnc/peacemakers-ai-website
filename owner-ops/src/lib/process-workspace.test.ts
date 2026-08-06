@@ -27,6 +27,7 @@ import {
   ProcessGraphError,
 } from "./process-graph";
 import {
+import { resetSqliteTestDatabase } from "./test-db";
   assignStepSwimlane,
   compareAsIsToFutureState,
   createImprovementOpportunity,
@@ -105,11 +106,7 @@ describe("owner visual process workspace", () => {
     } catch {
       /* ignore */
     }
-    execSync("npx prisma db push --skip-generate", {
-      cwd: root,
-      env: { ...process.env, DATABASE_URL: "file:./prisma/vitest.db" },
-      stdio: "pipe",
-    });
+    resetSqliteTestDatabase("prisma/vitest.db");
   }, 60_000);
 
   beforeEach(async () => {

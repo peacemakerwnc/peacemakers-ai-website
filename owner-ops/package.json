@@ -11,8 +11,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
-    "db:reset": "prisma migrate reset --force"
+    "db:reset": "prisma migrate reset --force",
+    "pilot:assert-env": "tsx scripts/assert-production-env.ts",
+    "pilot:health-check": "tsx scripts/smoke-health.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

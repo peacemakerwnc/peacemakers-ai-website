@@ -41,6 +41,7 @@ import {
   ensureOptimumFieldPhotoGraph,
 } from "./process-graph-demo";
 import { ProcessParticipantType } from "@prisma/client";
+import { resetSqliteTestDatabase } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -111,11 +112,7 @@ describe("process graph foundation", () => {
     } catch {
       /* ignore */
     }
-    execSync("npx prisma db push --skip-generate", {
-      cwd: root,
-      env: { ...process.env, DATABASE_URL: "file:./prisma/vitest.db" },
-      stdio: "pipe",
-    });
+    resetSqliteTestDatabase("prisma/vitest.db");
   }, 60_000);
 
   beforeEach(async () => {

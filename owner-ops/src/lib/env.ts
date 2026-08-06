@@ -15,6 +15,25 @@ const envSchema = z.object({
   APP_BASE_URL: z.string().url(),
   FORM_INVITATION_EXPIRY_DAYS: z.coerce.number().int().positive().default(30),
   REVIEW_ACTION_DUE_DAYS: z.coerce.number().int().positive().default(3),
+  /** log (local/default) | resend (pilot) */
+  EMAIL_PROVIDER: z.enum(["log", "resend"]).default("log"),
+  RESEND_API_KEY: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
+  /** Escape hatch for staging drills only — never for real client send */
+  ALLOW_LOG_EMAIL_IN_PRODUCTION: z
+    .enum(["true", "false"])
+    .optional()
+    .transform((v) => v === "true"),
+  /** memory (local/single-instance) | upstash (serverless pilot) */
+  RATE_LIMIT_BACKEND: z.enum(["memory", "upstash"]).default("memory"),
+  UPSTASH_REDIS_REST_URL: z.string().url().optional().or(z.literal("")),
+  UPSTASH_REDIS_REST_TOKEN: z.string().optional(),
+  SENTRY_DSN: z.string().optional(),
+  /** When true, client file uploads are rejected in production pilot */
+  DISABLE_CLIENT_UPLOADS: z
+    .enum(["true", "false"])
+    .optional()
+    .transform((v) => v === "true"),
 });
 
 export type AppEnv = z.infer<typeof envSchema>;
@@ -72,8 +91,6 @@ function fileEnv(): Record<string, string> {
 /**
  * Resolve env for server actions/pages.
  * Prefer live process.env, then fall back to package `.env` file values.
- * Next/Turbopack can expose env keys that still resolve to undefined inside
- * server-action bundles and may ignore runtime process.env assignment.
  */
 export function getEnv(): AppEnv {
   if (cached) return cached;
@@ -90,6 +107,15 @@ export function getEnv(): AppEnv {
     APP_BASE_URL: pick("APP_BASE_URL"),
     FORM_INVITATION_EXPIRY_DAYS: pick("FORM_INVITATION_EXPIRY_DAYS"),
     REVIEW_ACTION_DUE_DAYS: pick("REVIEW_ACTION_DUE_DAYS"),
+    EMAIL_PROVIDER: pick("EMAIL_PROVIDER") ?? "log",
+    RESEND_API_KEY: pick("RESEND_API_KEY"),
+    EMAIL_FROM: pick("EMAIL_FROM"),
+    ALLOW_LOG_EMAIL_IN_PRODUCTION: pick("ALLOW_LOG_EMAIL_IN_PRODUCTION"),
+    RATE_LIMIT_BACKEND: pick("RATE_LIMIT_BACKEND") ?? "memory",
+    UPSTASH_REDIS_REST_URL: pick("UPSTASH_REDIS_REST_URL"),
+    UPSTASH_REDIS_REST_TOKEN: pick("UPSTASH_REDIS_REST_TOKEN"),
+    SENTRY_DSN: pick("SENTRY_DSN"),
+    DISABLE_CLIENT_UPLOADS: pick("DISABLE_CLIENT_UPLOADS"),
   });
   if (!parsed.success) {
     const issues = parsed.error.issues

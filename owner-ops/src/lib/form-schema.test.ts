@@ -38,6 +38,11 @@ describe("form validation", () => {
       mayUseForBlueprint: true,
       authorizedToProvide: true,
     };
+    payload.privacy = {
+      noticeVersion: "pilot-2026-08-05",
+      acknowledged: true,
+      acknowledgedAt: new Date().toISOString(),
+    };
     expect(submitPayloadSchema.safeParse(payload).success).toBe(true);
   });
 

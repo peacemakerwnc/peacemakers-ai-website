@@ -31,6 +31,7 @@ import {
   BLUEPRINT_FORM_TEMPLATE_SLUG,
 } from "./pipeline-seed-data";
 import { resetRateLimits } from "./rate-limit";
+import { resetSqliteTestDatabase } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -96,6 +97,11 @@ function validSubmitPayload(): BlueprintPayload {
   const base = emptyBlueprintPayload();
   return {
     ...base,
+    privacy: {
+      noticeVersion: "pilot-2026-08-05",
+      acknowledged: true,
+      acknowledgedAt: new Date().toISOString(),
+    },
     section1: {
       firstName: "Ada",
       lastName: "Lovelace",
@@ -188,11 +194,7 @@ describe("invitation + response lifecycle", () => {
     } catch {
       /* ignore */
     }
-    execSync("npx prisma db push --skip-generate", {
-      cwd: path.join(__dirname, "../.."),
-      env: { ...process.env, DATABASE_URL: "file:./prisma/vitest.db" },
-      stdio: "pipe",
-    });
+    resetSqliteTestDatabase("prisma/vitest.db");
   });
 
   beforeEach(async () => {

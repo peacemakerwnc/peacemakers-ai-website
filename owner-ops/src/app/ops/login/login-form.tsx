@@ -33,7 +33,11 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
           className="rounded-md border border-[var(--line)] px-3 py-2"
         />
       </label>
-      {state?.error ? (
+      {state?.error === "rate_limited" ? (
+        <p className="text-sm text-[var(--danger)]" role="alert">
+          Too many sign-in attempts. Please wait and try again.
+        </p>
+      ) : state?.error ? (
         <p className="text-sm text-[var(--danger)]" role="alert">
           Invalid email or password.
         </p>

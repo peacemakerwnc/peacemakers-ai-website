@@ -476,21 +476,27 @@ model FormTemplate {
 }
 
 model FormInvitation {
-  id               String                @id @default(cuid())
-  tokenHash        String                @unique
-  tokenPrefix      String
-  formTemplateId   String
-  contactId        String
-  opportunityId    String
-  status           FormInvitationStatus  @default(PENDING)
-  expiresAt        DateTime
-  revokedAt        DateTime?
-  firstOpenedAt    DateTime?
-  lastSavedAt      DateTime?
-  submittedAt      DateTime?
-  completionPct    Int                   @default(0)
-  createdAt        DateTime              @default(now())
-  updatedAt        DateTime              @updatedAt
+  id                     String                @id @default(cuid())
+  tokenHash              String                @unique
+  tokenPrefix            String
+  formTemplateId         String
+  contactId              String
+  opportunityId          String
+  status                 FormInvitationStatus  @default(PENDING)
+  expiresAt              DateTime
+  revokedAt              DateTime?
+  firstOpenedAt          DateTime?
+  lastSavedAt            DateTime?
+  submittedAt            DateTime?
+  completionPct          Int                   @default(0)
+  /// Pilot privacy notice version acknowledged by the client (e.g. pilot-2026-08-05)
+  privacyNoticeVersion   String?
+  privacyAcknowledgedAt  DateTime?
+  lastEmailSentAt        DateTime?
+  lastEmailProvider      String?
+  lastEmailMessageId     String?
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime              @updatedAt
 
   formTemplate FormTemplate   @relation(fields: [formTemplateId], references: [id])
   contact      Contact        @relation(fields: [contactId], references: [id])

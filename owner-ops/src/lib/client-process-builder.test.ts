@@ -40,6 +40,7 @@ import {
 import { ProcessGraphError } from "./process-graph";
 import { LogEmailAdapter, setEmailAdapter } from "./mail";
 import { resetRateLimits } from "./rate-limit";
+import { resetSqliteTestDatabase } from "./test-db";
 
 async function seedMinimal() {
   const passwordHash = hashPassword("change-me-before-use");
@@ -100,6 +101,11 @@ function basePayload(email: string, company: string): BlueprintPayload {
   const p = emptyBlueprintPayload();
   return {
     ...p,
+    privacy: {
+      noticeVersion: "pilot-2026-08-05",
+      acknowledged: true,
+      acknowledgedAt: new Date().toISOString(),
+    },
     section1: {
       ...p.section1,
       firstName: "Alex",
@@ -132,11 +138,7 @@ describe("client process builder", () => {
     } catch {
       /* ignore */
     }
-    execSync("npx prisma db push --skip-generate", {
-      cwd: root,
-      env: { ...process.env, DATABASE_URL: "file:./prisma/vitest.db" },
-      stdio: "pipe",
-    });
+    resetSqliteTestDatabase("prisma/vitest.db");
   }, 60_000);
 
   beforeEach(async () => {

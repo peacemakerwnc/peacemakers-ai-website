@@ -316,6 +316,85 @@ export function getActiveDraft(
   return draft ?? null;
 }
 
+export async function acknowledgePrivacyNotice(
+  invitationId: string,
+  noticeVersion: string,
+): Promise<{ id: string; noticeVersion: string; acknowledgedAt: Date }> {
+  const invitation = await prisma.formInvitation.findUnique({
+    where: { id: invitationId },
+  });
+  if (!invitation) throw new InvitationError("Invitation not found", "not_found");
+  assertAccessible(invitation);
+
+  // Raw SQL keeps pilot columns writable before/without a fresh `prisma generate`.
+  const existing = await prisma.$queryRaw<
+    { privacyNoticeVersion: string | null; privacyAcknowledgedAt: string | null }[]
+  >`SELECT privacyNoticeVersion, privacyAcknowledgedAt FROM FormInvitation WHERE id = ${invitationId}`;
+  const row = existing[0];
+  if (row?.privacyAcknowledgedAt && row.privacyNoticeVersion === noticeVersion) {
+    return {
+      id: invitationId,
+      noticeVersion,
+      acknowledgedAt: new Date(row.privacyAcknowledgedAt),
+    };
+  }
+
+  const acknowledgedAt = new Date();
+  await prisma.$executeRaw`
+    UPDATE FormInvitation
+    SET privacyNoticeVersion = ${noticeVersion},
+        privacyAcknowledgedAt = ${acknowledgedAt.toISOString()},
+        updatedAt = ${acknowledgedAt.toISOString()}
+    WHERE id = ${invitationId}
+  `;
+
+  await recordAudit({
+    action: "form.privacy_acknowledged",
+    entityType: "FormInvitation",
+    entityId: invitation.id,
+    details: { noticeVersion, tokenPrefix: invitation.tokenPrefix },
+  });
+
+  return { id: invitationId, noticeVersion, acknowledgedAt };
+}
+
+export async function getPrivacyAckState(invitationId: string): Promise<{
+  privacyNoticeVersion: string | null;
+  privacyAcknowledgedAt: string | null;
+}> {
+  const rows = await prisma.$queryRaw<
+    { privacyNoticeVersion: string | null; privacyAcknowledgedAt: string | null }[]
+  >`SELECT privacyNoticeVersion, privacyAcknowledgedAt FROM FormInvitation WHERE id = ${invitationId}`;
+  return rows[0] ?? { privacyNoticeVersion: null, privacyAcknowledgedAt: null };
+}
+
+export async function recordInvitationEmailResult(
+  invitationId: string,
+  result: { provider: string; messageId: string; ok: boolean },
+) {
+  if (!result.ok) return;
+  const now = new Date().toISOString();
+  const messageId = result.messageId.slice(0, 120);
+  await prisma.$executeRaw`
+    UPDATE FormInvitation
+    SET lastEmailSentAt = ${now},
+        lastEmailProvider = ${result.provider},
+        lastEmailMessageId = ${messageId},
+        updatedAt = ${now}
+    WHERE id = ${invitationId}
+  `;
+}
+
+export async function getLastEmailSentAt(
+  invitationId: string,
+): Promise<Date | null> {
+  const rows = await prisma.$queryRaw<{ lastEmailSentAt: string | null }[]>`
+    SELECT lastEmailSentAt FROM FormInvitation WHERE id = ${invitationId}
+  `;
+  const raw = rows[0]?.lastEmailSentAt;
+  return raw ? new Date(raw) : null;
+}
+
 export function getLatestSubmitted(
   responses: FormResponse[],
 ): FormResponse | null {

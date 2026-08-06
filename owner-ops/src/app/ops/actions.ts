@@ -1,6 +1,6 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { authenticateOwner } from "@/lib/auth";
@@ -12,9 +12,11 @@ import {
   getSession,
 } from "@/lib/session";
 import { recordAudit } from "@/lib/audit";
+import { checkRateLimit } from "@/lib/rate-limit";
+import { captureEvent } from "@/lib/monitoring";
 
 export async function loginAction(
-  _prevState: { error: "invalid" } | null,
+  _prevState: { error: "invalid" | "rate_limited" } | null,
   formData: FormData,
 ) {
   const email = String(formData.get("email") ?? "");
@@ -23,8 +25,25 @@ export async function loginAction(
     safeOpsReturnPath(String(formData.get("next") ?? "")) ?? "/ops";
 
   try {
+    const h = await headers();
+    const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+    const limited = await checkRateLimit(`login:${ip}`, 10, 15 * 60_000);
+    if (!limited.ok) {
+      captureEvent({
+        type: "auth.login_rate_limited",
+        level: "warn",
+        context: { ipPresent: ip !== "local" },
+      });
+      return { error: "rate_limited" as const };
+    }
+
     const user = await authenticateOwner(email, password);
     if (!user) {
+      captureEvent({
+        type: "auth.login_failed",
+        level: "warn",
+        context: { emailDomain: email.includes("@") ? email.split("@")[1] : "none" },
+      });
       return { error: "invalid" as const };
     }
 

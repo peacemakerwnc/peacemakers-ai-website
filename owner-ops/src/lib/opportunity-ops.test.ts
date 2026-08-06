@@ -12,6 +12,7 @@ import {
   BLUEPRINT_FORM_TEMPLATE_SLUG,
 } from "./pipeline-seed-data";
 import {
+import { resetSqliteTestDatabase } from "./test-db";
   createMeeting,
   updateMeeting,
   updateEstimatedValue,
@@ -94,11 +95,7 @@ describe("opportunity meetings, value, and proposed services", () => {
     resetEnvCache();
     const dbFile = path.join(__dirname, "../../prisma/vitest.db");
     execSync(`rm -f "${dbFile}" "${dbFile}-journal"`, { stdio: "pipe" });
-    execSync("npx prisma db push --skip-generate", {
-      cwd: path.join(__dirname, "../.."),
-      env: { ...process.env, DATABASE_URL: "file:./prisma/vitest.db" },
-      stdio: "pipe",
-    });
+    resetSqliteTestDatabase("prisma/vitest.db");
   });
 
   beforeEach(async () => {

@@ -11,6 +11,7 @@ import {
 } from "./workflow";
 import { resetEnvCache } from "./env";
 import {
+import { resetSqliteTestDatabase } from "./test-db";
   DEFAULT_PIPELINE_SLUG,
   DEFAULT_STAGES,
   BLUEPRINT_FORM_TEMPLATE_SLUG,
@@ -76,11 +77,7 @@ describe("workflow stage transitions and next actions", () => {
     resetEnvCache();
     const dbFile = path.join(__dirname, "../../prisma/vitest.db");
     execSync(`rm -f "${dbFile}" "${dbFile}-journal"`, { stdio: "pipe" });
-    execSync("npx prisma db push --skip-generate", {
-      cwd: path.join(__dirname, "../.."),
-      env: { ...process.env, DATABASE_URL: "file:./prisma/vitest.db" },
-      stdio: "pipe",
-    });
+    resetSqliteTestDatabase("prisma/vitest.db");
   });
 
   beforeEach(async () => {
