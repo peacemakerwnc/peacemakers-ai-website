@@ -6,7 +6,7 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 /** Bump when Prisma schema fields used by the app change (forces client refresh in dev). */
-const SCHEMA_EPOCH = "inc3-owner-workspace-v1";
+const SCHEMA_EPOCH = "inc4-blueprint-evidence-v1";
 
 function getClient() {
   if (

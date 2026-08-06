@@ -303,11 +303,15 @@ model Company {
   notes          Note[]
   activities     Activity[]
   meetings       Meeting[]
+  blueprintMeetings BlueprintMeeting[]
   proposals      Proposal[]
   agreements     Agreement[]
   payments       Payment[]
   projects       Project[]
   processes      Process[]
+  evidenceSources EvidenceSource[]
+  evidenceFindings EvidenceFinding[]
+  evidenceConflicts EvidenceConflict[]
 }
 
 model Contact {
@@ -422,6 +426,7 @@ model Opportunity {
   activities       Activity[]
   notes            Note[]
   meetings         Meeting[]
+  blueprintMeetings BlueprintMeeting[]
   nextActions      NextAction[]
   files            FileAttachment[]
   proposals        Proposal[]
@@ -430,6 +435,9 @@ model Opportunity {
   projects         Project[]
   proposedServices ProposedService[]
   processes        Process[]
+  evidenceSources  EvidenceSource[]
+  evidenceFindings EvidenceFinding[]
+  evidenceConflicts EvidenceConflict[]
 
   @@index([stageId])
   @@index([companyId])
@@ -517,6 +525,8 @@ model FormResponse {
   processVersions ProcessVersion[]
   tools        CompanyTool[]
   files        FileAttachment[]
+  blueprintMeetings BlueprintMeeting[]
+  evidenceSources EvidenceSource[]
 
   @@unique([invitationId, version])
   @@index([invitationId, status])
@@ -1189,4 +1199,284 @@ model AuditEvent {
   @@index([entityType, entityId])
   @@index([createdAt])
   @@index([action])
+}
+
+// ---------------------------------------------------------------------------
+// Increment 4 — Blueprint evidence foundation (additive)
+// ---------------------------------------------------------------------------
+
+enum BlueprintMeetingStatus {
+  PLANNED
+  COMPLETED
+  EVIDENCE_PROCESSING
+  AWAITING_OWNER_REVIEW
+  REVIEWED
+  SUPERSEDED
+  ARCHIVED
+}
+
+enum EvidenceSourceType {
+  QUESTIONNAIRE_RESPONSE
+  QUESTIONNAIRE_PROCESS
+  BLUEPRINT_TRANSCRIPT
+  CONSULTANT_NOTE
+  CLIENT_NOTE
+  ATTACHMENT
+  OWNER_OBSERVATION
+  OWNER_ESTIMATE
+  VERIFIED_MEASUREMENT
+  CLIENT_CONFIRMED_FACT
+  DECISION
+  ASSUMPTION
+  EXTERNAL_RESEARCH
+  SYSTEM_DERIVED_VALIDATION
+}
+
+enum EvidenceSourceStatus {
+  DRAFT
+  FINALIZED
+  SUPERSEDED
+}
+
+enum EvidenceFindingCategory {
+  BUSINESS_OBJECTIVE
+  PROCESS
+  PROCESS_STEP
+  TRIGGER
+  OUTCOME
+  ROLE
+  SOFTWARE_SYSTEM
+  MANUAL_TASK
+  PAIN_POINT
+  BOTTLENECK
+  EXCEPTION
+  METRIC
+  TIME_ESTIMATE
+  COST_ESTIMATE
+  RISK
+  REQUIREMENT
+  CONSTRAINT
+  PREFERENCE
+  DECISION
+  ASSUMPTION
+  OPEN_QUESTION
+  FOLLOW_UP_ITEM
+  IMPROVEMENT_IDEA
+  OTHER
+}
+
+enum EvidenceFindingReviewStatus {
+  PROPOSED
+  ACCEPTED
+  CORRECTED_AND_ACCEPTED
+  REJECTED
+  DUPLICATE
+  NEEDS_CLARIFICATION
+  SUPERSEDED
+}
+
+enum EvidenceConflictStatus {
+  UNRESOLVED
+  NEEDS_CLIENT_CONFIRMATION
+  RESOLVED_SOURCE_A
+  RESOLVED_SOURCE_B
+  RESOLVED_CORRECTED
+  BOTH_VALID
+  NOT_MATERIAL
+  DEFERRED
+}
+
+enum EvidenceConflictMateriality {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum EvidenceExtractionMethod {
+  MANUAL_OWNER
+  DETERMINISTIC
+  PROPOSED_AI
+}
+
+model BlueprintMeeting {
+  id                 String                 @id @default(cuid())
+  companyId          String
+  opportunityId      String
+  formResponseId     String?
+  title              String
+  meetingDate        DateTime?
+  startedAt          DateTime?
+  endedAt            DateTime?
+  durationMinutes    Int?
+  facilitatorLabel   String?
+  status             BlueprintMeetingStatus @default(PLANNED)
+  processingStatus   String?
+  reviewStatus       String?
+  summaryManual      String?
+  decisionsJson      String                 @default("[]")
+  openQuestionsJson  String                 @default("[]")
+  followUpsJson      String                 @default("[]")
+  createdByUserId    String?
+  updatedByUserId    String?
+  supersededById     String?
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+
+  company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity  Opportunity   @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  formResponse FormResponse? @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
+  attendees    BlueprintMeetingAttendee[]
+  processes    BlueprintMeetingProcess[]
+  sources      EvidenceSource[]
+  findings     EvidenceFinding[]
+  conflicts    EvidenceConflict[]
+
+  @@index([companyId])
+  @@index([opportunityId])
+  @@index([formResponseId])
+  @@index([status])
+}
+
+model BlueprintMeetingAttendee {
+  id        String  @id @default(cuid())
+  meetingId String
+  name      String
+  role      String?
+  email     String?
+  isClient  Boolean @default(true)
+
+  meeting BlueprintMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+
+  @@index([meetingId])
+}
+
+model BlueprintMeetingProcess {
+  id        String @id @default(cuid())
+  meetingId String
+  processId String
+
+  meeting BlueprintMeeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+
+  @@unique([meetingId, processId])
+  @@index([processId])
+}
+
+/// Immutable after FINALIZED. Corrections create a new source or finding version.
+model EvidenceSource {
+  id               String               @id @default(cuid())
+  companyId        String
+  opportunityId    String?
+  formResponseId   String?
+  meetingId        String?
+  processId        String?
+  sourceType       EvidenceSourceType
+  status           EvidenceSourceStatus @default(DRAFT)
+  title            String
+  bodyText         String               @default("")
+  originalBodyText String               @default("")
+  authorLabel      String?
+  speakerNotesJson String?
+  fileName         String?
+  mimeType         String?
+  byteSize         Int?
+  storageKey       String?
+  version          Int                  @default(1)
+  parentSourceId   String?
+  isSensitive      Boolean              @default(false)
+  isIrrelevant     Boolean              @default(false)
+  createdByUserId  String?
+  finalizedAt      DateTime?
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  company      Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity  Opportunity?      @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  formResponse FormResponse?     @relation(fields: [formResponseId], references: [id], onDelete: SetNull)
+  meeting      BlueprintMeeting? @relation(fields: [meetingId], references: [id], onDelete: SetNull)
+  findings     EvidenceFinding[]
+  conflictAsA  EvidenceConflict[] @relation("ConflictSourceA")
+  conflictAsB  EvidenceConflict[] @relation("ConflictSourceB")
+
+  @@index([companyId])
+  @@index([opportunityId])
+  @@index([meetingId])
+  @@index([formResponseId])
+  @@index([sourceType, status])
+}
+
+model EvidenceFinding {
+  id                 String                      @id @default(cuid())
+  companyId          String
+  opportunityId      String?
+  meetingId          String?
+  processId          String?
+  sourceId           String
+  category           EvidenceFindingCategory     @default(OTHER)
+  title              String
+  body               String                      @default("")
+  excerpt            String?
+  sourceLocation     String?
+  speakerOrAuthor    String?
+  confidence         String?
+  extractionMethod   EvidenceExtractionMethod    @default(MANUAL_OWNER)
+  reviewStatus       EvidenceFindingReviewStatus @default(PROPOSED)
+  correctedTitle     String?
+  correctedBody      String?
+  reviewedByUserId   String?
+  reviewedAt         DateTime?
+  duplicateOfId      String?
+  createdAt          DateTime                    @default(now())
+  updatedAt          DateTime                    @updatedAt
+
+  company     Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity Opportunity?      @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  meeting     BlueprintMeeting? @relation(fields: [meetingId], references: [id], onDelete: SetNull)
+  source      EvidenceSource    @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  conflictsA  EvidenceConflict[] @relation("ConflictFindingA")
+  conflictsB  EvidenceConflict[] @relation("ConflictFindingB")
+
+  @@index([companyId])
+  @@index([opportunityId])
+  @@index([meetingId])
+  @@index([sourceId])
+  @@index([processId])
+  @@index([reviewStatus])
+}
+
+model EvidenceConflict {
+  id                      String                     @id @default(cuid())
+  companyId               String
+  opportunityId           String?
+  meetingId               String?
+  processId               String?
+  subject                 String
+  explanation             String?
+  materiality             EvidenceConflictMateriality @default(MEDIUM)
+  status                  EvidenceConflictStatus      @default(UNRESOLVED)
+  sourceAId               String?
+  sourceBId               String?
+  findingAId              String?
+  findingBId              String?
+  statementA              String
+  statementB              String
+  resolutionRationale     String?
+  correctedValue          String?
+  requiresClientConfirm   Boolean                     @default(false)
+  resolvedByUserId        String?
+  resolvedAt              DateTime?
+  createdAt               DateTime                    @default(now())
+  updatedAt               DateTime                    @updatedAt
+
+  company     Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  opportunity Opportunity?      @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+  meeting     BlueprintMeeting? @relation(fields: [meetingId], references: [id], onDelete: SetNull)
+  sourceA     EvidenceSource?   @relation("ConflictSourceA", fields: [sourceAId], references: [id], onDelete: SetNull)
+  sourceB     EvidenceSource?   @relation("ConflictSourceB", fields: [sourceBId], references: [id], onDelete: SetNull)
+  findingA    EvidenceFinding?  @relation("ConflictFindingA", fields: [findingAId], references: [id], onDelete: SetNull)
+  findingB    EvidenceFinding?  @relation("ConflictFindingB", fields: [findingBId], references: [id], onDelete: SetNull)
+
+  @@index([companyId])
+  @@index([opportunityId])
+  @@index([meetingId])
+  @@index([status])
 }

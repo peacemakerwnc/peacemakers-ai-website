@@ -181,13 +181,23 @@ export function BlueprintForm({
           Peacemakers AI
         </p>
         <h1 className="mt-2 text-3xl">Business Blueprint Preparation</h1>
+        <p className="mt-2 text-sm text-[var(--muted)]">
+          Estimated time: about 45–75 minutes. You can save and return anytime.
+        </p>
         <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">
           {contactFirstName ? `Hi ${contactFirstName} — ` : ""}
           To design the right solution, we need to understand how your work
           actually happens today—from the moment a process begins until it is
           completely finished. Please describe the real process, including manual
           steps, decisions, delays, exceptions, tools, and handoffs. Do not
-          describe only how the process is supposed to work.
+          describe only how the process is supposed to work. Optional questions
+          are marked. “I don’t know” and “We need to discuss this” are acceptable
+          answers — do not invent details.
+        </p>
+        <p className="mt-2 text-sm text-[var(--muted)]">
+          Do not enter passwords, API keys, payment credentials, or other secrets.
+          We use this information to prepare your Blueprint meeting — not to
+          generate automated recommendations in this step.
         </p>
         <details className="mt-4 rounded-md border border-[var(--line)] bg-[var(--surface)] p-4 text-sm text-[var(--muted)]">
           <summary className="cursor-pointer font-medium text-[var(--navy)]">
@@ -466,11 +476,34 @@ export function BlueprintForm({
         )}
 
         {section === 8 && (
-          <div className="space-y-3 text-sm">
+          <div className="space-y-6 text-sm">
+            <div className="rounded-md border border-[var(--line)] bg-[var(--surface)] p-4">
+              <h2 className="text-base font-medium">Review before submission</h2>
+              <p className="mt-1 text-[var(--muted)]">
+                After you submit, answers become read-only for the Blueprint
+                meeting. You can still use Save and continue later until then.
+              </p>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-[var(--muted)]">
+                <li>
+                  Contact: {payload.section1.firstName || "—"}{" "}
+                  {payload.section1.lastName || ""} ·{" "}
+                  {payload.section1.companyName || companyName || "—"}
+                </li>
+                <li>Tools listed: {payload.section3.tools.length}</li>
+                <li>
+                  Processes in inventory: {payload.section4.processes.length}
+                </li>
+                <li>
+                  Detailed process maps:{" "}
+                  {payload.section5.detailedProcesses.length}
+                </li>
+                <li>Completion shown above: {completion}%</li>
+              </ul>
+            </div>
             {(
               [
                 ["answersAreHonest", "My answers describe current operations honestly."],
-                ["noSensitiveCredentials", "I have not included sensitive credentials or unnecessary personal data."],
+                ["noSensitiveCredentials", "I have not included passwords, API keys, payment credentials, or other secrets."],
                 ["mayUseForBlueprint", "Peacemakers AI may use this information to prepare for the Business Blueprint discussion."],
                 ["authorizedToProvide", "I am authorized to provide this business information."],
               ] as const

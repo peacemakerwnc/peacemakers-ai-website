@@ -111,6 +111,20 @@ export default async function OpportunityPage({
             ? `$${opportunity.estimatedValue.toLocaleString()}`
             : "Value unset"}
         </p>
+        <div className="mt-4 flex flex-wrap gap-2 text-sm">
+          <Link
+            href={`/ops/opportunities/${opportunity.id}/evidence`}
+            className="rounded-md border border-[var(--line)] bg-[var(--surface)] px-3 py-1.5"
+          >
+            Blueprint evidence
+          </Link>
+          <Link
+            href={`/ops/opportunities/${opportunity.id}/packet?mode=client`}
+            className="rounded-md border border-[var(--line)] bg-[var(--surface)] px-3 py-1.5"
+          >
+            Review packet
+          </Link>
+        </div>
       </header>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
