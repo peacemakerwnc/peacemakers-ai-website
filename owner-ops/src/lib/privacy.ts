@@ -3,9 +3,7 @@
  * Not a substitute for legal review before broader launch.
  */
 
-export const PRIVACY_NOTICE_VERSION = "pilot-2026-08-05";
-
-export const PRIVACY_SUPPORT_EMAIL = "james@peacemakersai.com";
+export const PRIVACY_NOTICE_VERSION = "pilot-2026-08-07";
 
 export const PRIVACY_RETENTION_DAYS_PILOT = 365;
 
@@ -22,10 +20,10 @@ export function getPrivacyNotice(): PrivacyNotice {
     version: PRIVACY_NOTICE_VERSION,
     title: "Before you begin — privacy and data use",
     paragraphs: [
-      "Peacemakers AI collects the information you enter in this Business Blueprint Preparation questionnaire so James Fullen can prepare for your Blueprint discovery meeting and related consulting work.",
+      "Peacemakers AI collects the information you enter in this Business Blueprint Preparation questionnaire so your consultant can prepare for your Blueprint discovery meeting and related consulting work.",
       "Your answers may be saved automatically while incomplete. After you submit, responses become read-only so we preserve an accurate record of what you provided.",
-      "Only Peacemakers AI (James Fullen and authorized operators working on your engagement) can review your responses. This pilot questionnaire does not produce automated recommendations, ROI claims, or guarantees of savings.",
-      `Pilot information is ordinarily retained for about ${PRIVACY_RETENTION_DAYS_PILOT} days after the engagement closes, unless a longer business or legal record obligation applies. You may request correction or deletion by contacting ${PRIVACY_SUPPORT_EMAIL}; some records may need to be retained for legitimate business reasons.`,
+      "Only Peacemakers AI (your consultant and authorized operators working on your engagement) can review your responses. This pilot questionnaire does not produce automated recommendations, ROI claims, or guarantees of savings.",
+      `Pilot information is ordinarily retained for about ${PRIVACY_RETENTION_DAYS_PILOT} days after the engagement closes, unless a longer business or legal record obligation applies. You may request correction or deletion by contacting Peacemakers AI; some records may need to be retained for legitimate business reasons.`,
     ],
     bullets: [
       "Do not enter passwords, API keys, tokens, payment credentials, bank account numbers, protected health information, or other secrets.",
