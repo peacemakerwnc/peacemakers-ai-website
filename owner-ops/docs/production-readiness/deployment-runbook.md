@@ -3,7 +3,7 @@
 **Scope:** Controlled pilot on Vercel + Neon.  
 **Forbidden in Production:** `prisma migrate reset`, `prisma db push`, drop-database, destructive schema rollback presented as “safe”, and `prisma/seed-demo-uat.ts`.
 
-**Current execution status:** C1A = repository candidate only. Neon migrate / deploy / smoke remain **NOT AUTHORIZED** until later gates.
+**Current execution status:** Local PostgreSQL foundation = **COMPLETE — TECHNICALLY ACCEPTED** (commit `8073549…`; see [LOCAL-POSTGRESQL-FOUNDATION.md](../acceptance/phase-1-2-production-readiness/LOCAL-POSTGRESQL-FOUNDATION.md)). Neon migrate / deploy / smoke (**C2–C5**) remain **NOT AUTHORIZED**.
 
 ## Pre-deployment quality gates
 

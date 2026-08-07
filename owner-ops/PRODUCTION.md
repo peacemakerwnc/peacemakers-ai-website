@@ -19,7 +19,7 @@ Acceptance evidence stubs:
 | Monitoring | Structured logs + optional Sentry DSN |
 | Auth | Single-owner password + httpOnly signed cookie (**pilot only**) |
 | Storage | `DISABLE_CLIENT_UPLOADS=true` (paste-first); local disk not for prod |
-| Local | SQLite; production **fails closed** on `file:` `DATABASE_URL` |
+| Local | PostgreSQL (dedicated `owner-ops-test` runtime; foundation **COMPLETE — TECHNICALLY ACCEPTED**); production **fails closed** on `file:` `DATABASE_URL` |
 
 Privacy notice: `pilot-2026-08-05` · Support: `james@peacemakersai.com`
 

@@ -1,6 +1,6 @@
 # Architecture — current state vs pilot
 
-## Current state (C1A PostgreSQL-compatible candidate)
+## Current state (local PostgreSQL foundation accepted)
 
 | Concern | Today |
 |---------|--------|
@@ -20,7 +20,7 @@
 | Headers | CSP / HSTS / frame deny via `next.config.ts` + `vercel.json` region `iad1` |
 | Monitoring | Structured `[monitor:*]` console events; Sentry DSN env accepted but not wired as hard dependency |
 
-**C1A scope:** repository PostgreSQL compatibility only. No Neon migrate, no Vercel change, no Production credential use, no deploy.
+**Local foundation:** `COMPLETE — TECHNICALLY ACCEPTED` (commit `8073549…`). Dedicated local Postgres schema + isolated rollback smoke only. No Neon migrate, no Vercel change, no Production credential use, no deploy. **C2–C5 NOT AUTHORIZED.** See [LOCAL-POSTGRESQL-FOUNDATION.md](../acceptance/phase-1-2-production-readiness/LOCAL-POSTGRESQL-FOUNDATION.md).
 
 ## Proposed pilot architecture (chosen)
 
@@ -78,7 +78,7 @@ Client browser
 
 ## Deployment flow (target gated sequence)
 
-C1A repository candidate → independent verification → authorized non-Production Postgres test DB (optional for gates) → **C2** Neon `migrate deploy` + minimal seed → **C3** one controlled Vercel deploy → **C4** smoke → **C5** email/rate-limit.
+Local PostgreSQL foundation (**COMPLETE**) → **C2** Neon `migrate deploy` + minimal seed (**NOT AUTHORIZED**) → **C3** one controlled Vercel deploy → **C4** smoke → **C5** email/rate-limit.
 
 **Forbidden in Production:** `prisma db push`, `prisma migrate reset`, `npm run db:reset` (removed), `prisma/seed-demo-uat.ts`.
 

@@ -18,7 +18,7 @@ Support: `james@peacemakersai.com`
 | Monitoring | Structured logs + optional Sentry DSN |
 | Auth | Single-owner password + httpOnly signed cookie (**pilot only**) |
 | Storage | `DISABLE_CLIENT_UPLOADS=true` (paste-first); local disk not for prod |
-| Local | SQLite (`file:`); production **fails closed** on SQLite |
+| Local | PostgreSQL (dedicated local test runtime; foundation accepted); production **fails closed** on SQLite |
 
 ## Documents
 

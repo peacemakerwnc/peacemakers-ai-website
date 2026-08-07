@@ -15,8 +15,8 @@ Classify every item as **Required** (before pilot), **Recommended** (shortly aft
 | # | Item | Notes | Status |
 |---|------|-------|--------|
 | R1 | Neon Postgres project (prod, SSL) | Fictional pilot Neon provisioned under Approval A | **Provisioned** (migrate still gated) |
-| R2 | Prisma PostgreSQL datasource | Active provider `postgresql` + `DATABASE_URL` + `DIRECT_URL`; SQLite history archived | **C1A candidate** (uncommitted); Neon apply = C2 |
-| R3 | `prisma migrate deploy` on Neon | Postgres baseline only; no `migrate reset` / `db push` in prod | **Blocked** (C2) |
+| R2 | Prisma PostgreSQL datasource | Active provider `postgresql` + `DATABASE_URL` + `DIRECT_URL`; SQLite history archived; local foundation accepted | **COMPLETE — TECHNICALLY ACCEPTED** (local; commit `8073549…`); Neon apply = C2 (**NOT AUTHORIZED**) |
+| R3 | `prisma migrate deploy` on Neon | Postgres baseline only; no `migrate reset` / `db push` in prod | **Blocked** (C2 — **NOT AUTHORIZED**) |
 | R4 | Vercel project, region `iad1` | Linked; no-deploy safeguard; Production env names set (B3) | **Configured**; deploy = C3 |
 | R5 | Production env contract | See [env-contract.md](./env-contract.md); `DIRECT_URL` still a migrate prerequisite | Contract ready; `DIRECT_URL` on migrate host **pending separate auth** |
 | R6 | Resend account + verified sender | `EMAIL_PROVIDER=resend`, `RESEND_API_KEY`, `EMAIL_FROM` | **Configured**; send = C5 |
@@ -39,27 +39,27 @@ Classify every item as **Required** (before pilot), **Recommended** (shortly aft
 | R23 | Deployed fictional rehearsal | Controlled test recipient; not real client | **Blocked** |
 | R24 | GO / NO-GO record | [GO-NO-GO.md](../acceptance/phase-1-2-production-readiness/GO-NO-GO.md) | Template; decision **pending** |
 
-### Files expected to change (C1A repository candidate)
+### Local PostgreSQL foundation (closed)
 
-- `prisma/schema.prisma` (postgresql + `directUrl`)
-- `prisma/migrations/` (PostgreSQL baseline) + `prisma/migrations-sqlite-archive/` (inactive history)
-- `src/lib/invitations.ts` (Prisma Client instead of SQLite-oriented raw SQL)
-- Test harness: `test-db.ts`, `vitest.config.ts`, `vitest.db.config.ts`, `vitest.db.isolated.config.ts`, `*.db.test.ts`, `*.isolated-postgres.test.ts`
-- `.env.example`, `package.json` scripts (no Production reset; no migrate/seed in `build`)
-- Docs under `docs/production-readiness/`
+See [LOCAL-POSTGRESQL-FOUNDATION.md](../acceptance/phase-1-2-production-readiness/LOCAL-POSTGRESQL-FOUNDATION.md).
+
+- Local schema applied via `20260806223000_postgres_baseline` on retained `owner_ops_test`.
+- Isolated smoke: `npm run test:db:isolated` (transaction rollback; no seed / no `deleteMany`).
+- Dedicated runtime retained stopped: Colima `owner-ops-test`, container `owner-ops-postgres-test`, volume, credential, launcher.
+- **C2–C5 remain NOT AUTHORIZED.**
 
 ### Database migration strategy
 
 1. Active Prisma provider is **PostgreSQL only** (no dual SQLite/Postgres schemas).
 2. SQLite migration SQL is archived and must never be applied to Neon.
-3. C1A creates the PostgreSQL baseline artifact only — **no database execution**.
-4. C2 (separately authorized): `prisma migrate deploy` against Neon using **`DIRECT_URL`**, then minimal `db:seed` (owner + pipeline/template only).
+3. Local foundation (schema + isolated smoke) is **COMPLETE — TECHNICALLY ACCEPTED**; see acceptance record.
+4. C2 (separately authorized; **not** authorized now): `prisma migrate deploy` against Neon using **`DIRECT_URL`**, then minimal `db:seed` (owner + pipeline/template only).
 5. Never run `prisma migrate reset`, `db push`, or `prisma/seed-demo-uat.ts` against Production.
 6. If a migration is unsafe to reverse, **forward-fix** with a new migration rather than destructive rollback.
 
 ### Approval sequence (do not collapse)
 
-C1A local candidate → independent verification → (optional authorized Postgres test DB) → **C2** migrate + minimal init → **C3** one controlled deploy → **C4** smoke → **C5** email/rate-limit.
+Local PostgreSQL foundation (**COMPLETE**) → **C2** Neon migrate + minimal init (**NOT AUTHORIZED**) → **C3** one controlled deploy → **C4** smoke → **C5** email/rate-limit.
 
 ### Auth for pilot
 
