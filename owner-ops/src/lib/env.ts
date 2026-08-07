@@ -2,6 +2,14 @@ import fs from "fs";
 import path from "path";
 import { z } from "zod";
 
+/**
+ * Explicit isolated PostgreSQL smoke mode.
+ * Must match `OWNER_OPS_ISOLATED_POSTGRES_TEST` in `test-db.ts`.
+ * Never inferred from `NODE_ENV=test` alone.
+ */
+export const OWNER_OPS_ISOLATED_POSTGRES_TEST_ENV =
+  "OWNER_OPS_ISOLATED_POSTGRES_TEST";
+
 const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "test", "production"])
@@ -89,12 +97,24 @@ function fileEnv(): Record<string, string> {
 }
 
 /**
+ * Whether `getEnv()` may fall back to filesystem `.env` / `.env.*` files.
+ * Isolated PostgreSQL smoke mode is process-env only (fail closed).
+ */
+export function usesFilesystemEnvFallback(
+  fromEnv: NodeJS.ProcessEnv = process.env,
+): boolean {
+  return fromEnv[OWNER_OPS_ISOLATED_POSTGRES_TEST_ENV] !== "1";
+}
+
+/**
  * Resolve env for server actions/pages.
- * Prefer live process.env, then fall back to package `.env` file values.
+ * Prefer live process.env, then fall back to package `.env` file values —
+ * except when `OWNER_OPS_ISOLATED_POSTGRES_TEST=1`, which disables all
+ * filesystem `.env` discovery (launcher-provided process env only).
  */
 export function getEnv(): AppEnv {
   if (cached) return cached;
-  const fromFile = fileEnv();
+  const fromFile = usesFilesystemEnvFallback() ? fileEnv() : {};
   const pick = (key: string) => readRuntimeEnv(key) ?? fromFile[key];
   const parsed = envSchema.safeParse({
     NODE_ENV: pick("NODE_ENV"),
@@ -121,6 +141,7 @@ export function getEnv(): AppEnv {
     const issues = parsed.error.issues
       .map((i) => `${i.path.join(".")}: ${i.message}`)
       .join("; ");
+    // Never echo raw env values (may contain URLs/secrets).
     throw new Error(`Invalid environment configuration: ${issues}`);
   }
   cached = parsed.data;

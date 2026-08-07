@@ -15,7 +15,8 @@ export DIRECT_URL="$DATABASE_URL"
 npm run db:validate
 npm run db:generate
 npm test                 # database-independent unit tests
-# npm run test:db        # only with authorized OWNER_OPS_TEST_DATABASE_URL — not C1A
+# npm run test:db           # seed-oriented suites; authorized OWNER_OPS_TEST_DATABASE_URL only
+# npm run test:db:isolated  # single rollback smoke via external launcher; loopback owner_ops_test only
 npm run lint
 npm run typecheck
 npm run build

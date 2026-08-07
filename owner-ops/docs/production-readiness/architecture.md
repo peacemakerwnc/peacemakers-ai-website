@@ -8,7 +8,7 @@
 | ORM | Prisma **6.19.x**; active `prisma/schema.prisma` provider = **`postgresql`** |
 | Database URLs | `DATABASE_URL` (runtime; Neon pooled in Production) + `DIRECT_URL` (migrate tooling; Neon direct) |
 | Migration history | Active path: one PostgreSQL baseline under `prisma/migrations/`. SQLite history archived at `prisma/migrations-sqlite-archive/` (inactive) |
-| Local / test DB | PostgreSQL required for application and DB-backed tests. Default `npm test` is database-independent. `npm run test:db` requires separately authorized `OWNER_OPS_TEST_DATABASE_URL` |
+| Local / test DB | PostgreSQL required for application and DB-backed tests. Default `npm test` is database-independent. `npm run test:db` requires separately authorized `OWNER_OPS_TEST_DATABASE_URL`. `npm run test:db:isolated` is a single rollback smoke test (loopback + `owner_ops_test` only; no seed / no `deleteMany`) |
 | Host | Local `next dev` / `next start`; Vercel project prepared with no-deploy safeguard until later approvals |
 | Auth | Single-owner email + scrypt password; HMAC-signed httpOnly cookie (`owner_ops_session`) |
 | Email | `EmailAdapter` with default **log** provider (`src/lib/mail.ts`); Resend adapter present |

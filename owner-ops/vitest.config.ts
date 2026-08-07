@@ -3,14 +3,19 @@ import path from "path";
 
 /**
  * Default suite: database-independent unit tests only.
- * Database-backed suites are `*.db.test.ts` and run via `npm run test:db`
- * after a separately authorized non-Production Postgres test DB exists.
+ * Database-backed suites:
+ * - `*.db.test.ts` → `npm run test:db` (seed-oriented; separate authorization)
+ * - `*.isolated-postgres.test.ts` → `npm run test:db:isolated` (rollback smoke)
  */
 export default defineConfig({
   test: {
     environment: "node",
     include: ["src/**/*.test.ts"],
-    exclude: ["src/**/*.db.test.ts", "node_modules/**"],
+    exclude: [
+      "src/**/*.db.test.ts",
+      "src/**/*.isolated-postgres.test.ts",
+      "node_modules/**",
+    ],
     fileParallelism: false,
     env: {
       // Placeholder only — default suite must not connect to a database.

@@ -44,7 +44,7 @@ Classify every item as **Required** (before pilot), **Recommended** (shortly aft
 - `prisma/schema.prisma` (postgresql + `directUrl`)
 - `prisma/migrations/` (PostgreSQL baseline) + `prisma/migrations-sqlite-archive/` (inactive history)
 - `src/lib/invitations.ts` (Prisma Client instead of SQLite-oriented raw SQL)
-- Test harness: `test-db.ts`, `vitest.config.ts`, `vitest.db.config.ts`, `*.db.test.ts`
+- Test harness: `test-db.ts`, `vitest.config.ts`, `vitest.db.config.ts`, `vitest.db.isolated.config.ts`, `*.db.test.ts`, `*.isolated-postgres.test.ts`
 - `.env.example`, `package.json` scripts (no Production reset; no migrate/seed in `build`)
 - Docs under `docs/production-readiness/`
 

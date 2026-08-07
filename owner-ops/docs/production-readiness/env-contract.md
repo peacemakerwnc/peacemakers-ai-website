@@ -8,7 +8,8 @@ Source of truth for names: `src/lib/env.ts`, Prisma schema (`DATABASE_URL` / `DI
 | `NODE_ENV` | Runtime mode; enables production guards | Usually unset / `development` | `production` (set by host) | Yes (host) |
 | `DATABASE_URL` | Prisma **runtime** connection | Local Postgres URL | Neon **pooled** `postgresql://…` | Yes — **must not** be `file:` / sqlite |
 | `DIRECT_URL` | Prisma **migrate** direct connection | Same host direct URL (or non-pooled) | Neon **direct / non-pooled** | Yes for migrate tooling; add under a separate authorization before C2 if not yet present on the migrate host |
-| `OWNER_OPS_TEST_DATABASE_URL` | Dedicated non-Production URL for `npm run test:db` | Local Docker / authorized test Postgres only | **Never** Production Neon | No (tests only) |
+| `OWNER_OPS_TEST_DATABASE_URL` | Dedicated non-Production URL for `npm run test:db` and `npm run test:db:isolated` | Local Docker / authorized test Postgres only | **Never** Production Neon | No (tests only) |
+| `OWNER_OPS_ISOLATED_POSTGRES_TEST` | Explicit mode for isolated smoke (`=1`); disables filesystem `.env` fallback in `getEnv()` | Set by `test:db:isolated` runner / launcher child | **Never** in Production | No (tests only) |
 | `OWNER_EMAIL` | Owner login identity; seed upsert | `.env` | Vercel env | Yes |
 | `OWNER_NAME` | Display / email From fallback | `.env` | Vercel env | Yes |
 | `OWNER_PASSWORD` | Owner password (≥12); hashed at rest | `.env` (dev) | Vercel env (strong unique) | Yes — never `change-me-before-use` |
@@ -40,6 +41,7 @@ Source of truth for names: `src/lib/env.ts`, Prisma schema (`DATABASE_URL` / `DI
 | Local development | `owner-ops/.env` (gitignored); template `.env.example` |
 | Unit / scripts | Placeholder process env for static validation; never Production secrets |
 | DB-backed tests | `OWNER_OPS_TEST_DATABASE_URL` only (never Production Neon) |
+| Isolated DB smoke | Launcher process env + `OWNER_OPS_ISOLATED_POSTGRES_TEST=1`; loopback + DB name `owner_ops_test`; no filesystem `.env` |
 | Pilot production | **Vercel Project → Settings → Environment Variables** (Production) |
 | Neon | Connection strings in Vercel / authorized migrate shell only; not in git |
 
@@ -53,6 +55,7 @@ Source of truth for names: `src/lib/env.ts`, Prisma schema (`DATABASE_URL` / `DI
 ## Explicit non-goals
 
 - Do not put secrets in `vercel.json`, README, or acceptance JSON.
-- Do not use Production Neon URLs for local development or `test:db`.
+- Do not use Production Neon URLs for local development, `test:db`, or `test:db:isolated`.
+- Do not run `test:db:isolated` without the external local launcher and an empty `owner_ops_test` database.
 - Do not use `ALLOW_LOG_EMAIL_IN_PRODUCTION=true` for a real client send.
 - Do not point production `DATABASE_URL` at a shared sandbox used for experiments.
