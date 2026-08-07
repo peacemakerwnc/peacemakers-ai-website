@@ -2,23 +2,24 @@
 
 Operational documentation for the **first controlled paying-client pilot** of `owner-ops` (Business Blueprint questionnaire + owner ops).
 
-**Status:** Documentation and local application controls exist. **Production infrastructure is not provisioned.** Deployed fictional rehearsal, backup restoration test, and real-client send are **BLOCKED** pending owner approvals and credentials. Do not treat this pack as a GO decision.
+**Status (2026-08-07):** Fictional pilot is live through C5-R. C6-R completed the non-prod Neon restore drill and refreshed launch docs. **C7 re-review is still required.** Real-client invitation is **not authorized**.
 
-Privacy notice version: `pilot-2026-08-05`  
-Support: `james@peacemakersai.com`
+Privacy notice version (deployed): `pilot-2026-08-07`  
+Operating decision: [`../acceptance/phase-1-2-production-readiness/GO-NO-GO.md`](../acceptance/phase-1-2-production-readiness/GO-NO-GO.md)  
+Restore drill: [`../acceptance/phase-1-2-production-readiness/C6-R-RESTORE-DRILL.md`](../acceptance/phase-1-2-production-readiness/C6-R-RESTORE-DRILL.md)
 
 ## Chosen pilot architecture (summary)
 
 | Layer | Choice |
 |-------|--------|
-| Host | Vercel (Next.js 16), region `iad1` |
-| Database | Neon Postgres (managed, SSL, separate prod project) |
+| Host | Vercel, region `iad1` — `owner-ops-fictional-pilot` |
+| Database | Neon Postgres — Production branch `main` |
 | Email | Resend via `EmailAdapter` |
 | Rate limit | Upstash Redis REST |
-| Monitoring | Structured logs + optional Sentry DSN |
+| Monitoring | Structured logs + optional Sentry DSN (deferred) |
 | Auth | Single-owner password + httpOnly signed cookie (**pilot only**) |
-| Storage | `DISABLE_CLIENT_UPLOADS=true` (paste-first); local disk not for prod |
-| Local | PostgreSQL (dedicated local test runtime; foundation accepted); production **fails closed** on SQLite |
+| Storage | `DISABLE_CLIENT_UPLOADS=true` (paste-first) |
+| Local | PostgreSQL foundation accepted; production fails closed on SQLite |
 
 ## Documents
 
@@ -29,11 +30,11 @@ Support: `james@peacemakersai.com`
 | [env-contract.md](./env-contract.md) | Environment variables by name, purpose, where set |
 | [infrastructure-inventory.md](./infrastructure-inventory.md) | Services, cost estimate, approval gate |
 | [retention-deletion.md](./retention-deletion.md) | Data classes + owner deletion procedure |
-| [backup-restoration.md](./backup-restoration.md) | Neon backup/PITR expectations; restoration test |
+| [backup-restoration.md](./backup-restoration.md) | Neon backup expectations + C6-R restore drill record |
 | [deployment-runbook.md](./deployment-runbook.md) | Deploy + rollback (no destructive reset) |
-| [incident-response.md](./incident-response.md) | Pilot incident playbooks (Phase 1.2 §27) |
-| [pilot-operating-checklist.md](./pilot-operating-checklist.md) | Before / during / after send |
-| [owner-actions-required.md](./owner-actions-required.md) | Credentials and approvals still needed |
+| [incident-response.md](./incident-response.md) | Pilot incident playbooks |
+| [pilot-operating-checklist.md](./pilot-operating-checklist.md) | Before / during / after send (first-client controls) |
+| [owner-actions-required.md](./owner-actions-required.md) | Approvals and offline confirmations |
 
 ## Related
 

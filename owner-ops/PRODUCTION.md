@@ -4,7 +4,7 @@ Phase 1.2 documentation for the **controlled paying-client pilot** lives here:
 
 **→ [`docs/production-readiness/README.md`](./docs/production-readiness/README.md)**
 
-Acceptance evidence stubs:
+Acceptance evidence:
 
 **→ [`docs/acceptance/phase-1-2-production-readiness/`](./docs/acceptance/phase-1-2-production-readiness/)**
 
@@ -12,27 +12,36 @@ Acceptance evidence stubs:
 
 | Layer | Choice |
 |-------|--------|
-| Host | Vercel (Next.js 16), region `iad1` |
-| DB | Neon Postgres (SSL, separate prod project) |
-| Email | Resend via `EmailAdapter` |
+| Host | Vercel (Next.js), region `iad1` — project `owner-ops-fictional-pilot` |
+| DB | Neon Postgres SSL — project `plain-fire-35687465`, Production branch `main` |
+| Email | Resend via `EmailAdapter` (`EMAIL_PROVIDER=resend`) |
 | Rate limit | Upstash Redis REST |
-| Monitoring | Structured logs + optional Sentry DSN |
-| Auth | Single-owner password + httpOnly signed cookie (**pilot only**) |
-| Storage | `DISABLE_CLIENT_UPLOADS=true` (paste-first); local disk not for prod |
-| Local | PostgreSQL (dedicated `owner-ops-test` runtime; foundation **COMPLETE — TECHNICALLY ACCEPTED**); production **fails closed** on `file:` `DATABASE_URL` |
+| Monitoring | Structured logs + optional Sentry DSN (Sentry currently deferred) |
+| Auth | Single-owner password + httpOnly signed cookie (**pilot only**; no in-app reset) |
+| Storage | `DISABLE_CLIENT_UPLOADS=true` (paste-first) |
+| Local | PostgreSQL foundation complete; production fails closed on SQLite `file:` URLs |
 
-Privacy notice: `pilot-2026-08-05` · Support: `james@peacemakersai.com`
+Privacy notice: **`pilot-2026-08-07`** (operational copy; legal review pending)
 
-## Remaining gates (not cleared)
+## Current program status (2026-08-07)
 
-Do **not** send a real client invitation until these are done:
+| Item | Status |
+|------|--------|
+| C2-C seed | Complete |
+| C3-R / `99b1f89` Production | Complete |
+| C4 smoke | Complete |
+| C5-R invitation email + login rate limit | Complete |
+| C6 blockers | Restore drill + docs — **remediated in C6-R** |
+| C6-R non-prod restore drill | Complete — [C6-R-RESTORE-DRILL.md](./docs/acceptance/phase-1-2-production-readiness/C6-R-RESTORE-DRILL.md) |
+| C7 re-review | **Required before any first-real-client authorization** |
+| Real-client invitation | **Not authorized** |
 
-1. Owner approvals + credentials ([docs/production-readiness/owner-actions-required.md](./docs/production-readiness/owner-actions-required.md))
-2. Provision Vercel + Neon + Resend + Upstash (optional Sentry)
-3. Production env assertion + `/api/health` ready on the deployed host
-4. Neon restoration test into **non-prod** (currently **BLOCKED**)
-5. Deployed fictional rehearsal (currently **BLOCKED** — do not claim PASS)
-6. Recorded GO / GO WITH CONDITIONS in acceptance `GO-NO-GO.md`
-7. Pilot operating checklist completed for the specific recipient
+## Remaining gates before a real send
 
-Interfaces for email (`src/lib/mail.ts`) and storage (`src/lib/storage.ts`) remain the swap points for providers. Phase 2 remains out of scope.
+1. **C7** read-only production-readiness re-review  
+2. Offline confirm of critical Production env controls (never paste secrets into git/chat)  
+3. Explicit owner decisions retained in [GO-NO-GO.md](./docs/acceptance/phase-1-2-production-readiness/GO-NO-GO.md)  
+4. Separately scoped written first-real-client invitation authorization  
+5. [pilot-operating-checklist.md](./docs/production-readiness/pilot-operating-checklist.md) completed for that specific recipient  
+
+Phase 2 remains out of scope.

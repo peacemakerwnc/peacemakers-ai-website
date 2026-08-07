@@ -1,15 +1,17 @@
 # Acceptance evidence — Phase 1.2 production readiness
 
-Stubs for the first controlled paying-client pilot. **No deployed rehearsal has been claimed as PASS.**
+Operating decision record: **[GO-NO-GO.md](./GO-NO-GO.md)** (updated 2026-08-07 for C6-R).  
+Real-client invitation remains **not authorized** until C7 + separate written authorization.
 
 | File | Purpose |
 |------|---------|
-| [LOCAL-POSTGRESQL-FOUNDATION.md](./LOCAL-POSTGRESQL-FOUNDATION.md) | Local PostgreSQL foundation phase — **COMPLETE — TECHNICALLY ACCEPTED** (`8073549…`); C2–C5 still **NOT AUTHORIZED** |
-| [QUALITY-GATES.md](./QUALITY-GATES.md) | Local/CI command results (fill in) |
-| [VERDICTS.md](./VERDICTS.md) | Requirement verdicts (mostly BLOCKED/FAIL until infra) |
-| [GO-NO-GO.md](./GO-NO-GO.md) | Final pilot decision record |
-| [PHASE-1-2C-PROVISIONING.md](./PHASE-1-2C-PROVISIONING.md) | Approval A provisioning evidence |
+| [GO-NO-GO.md](./GO-NO-GO.md) | Current pilot decision / conditions (C6-R refreshed) |
+| [C6-R-RESTORE-DRILL.md](./C6-R-RESTORE-DRILL.md) | Non-production Neon restore drill evidence (2026-08-07) |
+| [LOCAL-POSTGRESQL-FOUNDATION.md](./LOCAL-POSTGRESQL-FOUNDATION.md) | Local PostgreSQL foundation — COMPLETE |
+| [PHASE-1-2C-PROVISIONING.md](./PHASE-1-2C-PROVISIONING.md) | Approval A provisioning evidence (historical) |
+| [FINAL-REPORT.md](./FINAL-REPORT.md) | Historical Phase 1.2 final report (pre–C2 operating status; superseded by GO-NO-GO for launch posture) |
+| [QUALITY-GATES.md](./QUALITY-GATES.md) / [VERDICTS.md](./VERDICTS.md) | Earlier gate worksheets (historical) |
 
 Architecture and runbooks: [`../../production-readiness/`](../../production-readiness/).
 
-Privacy notice: `pilot-2026-08-05` · Support: `james@peacemakersai.com`
+Privacy notice (code/deployed): `pilot-2026-08-07`

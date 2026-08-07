@@ -1,5 +1,10 @@
 # Phase 1.2 Final Report — First Paying-Client Pilot Production Readiness
 
+> **Addendum 2026-08-07 (C6-R):** This report remains a **historical** Phase 1.2 snapshot (2026-08-06 NO-GO before C2–C5-R).  
+> Current operating status, restore-drill evidence, and launch conditions are maintained in  
+> [GO-NO-GO.md](./GO-NO-GO.md) and [C6-R-RESTORE-DRILL.md](./C6-R-RESTORE-DRILL.md).  
+> Real-client invitation is still **not authorized** until C7 + separate written authorization.
+
 **Date:** 2026-08-06  
 **Overall verdict:** **BLOCKED / NO-GO** (local gates PASS; production verification incomplete)  
 **Pilot go/no-go:** **NO-GO** — do not send a real-client invitation  
