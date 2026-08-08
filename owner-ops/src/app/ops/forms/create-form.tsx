@@ -55,7 +55,7 @@ export function CreateInvitationForm() {
         </label>
         <label className="flex items-center gap-2 text-sm sm:col-span-2">
           <input name="sendNow" type="checkbox" />
-          Queue mock invitation email (log-only)
+          Create and send email (leave unchecked to create link only)
         </label>
         <button
           type="submit"
