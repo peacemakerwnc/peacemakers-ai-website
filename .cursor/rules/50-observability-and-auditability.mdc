@@ -1,0 +1,14 @@
+---
+description: Observability, auditability, and data minimization
+globs: owner-ops/**/*
+alwaysApply: false
+---
+
+# Observability and auditability
+
+- Prefer vendor-neutral / OpenTelemetry concepts before buying AI-obs vendors.
+- MUST NOT log secrets, tokens, raw invites, or full questionnaire payloads.
+- Consequential workflows need reconstructability: who, what, which version, tools, approvals, outcome.
+- Extend `AuditEvent` / `Activity` / `captureEvent` carefully; sanitize details.
+
+See `OBSERVABILITY_STANDARD.md` and `OBSERVABILITY_EVENT_MODEL.md`.

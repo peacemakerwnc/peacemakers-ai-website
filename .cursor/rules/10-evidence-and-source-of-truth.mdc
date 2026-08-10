@@ -1,0 +1,16 @@
+---
+description: Evidence classification and source-of-truth discipline
+globs: owner-ops/**/*
+alwaysApply: false
+---
+
+# Evidence and source of truth
+
+- Classify material claims: VERIFIED, CLIENT_REPORTED, OBSERVED, INFERRED, HYPOTHESIS, ASSUMPTION, CONTRADICTED, UNKNOWN.
+- Do not promote client-reported statements to verified facts without evidence.
+- Resolve or explicitly leave open conflicts (`EvidenceConflict`).
+- Identify authoritative system of record before recommending automation or AI.
+- Review Packet is evidence-only; sold Blueprint is separate and James-approved.
+- Never log questionnaire bodies, tokens, or secrets into monitors.
+
+See `owner-ops/docs/peacemakers-operating-system/EVIDENCE_STANDARD.md`.

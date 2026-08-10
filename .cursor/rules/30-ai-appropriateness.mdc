@@ -1,0 +1,15 @@
+---
+description: AI appropriateness gate and autonomy limits
+globs: owner-ops/**/*
+alwaysApply: false
+---
+
+# AI appropriateness
+
+- Owner Ops has no LLM runtime today; do not add one casually.
+- Before recommending AI, complete the AI appropriateness gate (see AI_GOVERNANCE_STANDARD).
+- Prefer autonomy A1–A3; A5 is forbidden without explicit architecture review and owner approval.
+- Incomplete gate ⇒ PROVISIONAL / NOT READY.
+- Do not implement the Blueprint generator (Phase 2 deferred).
+
+See `owner-ops/docs/peacemakers-operating-system/AI_GOVERNANCE_STANDARD.md`.

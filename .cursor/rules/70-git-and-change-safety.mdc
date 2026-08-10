@@ -1,0 +1,13 @@
+---
+description: Git and change-safety for Peacemakers monorepo
+alwaysApply: true
+---
+
+# Git and change safety
+
+- Never discard unrelated uncommitted work; never reset/rebase/force-push unless explicitly requested.
+- Do not push or deploy unless James explicitly asks.
+- Do not amend commits except under user-rule conditions.
+- Prefer small, scoped commits; ask before committing.
+- Do not modify production resources, send live client emails, or mutate prod data unless explicitly authorized in-session.
+- Keep BookDirect / marketing site dirty trees separate from Owner Ops governance commits.

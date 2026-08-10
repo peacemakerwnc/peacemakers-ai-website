@@ -1,0 +1,14 @@
+---
+description: Simplify and prefer current tools before new software or AI
+globs: owner-ops/**/*
+alwaysApply: false
+---
+
+# Simplify / current tools first
+
+Follow the escalation ladder (0 eliminate → 9 new software).  
+Before Level 9 or AI levels, check simplification, roles, training, configuration, reporting, workflows, integrations, and native automation.  
+Use current vendor documentation for material capability claims — not memory.  
+Recommend only what James can implement and support.
+
+See `owner-ops/docs/peacemakers-operating-system/TECHNOLOGY_DECISION_STANDARD.md` and `owner-ops/docs/future-recommendation-philosophy.md`.

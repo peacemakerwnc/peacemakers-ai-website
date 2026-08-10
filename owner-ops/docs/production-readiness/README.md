@@ -6,6 +6,8 @@ Operational documentation for the **first controlled paying-client pilot** of `o
 
 Privacy notice version (deployed): `pilot-2026-08-07`  
 Operating decision: [`../acceptance/phase-1-2-production-readiness/GO-NO-GO.md`](../acceptance/phase-1-2-production-readiness/GO-NO-GO.md)  
+
+Consulting OS (methodology, AI governance, observability foundation): [`../peacemakers-operating-system/README.md`](../peacemakers-operating-system/README.md)  
 Restore drill: [`../acceptance/phase-1-2-production-readiness/C6-R-RESTORE-DRILL.md`](../acceptance/phase-1-2-production-readiness/C6-R-RESTORE-DRILL.md)
 
 ## Chosen pilot architecture (summary)

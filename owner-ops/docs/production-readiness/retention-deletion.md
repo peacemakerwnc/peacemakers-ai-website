@@ -1,7 +1,7 @@
 # Retention and deletion (pilot)
 
 Operational policy for the controlled pilot. Not a substitute for legal advice.  
-Privacy notice version: **`pilot-2026-08-05`**. Support: **`james@peacemakersai.com`**.
+Privacy notice version: **`pilot-2026-08-07`**. Support: **`james@peacemakersai.com`**.
 
 Ordinary pilot retention target: about **365 days** after engagement close (`PRIVACY_RETENTION_DAYS_PILOT`), unless a longer business/legal record obligation applies (owner judgment).
 

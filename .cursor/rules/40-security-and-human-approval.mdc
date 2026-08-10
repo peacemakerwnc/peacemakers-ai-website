@@ -1,0 +1,15 @@
+---
+description: Security controls and human approval boundaries
+globs: owner-ops/**/*
+alwaysApply: false
+---
+
+# Security and human approval
+
+- Enforce security in application controls, not prompts.
+- Least privilege; tool allowlists; tenant/company isolation; fail closed on consequential ops.
+- Require James/owner approval for client delivery, real invites, resend/reissue, deletes, production config, financial/contractual actions, and A3+ agent actions.
+- Do not weaken pilot invitation authorization or approval checklists.
+- Never commit or print secrets.
+
+See `HUMAN_APPROVAL_STANDARD.md` and `AGENT_SECURITY_STANDARD.md` under `owner-ops/docs/peacemakers-operating-system/`.

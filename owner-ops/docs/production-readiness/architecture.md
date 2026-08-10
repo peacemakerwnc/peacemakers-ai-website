@@ -15,7 +15,7 @@
 | Storage | Local disk under `STORAGE_ROOT` (`src/lib/storage.ts`) — ephemeral on serverless |
 | Rate limit | Memory default; Upstash REST backend available (`src/lib/rate-limit.ts`) |
 | Health | `/api/health?mode=live\|ready` with DB probe + production config guards |
-| Privacy | Notice version `pilot-2026-08-05`; acknowledgement required on submit |
+| Privacy | Notice version `pilot-2026-08-07`; acknowledgement required on submit |
 | Retention | Company-scoped preview/execute deletion in `src/lib/retention.ts` |
 | Headers | CSP / HSTS / frame deny via `next.config.ts` + `vercel.json` region `iad1` |
 | Monitoring | Structured `[monitor:*]` console events; Sentry DSN env accepted but not wired as hard dependency |
@@ -72,7 +72,7 @@ Client browser
 
 1. Owner creates company/opportunity/invitation in `/ops`.
 2. Owner sends invite via Resend; client receives link to `/f/[token]`.
-3. Client acknowledges privacy notice (`pilot-2026-08-05`); drafts autosave; submit locks answers.
+3. Client acknowledges privacy notice (`pilot-2026-08-07`); drafts autosave; submit locks answers.
 4. Owner reviews submission, evidence, and packet in `/ops`.
 5. Deletion (if requested) uses `previewCompanyDeletion` → confirm name → `executeCompanyDeletion` (does not purge backups).
 

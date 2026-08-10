@@ -1,0 +1,15 @@
+---
+description: Testing and validation expectations for Owner Ops
+globs: owner-ops/**/*
+alwaysApply: false
+---
+
+# Testing and validation
+
+- Prefer deterministic tests over LLM judges.
+- Unit: `npm test`. DB tests only with authorized test DB URLs.
+- Do not claim tests/browser/prod readiness without executing verification.
+- No real client data in fixtures.
+- Policy boundary: no approved recommendations/ROI from evidence extraction paths in current phase.
+
+See `EVALUATION_STANDARD.md` and existing vitest configs.

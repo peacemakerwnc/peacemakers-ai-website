@@ -1,0 +1,17 @@
+---
+description: Peacemakers core operating philosophy for Owner Ops and consulting work
+alwaysApply: true
+---
+
+# Peacemakers core
+
+Before recommending or building solutions in this repo:
+
+1. Inspect existing code and docs first; do not assume features from prompts.
+2. Understand before recommending; simplify before automating; configure before replacing; existing tools before new purchases.
+3. Prefer deterministic automation when rules suffice; introduce AI only when justified.
+4. Minimum authority for any AI/agent; consequential actions must be observable, attributable, reversible where feasible, and human-governed.
+5. Measure business improvement; never fabricate ROI.
+
+Canonical standards: `owner-ops/docs/peacemakers-operating-system/`.  
+Preserve: `owner-ops/docs/future-recommendation-philosophy.md` and related future-* contracts.

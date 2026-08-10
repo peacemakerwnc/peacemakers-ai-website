@@ -23,7 +23,7 @@ Classify every item as **Required** (before pilot), **Recommended** (shortly aft
 | R7 | Upstash Redis REST | `RATE_LIMIT_BACKEND=upstash` + URL/token | **Configured**; prove = C5 |
 | R8 | `DISABLE_CLIENT_UPLOADS=true` | Paste-first pilot; reject uploads in production | **Code-ready** |
 | R9 | Production fails closed on SQLite | `assertProductionConfig` rejects `file:` / non-postgres | **Code-ready** |
-| R10 | Privacy notice + acknowledgement | Version `pilot-2026-08-05`; required on submit | **Code-ready** |
+| R10 | Privacy notice + acknowledgement | Version `pilot-2026-08-07`; required on submit | **Code-ready** |
 | R11 | Retention / company deletion | `previewCompanyDeletion` / `executeCompanyDeletion` | **Code-ready** (ops UI may be script/owner-driven) |
 | R12 | Health checks | `/api/health` live + ready | **Code-ready** |
 | R13 | Security headers | `next.config.ts` + `vercel.json` | **Code-ready** |
