@@ -67,13 +67,14 @@ This is **not** an “AI observability” project. It is a business improvement,
 | **Peacemakers Operating System** | This folder — canonical methodology (`pm-os-0.1.0`) |
 | **Peacemakers Blueprint Advisor** | [`../../skills/peacemakers-blueprint-advisor/`](../../skills/peacemakers-blueprint-advisor/) — Stage A–D execution playbook |
 
-- **Skill version:** `blueprint-advisor-0.1.0`
+- **Skill version:** `blueprint-advisor-0.1.2`
 - **Compatible OS:** `pm-os-0.1.0`
 - **Entry:** [`SKILL.md`](../../skills/peacemakers-blueprint-advisor/SKILL.md)
+- **Operational validation:** Live ChatGPT Stage A and Stage B Harbor Ridge smoke tests passed for `blueprint-advisor-0.1.2` — operationally validated for controlled first-client use (James reviews Stage A/B before client-facing delivery; Proposed ≠ Approved; Stage C/D remain gated).
 
 The skill operationalizes [CONSULTING_STANDARD.md](./CONSULTING_STANDARD.md) for Blueprint engagements. It does not replace these OS standards. Owner Ops remains the engagement system of record (questionnaire → evidence → packet → manual Blueprint deliverable).
 
-**Known limitation:** the skill uses repo-relative OS references. Outside this repository (e.g. ChatGPT-only packaging), those paths may be unavailable until a later controlled portability pass. Do not copy OS doctrine into the skill or introduce RAG for methodology.
+**Known limitation:** the skill uses repo-relative OS references. Outside this repository (e.g. ChatGPT-only packaging), those paths may be unavailable; in-package stage contracts and safeguards remain the execution authority for ChatGPT installs. Do not copy OS doctrine into the skill or introduce RAG for methodology.
 
 ## Cursor governance
 

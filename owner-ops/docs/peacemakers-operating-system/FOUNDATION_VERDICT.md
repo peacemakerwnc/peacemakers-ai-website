@@ -64,7 +64,7 @@ Documented in IMPLEMENTATION_BACKLOG (Gates A–H).
 2. Keep Phase 2 Blueprint generator deferred.  
 3. Reconcile privacy notice version strings before more real sends.  
 4. Treat dirty unrelated working-tree files as out of scope; commit OS docs/rules separately when James asks.  
-5. ~~Optional: add a `peacemakers-blueprint-advisor` Cursor skill that points at CONSULTING_STANDARD (skill was missing).~~ **Done:** canonical skill at `owner-ops/skills/peacemakers-blueprint-advisor/` (`blueprint-advisor-0.1.0`, compatible `pm-os-0.1.0`). Portability packaging remains deferred. 
+5. ~~Optional: add a `peacemakers-blueprint-advisor` Cursor skill that points at CONSULTING_STANDARD (skill was missing).~~ **Done:** canonical skill at `owner-ops/skills/peacemakers-blueprint-advisor/` (current `blueprint-advisor-0.1.2`, compatible `pm-os-0.1.0`; first established as `0.1.0`). ChatGPT Stage A/B smoke validated; packaging uses in-package safeguards when OS paths are unavailable. 
 6. No observability vendor until vendor-neutral instrumentation proves insufficient.
 
 **Not FOUNDATION READY (unconditional)** because runtime enforcement of decision records, control plans, and agent security does not yet exist — and should not be faked by docs alone.

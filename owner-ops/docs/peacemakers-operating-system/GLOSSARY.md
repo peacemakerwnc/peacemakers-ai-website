@@ -3,7 +3,7 @@
 | Term | Meaning |
 |------|---------|
 | Stage A/B/C/D | Consulting stages (diagnostic → reconciled analysis → pre-quote plan → control) |
-| Peacemakers Blueprint Advisor | Stage A–D execution skill at `owner-ops/skills/peacemakers-blueprint-advisor/` (`blueprint-advisor-0.1.0`; compatible `pm-os-0.1.0`); not a second OS |
+| Peacemakers Blueprint Advisor | Stage A–D execution skill at `owner-ops/skills/peacemakers-blueprint-advisor/` (`blueprint-advisor-0.1.2`; compatible `pm-os-0.1.0`); not a second OS |
 | Review Packet | Evidence-only in-app prep artifact (not the sold Blueprint) |
 | Blueprint deliverable | Client-facing AI Opportunity Blueprint (HTML/PDF templates) |
 | EvidenceFinding | Prisma model for findings (not named `Finding`) |
