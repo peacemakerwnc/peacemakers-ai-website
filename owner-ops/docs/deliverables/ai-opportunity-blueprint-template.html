@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Peacemakers AI | Business Blueprint — {{company_name}}</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <!--
+      FILL INSTRUCTIONS (HTML comments only — never leave instructional prose in client PDF):
+      - Evidence-backed findings only. Unresolved stays unresolved.
+      - All recommendations remain Proposed until leadership selects/approves.
+      - Current-tools-first. Do not invent vendor capability from plan names alone.
+      - Do not invent baselines, targets, savings, or ROI.
+      - Implementation is separately scoped after the client selects Proposed items.
+      - Do not include Stage C, WBS, architecture, configuration design, or price here.
+      - Duplicate workflow blocks as needed; omit empty action-plan buckets.
+      - Replace every mustache token. Remove unused optional blocks before send.
+      - James must approve Print → PDF before delivery.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #1b2a41;
+        --accent: #2f6f68;
+        --accent-soft: #d7ebe7;
+        --ink: #1c2430;
+        --muted: #5a6a7a;
+        --line: #d5ddd9;
+        --paper: #f3f5f3;
+        --surface: #fcfbf8;
+        --ph-bg: #fef6e0;
+        --ph-ink: #7a6a3a;
+        --shadow: 0 12px 36px rgba(27, 42, 65, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: Manrope, sans-serif;
+        font-size: 15.5px;
+        line-height: 1.65;
+        background: linear-gradient(180deg, var(--paper) 0%, #e7ece9 100%);
+      }
+
+      .doc {
+        width: min(880px, calc(100% - 2rem));
+        margin: 1.75rem auto 3.5rem;
+      }
+
+      .cover {
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+        padding: 2.75rem 2.75rem 2.25rem;
+        color: #f7faf9;
+        background: linear-gradient(210deg, #152033 0%, var(--navy) 58%, #243b4f 100%);
+        box-shadow: var(--shadow);
+      }
+
+      .cover-top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.85rem;
+      }
+
+      .cover-logo {
+        display: block;
+        width: min(220px, 58vw);
+        height: auto;
+        border-radius: 14px;
+        background: #000;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      .cover-logo-sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+
+      .cover h1 {
+        margin: 0 0 0.4rem;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: clamp(2.2rem, 4.5vw, 3rem);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .cover .product {
+        margin: 0 0 0.85rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(215, 235, 231, 0.72);
+      }
+
+      .cover .client {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #dfe9e6;
+      }
+
+      .cover-meta {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 2.25rem;
+        padding-top: 1.35rem;
+        border-top: 1px solid rgba(215, 235, 231, 0.22);
+      }
+
+      .cover-meta dt {
+        margin: 0;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(215, 235, 231, 0.65);
+      }
+
+      .cover-meta dd {
+        margin: 0.3rem 0 0;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.2rem 0.55rem;
+        border-radius: 4px;
+      }
+
+      .body {
+        margin-top: 1.25rem;
+        padding: 0.5rem 2rem 2rem;
+        border-radius: 20px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+
+      .toc {
+        margin: 0;
+        padding: 1.35rem 0 1.1rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .toc h2 {
+        margin: 0 0 0.65rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .toc ol {
+        margin: 0;
+        padding-left: 1.15rem;
+      }
+
+      .toc li {
+        margin: 0.2rem 0;
+      }
+
+      .toc a {
+        color: var(--navy);
+        text-decoration: none;
+      }
+
+      section.block {
+        margin: 0;
+        padding: 2.1rem 0 1.75rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      section.block:last-of-type {
+        border-bottom: 0;
+      }
+
+      .sec-num {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      section.block h2 {
+        margin: 0 0 0.85rem;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 1.7rem;
+        line-height: 1.15;
+        color: var(--navy);
+      }
+
+      h3 {
+        margin: 1.35rem 0 0.55rem;
+        font-size: 1.02rem;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      p,
+      li {
+        color: var(--ink);
+      }
+
+      ul,
+      ol {
+        margin: 0.4rem 0 0.75rem;
+        padding-left: 1.2rem;
+      }
+
+      li {
+        margin: 0 0 0.35rem;
+      }
+
+      .muted {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .lede {
+        font-size: 1.05rem;
+        max-width: 65ch;
+      }
+
+      .callout {
+        margin: 1rem 0;
+        padding: 1rem 1.15rem;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(47, 111, 104, 0.08), rgba(27, 42, 65, 0.03));
+        border: 1px solid rgba(47, 111, 104, 0.16);
+      }
+
+      .callout p {
+        margin: 0;
+      }
+
+      .workflow {
+        margin-top: 1.15rem;
+        padding: 1rem 1.15rem;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: #fff;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .workflow h3 {
+        margin-top: 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        margin: 0.75rem 0 1rem;
+      }
+
+      th,
+      td {
+        padding: 0.55rem 0.45rem;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .action-plan {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+        margin-top: 1rem;
+      }
+
+      .phase {
+        padding: 1rem;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid var(--line);
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .phase .label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .phase h3 {
+        margin: 0.35rem 0 0.55rem;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 1.15rem;
+        color: var(--navy);
+      }
+
+      .phase ul {
+        margin: 0;
+        padding-left: 1.05rem;
+      }
+
+      .phase.span-2 {
+        grid-column: 1 / -1;
+      }
+
+      footer.doc-foot {
+        margin-top: 1.25rem;
+        padding: 1rem 0.25rem 0;
+        color: var(--muted);
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .ph {
+        color: var(--ph-ink);
+        font-style: italic;
+        background: var(--ph-bg);
+        padding: 0.05em 0.3em;
+        border-radius: 4px;
+      }
+
+      @media (max-width: 760px) {
+        .cover {
+          padding: 2rem 1.35rem;
+        }
+        .cover-meta,
+        .action-plan {
+          grid-template-columns: 1fr;
+        }
+        .body {
+          padding: 0.25rem 1.15rem 1.5rem;
+        }
+        .doc {
+          width: min(100% - 1rem, 880px);
+        }
+        footer.doc-foot {
+          flex-direction: column;
+        }
+      }
+
+      @media print {
+        @page {
+          margin: 0.6in;
+          @bottom-center {
+            content: counter(page);
+            font-family: Manrope, sans-serif;
+            font-size: 9pt;
+            color: #5a6a7a;
+          }
+        }
+        body {
+          background: #fff;
+        }
+        .doc {
+          width: 100%;
+          margin: 0;
+        }
+        .cover {
+          border-radius: 0;
+          box-shadow: none;
+          break-after: page;
+          page-break-after: always;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .body {
+          box-shadow: none;
+          border: 0;
+          border-radius: 0;
+          padding: 0;
+        }
+        .toc,
+        .no-print {
+          display: none !important;
+        }
+        section.block {
+          break-inside: auto;
+        }
+        h2,
+        h3 {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+        .workflow,
+        .phase,
+        .callout,
+        table {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <article class="doc">
+      <header class="cover">
+        <div class="cover-top">
+          <img
+            class="cover-logo"
+            src="assets/peacemakers-ai-logo.jpg"
+            alt="Peacemakers AI"
+            width="220"
+            height="191"
+          />
+          <span class="cover-logo-sr">Peacemakers AI</span>
+        </div>
+        <p class="product">Peacemakers AI · Paid Business Blueprint</p>
+        <h1>Business Blueprint</h1>
+        <p class="client">{{company_name}}</p>
+        <dl class="cover-meta">
+          <div>
+            <dt>Contact</dt>
+            <dd class="ph">{{primary_contact_name}}</dd>
+          </div>
+          <div>
+            <dt>Title</dt>
+            <dd class="ph">{{primary_contact_title}}</dd>
+          </div>
+          <div>
+            <dt>Date</dt>
+            <dd class="ph">{{delivery_date}}</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="tag">Proposed</span></dd>
+          </div>
+        </dl>
+        <p class="footnote" style="color: rgba(215, 235, 231, 0.75); margin-top: 1.25rem">
+          Confidential — for {{company_name}} internal use · Prepared by Peacemakers AI
+        </p>
+      </header>
+
+      <div class="body">
+        <nav class="toc no-print" aria-label="Contents">
+          <h2>Contents</h2>
+          <ol>
+            <li><a href="#summary">Executive summary</a></li>
+            <li><a href="#scope">Engagement scope</a></li>
+            <li><a href="#findings">Priority workflow findings</a></li>
+            <li><a href="#causes">Root causes</a></li>
+            <li><a href="#controls">Controls to preserve</a></li>
+            <li><a href="#plan">Recommended action plan</a></li>
+            <li><a href="#tech">Current technology position</a></li>
+            <li><a href="#measurement">Measurement</a></li>
+            <li><a href="#decisions">Leadership decisions needed</a></li>
+            <li><a href="#next">Recommended next step</a></li>
+          </ol>
+        </nav>
+
+        <section class="block" id="summary">
+          <span class="sec-num">01</span>
+          <h2>Executive summary</h2>
+          <p class="lede ph">{{desired_outcomes_summary}}</p>
+          <p class="ph">{{what_was_reviewed}}</p>
+          <div class="callout">
+            <p><strong>Central conclusion.</strong> <span class="ph">{{central_supported_conclusion}}</span></p>
+          </div>
+          <p>
+            <strong>Recommended overall direction (Proposed):</strong>
+            <span class="ph">{{high_level_recommended_direction}}</span>
+          </p>
+        </section>
+
+        <section class="block" id="scope">
+          <span class="sec-num">02</span>
+          <h2>Engagement scope</h2>
+          <ul>
+            <li class="ph">{{intake_reviewed}}</li>
+            <li class="ph">{{evidence_reviewed}}</li>
+            <li class="ph">{{blueprint_discussion}}</li>
+            <li class="ph">{{priority_workflows_considered}}</li>
+          </ul>
+          <p class="muted ph">{{important_limitations}}</p>
+          <p class="muted">
+            Findings below are evidence-backed. Every recommendation remains <strong>Proposed</strong> until
+            {{company_name}} leadership selects or approves it. This Blueprint does not include implementation design,
+            a fixed implementation timeline, an implementation quote, or guaranteed savings/ROI.
+          </p>
+        </section>
+
+        <section class="block" id="findings">
+          <span class="sec-num">03</span>
+          <h2>Priority workflow findings</h2>
+          <!-- Duplicate .workflow blocks as needed. Keep validated findings separate from unresolved items. Remove unused blocks before send. -->
+          <div class="workflow">
+            <h3 class="ph">{{workflow_1_name}}</h3>
+            <p><strong>How work runs today:</strong> <span class="ph">{{workflow_1_current_state}}</span></p>
+            <ul>
+              <li><strong>Validated:</strong> <span class="ph">{{workflow_1_validated_1}}</span></li>
+              <li><strong>Validated:</strong> <span class="ph">{{workflow_1_validated_2}}</span></li>
+              <li><strong>Why it matters:</strong> <span class="ph">{{workflow_1_why_it_matters}}</span></li>
+              <li><strong>Unresolved:</strong> <span class="ph">{{workflow_1_unresolved}}</span></li>
+            </ul>
+          </div>
+
+          <div class="workflow">
+            <h3 class="ph">{{workflow_2_name}}</h3>
+            <p><strong>How work runs today:</strong> <span class="ph">{{workflow_2_current_state}}</span></p>
+            <ul>
+              <li><strong>Validated:</strong> <span class="ph">{{workflow_2_validated_1}}</span></li>
+              <li><strong>Validated:</strong> <span class="ph">{{workflow_2_validated_2}}</span></li>
+              <li><strong>Why it matters:</strong> <span class="ph">{{workflow_2_why_it_matters}}</span></li>
+              <li><strong>Unresolved:</strong> <span class="ph">{{workflow_2_unresolved}}</span></li>
+            </ul>
+          </div>
+
+          <div class="workflow">
+            <h3 class="ph">{{workflow_3_name}}</h3>
+            <p><strong>How work runs today:</strong> <span class="ph">{{workflow_3_current_state}}</span></p>
+            <ul>
+              <li><strong>Validated:</strong> <span class="ph">{{workflow_3_validated_1}}</span></li>
+              <li><strong>Validated:</strong> <span class="ph">{{workflow_3_validated_2}}</span></li>
+              <li><strong>Why it matters:</strong> <span class="ph">{{workflow_3_why_it_matters}}</span></li>
+              <li><strong>Unresolved:</strong> <span class="ph">{{workflow_3_unresolved}}</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="block" id="causes">
+          <span class="sec-num">04</span>
+          <h2>Root causes</h2>
+          <!-- Supported causes only. Distinguish symptoms from causes. Do not overstate prevalence from small samples. -->
+          <ol>
+            <li class="ph">{{root_cause_1}}</li>
+            <li class="ph">{{root_cause_2}}</li>
+            <li class="ph">{{root_cause_3}}</li>
+            <li class="ph">{{root_cause_4}}</li>
+          </ol>
+          <p class="muted ph">{{provisional_or_unresolved_cause_note}}</p>
+        </section>
+
+        <section class="block" id="controls">
+          <span class="sec-num">05</span>
+          <h2>Controls to preserve</h2>
+          <p class="muted">
+            Improvement should not indiscriminately remove legitimate controls.
+          </p>
+          <!-- Prompt examples: human approvals, financial segregation, audit trail, authorization, client communication, security/privacy, acceptance. -->
+          <ul>
+            <li class="ph">{{control_1}}</li>
+            <li class="ph">{{control_2}}</li>
+            <li class="ph">{{control_3}}</li>
+            <li class="ph">{{control_4}}</li>
+            <li class="ph">{{control_5}}</li>
+          </ul>
+        </section>
+
+        <section class="block" id="plan">
+          <span class="sec-num">06</span>
+          <h2>Recommended action plan</h2>
+          <p class="muted">
+            All items are <strong>Proposed</strong>. “Later / conditional” is not a promised implementation plan.
+          </p>
+          <!-- Omit any bucket that evidence does not support. -->
+          <div class="action-plan">
+            <div class="phase">
+              <div class="label">Now</div>
+              <h3>Lowest-level supported actions</h3>
+              <ul>
+                <li class="ph">{{now_1}}</li>
+                <li class="ph">{{now_2}}</li>
+                <li class="ph">{{now_3}}</li>
+              </ul>
+            </div>
+            <div class="phase">
+              <div class="label">Next</div>
+              <h3>After definitions and process are stable</h3>
+              <ul>
+                <li class="ph">{{next_1}}</li>
+                <li class="ph">{{next_2}}</li>
+              </ul>
+            </div>
+            <div class="phase">
+              <div class="label">Later / conditional</div>
+              <h3>Requires more evidence or prerequisites</h3>
+              <ul>
+                <li class="ph">{{later_1}}</li>
+                <li class="ph">{{later_2}}</li>
+              </ul>
+            </div>
+            <div class="phase">
+              <div class="label">Not currently justified</div>
+              <h3>Do not pursue on current evidence</h3>
+              <ul>
+                <li class="ph">{{not_justified_1}}</li>
+                <li class="ph">{{not_justified_2}}</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="block" id="tech">
+          <span class="sec-num">07</span>
+          <h2>Current technology position</h2>
+          <p class="ph">{{systems_assessed}}</p>
+          <p class="ph">{{current_tools_first_conclusion}}</p>
+          <ul>
+            <li><strong>Verified:</strong> <span class="ph">{{verified_capabilities}}</span></li>
+            <li><strong>Still requiring authoritative verification:</strong> <span class="ph">{{unverified_capabilities}}</span></li>
+            <li><strong>Replacement supported?</strong> <span class="ph">{{replacement_supported}}</span></li>
+          </ul>
+          <p class="muted">
+            Subscription or plan names alone are not proof of feature, permission, reporting, workflow, integration, or
+            API capability.
+          </p>
+        </section>
+
+        <section class="block" id="measurement">
+          <span class="sec-num">08</span>
+          <h2>Measurement</h2>
+          <!-- Small set of decision-useful measures. Do not invent baselines or targets. No unsupported ROI. -->
+          <p class="muted">Decision-useful measures once definitions exist (no invented baselines or targets):</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Measure</th>
+                <th>Purpose</th>
+                <th>Baseline status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="ph">{{measure_1}}</td>
+                <td class="ph">{{measure_1_purpose}}</td>
+                <td class="ph">{{measure_1_baseline_status}}</td>
+              </tr>
+              <tr>
+                <td class="ph">{{measure_2}}</td>
+                <td class="ph">{{measure_2_purpose}}</td>
+                <td class="ph">{{measure_2_baseline_status}}</td>
+              </tr>
+              <tr>
+                <td class="ph">{{measure_3}}</td>
+                <td class="ph">{{measure_3_purpose}}</td>
+                <td class="ph">{{measure_3_baseline_status}}</td>
+              </tr>
+              <tr>
+                <td class="ph">{{measure_4}}</td>
+                <td class="ph">{{measure_4_purpose}}</td>
+                <td class="ph">{{measure_4_baseline_status}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="block" id="decisions">
+          <span class="sec-num">09</span>
+          <h2>Leadership decisions needed</h2>
+          <!-- Client-facing decisions only. Do not expose internal OD numbering. -->
+          <ol>
+            <li class="ph">{{decision_1}}</li>
+            <li class="ph">{{decision_2}}</li>
+            <li class="ph">{{decision_3}}</li>
+            <li class="ph">{{decision_4}}</li>
+            <li class="ph">{{decision_5}}</li>
+          </ol>
+        </section>
+
+        <section class="block" id="next">
+          <span class="sec-num">10</span>
+          <h2>Recommended next step</h2>
+          <p>
+            The paid Business Blueprint engagement is complete once {{company_name}} reviews these findings and Proposed
+            recommendations.
+          </p>
+          <p>{{company_name}} may:</p>
+          <ol>
+            <li>Implement recommendations internally</li>
+            <li>Take no further action</li>
+            <li>Ask Peacemakers to scope implementation of one or more selected recommendations</li>
+          </ol>
+          <p>
+            If Peacemakers implementation is requested, that work is scoped and contracted separately after leadership
+            selects Proposed items. This document does not include implementation pricing, a fixed timeline, technical
+            configuration design, or detailed implementation planning.
+          </p>
+        </section>
+
+        <footer class="doc-foot">
+          <div>Peacemakers AI · Business Blueprint · {{company_name}}</div>
+          <div>Confidential · {{delivery_date}}</div>
+        </footer>
+      </div>
+    </article>
+  </body>
+</html>
