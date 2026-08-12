@@ -28,12 +28,12 @@ Legend: **IMPLEMENTED** · **PARTIAL** · **MISSING** · **NOT_APPLICABLE** · *
 | 19 | Testing | PARTIAL | Vitest unit + DB suites; ad-hoc Playwright | Gaps for E2E | Keep; expand carefully | P2 | Medium |
 | 20 | Client-facing transparency | PARTIAL | Privacy gate; packet honesty | Over-frameworking clients | Keep client UX separate | P0 | Docs |
 | 21 | Cursor governance | MISSING → addressed this pass | No `.cursor/rules` before | Agent inconsistency | Rules added | P0 | Done |
-| 22 | peacemakers-blueprint-advisor skill | MISSING | Not in workspace | Methodology drift | CONSULTING_STANDARD encodes stages; optional skill later | P1 | Optional |
+| 22 | peacemakers-blueprint-advisor skill | IMPLEMENTED (docs/skill) | `owner-ops/skills/peacemakers-blueprint-advisor/` · `blueprint-advisor-0.1.0` · compatible `pm-os-0.1.0` | Drift if skill diverges from OS | Keep skill as Stage A–D playbook; OS remains methodology authority | P1 maintain | No runtime |
 | 23 | LLM/agent runtime | NOT_APPLICABLE (now) | Intentionally absent | — | Do not add until gates pass | P1 gate | No yet |
 | 24 | Observability vendor | NOT_APPLICABLE | None installed | Premature vendor lock-in | Vendor-neutral first | P4 | No |
 
 ## Open questions / missing evidence
 
 - Exact production `EMAIL_FROM` string (send-only Resend key; not required for this docs pass).
-- Whether a private `peacemakers-blueprint-advisor` artifact exists outside this workspace (UNKNOWN).
+- ChatGPT-only packaging / portability for `peacemakers-blueprint-advisor` when OS paths are unavailable outside the repo (deferred; skill now lives at `owner-ops/skills/peacemakers-blueprint-advisor/`).
 - C7 re-review status vs GO-NO-GO doc lag (ops process; not code).

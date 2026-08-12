@@ -1,0 +1,14 @@
+interface:
+  display_name: Peacemakers Blueprint Advisor
+  short_description: Evidence-led process and solution blueprints
+  default_prompt: Use $peacemakers-blueprint-advisor to analyze this client evidence
+    at the appropriate Blueprint stage.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

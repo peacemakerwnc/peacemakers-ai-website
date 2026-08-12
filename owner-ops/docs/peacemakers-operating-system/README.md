@@ -60,9 +60,20 @@ This is **not** an “AI observability” project. It is a business improvement,
 | [../production-readiness/](../production-readiness/) | Pilot ops, retention, incident, deploy |
 | Prisma `Evidence*` / `Process*` models | Runtime evidence & process graphs |
 
-## Note on `peacemakers-blueprint-advisor`
+## Peacemakers Blueprint Advisor (execution skill)
 
-No Cursor skill or package named `peacemakers-blueprint-advisor` was found in this workspace at foundation time. Consulting stages in [CONSULTING_STANDARD.md](./CONSULTING_STANDARD.md) encode the evidence-first Blueprint methodology described for that advisor and align it with existing Owner Ops artifacts (questionnaire → evidence → packet → manual Blueprint).
+| Role | Location |
+|------|----------|
+| **Peacemakers Operating System** | This folder — canonical methodology (`pm-os-0.1.0`) |
+| **Peacemakers Blueprint Advisor** | [`../../skills/peacemakers-blueprint-advisor/`](../../skills/peacemakers-blueprint-advisor/) — Stage A–D execution playbook |
+
+- **Skill version:** `blueprint-advisor-0.1.0`
+- **Compatible OS:** `pm-os-0.1.0`
+- **Entry:** [`SKILL.md`](../../skills/peacemakers-blueprint-advisor/SKILL.md)
+
+The skill operationalizes [CONSULTING_STANDARD.md](./CONSULTING_STANDARD.md) for Blueprint engagements. It does not replace these OS standards. Owner Ops remains the engagement system of record (questionnaire → evidence → packet → manual Blueprint deliverable).
+
+**Known limitation:** the skill uses repo-relative OS references. Outside this repository (e.g. ChatGPT-only packaging), those paths may be unavailable until a later controlled portability pass. Do not copy OS doctrine into the skill or introduce RAG for methodology.
 
 ## Cursor governance
 
