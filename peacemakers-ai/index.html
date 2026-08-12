@@ -37,22 +37,22 @@
   <!-- Note: If GA4 and Microsoft Clarity are later configured inside Google Tag Manager, remove the manual GA4 and Clarity scripts from this page to prevent duplicate tracking. -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Peacemakers AI | AI Automation Consulting</title>
+    <title>Peacemakers AI | Practical Process &amp; AI Guidance for Service Businesses</title>
     <meta
       name="description"
-      content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps."
+      content="Peacemakers AI helps service businesses understand workflows, use current tools first, and decide where automation or AI actually helps—before buying more software."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Peacemakers AI | AI Automation Consulting" />
+    <meta property="og:title" content="Peacemakers AI | Practical Process &amp; AI Guidance for Service Businesses" />
     <meta
       property="og:description"
-      content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps."
+      content="Peacemakers AI helps service businesses understand workflows, use current tools first, and decide where automation or AI actually helps—before buying more software."
     />
     <meta property="og:url" content="https://www.peacemakersai.com/" />
     <meta property="og:image" content="https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Peacemakers AI | AI Automation Consulting" />
-    <meta name="twitter:description" content="Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps." />
+    <meta name="twitter:title" content="Peacemakers AI | Practical Process &amp; AI Guidance for Service Businesses" />
+    <meta name="twitter:description" content="Peacemakers AI helps service businesses understand workflows, use current tools first, and decide where automation or AI actually helps—before buying more software." />
     <meta name="twitter:image" content="https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp" />
     <meta name="theme-color" content="#1b2a41" />
     <link rel="canonical" href="https://www.peacemakersai.com/" />
@@ -74,28 +74,44 @@
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": ["Organization", "ProfessionalService"],
+            "@type": "Organization",
             "@id": "https://www.peacemakersai.com/#organization",
             "name": "Peacemakers AI",
-            "url": "https://www.peacemakersai.com",
-            "logo": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp",
-            "image": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.webp",
+            "url": "https://www.peacemakersai.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.png"
+            },
+            "description": "Peacemakers AI helps service businesses understand workflows, evaluate current tools first, and decide where process improvement, automation, or AI is appropriate.",
             "email": "james@peacemakersai.com",
-            "description": "Peacemakers AI helps service-based businesses identify practical AI automation opportunities, reduce manual work, and build clear implementation roadmaps.",
+            "sameAs": ["https://linkedin.com/company/peacemakers-ai"]
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://www.peacemakersai.com/#professionalservice",
+            "name": "Peacemakers AI",
+            "url": "https://www.peacemakersai.com/",
+            "parentOrganization": {
+              "@id": "https://www.peacemakersai.com/#organization"
+            },
+            "description": "Practical consulting for service businesses. Peacemakers AI helps teams reduce manual work, improve follow-up, and decide what to change next—without assuming new software.",
+            "image": "https://www.peacemakersai.com/assets/peacemakers-ai-logo.png",
+            "telephone": "[TODO: INSERT REAL BUSINESS PHONE IN E.164 FORMAT]",
+            "email": "james@peacemakersai.com",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Asheville",
               "addressRegion": "NC",
               "addressCountry": "US"
             },
-            "areaServed": { "@type": "Country", "name": "United States" },
-            "serviceType": [
-              "AI Consulting",
-              "Business Process Automation",
-              "Workflow Automation",
-              "AI Implementation Roadmaps"
+            "areaServed": [
+              { "@type": "City", "name": "Asheville" },
+              { "@type": "AdministrativeArea", "name": "Western North Carolina" },
+              { "@type": "State", "name": "North Carolina" },
+              { "@type": "Country", "name": "United States" }
             ],
-            "sameAs": ["https://www.linkedin.com/company/peacemakers-ai"]
+            "priceRange": "$$",
+            "sameAs": ["https://linkedin.com/company/peacemakers-ai"]
           },
           {
             "@type": "WebSite",
@@ -108,17 +124,17 @@
             "@type": "WebPage",
             "@id": "https://www.peacemakersai.com/#webpage",
             "url": "https://www.peacemakersai.com/",
-            "name": "Peacemakers AI | AI Automation Consulting",
-            "description": "Peacemakers AI helps service businesses reduce manual work with practical AI automation, workflow strategy, and clear implementation roadmaps.",
+            "name": "Peacemakers AI | Practical Process & AI Guidance for Service Businesses",
+            "description": "Peacemakers AI helps service businesses understand workflows, use current tools first, and decide where automation or AI actually helps—before buying more software.",
             "isPartOf": { "@id": "https://www.peacemakersai.com/#website" },
-            "about": { "@id": "https://www.peacemakersai.com/#organization" }
+            "about": { "@id": "https://www.peacemakersai.com/#professionalservice" }
           },
           {
             "@type": "Service",
-            "name": "AI Automation Consulting",
-            "provider": { "@id": "https://www.peacemakersai.com/#organization" },
+            "name": "Process and AI Consulting",
+            "provider": { "@id": "https://www.peacemakersai.com/#professionalservice" },
             "areaServed": { "@type": "Country", "name": "United States" },
-            "description": "Practical AI consulting, workflow automation, and implementation planning for service businesses."
+            "description": "Practical consulting, workflow clarity, and prioritized next steps for service businesses."
           }
         ]
       }
@@ -149,7 +165,7 @@
             "name": "Is this just a strategy session?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. You leave with a practical implementation plan and clear next steps, not a one-off brainstorm."
+              "text": "No. You leave with prioritized recommendations and clear next steps, not a one-off brainstorm."
             }
           },
           {
@@ -238,24 +254,29 @@
     </header>
 
     <main id="main">
+      <!-- GEO: Keep product names, audience, location, services, and outcomes explicit and consistent with Organization/ProfessionalService schema. -->
       <section class="hero section reveal" id="top" aria-labelledby="hero-title">
         <div class="container hero-content">
-          <p class="eyebrow">AI automation consulting for service businesses</p>
-          <h1 id="hero-title">Practical AI Automation for Service Businesses</h1>
+          <p class="eyebrow">Process-first consulting for service businesses</p>
+          <h1 id="hero-title">Understand the Work Before You Automate It</h1>
+          <p class="hero-answer">
+            Peacemakers AI is based in Asheville, North Carolina. We help service-based businesses nationwide reduce
+            manual work, improve follow-up, and decide what should change next—without assuming you need new software
+            or AI.
+          </p>
           <p class="hero-sub">
-            Peacemakers AI helps service businesses find manual work that can be automated, improve follow-up, and
-            build a clear roadmap for using AI without wasted spending.
+            We start with how work actually happens. Then we look for the simplest sufficient fix: clarify the process,
+            use the tools you already have, automate only when justified, and use AI only where it adds value safely.
           </p>
           <ul class="hero-points">
             <li>See where your team loses time to manual work</li>
-            <li>Find practical automation opportunities for your business</li>
+            <li>Find practical opportunities—process, tools, automation, or AI</li>
             <li>Avoid buying tools you do not need</li>
             <li>Leave with a clear plan you can act on</li>
           </ul>
           <p class="hero-service-area">
             Peacemakers AI is based in Asheville, North Carolina and helps service-based businesses across the United
-            States use practical AI automation to reduce manual work, improve follow-up, and create clearer operating
-            systems.
+            States improve operations with practical recommendations and measurable next steps.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#lead-intake">Get an AI Opportunity Review</a>
@@ -334,30 +355,32 @@
 
       <section class="section reveal" id="services" aria-labelledby="services-title">
         <div class="container">
-          <h2 id="services-title">The Full Automation Opportunity Review</h2>
+          <h2 id="services-title">The AI Opportunity Blueprint</h2>
           <p class="section-intro">
             When you are ready to go deeper, the
             <a class="hero-text-link" href="blueprint.html">AI Opportunity Blueprint</a>
-            gives you a practical implementation plan. You will see what to automate, what tools fit, and what to skip.
+            is a structured diagnostic and recommendation engagement. You will see how work actually happens, what to
+            improve first, which current tools already fit, and where automation or AI may be appropriate—with clear
+            human controls.
           </p>
           <div class="grid-2">
             <article class="card card-featured">
               <h3>What you get</h3>
               <ul>
-                <li><strong>Opportunity map:</strong> where automation can save time and improve response speed.</li>
+                <li><strong>Opportunity map:</strong> where time, handoffs, and control gaps create friction.</li>
                 <li><strong>Workflow review:</strong> lead flow, admin, reporting, communication, and handoffs.</li>
-                <li><strong>Tool fit analysis:</strong> what to keep, what to avoid, and what fits your stack.</li>
-                <li><strong>Top use cases:</strong> prioritized by impact, ease, cost, risk, and time-to-value.</li>
-                <li><strong>Implementation plan:</strong> a phased roadmap for what to do now, later, or not at all.</li>
-                <li><strong>Build estimate:</strong> what we can implement, what your team can own, and what to outsource.</li>
+                <li><strong>Current-tool fit:</strong> what to keep, configure, or leave alone before buying anything new.</li>
+                <li><strong>Top recommendations:</strong> prioritized by impact, effort, risk, and evidence.</li>
+                <li><strong>Action plan:</strong> what to address first, what can wait, and what needs more validation.</li>
+                <li><strong>Next-step options:</strong> run recommendations internally, or scope implementation separately if you choose.</li>
               </ul>
             </article>
             <article class="card">
               <h3>Pricing and next step</h3>
               <p class="stage-price">$3,500</p>
               <p>
-                You get a practical plan you can run internally or with our help. Many teams start with the free
-                scorecard, then move here when they are ready to prioritize.
+                You get a practical written Blueprint you can run internally or with our help later. Many teams start
+                with the free scorecard and a short intro call, then move to the paid Blueprint when they are ready.
               </p>
               <div class="cta-stack cta-stack-left">
                 <a class="btn btn-primary" href="#lead-intake">Request an Opportunity Review</a>
@@ -372,8 +395,8 @@
         <div class="container">
           <h2 id="value-ladder-title">Where Automation Helps</h2>
           <p class="section-intro">
-            Whether you need light workflow automation or a full implementation plan, there is a starting point for
-            every stage.
+            Whether you need a quick readiness check or a full Blueprint, there is a clear starting point—and
+            implementation stays a separate decision after the Blueprint.
           </p>
           <div class="grid-3">
             <article class="card">
@@ -390,14 +413,14 @@
             <article class="card card-featured">
               <p class="stage-kicker">Core</p>
               <h3><a class="section-title-link" href="blueprint.html">AI Opportunity Blueprint</a></h3>
-              <p>A full plan showing what to automate, what tools to use, and what to implement first.</p>
+              <p>A full diagnostic and recommendation engagement: understand the work, prioritize next steps, and decide what—if anything—should move into implementation.</p>
               <p class="stage-price">$3,500</p>
               <a class="btn btn-primary" href="#lead-intake">Request an Opportunity Review</a>
             </article>
             <article class="card">
               <p class="stage-kicker">Implementation</p>
               <h3><a class="section-title-link" href="#lead-intake">Quick Win Sprint</a></h3>
-              <p>We implement one high-value workflow so your team sees results quickly.</p>
+              <p>Separate paid implementation for a selected recommendation after the Blueprint.</p>
               <a class="btn btn-secondary" href="#lead-intake">Build a Quick Win Sprint</a>
             </article>
             <article class="card">
@@ -539,7 +562,7 @@
             </article>
             <article class="card">
               <h3>Is this just a strategy session?</h3>
-              <p>No. You leave with a practical implementation plan and clear next steps, not a one-off brainstorm.</p>
+              <p>No. You leave with prioritized recommendations and clear next steps, not a one-off brainstorm.</p>
             </article>
             <article class="card">
               <h3>Do you implement the solutions too?</h3>
@@ -727,15 +750,17 @@
               <span class="site-brand-text">Peacemakers AI</span>
             </span>
           </a>
-          <p class="footer-locale">Peacemakers AI | Asheville, North Carolina | Serving businesses nationwide</p>
-          <p class="footer-nap">
-            <a href="mailto:james@peacemakersai.com">james@peacemakersai.com</a><br />
-            <!-- TODO: add tel link when phone number is provided -->
-            Phone: [INSERT BUSINESS PHONE]
-          </p>
+          <div class="footer-business-info">
+            <p class="footer-business-name"><strong>Peacemakers AI</strong></p>
+            <p class="footer-business-tagline">Practical Process &amp; AI Guidance for Service Businesses</p>
+            <p class="footer-service-area">Based in Asheville, North Carolina | Serving clients nationwide</p>
+            <p class="footer-nap">
+              Phone: [TODO: INSERT REAL BUSINESS PHONE IN E.164 FORMAT]<br />
+              <a href="contact.html">Contact Peacemakers AI</a>
+            </p>
+          </div>
           <p class="footer-social">
-            <a href="https://www.linkedin.com/company/peacemakers-ai" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-            <!-- [INSERT FACEBOOK URL] [INSERT INSTAGRAM URL] [INSERT YOUTUBE URL] [INSERT X URL] -->
+            <a href="https://linkedin.com/company/peacemakers-ai" rel="noopener noreferrer" target="_blank" aria-label="Peacemakers AI on LinkedIn">LinkedIn</a>
           </p>
           <p>
             <a class="footer-domain" href="ai-consulting-asheville-nc.html"
