@@ -104,38 +104,43 @@ Owner-Ops stores **references / IDs / status confirmations**, not full confident
 | `owner-ops/docs/acceptance/` | Fictional/sanitized fixtures only | **ACCEPTABLE NOW** (must be marked fictional) |
 | Owner-Ops DB | Questionnaire, activities, evidence notes, statuses | **ACCEPTABLE NOW** (paste-first; uploads disabled in pilot) |
 | Owner-Ops `/storage/**` | Local attachments if ever enabled | **Not durable** for pilot prod — do not rely on it |
-| **Private Peacemakers engagement store** (outside Git) | Real CLIENT CONFIDENTIAL Stage A/B, transcripts, client PDFs | **ACCEPTABLE NOW / TEMPORARY** |
+| **Private Peacemakers engagement store** (outside Git) | Real CLIENT CONFIDENTIAL Stage A/B, transcripts, client PDFs | **OWNER DECISION REQUIRED** |
 | New DMS / S3 / RAG / vendor | — | **DEFER** until burden proves need |
 
-### Temporary first-client standard
+### Owner decision (required before first real-client Stage A/B)
 
-1. James designates **one** Peacemakers-controlled private location outside the Git working tree (preferred: existing business cloud drive with sync + backup — e.g. Peacemakers OneDrive/iCloud/Dropbox business folder — **not** a personal Downloads dump).  
-2. Record that root path once in an Owner-Ops internal note (no secrets in the note).  
-3. All real-client Blueprint files for an engagement live under that root.  
-4. Laptop `Downloads/` and ChatGPT chat history are **staging only** — not the system of record.
+Repo evidence does **not** establish an already-approved Peacemakers-controlled business storage platform (Microsoft 365 / OneDrive / SharePoint / Google Drive / Dropbox / other). Mentions of those tools in fixtures are client/demo context, not Peacemakers’ approved store.
 
-**NEEDS P1 FOLLOW-UP:** Confirm long-term private store + backup/access if James unavailable; optional Owner-Ops deep-link to folder path. Do not build a platform in this pass.
+**Decision required:**
 
----
+> James must designate the Peacemakers-controlled private business storage platform/root before storing the first real-client Stage A/B artifact.
 
-## Engagement folder convention
+Until designated:
 
-Under the private root:
+1. Do not treat `Downloads/` or ChatGPT history as the system of record.  
+2. Do not invent a new vendor or create cloud folders from this SOP.  
+3. Record the chosen platform + conceptual root once in an Owner-Ops internal note (no secrets).  
+4. All real-client Blueprint files for an engagement live under that root.
+
+### Requirements the chosen root must meet
+
+Peacemakers-controlled · private by default · not public · not Git-tracked · reasonable access control · durable with normal recovery · accessible from James’s normal work environment · able to hold questionnaire / transcript / Stage A–B / final Blueprint · no need to store credentials inside it.
+
+### Conceptual folder layout (after root is designated)
 
 ```text
-<client-slug>/<engagement-id-or-YYYY-MM>/
-  00-admin/                 # Owner-Ops IDs, commercial refs (no secrets)
-  01-intake/                # questionnaire export/reference (CLIENT CONFIDENTIAL)
-  02-stage-a/               # approved Stage A Markdown
-  03-blueprint-call/        # transcript/notes; evidence index; redacted samples
-  04-stage-b/               # approved Stage B Markdown
-  05-client-blueprint/      # HTML source + final PDF
-  06-client-decision/       # decision note / interest record copies if needed
-  07-implementation/        # only if Outcome C — Stage C inputs (still minimize)
-  99-restricted/            # empty by default — prefer NOT to store HIGHLY SENSITIVE here
+Peacemakers AI / Clients / <Client> / Business Blueprint /
+  01 Intake
+  02 Stage A
+  03 Blueprint Call
+  04 Stage B
+  05 Client Blueprint
+  06 Decision
 ```
 
-Omit empty numbered folders. Do **not** place real-client trees under `owner-ops/docs/` or commit them.
+(Optional later: `07 Implementation` only for Outcome C.) Keep names free of secrets.
+
+**NEEDS FOLLOW-UP after designation only:** optional Owner-Ops note linking the path; long-term access if James unavailable. Do not build a platform in this pass.
 
 ### Naming
 
@@ -159,7 +164,7 @@ ChatGPT is an **execution surface**, not durable storage.
 After each Advisor run that James accepts:
 
 1. Export / copy the full Markdown from ChatGPT.  
-2. Save to `02-stage-a/` or `04-stage-b/` with the naming convention **the same day**.  
+2. Save under the engagement’s Stage A or Stage B folder with the naming convention **the same day**.  
 3. Add an Owner-Ops activity: `Stage A saved` or `Stage B saved` + private path (not the file body).  
 4. Only then proceed to evidence request (after A) or client Blueprint fill (after B).
 
@@ -191,11 +196,11 @@ Fictional/sanitized rehearsals may also be copied under `owner-ops/docs/acceptan
 
 | Path pattern | Intent |
 |--------------|--------|
-| `owner-ops/docs/acceptance/**` | Sanitized/fictional only |
+| `owner-ops/docs/acceptance/**` | Sanitized/fictional only (may be tracked when authorized) |
 | `owner-ops/docs/deliverables/**` | Templates / samples |
-| `billing/clients/**` | Local billing packets — **ignore in Git** |
-| `bookdirect/docs/clients/**` | Local onboarding — **ignore in Git** |
-| Real engagement store | **Outside repo** |
+| `billing/clients/**` | Local billing packets — ignored; `README.md` trackable |
+| `bookdirect/docs/clients/*` | Local onboarding packets — ignored; `README.md` + `_template/` trackable |
+| Designated private engagement root | **Outside repo** — canonical real-client store |
 
 Before any commit touching docs or clients paths: confirm no CLIENT CONFIDENTIAL or HIGHLY SENSITIVE material is staged (`git status` / `git diff --cached`).
 
@@ -207,11 +212,11 @@ Before any commit touching docs or clients paths: confirm no CLIENT CONFIDENTIAL
 |-------|----------------|
 | Commercial gate | Owner-Ops checkpoint + PandaDoc/Stripe IDs (not full docs) |
 | Questionnaire SUBMITTED | Owner-Ops SoR; optional private export to `01-intake/` |
-| Stage A approved | **Save MD same day** → `02-stage-a/` + activity |
-| Call complete | Notes/transcript → `03-blueprint-call/` |
-| Stage B approved | **Save MD same day** → `04-stage-b/` + activity |
-| Client PDF approved | HTML + PDF → `05-client-blueprint/` |
-| Decision | Owner-Ops + optional `06-client-decision/` |
+| Stage A approved | **Save MD same day** → Stage A folder + activity |
+| Call complete | Notes/transcript → Blueprint Call folder |
+| Stage B approved | **Save MD same day** → Stage B folder + activity |
+| Client PDF approved | HTML + PDF → Client Blueprint folder |
+| Decision | Owner-Ops + optional Decision folder |
 
 ---
 
