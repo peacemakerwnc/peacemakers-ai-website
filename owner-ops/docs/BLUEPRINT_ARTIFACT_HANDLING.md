@@ -104,32 +104,23 @@ Owner-Ops stores **references / IDs / status confirmations**, not full confident
 | `owner-ops/docs/acceptance/` | Fictional/sanitized fixtures only | **ACCEPTABLE NOW** (must be marked fictional) |
 | Owner-Ops DB | Questionnaire, activities, evidence notes, statuses | **ACCEPTABLE NOW** (paste-first; uploads disabled in pilot) |
 | Owner-Ops `/storage/**` | Local attachments if ever enabled | **Not durable** for pilot prod — do not rely on it |
-| **Private Peacemakers engagement store** (outside Git) | Real CLIENT CONFIDENTIAL Stage A/B, transcripts, client PDFs | **OWNER DECISION REQUIRED** |
+| **Private Peacemakers engagement store** (outside Git) | Real CLIENT CONFIDENTIAL Stage A/B, transcripts, client PDFs | **CANONICAL PRIVATE ENGAGEMENT STORE — OWNER APPROVED** |
 | New DMS / S3 / RAG / vendor | — | **DEFER** until burden proves need |
 
-### Owner decision (required before first real-client Stage A/B)
+### Approved private platform
 
-Repo evidence does **not** establish an already-approved Peacemakers-controlled business storage platform (Microsoft 365 / OneDrive / SharePoint / Google Drive / Dropbox / other). Mentions of those tools in fixtures are client/demo context, not Peacemakers’ approved store.
+**Platform:** Google Workspace Drive (Peacemakers-controlled business account)  
+**Status:** `CANONICAL PRIVATE ENGAGEMENT STORE — OWNER APPROVED`  
+**Canonical root:** [Peacemakers Clients Drive folder](https://drive.google.com/drive/u/0/folders/1YHbb_4FAyy2K3RxfmjlF8KVhVHxcMbiY) (folder id `1YHbb_4FAyy2K3RxfmjlF8KVhVHxcMbiY`)
 
-**Decision required:**
+Open only while signed into the Peacemakers Google Workspace business account. Do not convert engagement folders to anonymous/public link sharing. Do not paste passwords, tokens, or credentials into this SOP or Owner-Ops.
 
-> James must designate the Peacemakers-controlled private business storage platform/root before storing the first real-client Stage A/B artifact.
+### Engagement path convention
 
-Until designated:
-
-1. Do not treat `Downloads/` or ChatGPT history as the system of record.  
-2. Do not invent a new vendor or create cloud folders from this SOP.  
-3. Record the chosen platform + conceptual root once in an Owner-Ops internal note (no secrets).  
-4. All real-client Blueprint files for an engagement live under that root.
-
-### Requirements the chosen root must meet
-
-Peacemakers-controlled · private by default · not public · not Git-tracked · reasonable access control · durable with normal recovery · accessible from James’s normal work environment · able to hold questionnaire / transcript / Stage A–B / final Blueprint · no need to store credentials inside it.
-
-### Conceptual folder layout (after root is designated)
+Under the approved root:
 
 ```text
-Peacemakers AI / Clients / <Client> / Business Blueprint /
+Clients / <Client Name> / Business Blueprint /
   01 Intake
   02 Stage A
   03 Blueprint Call
@@ -138,9 +129,30 @@ Peacemakers AI / Clients / <Client> / Business Blueprint /
   06 Decision
 ```
 
-(Optional later: `07 Implementation` only for Outcome C.) Keep names free of secrets.
+(Optional later: `07 Implementation` only for Outcome C.) Keep folder names free of secrets.
 
-**NEEDS FOLLOW-UP after designation only:** optional Owner-Ops note linking the path; long-term access if James unavailable. Do not build a platform in this pass.
+### Required controls (this store)
+
+- Private by default; Peacemakers-controlled business account  
+- No anonymous/public sharing of engagement folders  
+- Access only by explicit business need  
+- Version/recovery capability of Google Drive available  
+- Stage A saved here **same day** after James approval  
+- Stage B saved here **same day** after James approval  
+- Transcript/evidence stored here only when appropriate (minimized/redacted)  
+- Secrets/credentials prohibited in files and filenames  
+- `Downloads/` / Desktop / ChatGPT history are **staging only** — not canonical  
+- Owner-Ops records status/reference (Activity/Note acceptable); not uncontrolled duplicate file dumps  
+- Git remains for code, methodology, templates, and sanitized fictional material only  
+
+### Owner-Ops reference practice (manual)
+
+No schema change. After saving Stage A or Stage B to the canonical private folder, record an Activity/Note such as:
+
+`Stage A approved and stored in canonical private engagement folder.`  
+`Stage B approved and stored in canonical private engagement folder.`
+
+Include client/engagement identifiers and folder path labels (e.g. `Clients / Acme / Business Blueprint / 04 Stage B`). Do **not** store credentials or public sharing URLs in the note.
 
 ### Naming
 
@@ -200,7 +212,7 @@ Fictional/sanitized rehearsals may also be copied under `owner-ops/docs/acceptan
 | `owner-ops/docs/deliverables/**` | Templates / samples |
 | `billing/clients/**` | Local billing packets — ignored; `README.md` trackable |
 | `bookdirect/docs/clients/*` | Local onboarding packets — ignored; `README.md` + `_template/` trackable |
-| Designated private engagement root | **Outside repo** — canonical real-client store |
+| Designated private engagement root | **Google Workspace Drive** (outside repo) — canonical real-client store |
 
 Before any commit touching docs or clients paths: confirm no CLIENT CONFIDENTIAL or HIGHLY SENSITIVE material is staged (`git status` / `git diff --cached`).
 
