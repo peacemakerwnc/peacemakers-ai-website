@@ -1,16 +1,18 @@
-# Business Blueprint deliverables
+# Client deliverable templates
 
-Reusable templates for every paid **Business Blueprint** engagement (all clients).
+Reusable templates for paid **Business Blueprint** engagements and post-Blueprint **Implementation** SOWs.
 
-Filenames retain `ai-opportunity-blueprint-*` for continuity with the public offer path. Cover title and engagement language use **Business Blueprint**. A broader product rename is a separate decision — do not rename website/offer pages in this template pass.
+Blueprint filenames retain `ai-opportunity-blueprint-*` for continuity with the public offer path. Cover title and engagement language use **Business Blueprint**. A broader product rename is a separate decision — do not rename website/offer pages in this template pass.
 
 ## What this is
 
-The **client-facing Blueprint** is the sold deliverable. Fill one copy per engagement after questionnaire evidence and Blueprint discovery work are ready for recommendation drafting (Stage B → James review → client HTML/PDF).
+The **client-facing Blueprint** is the sold diagnostic deliverable. Fill one copy per engagement after questionnaire evidence and Blueprint discovery work are ready for recommendation drafting (Stage B → James review → client HTML/PDF).
+
+The **Implementation Statement of Work** is a separate commercial document used only after Stage C + James approval. See [implementation-sow-template.md](./implementation-sow-template.md) and [../STAGE_C_IMPLEMENTATION_COMMERCIAL_WORKFLOW.md](../STAGE_C_IMPLEMENTATION_COMMERCIAL_WORKFLOW.md).
 
 These files are **templates only**. Automated Blueprint generation remains deferred ([../future-blueprint-generator-contract.md](../future-blueprint-generator-contract.md)).
 
-Acceptance reference for client-facing structure and commercial boundaries:
+Acceptance reference for client-facing Blueprint structure and commercial boundaries:
 
 `owner-ops/docs/acceptance/harbor-ridge-blueprint-rehearsal/`  
 (`FICTIONAL HARBOR RIDGE BLUEPRINT — CLIENT DELIVERABLE ACCEPTANCE PASSED`)
@@ -19,9 +21,10 @@ Acceptance reference for client-facing structure and commercial boundaries:
 
 | File | Audience | Classification | Use |
 |------|----------|----------------|-----|
-| [ai-opportunity-blueprint-template.html](./ai-opportunity-blueprint-template.html) | Client (after James approval) | **REUSE + ALIGN** | **Preferred delivery format** — visual, print/PDF-ready |
-| [ai-opportunity-blueprint-template.md](./ai-opportunity-blueprint-template.md) | Drafting / Git | **REUSE + ALIGN** | Same outline for drafting |
+| [ai-opportunity-blueprint-template.html](./ai-opportunity-blueprint-template.html) | Client (after James approval) | **REUSE + ALIGN** | **Preferred Blueprint delivery format** — visual, print/PDF-ready |
+| [ai-opportunity-blueprint-template.md](./ai-opportunity-blueprint-template.md) | Drafting / Git | **REUSE + ALIGN** | Same Blueprint outline for drafting |
 | [ai-opportunity-blueprint-internal-plan-template.md](./ai-opportunity-blueprint-internal-plan-template.md) | Owner only | **KEEP SEPARATE** | Implementation companion; do not send by default |
+| [implementation-sow-template.md](./implementation-sow-template.md) | Client (after Stage C + James approval) | **REUSE + ALIGN** | Implementation Statement of Work → DOCX → PandaDoc draft |
 | [ai-opportunity-blueprint-example-cedar-ridge.html](./ai-opportunity-blueprint-example-cedar-ridge.html) | Internal | **KEEP SEPARATE / DEFER** | Historical sample; not the claim-safe structure |
 
 ## When to use
@@ -68,6 +71,16 @@ Do not invent alternate top-level sections for ordinary engagements. Add subsect
 - **Diagrams:** Optional. Prefer plain findings for first clients. If diagrams help, keep them inside a workflow or technology section — never as a fixed calendar implementation promise.
 - **Print / PDF:** Browser File → Print → Save as PDF (Letter). TOC is screen-only (`no-print`). Confirm cover logo path resolves.
 - **Placeholders:** Master HTML highlights unfilled `{{…}}` in soft yellow. Client samples must have **zero** instructional sentences left visible.
+
+## Implementation SOW (post–Stage C)
+
+1. Stage C approved; commercial inputs set by James.
+2. Duplicate [implementation-sow-template.md](./implementation-sow-template.md) → fill `{{…}}` from approved Stage C only.
+3. Strip the top HTML comment block and any remaining internal notes.
+4. Export DOCX → upload PandaDoc draft ([../../billing/docs/pandadoc-setup.md](../../billing/docs/pandadoc-setup.md)).
+5. James reviews → dual-approve send → Stripe custom invoice → Implementation Active only after signed + required payment + access.
+
+Status marker on the template: `IMPLEMENTATION SOW TEMPLATE — REQUIRES STAGE C + JAMES APPROVAL`.
 
 ## Commercial boundary
 

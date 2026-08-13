@@ -144,7 +144,8 @@ Plain language — not full Stage C dump:
 
 Internal taxonomy, risk scores, and methodology stay out of the client packet.
 
-**Template gap:** No dedicated reusable implementation SOW HTML/MD yet. First clients: draft DOCX from this outline → upload PandaDoc draft ([pandadoc-setup.md](../../billing/docs/pandadoc-setup.md) upload path). Classify: **READY MANUALLY**.
+**Reusable template:** [deliverables/implementation-sow-template.md](./deliverables/implementation-sow-template.md)  
+Fill from approved Stage C → strip internal comments → DOCX → PandaDoc draft ([pandadoc-setup.md](../../billing/docs/pandadoc-setup.md)). Classify: **READY MANUALLY**.
 
 ---
 
@@ -152,7 +153,7 @@ Internal taxonomy, risk scores, and methodology stay out of the client packet.
 
 | Path | Status | Notes |
 |------|--------|-------|
-| PandaDoc | **READY MANUALLY** | Upload finished DOCX/PDF as draft; dual-approve send; Blueprint Charter-style upload proven; no dedicated impl template required for first clients |
+| PandaDoc | **READY MANUALLY** | Fill SOW template → DOCX → upload draft; dual-approve send; Charter Blueprint upload path proven |
 | Stripe | **READY MANUALLY** | Use `custom_implementation` (or sprint/growth) with James-set `amount_cents`; draft≠send; separate from Blueprint SKU |
 
 Do not create/send live docs in workflow definition passes.
