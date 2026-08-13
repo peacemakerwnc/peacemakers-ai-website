@@ -284,11 +284,13 @@ Ops pilot send controls (when live prod invite): see [production-readiness/pilot
 
 ## Phase 8 — Stage C gate
 
+**See:** [STAGE_C_IMPLEMENTATION_COMMERCIAL_WORKFLOW.md](./STAGE_C_IMPLEMENTATION_COMMERCIAL_WORKFLOW.md)
+
 **May begin only if:** Blueprint delivered · Implementation Interest · client selected Proposed recommendation(s) · James approves advancing candidates  
 
 **Purpose:** Bounded scope + commercial inputs for a credible implementation offer  
 **Tool:** ChatGPT Advisor Stage C (after gate) · Owner-Ops notes  
-**See:** skill `references/stage-c.md` · roadmap OD-MR-02
+**See also:** skill `references/stage-c.md` · roadmap OD-MR-02
 
 **Allowed (bounded):** objective, selected items, boundaries, assumptions, exclusions, dependencies, major work packages, supported effort/range, commercial inputs, proposed price, acceptance concept  
 
