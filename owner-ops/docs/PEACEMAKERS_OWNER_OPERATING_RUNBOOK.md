@@ -28,6 +28,7 @@ Manual steps are acceptable for the first 1–3 clients (payment verify, Stage A
 | Stage A–D analysis | [../skills/peacemakers-blueprint-advisor/](../skills/peacemakers-blueprint-advisor/) (`blueprint-advisor-0.1.2`) — run in **ChatGPT** |
 | Master roadmap | [PEACEMAKERS_MASTER_IMPLEMENTATION_ROADMAP.md](./PEACEMAKERS_MASTER_IMPLEMENTATION_ROADMAP.md) |
 | Commercial gate | [BLUEPRINT_COMMERCIAL_GATE_CHECKLIST.md](./BLUEPRINT_COMMERCIAL_GATE_CHECKLIST.md) |
+| Artifact / data handling | [BLUEPRINT_ARTIFACT_HANDLING.md](./BLUEPRINT_ARTIFACT_HANDLING.md) |
 | Client Blueprint templates | [deliverables/](./deliverables/) |
 | Engagement SoR | **Owner-Ops** (client, opportunity, questionnaire, evidence, activity, status) |
 | Agreement SoR | **PandaDoc** |
@@ -157,7 +158,7 @@ Ops pilot send controls (when live prod invite): see [production-readiness/pilot
 - [ ] 90-minute agenda useful
 - [ ] No vendor / AI / ROI / quote / timeline overreach
 
-- [ ] **Persist/save Stage A** (engagement folder / Owner-Ops note + file)
+- [ ] **Persist/save Stage A same day** per [BLUEPRINT_ARTIFACT_HANDLING.md](./BLUEPRINT_ARTIFACT_HANDLING.md) (private engagement folder + Owner-Ops activity)
 - [ ] Prepare / send minimum evidence request
 
 ---
@@ -224,7 +225,8 @@ Ops pilot send controls (when live prod invite): see [production-readiness/pilot
 - [ ] Recommendations remain **Proposed**
 - [ ] No Stage C leakage, implementation quote, detailed technical design, or unsupported ROI/timeline
 
-- [ ] **Persist/save Stage B**
+- [ ] **Persist/save Stage B same day** per [BLUEPRINT_ARTIFACT_HANDLING.md](./BLUEPRINT_ARTIFACT_HANDLING.md) (private engagement folder + Owner-Ops activity)
+- [ ] **Hard stop:** do not assemble the client Blueprint if Stage B is missing from the private engagement folder
 
 ---
 

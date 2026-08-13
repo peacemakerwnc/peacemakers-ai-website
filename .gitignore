@@ -1,6 +1,8 @@
 .cursor/*
 !.cursor/rules/
 !.cursor/rules/**
+!.cursor/skills/
+!.cursor/skills/**
 
 .DS_Store
 .vercel
@@ -9,3 +11,18 @@
 !.env.example
 *.log
 node_modules/
+
+# Billing sealed packets + local secrets (keep examples/docs)
+billing/inbox/*.json
+billing/clients/**
+!billing/clients/README.md
+billing/pandadoc-templates.json
+billing/.env
+
+# BookDirect real/local client onboarding packets (never Git by default)
+bookdirect/docs/clients/**
+!bookdirect/docs/clients/README.md
+!bookdirect/docs/clients/_template/**
+
+# Real Blueprint engagement artifacts must live outside Git (see owner-ops/docs/BLUEPRINT_ARTIFACT_HANDLING.md)
+owner-ops/engagements/
