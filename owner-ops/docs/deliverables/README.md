@@ -77,7 +77,7 @@ Do not invent alternate top-level sections for ordinary engagements. Add subsect
 1. Stage C approved; commercial inputs set by James.
 2. Duplicate [implementation-sow-template.md](./implementation-sow-template.md) → fill `{{…}}` from approved Stage C only.
 3. Strip the top HTML comment block and any remaining internal notes.
-4. Export DOCX → upload PandaDoc draft ([../../billing/docs/pandadoc-setup.md](../../billing/docs/pandadoc-setup.md)).
+4. Export DOCX → upload PandaDoc draft ([../../../billing/docs/pandadoc-setup.md](../../../billing/docs/pandadoc-setup.md)).
 5. James reviews → dual-approve send → Stripe custom invoice → Implementation Active only after signed + required payment + access.
 
 Status marker on the template: `IMPLEMENTATION SOW TEMPLATE — REQUIRES STAGE C + JAMES APPROVAL`.
