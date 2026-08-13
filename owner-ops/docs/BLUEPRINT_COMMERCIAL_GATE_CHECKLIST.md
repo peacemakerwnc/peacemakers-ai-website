@@ -7,6 +7,7 @@
 **Related authority:**
 
 - Master roadmap: `owner-ops/docs/PEACEMAKERS_MASTER_IMPLEMENTATION_ROADMAP.md` (`OWNER APPROVED — EXECUTION AUTHORIZED`)
+- Pipeline stages: `owner-ops/src/lib/pipeline-seed-data.ts` (OD-MR-06 — Blueprint Commercial before questionnaire; Implementation separate)
 - Advisor: `blueprint-advisor-0.1.2` (execute in ChatGPT)
 - Catalog SKU: `ai_opportunity_blueprint` · **$3,500** (`350000` cents)
 

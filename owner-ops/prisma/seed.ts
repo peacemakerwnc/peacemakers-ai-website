@@ -30,13 +30,15 @@ async function seedPipeline() {
     where: { slug: DEFAULT_PIPELINE_SLUG },
     update: {
       name: "Peacemakers Client Journey",
-      description: "Default lead-to-client pipeline for Owner Ops Phase 1",
+      description:
+        "Lead → Blueprint commercial gate → questionnaire/delivery → optional implementation (OD-MR-06).",
       isDefault: true,
     },
     create: {
       name: "Peacemakers Client Journey",
       slug: DEFAULT_PIPELINE_SLUG,
-      description: "Default lead-to-client pipeline for Owner Ops Phase 1",
+      description:
+        "Lead → Blueprint commercial gate → questionnaire/delivery → optional implementation (OD-MR-06).",
       isDefault: true,
     },
   });

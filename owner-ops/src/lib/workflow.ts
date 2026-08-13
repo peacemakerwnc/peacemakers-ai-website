@@ -35,11 +35,13 @@ export async function transitionOpportunityStage(input: {
               ? "LOST"
               : next.slug === "nurture"
                 ? "NURTURE"
-                : opportunity.status === "WON" ||
-                    opportunity.status === "LOST" ||
-                    opportunity.status === "NURTURE"
+                : next.slug === "blueprint-complete"
                   ? "OPEN"
-                  : opportunity.status,
+                  : opportunity.status === "WON" ||
+                      opportunity.status === "LOST" ||
+                      opportunity.status === "NURTURE"
+                    ? "OPEN"
+                    : opportunity.status,
       },
     });
 

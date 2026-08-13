@@ -29,6 +29,7 @@ Manual steps are acceptable for the first 1–3 clients (payment verify, Stage A
 | Master roadmap | [PEACEMAKERS_MASTER_IMPLEMENTATION_ROADMAP.md](./PEACEMAKERS_MASTER_IMPLEMENTATION_ROADMAP.md) |
 | Commercial gate | [BLUEPRINT_COMMERCIAL_GATE_CHECKLIST.md](./BLUEPRINT_COMMERCIAL_GATE_CHECKLIST.md) |
 | Artifact / data handling | [BLUEPRINT_ARTIFACT_HANDLING.md](./BLUEPRINT_ARTIFACT_HANDLING.md) |
+| Pipeline stages (OD-MR-06) | [../src/lib/pipeline-seed-data.ts](../src/lib/pipeline-seed-data.ts) — board = lifecycle; NextAction = current task |
 | Client Blueprint templates | [deliverables/](./deliverables/) |
 | Engagement SoR | **Owner-Ops** (client, opportunity, questionnaire, evidence, activity, status) |
 | Agreement SoR | **PandaDoc** |

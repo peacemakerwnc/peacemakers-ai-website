@@ -25,7 +25,7 @@ export async function createContactCompanyOpportunity(input: CreateLeadInput) {
   });
   if (!pipeline) throw new Error("Default pipeline not seeded");
 
-  const stageSlug = input.stageSlug ?? "blueprint-form-not-sent";
+  const stageSlug = input.stageSlug ?? "qualified";
   const stage = pipeline.stages.find((s) => s.slug === stageSlug);
   if (!stage) throw new Error(`Stage not found: ${stageSlug}`);
 

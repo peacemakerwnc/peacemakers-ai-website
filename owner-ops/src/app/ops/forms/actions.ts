@@ -54,7 +54,7 @@ export async function createLeadAndInvitationAction(formData: FormData) {
     phone: phone || undefined,
     companyName,
     ownerUserId: session.userId,
-    stageSlug: "blueprint-form-not-sent",
+    stageSlug: "agreement-sent",
   });
 
   const invitation = await createInvitation({
