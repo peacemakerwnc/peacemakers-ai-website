@@ -147,7 +147,8 @@ Ops pilot send controls (when live prod invite): see [production-readiness/pilot
 **Input:** Submitted questionnaire (+ any available artifacts)  
 **Output:** Stage A — Questionnaire Diagnostic  
 **Client-facing after review:** Minimum evidence request / call prep only  
-**See:** skill `references/stage-a.md` · OS evidence/consulting standards
+**See:** skill `references/stage-a.md` · OS evidence/consulting standards  
+**Evidence follow-up:** [BLUEPRINT_EVIDENCE_FOLLOWUP_WORKFLOW.md](./BLUEPRINT_EVIDENCE_FOLLOWUP_WORKFLOW.md)
 
 ### James review
 
@@ -160,7 +161,7 @@ Ops pilot send controls (when live prod invite): see [production-readiness/pilot
 - [ ] No vendor / AI / ROI / quote / timeline overreach
 
 - [ ] **Persist/save Stage A same day** per [BLUEPRINT_ARTIFACT_HANDLING.md](./BLUEPRINT_ARTIFACT_HANDLING.md) (private engagement folder + Owner-Ops activity)
-- [ ] Prepare / send minimum evidence request
+- [ ] Prepare / send minimum evidence request — [BLUEPRINT_EVIDENCE_FOLLOWUP_WORKFLOW.md](./BLUEPRINT_EVIDENCE_FOLLOWUP_WORKFLOW.md)
 
 ---
 
@@ -168,7 +169,8 @@ Ops pilot send controls (when live prod invite): see [production-readiness/pilot
 
 **Target:** ~90 minutes · **Facilitator:** James  
 **Input:** Approved Stage A agenda · evidence request  
-**Output:** Transcript/notes + evidence references
+**Output:** Transcript/notes + evidence references  
+**See:** [BLUEPRINT_EVIDENCE_FOLLOWUP_WORKFLOW.md](./BLUEPRINT_EVIDENCE_FOLLOWUP_WORKFLOW.md)
 
 ### Before
 
