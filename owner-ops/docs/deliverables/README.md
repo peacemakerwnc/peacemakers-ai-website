@@ -50,18 +50,25 @@ AI-Opportunity-Blueprint-Internal — {Company Name} — {YYYY-MM-DD}.md
 
 ## Canonical client outline (locked)
 
-1. Executive summary
-2. Engagement scope
-3. Priority workflow findings *(repeatable workflow blocks)*
-4. Root causes
-5. Controls to preserve
-6. Recommended action plan *(Now / Next / Later·conditional / Not currently justified)*
-7. Current technology position
-8. Measurement
-9. Leadership decisions needed
-10. Recommended next step
+1. Cover
+2. Blueprint at a Glance
+3. Executive summary *(including what needs attention now vs not yet)*
+4. Engagement scope
+5. Priority workflow findings *(What we confirmed / Where it breaks / Why it matters / Unresolved)*
+6. Root-cause themes *(3–5 themes actually present; provisional causes separate)*
+7. Controls to preserve
+8. Recommended action plan *(Now / Next / Later·conditional / Not currently justified)*
+9. What we are not recommending — yet
+10. Priority / readiness map
+11. Current technology position
+12. Future AI & automation opportunities *(watchlist — Potential Future Fit only; omit if none are credible)*
+13. Measurement
+14. Leadership decisions required
+15. Recommended next step
 
 Do not invent alternate top-level sections for ordinary engagements. Add subsections inside these headings if needed. Do not default to dumping the full Stage B evidence register, taxonomy teaching, or internal decision numbering into the client PDF.
+
+**Future AI/automation is not the recommendation portfolio.** Items are conditional watchlist candidates. They do not enter Stage C unless leadership later selects a current recommendation or readiness work and James approves.
 
 ## Visual standards
 
@@ -102,6 +109,7 @@ Do **not** include in the client Blueprint:
 - Distinguish validated findings from unresolved items.
 - Optimize existing software before recommending new tools.
 - AI and new software appear under **Not currently justified** unless Stage B gates support them.
+- Future AI/automation opportunities, if shown, must be labeled **Potential Future Fit** (or equivalent) and must not read as current implementation recommendations.
 
 ## Not the same as the Review Packet or internal plan
 
