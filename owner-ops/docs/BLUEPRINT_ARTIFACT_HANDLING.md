@@ -111,7 +111,7 @@ Owner-Ops stores **references / IDs / status confirmations**, not full confident
 
 **Platform:** Google Workspace Drive (Peacemakers-controlled business account)  
 **Status:** `CANONICAL PRIVATE ENGAGEMENT STORE — OWNER APPROVED`  
-**Canonical root:** [Peacemakers Clients Drive folder](https://drive.google.com/drive/u/0/folders/1YHbb_4FAyy2K3RxfmjlF8KVhVHxcMbiY) (folder id `1YHbb_4FAyy2K3RxfmjlF8KVhVHxcMbiY`)
+**Canonical root:** [Peacemakers Clients Drive folder](https://drive.google.com/drive/u/2/folders/1B1e3Qh8LOqiaJG0SRb044p2T8Dn6eriC) (folder id `1B1e3Qh8LOqiaJG0SRb044p2T8Dn6eriC`)
 
 Open only while signed into the Peacemakers Google Workspace business account. Do not convert engagement folders to anonymous/public link sharing. Do not paste passwords, tokens, or credentials into this SOP or Owner-Ops.
 
