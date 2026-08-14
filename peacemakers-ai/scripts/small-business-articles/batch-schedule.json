@@ -9,7 +9,13 @@
     {
       "id": 1,
       "name": "Foundational / high-intent",
-      "briefs": [1, 8, 4, 25, 21],
+      "briefs": [
+        1,
+        8,
+        4,
+        25,
+        21
+      ],
       "scheduled_date": "2026-07-07",
       "status": "published",
       "published_date": "2026-07-14",
@@ -18,15 +24,30 @@
     {
       "id": 2,
       "name": "Automation quick-wins",
-      "briefs": [5, 12, 17, 18, 22, 36],
+      "briefs": [
+        5,
+        12,
+        17,
+        18,
+        22,
+        36
+      ],
       "scheduled_date": "2026-07-14",
-      "status": "pending",
-      "module": "batch2.py"
+      "status": "published",
+      "module": "batch2.py",
+      "published_date": "2026-08-10"
     },
     {
       "id": 3,
       "name": "Sales, marketing & CX",
-      "briefs": [2, 7, 10, 14, 23, 28],
+      "briefs": [
+        2,
+        7,
+        10,
+        14,
+        23,
+        28
+      ],
       "scheduled_date": "2026-07-21",
       "status": "pending",
       "module": "batch3.py"
@@ -34,7 +55,13 @@
     {
       "id": 4,
       "name": "Chatbots, support & security",
-      "briefs": [6, 15, 39, 32, 35],
+      "briefs": [
+        6,
+        15,
+        39,
+        32,
+        35
+      ],
       "scheduled_date": "2026-07-28",
       "status": "pending",
       "module": "batch4.py"
@@ -42,7 +69,15 @@
     {
       "id": 5,
       "name": "People & strategy",
-      "briefs": [9, 11, 24, 26, 33, 34, 38],
+      "briefs": [
+        9,
+        11,
+        24,
+        26,
+        33,
+        34,
+        38
+      ],
       "scheduled_date": "2026-08-04",
       "status": "pending",
       "module": "batch5.py"
@@ -50,7 +85,18 @@
     {
       "id": 6,
       "name": "Beginner-friendly & analytics",
-      "briefs": [3, 13, 20, 37, 30, 16, 27, 19, 29, 31],
+      "briefs": [
+        3,
+        13,
+        20,
+        37,
+        30,
+        16,
+        27,
+        19,
+        29,
+        31
+      ],
       "scheduled_date": "2026-08-11",
       "status": "pending",
       "module": "batch6.py"
@@ -58,7 +104,18 @@
     {
       "id": 7,
       "name": "Bonus topics",
-      "briefs": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+      "briefs": [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110
+      ],
       "scheduled_date": "2026-08-18",
       "status": "pending",
       "module": "batch7.py"
