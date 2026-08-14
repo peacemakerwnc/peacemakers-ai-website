@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://peacemakersai.com/schemas/invoice-packet.schema.json",
+  "title": "PeacemakersInvoicePacket",
+  "description": "Sealed invoice packet from ChatGPT (or paste). Write-only handoff — no repo read access required.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "client_name",
+    "email",
+    "sku",
+    "invoice_title",
+    "line_description",
+    "idempotency_key",
+    "source",
+    "created_at"
+  ],
+  "properties": {
+    "client_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Customer full name for Stripe"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Customer email for Stripe invoice delivery"
+    },
+    "company": {
+      "type": ["string", "null"],
+      "description": "Optional company / property name"
+    },
+    "sku": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Catalog SKU key (e.g. ai_opportunity_blueprint). See billing/stripe-catalog.json skus."
+    },
+    "product_id": {
+      "type": ["string", "null"],
+      "description": "Optional explicit Stripe product id (overrides sku catalog product)"
+    },
+    "price_id": {
+      "type": ["string", "null"],
+      "description": "Optional explicit Stripe price id when amount matches catalog"
+    },
+    "amount_cents": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "Amount in cents. Required for custom_quote SKUs (implementations). For Blueprint, omit to use fixed $3,500 catalog price."
+    },
+    "amount_override_cents": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "Explicit override flag amount. When set, invoice uses this amount even if it differs from catalog."
+    },
+    "invoice_title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short invoice description / title shown on Stripe invoice"
+    },
+    "line_description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Line item description (verbiage from sales chat)"
+    },
+    "memo": {
+      "type": ["string", "null"],
+      "description": "Optional footer / memo on the invoice"
+    },
+    "custom_fields": {
+      "type": ["array", "null"],
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "value"],
+        "properties": {
+          "name": { "type": "string", "maxLength": 40 },
+          "value": { "type": "string", "maxLength": 140 }
+        }
+      }
+    },
+    "days_until_due": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 90,
+      "default": 7
+    },
+    "currency": {
+      "type": "string",
+      "enum": ["usd"],
+      "default": "usd"
+    },
+    "agreement_template": {
+      "type": ["string", "null"],
+      "description": "PandaDoc template key from billing/pandadoc-templates.json. Null/omit skips PandaDoc."
+    },
+    "agreement_fields": {
+      "type": ["object", "null"],
+      "description": "Optional field map for PandaDoc template tokens",
+      "additionalProperties": {
+        "type": ["string", "number", "boolean", "null"]
+      }
+    },
+    "client_slug": {
+      "type": ["string", "null"],
+      "description": "Optional folder slug under billing/clients/. Derived from client_name if omitted."
+    },
+    "source": {
+      "type": "string",
+      "enum": ["chatgpt", "cursor", "manual"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp when the packet was created"
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128,
+      "description": "Stable key to prevent duplicate draft invoices"
+    }
+  }
+}

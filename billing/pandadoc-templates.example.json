@@ -1,0 +1,35 @@
+{
+  "notes": "Copy to pandadoc-templates.json and replace REPLACE_ME with real PandaDoc template UUIDs. Never commit API keys.",
+  "templates": {
+    "bookdirect_plan_2": {
+      "template_uuid": "REPLACE_ME",
+      "name_prefix": "Direct Rebook Kit Agreement",
+      "signer_role": "Client",
+      "default_fields": {
+        "Provider.Brand": "Peacemakers AI Solutions",
+        "Provider.Name": "James Fullen",
+        "Provider.Email": "james@peacemakersai.com"
+      }
+    },
+    "bookdirect_plan_3": {
+      "template_uuid": "REPLACE_ME",
+      "name_prefix": "Rebook + Seasonal Agreement",
+      "signer_role": "Client",
+      "default_fields": {
+        "Provider.Brand": "Peacemakers AI Solutions",
+        "Provider.Name": "James Fullen",
+        "Provider.Email": "james@peacemakersai.com"
+      }
+    },
+    "consulting_sow": {
+      "template_uuid": "REPLACE_ME",
+      "name_prefix": "Peacemakers AI Solutions Agreement",
+      "signer_role": "Client",
+      "default_fields": {
+        "Provider.Brand": "Peacemakers AI Solutions",
+        "Provider.Name": "James Fullen",
+        "Provider.Email": "james@peacemakersai.com"
+      }
+    }
+  }
+}

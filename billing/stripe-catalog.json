@@ -1,0 +1,255 @@
+{
+  "livemode": true,
+  "account_hint": "acct_1TRIQECGDDta8n3W",
+  "currency": "usd",
+  "brand": "Peacemakers AI Solutions",
+  "notes": "Blueprint has a fixed catalog price. Implementation SKUs (sprint/growth/custom) are custom-quote only — packets must include amount_cents. Do not finalize/send from scripts.",
+  "skus": {
+    "quick_win_workshop": {
+      "name": "Quick Win Workshop",
+      "pricing_mode": "custom_quote",
+      "catalog_path": ["ai_consulting", "quick_win_workshop"]
+    },
+    "ai_opportunity_blueprint": {
+      "name": "AI Opportunity Blueprint",
+      "pricing_mode": "fixed",
+      "catalog_path": ["ai_consulting", "ai_opportunity_blueprint"]
+    },
+    "quick_win_sprint": {
+      "name": "Quick Win Sprint",
+      "pricing_mode": "custom_quote",
+      "catalog_path": ["ai_consulting", "quick_win_sprint"]
+    },
+    "growth_system": {
+      "name": "Growth System",
+      "pricing_mode": "custom_quote",
+      "catalog_path": ["ai_consulting", "growth_system"]
+    },
+    "advisory_partnership": {
+      "name": "Advisory Partnership",
+      "pricing_mode": "custom_quote",
+      "catalog_path": ["ai_consulting", "advisory_partnership"]
+    },
+    "custom_implementation": {
+      "name": "Custom Implementation",
+      "pricing_mode": "custom_quote",
+      "catalog_path": ["ai_consulting", "custom_implementation"]
+    },
+    "bookdirect_plan_1_deposit": {
+      "name": "Just the Site — Deposit",
+      "bookdirect": { "plan": 1, "milestone": "deposit", "homes": 1 }
+    },
+    "bookdirect_plan_1_final": {
+      "name": "Just the Site — Final",
+      "bookdirect": { "plan": 1, "milestone": "final", "homes": 1 }
+    },
+    "bookdirect_plan_2_deposit": {
+      "name": "Direct Rebook Kit — Deposit",
+      "bookdirect": { "plan": 2, "milestone": "deposit" }
+    },
+    "bookdirect_plan_2_final": {
+      "name": "Direct Rebook Kit — Final",
+      "bookdirect": { "plan": 2, "milestone": "final" }
+    },
+    "bookdirect_plan_3_deposit": {
+      "name": "Rebook + Seasonal — Deposit",
+      "bookdirect": { "plan": 3, "milestone": "deposit" }
+    },
+    "bookdirect_plan_3_final": {
+      "name": "Rebook + Seasonal — Final",
+      "bookdirect": { "plan": 3, "milestone": "final" }
+    },
+    "bookdirect_plan_4_deposit": {
+      "name": "Full Visibility — Deposit",
+      "bookdirect": { "plan": 4, "milestone": "deposit" }
+    },
+    "bookdirect_plan_4_final": {
+      "name": "Full Visibility — Final",
+      "bookdirect": { "plan": 4, "milestone": "final" }
+    }
+  },
+  "ai_consulting": {
+    "quick_win_workshop": {
+      "product_id": "prod_UvcFl3BSHG86VA",
+      "price_id": "price_1TvlI0CGDDta8n3WBPzDungo",
+      "pricing_mode": "custom_quote",
+      "unit_amount_cents": null,
+      "notes": "Custom quote only — set amount_cents on the packet."
+    },
+    "ai_opportunity_blueprint": {
+      "product_id": "prod_UvcGoyE9YIFaoO",
+      "price_id": "price_1U3L7fCGDDta8n3WVhMzi0mx",
+      "pricing_mode": "fixed",
+      "unit_amount_cents": 350000
+    },
+    "quick_win_sprint": {
+      "product_id": "prod_UvcGvfPMeVRjrH",
+      "price_id": "price_1TvlHzCGDDta8n3W3QcQbVM4",
+      "pricing_mode": "custom_quote",
+      "unit_amount_cents": null,
+      "notes": "Custom quote only — set amount_cents on the packet."
+    },
+    "growth_system": {
+      "product_id": "prod_UvcG9EZX8bnImH",
+      "price_id": "price_1TvlHzCGDDta8n3WevjaNxg9",
+      "pricing_mode": "custom_quote",
+      "unit_amount_cents": null,
+      "notes": "Custom quote only — set amount_cents on the packet."
+    },
+    "advisory_partnership": {
+      "product_id": "prod_UvcGBgVGlOEsCp",
+      "price_id": "price_1TvlHyCGDDta8n3WXxYyuSxu",
+      "pricing_mode": "custom_quote",
+      "unit_amount_cents": null,
+      "recurring": "month",
+      "notes": "Custom quote only — set amount_cents on the packet."
+    },
+    "custom_implementation": {
+      "product_id": "prod_UvcGvfPMeVRjrH",
+      "price_id": "price_1TvlHzCGDDta8n3W3QcQbVM4",
+      "pricing_mode": "custom_quote",
+      "unit_amount_cents": null,
+      "notes": "Generic implementation quote; uses Quick Win Sprint product for line tracking. Prefer a dedicated product later if needed."
+    }
+  },
+  "bookdirect": {
+    "plans": {
+      "1": {
+        "name": "Just the Site",
+        "setup_by_homes": {
+          "1": {
+            "product_id": "prod_UvcKRI1DNqwPbI",
+            "price_id": "price_1TvlI1CGDDta8n3WR9lLYSlH",
+            "setup_cents": 75000,
+            "deposit": {
+              "product_id": "prod_UvcP2FDqt2k1Pd",
+              "price_id": "price_1TvlHoCGDDta8n3WoWcymk5Z",
+              "default_cents": 37500
+            },
+            "final": {
+              "product_id": "prod_UvcP89Dc10ImmH",
+              "price_id": "price_1TvlHoCGDDta8n3WOpZZWAVR",
+              "default_cents": 37500
+            }
+          },
+          "2-3": {
+            "product_id": "prod_UvcKxuxtdmfNzE",
+            "price_id": "price_1TvlHyCGDDta8n3W3TZ2F1kn",
+            "setup_cents": 100000,
+            "deposit": {
+              "product_id": "prod_UvcPtovyb7PAqh",
+              "price_id": "price_1TvlHoCGDDta8n3WGZn2Je6I",
+              "default_cents": 50000
+            },
+            "final": {
+              "product_id": "prod_UvcP8YPbSBwEOz",
+              "price_id": "price_1TvlHpCGDDta8n3WLnruNjmg",
+              "default_cents": 50000
+            }
+          }
+        }
+      },
+      "2": {
+        "name": "Direct Rebook Kit",
+        "setup": {
+          "product_id": "prod_UvcK2DoBwSsWDU",
+          "price_id": "price_1TvlHvCGDDta8n3WwRU17m0j",
+          "setup_cents_default": 125000,
+          "setup_range_cents": [125000, 175000]
+        },
+        "deposit": {
+          "product_id": "prod_UvcPNxBhQtJsLj",
+          "price_id": "price_1TvlHnCGDDta8n3W5LQqjZDJ",
+          "default_cents": 62500
+        },
+        "final": {
+          "product_id": "prod_UvcPd0JdC7u0kC",
+          "price_id": "price_1TvlHoCGDDta8n3WRitmqhdu",
+          "default_cents": 62500
+        },
+        "monthly": {
+          "product_id": "prod_UvcKyGppMvWvYg",
+          "price_id": "price_1TvlHtCGDDta8n3WtbYQtMgk",
+          "default_cents": 4900,
+          "range_cents": [4900, 9900]
+        }
+      },
+      "3": {
+        "name": "Rebook + Seasonal",
+        "setup": {
+          "product_id": "prod_UvcKmSj7fMKh3I",
+          "price_id": "price_1TvlHxCGDDta8n3WvYn7gZOW",
+          "setup_cents_default": 175000,
+          "setup_range_cents": [175000, 250000]
+        },
+        "deposit": {
+          "product_id": "prod_UvcP9SyT9L3S7A",
+          "price_id": "price_1TvlHoCGDDta8n3WXVh5TMUM",
+          "default_cents": 87500
+        },
+        "final": {
+          "product_id": "prod_UvcPuKl6cgxjNU",
+          "price_id": "price_1TvlHoCGDDta8n3WmgAC6xWU",
+          "default_cents": 87500
+        },
+        "monthly": {
+          "product_id": "prod_UvcKfUGItUUPeZ",
+          "price_id": "price_1TvlHtCGDDta8n3W585ZDJtI",
+          "default_cents": 9900,
+          "range_cents": [9900, 17900]
+        }
+      },
+      "4": {
+        "name": "Full Visibility",
+        "setup": {
+          "product_id": "prod_UvcKdNyBGBgJ4e",
+          "price_id": "price_1TvlHvCGDDta8n3WiqxWCng7",
+          "setup_cents_default": 250000,
+          "setup_range_cents": [250000, 350000]
+        },
+        "deposit": {
+          "product_id": "prod_UvcPG7hEefjuvE",
+          "price_id": "price_1TvlHnCGDDta8n3Wfrea7R6p",
+          "default_cents": 125000
+        },
+        "final": {
+          "product_id": "prod_UvcP9AsR6wtcvz",
+          "price_id": "price_1TvlHoCGDDta8n3WGht6QlEQ",
+          "default_cents": 125000
+        },
+        "monthly": {
+          "product_id": "prod_UvcK8XA8UQ0M5s",
+          "price_id": "price_1TvlHtCGDDta8n3W8UdisIn9",
+          "default_cents": 24900,
+          "range_cents": [24900, 39900]
+        }
+      }
+    },
+    "care": {
+      "care_light": {
+        "product_id": "prod_UvcKjWkRCEjyZW",
+        "price_id": "price_1TvlHvCGDDta8n3WsOIo8ARM",
+        "default_cents": 5900,
+        "range_cents": [4900, 7900]
+      },
+      "care_sync": {
+        "product_id": "prod_UvcKtnTEh9oWek",
+        "price_id": "price_1TvlHuCGDDta8n3W5kfIngkO",
+        "default_cents": 3900,
+        "range_cents": [2900, 4900]
+      }
+    },
+    "edits": {
+      "small": {
+        "product_id": "prod_UvcKmiFOIOOYgO",
+        "price_id": "price_1TvlHtCGDDta8n3W64aYImU8",
+        "default_cents": 7500
+      },
+      "medium": {
+        "product_id": "prod_UvcKNxOkPTMhUh",
+        "price_id": "price_1TvlHsCGDDta8n3WBi6thQC7",
+        "default_cents": 25000
+      }
+    }
+  }
+}

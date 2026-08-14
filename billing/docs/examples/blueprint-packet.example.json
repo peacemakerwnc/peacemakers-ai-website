@@ -1,0 +1,26 @@
+{
+  "client_name": "Alex Rivera",
+  "email": "alex@example.com",
+  "company": "Cedar Ridge Operations",
+  "sku": "ai_opportunity_blueprint",
+  "invoice_title": "AI Opportunity Blueprint \u2014 Cedar Ridge Operations",
+  "line_description": "AI Opportunity Blueprint: evidence-based workflow assessment, prioritized opportunities, and recommended next-step implementation options for Cedar Ridge Operations.",
+  "memo": "Payable to Peacemakers AI Solutions via this Stripe invoice. Questions: james@peacemakersai.com",
+  "custom_fields": [
+    {
+      "name": "Engagement",
+      "value": "AI Opportunity Blueprint"
+    },
+    {
+      "name": "Brand",
+      "value": "Peacemakers AI Solutions"
+    }
+  ],
+  "days_until_due": 7,
+  "currency": "usd",
+  "agreement_template": null,
+  "client_slug": "cedar-ridge-operations",
+  "source": "manual",
+  "created_at": "2026-08-11T18:00:00Z",
+  "idempotency_key": "bp-alex-example-20260811-3500"
+}

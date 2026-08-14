@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: Peacemakers Invoice Inbox
+  description: >
+    Write-only endpoint for sealed invoice packets. ChatGPT must NOT be given
+    any read/list/browse tools against the repo. Returns ok + relative path only.
+  version: "1.0.0"
+servers:
+  - url: https://REPLACE_WITH_YOUR_INBOX_HOST
+    description: Local tunnel or deployed webhook base URL (no trailing slash)
+paths:
+  /invoice-packet:
+    post:
+      operationId: submitInvoicePacket
+      summary: Submit a sealed invoice packet to the inbox
+      description: >
+        Validates and stores one invoice packet. Does not create Stripe invoices
+        or send email. James processes drafts in Cursor.
+      security:
+        - InboxSecret: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InvoicePacket"
+      responses:
+        "201":
+          description: Packet stored
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok, path]
+                properties:
+                  ok:
+                    type: boolean
+                  path:
+                    type: string
+                    description: Relative path under billing/inbox/
+                  idempotency_key:
+                    type: string
+        "400":
+          description: Invalid packet
+        "401":
+          description: Missing or invalid secret
+        "409":
+          description: Duplicate idempotency_key already in inbox
+components:
+  securitySchemes:
+    InboxSecret:
+      type: apiKey
+      in: header
+      name: X-Inbox-Secret
+  schemas:
+    InvoicePacket:
+      type: object
+      additionalProperties: false
+      required:
+        - client_name
+        - email
+        - sku
+        - invoice_title
+        - line_description
+        - idempotency_key
+        - source
+        - created_at
+      properties:
+        client_name:
+          type: string
+        email:
+          type: string
+          format: email
+        company:
+          type: string
+          nullable: true
+        sku:
+          type: string
+        product_id:
+          type: string
+          nullable: true
+        price_id:
+          type: string
+          nullable: true
+        amount_cents:
+          type: integer
+          nullable: true
+        amount_override_cents:
+          type: integer
+          nullable: true
+        invoice_title:
+          type: string
+        line_description:
+          type: string
+        memo:
+          type: string
+          nullable: true
+        custom_fields:
+          type: array
+          nullable: true
+          maxItems: 4
+          items:
+            type: object
+            required: [name, value]
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+        days_until_due:
+          type: integer
+          default: 7
+        currency:
+          type: string
+          enum: [usd]
+          default: usd
+        agreement_template:
+          type: string
+          nullable: true
+        agreement_fields:
+          type: object
+          nullable: true
+          additionalProperties: true
+        client_slug:
+          type: string
+          nullable: true
+        source:
+          type: string
+          enum: [chatgpt, cursor, manual]
+        created_at:
+          type: string
+          format: date-time
+        idempotency_key:
+          type: string
