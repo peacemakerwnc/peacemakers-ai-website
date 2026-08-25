@@ -5,7 +5,12 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "peacemakersai.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "peacemakersai.com"
+        }
+      ],
       "destination": "https://www.peacemakersai.com/:path*",
       "permanent": true
     },
@@ -18,29 +23,114 @@
       "source": "/self-booking-sites.html",
       "destination": "https://bookdirect.peacemakersai.com/",
       "permanent": true
+    },
+    {
+      "source": "/locations/:state.html",
+      "destination": "/locations/:state",
+      "permanent": true
+    },
+    {
+      "source": "/locations/:state/:city.html",
+      "destination": "/locations/:state/:city",
+      "permanent": true
+    },
+    {
+      "source": "/ai-for-nonprofits",
+      "destination": "/services/ai-strategy-nonprofits",
+      "permanent": true
+    },
+    {
+      "source": "/ai-for-nonprofits.html",
+      "destination": "/services/ai-strategy-nonprofits",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-for-nonprofits",
+      "destination": "/services/ai-strategy-nonprofits",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ai-for-nonprofits/",
+      "destination": "/services/ai-strategy-nonprofits",
+      "permanent": true
     }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
-    { "source": "/locations", "destination": "/locations/index.html" },
-    { "source": "/locations/", "destination": "/locations/index.html" },
-    { "source": "/locations/:state", "destination": "/locations/:state.html" },
-    { "source": "/locations/:state/:city", "destination": "/locations/:state/:city.html" },
-    { "source": "/industries", "destination": "/industries/index.html" },
-    { "source": "/industries/", "destination": "/industries/index.html" },
-    { "source": "/industries/:slug", "destination": "/industries/:slug.html" },
-    { "source": "/blog/ai-for-nonprofits", "destination": "/resources/ai-for-nonprofits/index.html" },
-    { "source": "/blog/ai-for-nonprofits/", "destination": "/resources/ai-for-nonprofits/index.html" },
-    { "source": "/blog/ai-for-nonprofits/:slug", "destination": "/resources/ai-for-nonprofits/:slug.html" },
-    { "source": "/services/ai-strategy-nonprofits", "destination": "/services/ai-strategy-nonprofits.html" },
-    { "source": "/resources/ai-starter-kit", "destination": "/resources/ai-starter-kit.html" },
-    { "source": "/blog/ai-for-small-business", "destination": "/resources/ai-for-small-business/index.html" },
-    { "source": "/blog/ai-for-small-business/", "destination": "/resources/ai-for-small-business/index.html" },
-    { "source": "/blog/ai-for-small-business/:slug", "destination": "/resources/ai-for-small-business/:slug.html" },
-    { "source": "/services/ai-strategy-small-business", "destination": "/services/ai-strategy-small-business.html" },
-    { "source": "/resources/ai-small-business-starter-kit", "destination": "/resources/ai-small-business-starter-kit.html" }
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/locations",
+      "destination": "/locations/index.html"
+    },
+    {
+      "source": "/locations/",
+      "destination": "/locations/index.html"
+    },
+    {
+      "source": "/locations/:state",
+      "destination": "/locations/:state.html"
+    },
+    {
+      "source": "/locations/:state/:city",
+      "destination": "/locations/:state/:city.html"
+    },
+    {
+      "source": "/industries",
+      "destination": "/industries/index.html"
+    },
+    {
+      "source": "/industries/",
+      "destination": "/industries/index.html"
+    },
+    {
+      "source": "/industries/:slug",
+      "destination": "/industries/:slug.html"
+    },
+    {
+      "source": "/blog/ai-for-nonprofits/:slug",
+      "destination": "/resources/ai-for-nonprofits/:slug.html"
+    },
+    {
+      "source": "/services/ai-strategy-nonprofits",
+      "destination": "/services/ai-strategy-nonprofits.html"
+    },
+    {
+      "source": "/resources/ai-starter-kit",
+      "destination": "/resources/ai-starter-kit.html"
+    },
+    {
+      "source": "/blog/ai-for-small-business",
+      "destination": "/resources/ai-for-small-business/index.html"
+    },
+    {
+      "source": "/blog/ai-for-small-business/",
+      "destination": "/resources/ai-for-small-business/index.html"
+    },
+    {
+      "source": "/blog/ai-for-small-business/:slug",
+      "destination": "/resources/ai-for-small-business/:slug.html"
+    },
+    {
+      "source": "/services/ai-strategy-small-business",
+      "destination": "/services/ai-strategy-small-business.html"
+    },
+    {
+      "source": "/resources/ai-small-business-starter-kit",
+      "destination": "/resources/ai-small-business-starter-kit.html"
+    }
   ]
 }
