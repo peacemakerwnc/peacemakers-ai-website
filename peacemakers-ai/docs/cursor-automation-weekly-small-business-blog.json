@@ -1,26 +1,5 @@
 {
   "name": "Weekly AI for Small Business blog batch",
-  "description": "Each Monday, generate and deploy the next scheduled AI for Small Business blog batch from batch-schedule.json until all 7 batches are published.",
-  "workflow": {
-    "triggers": [
-      {
-        "cron": {
-          "cron": "0 9 * * 1"
-        }
-      }
-    ],
-    "actions": [],
-    "prompts": [
-      "Read peacemakers-ai/scripts/small-business-articles/batch-schedule.json and find the next batch where status is not \"published\" and scheduled_date <= today.\n\nIf no batch is due yet, stop and report the next scheduled date.\n\nRun: python3 peacemakers-ai/scripts/run-weekly-batch.py --due-only --write-prompt\n\nOpen the generated prompt file in peacemakers-ai/scripts/small-business-articles/prompts/ and execute it fully:\n- Write batchN.py with full article content (same ARTICLES dict shape as batch1.py)\n- Mark the batch published in batch-schedule.json with today's date\n- Run: python3 peacemakers-ai/scripts/generate-small-business-blog-html.py\n- Update peacemakers-ai/sitemap.xml with new /blog/ai-for-small-business/ URLs\n- Update peacemakers-ai/resources.html hub cards for newly published posts\n- Deploy: cd peacemakers-ai && npx vercel deploy --prod --yes\n\nUse brief metadata from peacemakers-ai/scripts/small-business-articles/briefs.py.\nFollow all writing rules from the content cluster brief (1,200-1,800 words, mid CTAs, lead magnets, internal links, end CTA).\nVerify new URLs return HTTP 200 on www.peacemakersai.com before finishing."
-    ],
-    "model": "",
-    "agentOptions": {
-      "skipInstall": false
-    },
-    "memoryEnabled": true,
-    "gitConfig": {
-      "repo": "peacemakerwnc/peacemakers-ai-website",
-      "branch": "main"
-    }
-  }
+  "description": "Each Monday, publish the next scheduled AI for Small Business blog batch from pre-written batchN.py modules (batches 4–7 queued for Aug 10/17/24/31).",
+  "prompt": "Prefer the GitHub Action `.github/workflows/weekly-small-business-blog.yml`, which auto-publishes when `batchN.py` exists.\n\nIf running manually in Cursor:\n1. Read peacemakers-ai/scripts/small-business-articles/batch-schedule.json and find the next batch where status is not published and scheduled_date <= today.\n2. Confirm the batch module exists.\n3. Run: python3 peacemakers-ai/scripts/publish-due-batch.py --deploy\n4. Verify live URLs return HTTP 200.\n\nDo not invent credentials. If Vercel deploy fails, report the missing secret checklist."
 }

@@ -1,84 +1,71 @@
 # Weekly blog batch automation
 
-This repo publishes the **AI for Small Business** cluster in 7 weekly batches. Batch 1 is live; batches 2–7 are scheduled automatically.
+This repo publishes the **AI for Small Business** cluster in 7 weekly batches. Batches **1–3 are live**. Batches **4–7 are pre-written** and scheduled for the next four Mondays.
 
 ## Schedule
 
-| Batch | Date | Briefs | Status |
-|-------|------|--------|--------|
+| Batch | Publish Monday | Briefs | Status |
+|-------|----------------|--------|--------|
 | 1 | Jul 7, 2026 | 1, 8, 4, 25, 21 | Published |
-| 2 | Jul 14 | 5, 12, 17, 18, 22, 36 | Pending |
-| 3 | Jul 21 | 2, 7, 10, 14, 23, 28 | Pending |
-| 4 | Jul 28 | 6, 15, 39, 32, 35 | Pending |
-| 5 | Aug 4 | 9, 11, 24, 26, 33, 34, 38 | Pending |
-| 6 | Aug 11 | 3, 13, 20, 37, 30, 16, 27, 19, 29, 31 | Pending |
-| 7 | Aug 18 | Bonus 101–110 | Pending |
+| 2 | July 14 | 5, 12, 17, 18, 22, 36 | Published (2026-07-20) |
+| 3 | July 21 | 2, 7, 10, 14, 23, 28 | Published (2026-08-08) |
+| 4 | **Aug 10, 2026** | 6, 15, 39, 32, 35 | Pending (queued) |
+| 5 | **Aug 17, 2026** | 9, 11, 24, 26, 33, 34, 38 | Pending (queued) |
+| 6 | **Aug 24, 2026** | 3, 13, 20, 37, 30, 16, 27, 19, 29, 31 | Pending (queued) |
+| 7 | **Aug 31, 2026** | Bonus 101–110 | Pending (queued) |
 
 Source of truth: `peacemakers-ai/scripts/small-business-articles/batch-schedule.json`
 
-## Option A — Cursor Automation (fully hands-off)
+HTML is generated **only for published batches**, so queued modules stay offline until their Monday.
 
-**Import draft:** `peacemakers-ai/docs/cursor-automation-weekly-small-business-blog.json`  
-In Cursor → **Automations** → create new → paste/import the JSON fields below (or copy the prompt section).
-
-Create a **Cursor Automation** in the Automations editor:
-
-| Setting | Value |
-|---------|-------|
-| **Name** | Weekly AI for Small Business blog batch |
-| **Trigger** | Every week — Monday 9:00 AM (your local time) |
-| **Repo** | This repository (`peacemakers-ai` site lives in `peacemakers-ai/`) |
-
-**Agent instructions (paste into the automation prompt):**
-
-```
-Read peacemakers-ai/scripts/small-business-articles/batch-schedule.json and find the next batch where status is not "published" and scheduled_date <= today.
-
-Run: python3 peacemakers-ai/scripts/run-weekly-batch.py --write-prompt
-
-Open the generated prompt file in peacemakers-ai/scripts/small-business-articles/prompts/ and execute it fully:
-- Write batchN.py with full article content (same ARTICLES dict shape as batch1.py)
-- Mark the batch published in batch-schedule.json
-- Run python3 peacemakers-ai/scripts/generate-small-business-blog-html.py
-- Update peacemakers-ai/sitemap.xml with new /blog/ai-for-small-business/ URLs
-- Update peacemakers-ai/resources.html if new posts should appear in the hub cards
-- Deploy: cd peacemakers-ai && npx vercel deploy --prod --yes
-
-Use brief metadata from peacemakers-ai/scripts/small-business-articles/briefs.py.
-Follow all writing rules from the original content cluster brief (1,200–1,800 words, CTAs, lead magnets, internal links).
-Stop when the batch is live and URLs return HTTP 200.
-```
-
-## Option B — GitHub Actions reminder (already configured)
+## Automatic Monday publish (GitHub Actions)
 
 Workflow: `.github/workflows/weekly-small-business-blog.yml`
 
-Every Monday at 9:00 AM Eastern, GitHub opens an issue labeled `blog-batch` with the full agent prompt. Paste the issue body into Cursor Agent, or let a Cursor Automation read it.
+Every Monday at 9:00 AM Eastern the workflow:
 
-**One-time setup:** Create the label `blog-batch` in GitHub (Issues → Labels).
+1. Finds the next unpublished batch with `scheduled_date <= today`
+2. Confirms `batchN.py` exists
+3. Marks it published, regenerates HTML, updates `sitemap.xml` + resources count
+4. Deploys to Vercel production (when secrets are set)
+5. Commits the published artifacts back to `main`
+
+**Required GitHub secrets** (Settings → Secrets and variables → Actions):
+
+| Secret | Value |
+|--------|--------|
+| `VERCEL_TOKEN` | Vercel token with deploy access |
+| `VERCEL_ORG_ID` | `team_dIb4nfhx01tSybQ9270iqCRN` (from `.vercel/project.json`) |
+| `VERCEL_PROJECT_ID` | `prj_8KM9svAAdgkuoTiLUEiVo1xhMwfT` |
+| `VERCEL_SCOPE` | `peacemakers-ai` (optional; defaults in script) |
+
+**One-time:** create the `blog-batch` label (fallback issues if a module is missing).
 
 **Manual trigger:** Actions → Weekly Small Business Blog Batch → Run workflow.
 
-## Manual commands
+## Local publish commands
 
 ```bash
 # See which batch is due
 python3 peacemakers-ai/scripts/run-weekly-batch.py
 
-# Write the agent prompt file for the due batch
-python3 peacemakers-ai/scripts/run-weekly-batch.py --write-prompt
+# Dry-run the publisher
+python3 peacemakers-ai/scripts/publish-due-batch.py --dry-run
 
-# After an agent generates batch2.py (etc.)
-python3 peacemakers-ai/scripts/generate-small-business-blog-html.py
+# Publish due batch locally (no deploy)
+python3 peacemakers-ai/scripts/publish-due-batch.py
 
-# Mark a batch published (updates schedule + cluster index)
-python3 peacemakers-ai/scripts/run-weekly-batch.py --mark-published 2
+# Publish + deploy
+python3 peacemakers-ai/scripts/publish-due-batch.py --deploy
+
+# Force a specific batch
+python3 peacemakers-ai/scripts/publish-due-batch.py --force-batch 4 --deploy
 ```
 
 ## Files
 
 - `batch-schedule.json` — dates, status, brief IDs per batch
-- `briefs.py` — slug/title/keyword lookup for all 49 articles
-- `batch1.py` … `batch7.py` — article content modules (one per batch)
-- `prompts/batch-N-prompt.md` — auto-generated agent instructions
-- `generate-small-business-blog-html.py` — builds HTML + cluster index
+- `briefs.py` — slug/title/keyword lookup
+- `batch1.py` … `batch7.py` — article content modules
+- `publish-due-batch.py` — Monday publish pipeline
+- `generate-small-business-blog-html.py` — builds HTML for published batches only

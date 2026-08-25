@@ -7,71 +7,145 @@ on:
   workflow_dispatch:
     inputs:
       force_batch_id:
-        description: "Optional batch ID to generate (2-7). Leave empty for auto-detect."
+        description: "Optional batch ID to publish (4-7). Leave empty for auto-detect."
         required: false
         type: string
+      deploy:
+        description: "Deploy to Vercel production after generating HTML"
+        required: false
+        type: boolean
+        default: true
 
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 jobs:
-  queue-batch:
+  publish-batch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
       - name: Determine due batch
         id: batch
+        env:
+          FORCE_BATCH_ID: ${{ inputs.force_batch_id }}
         run: |
-          if ! python3 peacemakers-ai/scripts/run-weekly-batch.py --due-only --write-prompt --json > /tmp/batch.json 2>/tmp/batch.stderr; then
-            cat /tmp/batch.stderr
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if [ ! -s /tmp/batch.json ]; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          cat /tmp/batch.json
-          python3 -c "import json; b=json.load(open('/tmp/batch.json')); print('batch_id='+str(b['id'])); print('batch_name='+b['name']); print('scheduled='+b['scheduled_date']); print('status='+b.get('status','pending'))" >> "$GITHUB_OUTPUT"
-          echo "skip=false" >> "$GITHUB_OUTPUT"
+          python3 <<'PY'
+          import json
+          import os
+          from datetime import date
+          from pathlib import Path
 
-      - name: Skip if batch already published
+          schedule = json.loads(Path("peacemakers-ai/scripts/small-business-articles/batch-schedule.json").read_text())
+          force = os.environ.get("FORCE_BATCH_ID", "").strip()
+          today = date.today()
+          batch = None
+          if force:
+              batch = next((b for b in schedule["batches"] if b["id"] == int(force)), None)
+          else:
+              for b in schedule["batches"]:
+                  if b.get("status") == "published":
+                      continue
+                  if date.fromisoformat(b["scheduled_date"]) <= today:
+                      batch = b
+                      break
+
+          out = Path(os.environ["GITHUB_OUTPUT"])
+          if not batch:
+              out.write_text("skip=true\n", encoding="utf-8")
+              print("No due batch")
+              raise SystemExit(0)
+
+          module = batch.get("module", f"batch{batch['id']}.py")
+          module_path = Path("peacemakers-ai/scripts/small-business-articles") / module
+          lines = [
+              "skip=false",
+              f"batch_id={batch['id']}",
+              f"batch_name={batch['name']}",
+              f"scheduled={batch['scheduled_date']}",
+              f"status={batch.get('status', 'pending')}",
+              f"module={module}",
+              f"module_missing={'true' if not module_path.exists() else 'false'}",
+          ]
+          out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+          print(json.dumps(batch, indent=2))
+          PY
+
+      - name: Skip if nothing to publish
         if: steps.batch.outputs.skip == 'true' || steps.batch.outputs.status == 'published'
-        run: echo "No batch due this week."
+        run: echo "No unpublished due batch this week."
 
-      - name: Open GitHub issue with agent prompt
-        if: steps.batch.outputs.skip != 'true' && steps.batch.outputs.status != 'published'
+      - name: Open issue if article module is missing
+        if: >-
+          steps.batch.outputs.skip != 'true' &&
+          steps.batch.outputs.status != 'published' &&
+          steps.batch.outputs.module_missing == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          python3 peacemakers-ai/scripts/run-weekly-batch.py --write-prompt || true
           PROMPT_FILE="peacemakers-ai/scripts/small-business-articles/prompts/batch-${{ steps.batch.outputs.batch_id }}-prompt.md"
-          PROMPT_BODY=$(cat "$PROMPT_FILE")
+          BODY_FILE=/tmp/issue-body.md
+          {
+            echo "## Weekly AI for Small Business batch"
+            echo
+            echo "**Batch:** ${{ steps.batch.outputs.batch_id }} — ${{ steps.batch.outputs.batch_name }}"
+            echo "**Scheduled:** ${{ steps.batch.outputs.scheduled }}"
+            echo
+            echo "Content module \`${{ steps.batch.outputs.module }}\` is missing. Generate it in Cursor, then re-run this workflow."
+            echo
+            echo '```'
+            [ -f "$PROMPT_FILE" ] && cat "$PROMPT_FILE" || echo "Prompt file not found"
+            echo '```'
+          } > "$BODY_FILE"
           gh issue create \
-            --title "Blog batch ${{ steps.batch.outputs.batch_id }} due: ${{ steps.batch.outputs.batch_name }}" \
+            --title "Blog batch ${{ steps.batch.outputs.batch_id }} due (content missing): ${{ steps.batch.outputs.batch_name }}" \
             --label "blog-batch" \
-            --body "$(cat <<EOF
-          ## Weekly AI for Small Business batch
+            --body-file "$BODY_FILE" || true
 
-          **Batch:** ${{ steps.batch.outputs.batch_id }} — ${{ steps.batch.outputs.batch_name }}
-          **Scheduled:** ${{ steps.batch.outputs.scheduled }}
+      - name: Publish due batch (mark + HTML + sitemap)
+        if: >-
+          steps.batch.outputs.skip != 'true' &&
+          steps.batch.outputs.status != 'published' &&
+          steps.batch.outputs.module_missing == 'false'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_SCOPE: ${{ secrets.VERCEL_SCOPE }}
+          SHOULD_DEPLOY: ${{ inputs.deploy == true || github.event_name == 'schedule' }}
+        run: |
+          ARGS=(--force-batch "${{ steps.batch.outputs.batch_id }}")
+          if [ "$SHOULD_DEPLOY" = "true" ] && [ -n "$VERCEL_TOKEN" ]; then
+            export VERCEL_SCOPE="${VERCEL_SCOPE:-peacemakers-ai}"
+            python3 peacemakers-ai/scripts/publish-due-batch.py "${ARGS[@]}" --deploy
+          else
+            echo "Publishing content locally in the runner (deploy skipped or VERCEL_TOKEN missing)."
+            python3 peacemakers-ai/scripts/publish-due-batch.py "${ARGS[@]}"
+          fi
 
-          ### Action required
-
-          Run this in **Cursor Agent** (or a Cursor Automation on the same weekly schedule):
-
-          \`\`\`
-          $(cat "$PROMPT_FILE")
-          \`\`\`
-
-          ### After the agent finishes
-
-          - Verify live URLs on peacemakersai.com
-          - Close this issue
-
-          ---
-          _Auto-created by weekly-small-business-blog.yml_
-          EOF
-          )" || echo "Issue creation failed (label 'blog-batch' may need to be created once in GitHub)."
+      - name: Commit published site updates
+        if: >-
+          steps.batch.outputs.skip != 'true' &&
+          steps.batch.outputs.status != 'published' &&
+          steps.batch.outputs.module_missing == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add peacemakers-ai/scripts/small-business-articles/batch-schedule.json \
+                  peacemakers-ai/resources/ai-for-small-business \
+                  peacemakers-ai/sitemap.xml \
+                  peacemakers-ai/resources.html || true
+          if git diff --staged --quiet; then
+            echo "No file changes to commit"
+          else
+            git commit -m "Publish AI for Small Business blog batch ${{ steps.batch.outputs.batch_id }}"
+            git push
+          fi

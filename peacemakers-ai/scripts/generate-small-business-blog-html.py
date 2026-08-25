@@ -231,14 +231,30 @@ def write_index():
     print("Wrote", path)
 
 
+def published_batch_modules():
+    """Only emit HTML for batches marked published in the schedule."""
+    schedule_path = os.path.join(SB_DIR, "batch-schedule.json")
+    with open(schedule_path, encoding="utf-8") as f:
+        schedule = json.load(f)
+    modules = set()
+    for batch in schedule.get("batches", []):
+        if batch.get("status") == "published":
+            modules.add(batch.get("module", f"batch{batch['id']}.py"))
+    return modules
+
+
 def main():
     os.makedirs(BASE, exist_ok=True)
     # Refresh published slugs from schedule on each run
     catalog.PUBLISHED_SLUGS = catalog._load_published_slugs()
+    allowed_modules = published_batch_modules()
 
     articles_written = 0
     for filename in sorted(os.listdir(SB_DIR)):
         if not filename.startswith("batch") or not filename.endswith(".py"):
+            continue
+        if filename not in allowed_modules:
+            print(f"Skipping unpublished module {filename}")
             continue
         batch_path = os.path.join(SB_DIR, filename)
         mod_name = filename[:-3]
