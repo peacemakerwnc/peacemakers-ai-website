@@ -22,14 +22,17 @@
     });
   </script>
   <!-- End Google Tag Manager -->
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GTQ5YNER7P"></script>
+  <!-- Google tag (gtag.js) — deferred for mobile performance -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-GTQ5YNER7P');
+    window.addEventListener('load', function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GTQ5YNER7P';
+      s.onload = function () { gtag('js', new Date()); gtag('config', 'G-GTQ5YNER7P'); };
+      document.head.appendChild(s);
+    });
   </script>
   <script>
     window.addEventListener('load',function(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgrv405eqy");});
@@ -206,8 +209,7 @@
   </head>
   <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5L8TPDF"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe class="gtm-noscript-iframe" src="https://www.googletagmanager.com/ns.html?id=GTM-M5L8TPDF" height="0" width="0" title=""></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
     <a class="skip-link" href="#main">Skip to main content</a>
@@ -242,9 +244,10 @@
           </ul>
           <a
             class="btn btn-primary btn-small"
-            href="contact.html"
-            data-track="contact_cta"
-            >Contact Peacemakers AI</a
+            href="https://calendly.com/james-peacemakersai"
+            data-intro-calendly-link
+            data-track="intro_cta"
+            >Book a 15-minute intro</a
           >
         </nav>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
@@ -279,18 +282,17 @@
             States improve operations with practical recommendations and measurable next steps.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#lead-intake">Get an AI Opportunity Review</a>
-            <a class="btn btn-ghost" href="#how-it-works">See How It Works</a>
+            <a
+              class="btn btn-primary"
+              href="https://calendly.com/james-peacemakersai"
+              data-intro-calendly-link
+              >Book a 15-minute intro</a
+            >
+            <a class="btn btn-ghost" href="scorecard.html">Take the Free Scorecard</a>
           </div>
           <p class="hero-secondary-microcopy">
-            Have questions first? This short call is for fit, process, and next steps — not a free consulting session.
+            This short call is for fit, process, and next steps — not a free consulting session.
           </p>
-          <a
-            class="hero-text-link"
-            href="https://calendly.com/james-peacemakersai"
-            data-intro-calendly-link
-            >Book a 15-minute intro call</a
-          >
         </div>
       </section>
 
@@ -298,8 +300,9 @@
         <div class="container">
           <h2 id="problem-title">What Peacemakers AI Does</h2>
           <p class="section-intro">
-            We help service businesses cut through AI noise. Instead of adding more tools, we review your workflows,
-            find where time is wasted, and build a practical plan for automation.
+            We help service businesses cut through AI noise with consulting that focuses on workflow clarity—not hype.
+            Instead of adding more tools, we review how work happens, find where time is wasted, and build a practical
+            plan for what to improve first.
           </p>
           <div class="grid-3">
             <article class="card">
@@ -338,16 +341,16 @@
       </section>
 
       <section class="section section-alt reveal" id="scorecard" aria-labelledby="scorecard-title">
-        <div class="container narrow">
+        <div class="container">
           <h2 id="scorecard-title">How the AI Opportunity Review Works</h2>
           <p class="cta-sub">
             Not ready for a full plan? Start with our free scorecard. It is a quick way to see where automation may
             create the most value in your business.
           </p>
           <p class="intro-cta-copy">
-            The <a class="hero-text-link" href="scorecard.html">free scorecard</a> works like an automation readiness
-            review. Answer a few questions about your workflows, tools, follow-up, reporting, and team capacity. Then
-            you will see where to start before investing in more software.
+            The <a class="hero-text-link" href="scorecard.html">Free AI Opportunity Scorecard</a> works as a quick
+            AI readiness assessment and AI opportunity assessment. Answer a few questions about your workflows, tools,
+            follow-up, reporting, and team capacity. Then you will see where to start before investing in more software.
           </p>
           <a class="btn btn-ghost" href="scorecard.html">Take the Free Scorecard</a>
         </div>
@@ -383,7 +386,12 @@
                 with the free scorecard and a short intro call, then move to the paid Blueprint when they are ready.
               </p>
               <div class="cta-stack cta-stack-left">
-                <a class="btn btn-primary" href="#lead-intake">Request an Opportunity Review</a>
+                <a
+                  class="btn btn-primary"
+                  href="https://calendly.com/james-peacemakersai"
+                  data-intro-calendly-link
+                  >Book a 15-minute intro</a
+                >
                 <a class="btn btn-ghost" href="scorecard.html">Take the Free Scorecard</a>
               </div>
             </article>
@@ -415,7 +423,7 @@
               <h3><a class="section-title-link" href="blueprint.html">AI Opportunity Blueprint</a></h3>
               <p>A full diagnostic and recommendation engagement: understand the work, prioritize next steps, and decide what—if anything—should move into implementation.</p>
               <p class="stage-price">$3,500</p>
-              <a class="btn btn-primary" href="#lead-intake">Request an Opportunity Review</a>
+              <a class="btn btn-primary" href="https://calendly.com/james-peacemakersai" data-intro-calendly-link>Book a 15-minute intro</a>
             </article>
             <article class="card">
               <p class="stage-kicker">Implementation</p>
@@ -529,7 +537,11 @@
           <h2 id="story-title">Based in Asheville, Serving Businesses Nationwide</h2>
           <p>
             Peacemakers AI is based in Asheville, North Carolina. We work with service businesses across the United
-            States that want practical automation—not hype.
+            States that want practical automation—not hype. See
+            <a class="hero-text-link" href="ai-consulting-asheville-nc.html">AI consulting in Asheville, NC</a>
+            or our
+            <a class="hero-text-link" href="ai-consulting-for-service-businesses.html">nationwide service-business consulting</a>
+            overview.
           </p>
           <p>
             Most owners do not need another person pushing the newest AI tool. They need someone to understand how the
@@ -602,10 +614,13 @@
           <h2 id="industry-solutions-title">Who We Help</h2>
           <p class="section-intro">
             Industry pages outline practical opportunities—including business process automation consulting—for the
-            teams we serve most often.
+            teams we serve most often. Explore our
+            <a class="hero-text-link" href="resources.html">AI resources library</a> or
+            <a class="hero-text-link" href="security.html">security approach</a>.
           </p>
           <div class="grid-3">
             <a class="card industry-link-card" href="ai-for-home-service-businesses.html">Home Services</a>
+            <a class="card industry-link-card" href="local-service-ai-audit.html">Local service checklist</a>
             <a class="card industry-link-card" href="ai-for-accounting-firms.html">Accounting Firms</a>
             <a class="card industry-link-card" href="ai-for-law-firms.html">Law Firms</a>
             <a class="card industry-link-card" href="/services/ai-strategy-nonprofits">Nonprofits</a>
@@ -720,7 +735,12 @@
             goals.
           </p>
           <div class="cta-stack">
-            <a class="btn btn-primary" href="#lead-intake">Get an AI Opportunity Review</a>
+            <a
+              class="btn btn-primary"
+              href="https://calendly.com/james-peacemakersai"
+              data-intro-calendly-link
+              >Book a 15-minute intro</a
+            >
             <a class="btn btn-ghost" href="scorecard.html">Take the Free Scorecard</a>
             <a class="btn btn-secondary" href="contact.html">Contact Peacemakers AI</a>
           </div>
@@ -755,7 +775,7 @@
             <p class="footer-business-tagline">Practical Process &amp; AI Guidance for Service Businesses</p>
             <p class="footer-service-area">Based in Asheville, North Carolina | Serving clients nationwide</p>
             <p class="footer-nap">
-              Phone: [TODO: INSERT REAL BUSINESS PHONE IN E.164 FORMAT]<br />
+              <a href="mailto:james@peacemakersai.com">james@peacemakersai.com</a><br />
               <a href="contact.html">Contact Peacemakers AI</a>
             </p>
           </div>
@@ -764,9 +784,8 @@
           </p>
           <p>
             <a class="footer-domain" href="ai-consulting-asheville-nc.html"
-              >View Peacemakers AI on Google — Asheville, NC</a
+              >AI consulting in Asheville, NC</a
             >
-            <!-- Google Business Profile: [INSERT GOOGLE BUSINESS PROFILE OR GOOGLE MAPS URL] -->
           </p>
         </div>
         <div>
@@ -779,6 +798,7 @@
         </div>
         <div>
           <h3>Get Started</h3>
+          <p><a class="footer-domain" href="https://calendly.com/james-peacemakersai" data-intro-calendly-link>Book a 15-minute intro</a></p>
           <p><a class="footer-domain" href="scorecard.html">Free AI Opportunity Scorecard</a></p>
           <p><a class="footer-domain" href="blueprint.html">AI Opportunity Blueprint</a></p>
           <p><a class="footer-domain" href="resources.html">Resources</a></p>
