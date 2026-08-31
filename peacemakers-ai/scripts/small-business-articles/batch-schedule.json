@@ -121,8 +121,9 @@
         110
       ],
       "scheduled_date": "2026-08-31",
-      "status": "pending",
-      "module": "batch7.py"
+      "status": "published",
+      "module": "batch7.py",
+      "published_date": "2026-08-31"
     }
   ]
 }
