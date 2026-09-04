@@ -145,11 +145,64 @@
   function wireBlueprintStack() {
     var stack = document.querySelector("[data-blueprint-stack]");
     if (!stack) return;
+
+    var layersRoot = stack.querySelector(".blueprint-layers");
+    var legend = stack.querySelector("[data-blueprint-legend]");
+    var legendItems = legend ? legend.querySelectorAll(".blueprint-legend-item[data-legend]") : [];
+    var layerNodes = stack.querySelectorAll(".blueprint-layer[data-layer]");
+
+    function clearLegendOffsets() {
+      legendItems.forEach(function (item) {
+        item.style.removeProperty("--legend-y");
+      });
+    }
+
+    function layerRightTipY(layer, stackRect) {
+      var pins = layer.querySelectorAll("[data-layer-pin]");
+      var best = null;
+      pins.forEach(function (pin) {
+        var rect = pin.getBoundingClientRect();
+        var midX = rect.left + rect.width / 2;
+        var midY = rect.top + rect.height / 2;
+        if (!best || midX > best.x) {
+          best = { x: midX, y: midY };
+        }
+      });
+      if (best) return best.y - stackRect.top;
+
+      var layerRect = layer.getBoundingClientRect();
+      return layerRect.top + layerRect.height * 0.2 - stackRect.top;
+    }
+
+    function alignLegendToLayers() {
+      if (!legend || !legendItems.length || !layerNodes.length) return;
+      if (window.matchMedia("(max-width: 920px)").matches) {
+        clearLegendOffsets();
+        return;
+      }
+
+      var stackRect = stack.getBoundingClientRect();
+      if (!stackRect.height) return;
+
+      layerNodes.forEach(function (layer) {
+        var step = layer.getAttribute("data-layer");
+        var item = legend.querySelector('.blueprint-legend-item[data-legend="' + step + '"]');
+        if (!item) return;
+        var yPx = layerRightTipY(layer, stackRect);
+        var y = (yPx / stackRect.height) * 100;
+        item.style.setProperty("--legend-y", y.toFixed(3) + "%");
+      });
+    }
+
+    alignLegendToLayers();
+    window.addEventListener("resize", alignLegendToLayers);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(alignLegendToLayers).catch(function () {});
+    }
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
-
-    var layers = stack.querySelector(".blueprint-layers");
-    if (!layers) return;
+    if (!layersRoot) return;
 
     var frame = 0;
     var targetX = 0;
@@ -157,8 +210,9 @@
 
     var render = function () {
       frame = 0;
-      layers.style.setProperty("--mx", String(targetX.toFixed(3)));
-      layers.style.setProperty("--my", String(targetY.toFixed(3)));
+      layersRoot.style.setProperty("--mx", String(targetX.toFixed(3)));
+      layersRoot.style.setProperty("--my", String(targetY.toFixed(3)));
+      alignLegendToLayers();
     };
 
     stack.addEventListener("pointermove", function (event) {
