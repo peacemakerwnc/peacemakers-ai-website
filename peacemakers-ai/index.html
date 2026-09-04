@@ -284,7 +284,12 @@
               <span class="blueprint-coord blueprint-coord-tl">00.00</span>
               <span class="blueprint-coord blueprint-coord-br">80.00</span>
               <div class="blueprint-layers">
-                <div class="blueprint-layer" style="--z: 0; --i: 0">
+                <!-- Bottom → top: 05 Impact through 01 Clarity -->
+                <div class="blueprint-layer" data-layer="5" style="--z: 0; --i: 0">
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tl"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tr"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="br"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="bl"></span>
                   <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
                     <rect x="24" y="28" width="110" height="54" rx="2" fill="none" stroke="#4D86FF" stroke-opacity="0.45"/>
                     <rect x="168" y="40" width="120" height="90" rx="2" fill="none" stroke="#4D86FF" stroke-opacity="0.35"/>
@@ -294,7 +299,11 @@
                     <path d="M40 160h240M40 172h160" stroke="#4D86FF" stroke-opacity="0.25"/>
                   </svg>
                 </div>
-                <div class="blueprint-layer" style="--z: 28; --i: 1">
+                <div class="blueprint-layer" data-layer="4" style="--z: 90; --i: 1">
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tl"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tr"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="br"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="bl"></span>
                   <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
                     <path d="M36 150c40-70 80-90 120-90s80 20 120 90" fill="none" stroke="#4D86FF" stroke-opacity="0.4"/>
                     <circle cx="96" cy="88" r="5" fill="none" stroke="#246BFD"/>
@@ -305,7 +314,11 @@
                     <rect x="208" y="130" width="64" height="28" rx="2" fill="none" stroke="#4D86FF" stroke-opacity="0.35"/>
                   </svg>
                 </div>
-                <div class="blueprint-layer" style="--z: 56; --i: 2">
+                <div class="blueprint-layer" data-layer="3" style="--z: 180; --i: 2">
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tl"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tr"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="br"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="bl"></span>
                   <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
                     <rect x="40" y="36" width="70" height="44" rx="2" fill="none" stroke="#4D86FF" stroke-opacity="0.4"/>
                     <rect x="125" y="36" width="70" height="44" rx="2" fill="none" stroke="#4D86FF" stroke-opacity="0.4"/>
@@ -317,7 +330,11 @@
                     <path d="M40 168h240" stroke="#4D86FF" stroke-opacity="0.2"/>
                   </svg>
                 </div>
-                <div class="blueprint-layer" style="--z: 84; --i: 3">
+                <div class="blueprint-layer" data-layer="2" style="--z: 270; --i: 3">
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tl"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tr"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="br"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="bl"></span>
                   <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
                     <rect x="50" y="48" width="220" height="104" rx="3" fill="none" stroke="#4D86FF" stroke-opacity="0.35"/>
                     <path d="M70 78h80M70 98h140M70 118h100" stroke="#4D86FF" stroke-opacity="0.35"/>
@@ -325,7 +342,11 @@
                     <path d="M220 86v28M206 100h28" stroke="#246BFD" stroke-opacity="0.7"/>
                   </svg>
                 </div>
-                <div class="blueprint-layer" style="--z: 112; --i: 4">
+                <div class="blueprint-layer" data-layer="1" style="--z: 360; --i: 4">
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tl"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="tr"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="br"></span>
+                  <span class="blueprint-layer-pin" data-layer-pin data-corner="bl"></span>
                   <div class="blueprint-layer-glow"></div>
                   <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
                     <circle cx="160" cy="96" r="18" fill="#246BFD" fill-opacity="0.35" stroke="#4D86FF"/>
@@ -335,24 +356,24 @@
                   </svg>
                 </div>
               </div>
-              <ol class="blueprint-legend">
-                <li class="blueprint-legend-item">
+              <ol class="blueprint-legend" data-blueprint-legend>
+                <li class="blueprint-legend-item" data-legend="1">
                   <span class="blueprint-legend-num">01</span>
                   <span class="blueprint-legend-copy"><strong>Clarity</strong><span>See the real opportunities.</span></span>
                 </li>
-                <li class="blueprint-legend-item">
+                <li class="blueprint-legend-item" data-legend="2">
                   <span class="blueprint-legend-num">02</span>
                   <span class="blueprint-legend-copy"><strong>Direction</strong><span>Design a focused, practical plan.</span></span>
                 </li>
-                <li class="blueprint-legend-item">
+                <li class="blueprint-legend-item" data-legend="3">
                   <span class="blueprint-legend-num">03</span>
                   <span class="blueprint-legend-copy"><strong>Solution</strong><span>Build the right systems and AI.</span></span>
                 </li>
-                <li class="blueprint-legend-item">
+                <li class="blueprint-legend-item" data-legend="4">
                   <span class="blueprint-legend-num">04</span>
                   <span class="blueprint-legend-copy"><strong>Adoption</strong><span>Equip your team and embed change.</span></span>
                 </li>
-                <li class="blueprint-legend-item">
+                <li class="blueprint-legend-item" data-legend="5">
                   <span class="blueprint-legend-num">05</span>
                   <span class="blueprint-legend-copy"><strong>Impact</strong><span>Measure, learn, and compound.</span></span>
                 </li>
