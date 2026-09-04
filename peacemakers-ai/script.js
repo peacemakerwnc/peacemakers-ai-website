@@ -112,6 +112,18 @@
   var nav = document.getElementById("site-nav");
   var themeToggle = document.getElementById("theme-toggle");
 
+  if (header) {
+    var syncHeaderScroll = function () {
+      if (window.scrollY > 12) {
+        header.classList.add("is-scrolled");
+      } else {
+        header.classList.remove("is-scrolled");
+      }
+    };
+    syncHeaderScroll();
+    window.addEventListener("scroll", syncHeaderScroll, { passive: true });
+  }
+
   if (navToggle && header) {
     navToggle.addEventListener("click", function () {
       var open = header.classList.toggle("nav-open");
@@ -130,6 +142,46 @@
     }
   }
 
+  function wireBlueprintStack() {
+    var stack = document.querySelector("[data-blueprint-stack]");
+    if (!stack) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    var layers = stack.querySelector(".blueprint-layers");
+    if (!layers) return;
+
+    var frame = 0;
+    var targetX = 0;
+    var targetY = 0;
+
+    var render = function () {
+      frame = 0;
+      layers.style.setProperty("--mx", String(targetX.toFixed(3)));
+      layers.style.setProperty("--my", String(targetY.toFixed(3)));
+    };
+
+    stack.addEventListener("pointermove", function (event) {
+      var rect = stack.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      if (!frame) {
+        frame = window.requestAnimationFrame(render);
+      }
+    });
+
+    stack.addEventListener("pointerleave", function () {
+      targetX = 0;
+      targetY = 0;
+      if (!frame) {
+        frame = window.requestAnimationFrame(render);
+      }
+    });
+  }
+
+  wireBlueprintStack();
+
   if (themeToggle) {
     var modes = ["system", "light", "dark"];
     themeToggle.addEventListener("click", function () {
@@ -141,8 +193,78 @@
       } else {
         doc.setAttribute("data-theme", next);
       }
+      syncPreferredSourceTheme();
     });
   }
+
+  var PREFERRED_SOURCE_DOMAIN = "peacemakersai.com";
+  var PREFERRED_SOURCE_DEEPLINK =
+    "https://www.google.com/preferences/source?q=" + PREFERRED_SOURCE_DOMAIN;
+
+  function preferredSourceTheme() {
+    var theme = doc.getAttribute("data-theme");
+    if (theme === "dark") return "dark";
+    if (theme === "light") return "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  function syncPreferredSourceTheme() {
+    var btn = document.querySelector("[google-add-preferred-source-btn]");
+    if (btn) {
+      btn.setAttribute("data-theme", preferredSourceTheme());
+    }
+  }
+
+  function trackPreferredSourceClick(source) {
+    if (typeof gtag === "function") {
+      gtag("event", "preferred_source_click", {
+        event_category: "engagement",
+        event_label: source,
+      });
+    }
+  }
+
+  function wirePreferredSourceButton() {
+    var footer = document.querySelector(".site-footer");
+    if (!footer || footer.querySelector(".preferred-source-wrap")) return;
+
+    var wrap = document.createElement("div");
+    wrap.className = "container preferred-source-wrap";
+
+    var btn = document.createElement("div");
+    btn.setAttribute("google-add-preferred-source-btn", "");
+    btn.setAttribute("data-theme", preferredSourceTheme());
+    btn.setAttribute("data-lang", "en");
+    wrap.appendChild(btn);
+
+    var fallback = document.createElement("p");
+    fallback.className = "preferred-source-fallback";
+    var link = document.createElement("a");
+    link.href = PREFERRED_SOURCE_DEEPLINK;
+    link.rel = "noopener noreferrer";
+    link.textContent = "Add Peacemakers AI as a Preferred Source on Google";
+    link.addEventListener("click", function () {
+      trackPreferredSourceClick("deeplink");
+    });
+    fallback.appendChild(link);
+    wrap.appendChild(fallback);
+
+    var tagline = footer.querySelector(".footer-tagline");
+    if (tagline) {
+      footer.insertBefore(wrap, tagline);
+    } else {
+      footer.appendChild(wrap);
+    }
+
+    if (!document.querySelector('script[src*="news.google.com/swg/js/v1/publisher.js"]')) {
+      var script = document.createElement("script");
+      script.async = true;
+      script.src = "https://news.google.com/swg/js/v1/publisher.js";
+      document.head.appendChild(script);
+    }
+  }
+
+  wirePreferredSourceButton();
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var revealElements = document.querySelectorAll(".reveal");
@@ -520,6 +642,51 @@
   wireLeadMagnetForms();
   wireLeadForms();
   wireScorecardForm();
+
+  function wireContactForms() {
+    var forms = document.querySelectorAll(".contact-form");
+    forms.forEach(function (form) {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var statusEl = form.querySelector("[data-form-status]");
+        var name = form.querySelector('[name="full_name"]');
+        var email = form.querySelector('[name="email"]');
+        var message = form.querySelector('[name="message"]');
+        if (!name || !name.value.trim() || !email || !email.value.trim() || !message || message.value.trim().length < 12) {
+          if (statusEl) statusEl.textContent = "Please complete all required fields (message: 12+ characters).";
+          return;
+        }
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
+        fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+          .then(function (res) {
+            if (!res.ok) throw new Error("fail");
+            form.reset();
+            if (statusEl) {
+              statusEl.textContent = "Thanks — your message was received. We will reply within a business day or two.";
+              statusEl.classList.add("success");
+            }
+          })
+          .catch(function () {
+            if (statusEl) statusEl.textContent = "Something went wrong. Please use the Email us button above.";
+          })
+          .finally(function () {
+            if (btn) btn.disabled = false;
+          });
+      });
+    });
+  }
+
+  wireContactForms();
+
+  // Meta / Facebook Pixel — disabled by default until consent + pixel ID are configured.
+  // TODO: Set NEXT_PUBLIC_META_PIXEL_ID (or data-meta-pixel-id on <html>) and enable marketing
+  // cookies through a consent mechanism before loading. Example:
+  // function loadMetaPixel(pixelId) {
+  //   if (!pixelId || !hasMarketingConsent()) return;
+  //   /* standard Meta Pixel bootstrap — PageView only */
+  // }
+  // function trackMetaLead() { /* call only with explicit product/legal approval */ }
 
   // FORMSPREE SETUP (manual step required)
   // 1) Go to https://formspree.io and sign up or log in.
