@@ -1,13 +1,16 @@
-name: Weekly Small Business Blog Batch
+name: Every-Other-Day Small Business Blog Article
 
 on:
   schedule:
-    # Mondays 9:00 AM US Eastern (14:00 UTC during EDT)
-    - cron: "0 14 * * 1"
+    # Every day at 9:00 AM US Eastern (13:00 UTC EST / 14:00 UTC EDT).
+    # Publisher only emits when an unpublished article has scheduled_date <= today
+    # Continuity = every other day; Implementation Tool Stack = weekly Mondays from Oct 5, 2026.
+    # Cadence lives in batch-schedule.json articles[]. Publisher no-ops when nothing is due.
+    - cron: "0 14 * * *"
   workflow_dispatch:
     inputs:
-      force_batch_id:
-        description: "Optional batch ID to publish (4-7). Leave empty for auto-detect."
+      force_slug:
+        description: "Optional article slug to publish. Leave empty for auto-detect."
         required: false
         type: string
       deploy:
@@ -21,7 +24,7 @@ permissions:
   issues: write
 
 jobs:
-  publish-batch:
+  publish-article:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,10 +35,10 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Determine due batch
-        id: batch
+      - name: Determine due article
+        id: article
         env:
-          FORCE_BATCH_ID: ${{ inputs.force_batch_id }}
+          FORCE_SLUG: ${{ inputs.force_slug }}
         run: |
           python3 <<'PY'
           import json
@@ -44,77 +47,71 @@ jobs:
           from pathlib import Path
 
           schedule = json.loads(Path("peacemakers-ai/scripts/small-business-articles/batch-schedule.json").read_text())
-          force = os.environ.get("FORCE_BATCH_ID", "").strip()
+          force = os.environ.get("FORCE_SLUG", "").strip()
           today = date.today()
-          batch = None
+          art = None
+          articles = schedule.get("articles") or []
           if force:
-              batch = next((b for b in schedule["batches"] if b["id"] == int(force)), None)
+              art = next((a for a in articles if a["slug"] == force), None)
           else:
-              for b in schedule["batches"]:
-                  if b.get("status") == "published":
+              for a in articles:
+                  if a.get("status") == "published":
                       continue
-                  if date.fromisoformat(b["scheduled_date"]) <= today:
-                      batch = b
+                  if date.fromisoformat(a["scheduled_date"]) <= today:
+                      art = a
                       break
 
           out = Path(os.environ["GITHUB_OUTPUT"])
-          if not batch:
+          if not art:
               out.write_text("skip=true\n", encoding="utf-8")
-              print("No due batch")
+              print("No due article")
               raise SystemExit(0)
 
-          module = batch.get("module", f"batch{batch['id']}.py")
+          module = art.get("module", "")
           module_path = Path("peacemakers-ai/scripts/small-business-articles") / module
           lines = [
               "skip=false",
-              f"batch_id={batch['id']}",
-              f"batch_name={batch['name']}",
-              f"scheduled={batch['scheduled_date']}",
-              f"status={batch.get('status', 'pending')}",
+              f"slug={art['slug']}",
+              f"scheduled={art['scheduled_date']}",
+              f"status={art.get('status', 'pending')}",
               f"module={module}",
               f"module_missing={'true' if not module_path.exists() else 'false'}",
           ]
           out.write_text("\n".join(lines) + "\n", encoding="utf-8")
-          print(json.dumps(batch, indent=2))
+          print(json.dumps(art, indent=2))
           PY
 
       - name: Skip if nothing to publish
-        if: steps.batch.outputs.skip == 'true' || steps.batch.outputs.status == 'published'
-        run: echo "No unpublished due batch this week."
+        if: steps.article.outputs.skip == 'true' || steps.article.outputs.status == 'published'
+        run: echo "No unpublished due article today."
 
       - name: Open issue if article module is missing
         if: >-
-          steps.batch.outputs.skip != 'true' &&
-          steps.batch.outputs.status != 'published' &&
-          steps.batch.outputs.module_missing == 'true'
+          steps.article.outputs.skip != 'true' &&
+          steps.article.outputs.status != 'published' &&
+          steps.article.outputs.module_missing == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          python3 peacemakers-ai/scripts/run-weekly-batch.py --write-prompt || true
-          PROMPT_FILE="peacemakers-ai/scripts/small-business-articles/prompts/batch-${{ steps.batch.outputs.batch_id }}-prompt.md"
           BODY_FILE=/tmp/issue-body.md
           {
-            echo "## Weekly AI for Small Business batch"
+            echo "## Every-other-day AI for Small Business article"
             echo
-            echo "**Batch:** ${{ steps.batch.outputs.batch_id }} — ${{ steps.batch.outputs.batch_name }}"
-            echo "**Scheduled:** ${{ steps.batch.outputs.scheduled }}"
+            echo "**Slug:** \`${{ steps.article.outputs.slug }}\`"
+            echo "**Scheduled:** ${{ steps.article.outputs.scheduled }}"
             echo
-            echo "Content module \`${{ steps.batch.outputs.module }}\` is missing. Generate it in Cursor, then re-run this workflow."
-            echo
-            echo '```'
-            [ -f "$PROMPT_FILE" ] && cat "$PROMPT_FILE" || echo "Prompt file not found"
-            echo '```'
+            echo "Content module \`${{ steps.article.outputs.module }}\` is missing."
           } > "$BODY_FILE"
           gh issue create \
-            --title "Blog batch ${{ steps.batch.outputs.batch_id }} due (content missing): ${{ steps.batch.outputs.batch_name }}" \
+            --title "Blog article due (content missing): ${{ steps.article.outputs.slug }}" \
             --label "blog-batch" \
             --body-file "$BODY_FILE" || true
 
-      - name: Publish due batch (mark + HTML + sitemap)
+      - name: Publish due article (mark + HTML + sitemap)
         if: >-
-          steps.batch.outputs.skip != 'true' &&
-          steps.batch.outputs.status != 'published' &&
-          steps.batch.outputs.module_missing == 'false'
+          steps.article.outputs.skip != 'true' &&
+          steps.article.outputs.status != 'published' &&
+          steps.article.outputs.module_missing == 'false'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -122,7 +119,7 @@ jobs:
           VERCEL_SCOPE: ${{ secrets.VERCEL_SCOPE }}
           SHOULD_DEPLOY: ${{ inputs.deploy == true || github.event_name == 'schedule' }}
         run: |
-          ARGS=(--force-batch "${{ steps.batch.outputs.batch_id }}")
+          ARGS=(--force-slug "${{ steps.article.outputs.slug }}")
           if [ "$SHOULD_DEPLOY" = "true" ] && [ -n "$VERCEL_TOKEN" ]; then
             export VERCEL_SCOPE="${VERCEL_SCOPE:-peacemakers-ai}"
             python3 peacemakers-ai/scripts/publish-due-batch.py "${ARGS[@]}" --deploy
@@ -133,9 +130,9 @@ jobs:
 
       - name: Commit published site updates
         if: >-
-          steps.batch.outputs.skip != 'true' &&
-          steps.batch.outputs.status != 'published' &&
-          steps.batch.outputs.module_missing == 'false'
+          steps.article.outputs.skip != 'true' &&
+          steps.article.outputs.status != 'published' &&
+          steps.article.outputs.module_missing == 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -146,6 +143,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No file changes to commit"
           else
-            git commit -m "Publish AI for Small Business blog batch ${{ steps.batch.outputs.batch_id }}"
+            git commit -m "Publish AI for Small Business article ${{ steps.article.outputs.slug }}"
             git push
           fi

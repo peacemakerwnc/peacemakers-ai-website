@@ -1,5 +1,5 @@
 {
-  "name": "Weekly AI for Small Business blog batch",
-  "description": "Each Monday, publish the next scheduled AI for Small Business blog batch from pre-written batchN.py modules (batches 4–7 queued for Aug 10/17/24/31).",
-  "prompt": "Prefer the GitHub Action `.github/workflows/weekly-small-business-blog.yml`, which auto-publishes when `batchN.py` exists.\n\nIf running manually in Cursor:\n1. Read peacemakers-ai/scripts/small-business-articles/batch-schedule.json and find the next batch where status is not published and scheduled_date <= today.\n2. Confirm the batch module exists.\n3. Run: python3 peacemakers-ai/scripts/publish-due-batch.py --deploy\n4. Verify live URLs return HTTP 200.\n\nDo not invent credentials. If Vercel deploy fails, report the missing secret checklist."
+  "name": "AI for Small Business article publisher",
+  "description": "Daily check: publish the next due AI for Small Business article. Continuity posts are every other day; Implementation Tool Stack posts publish weekly on Mondays starting October 5, 2026 through March 15, 2027.",
+  "prompt": "Prefer the GitHub Action `.github/workflows/weekly-small-business-blog.yml`, which auto-publishes when the article module exists.\n\nIf running manually in Cursor:\n1. Read peacemakers-ai/scripts/small-business-articles/batch-schedule.json and find the next articles[] entry where status is not published and scheduled_date <= today.\n2. Confirm the module exists (batch7–11).\n3. Run: python3 peacemakers-ai/scripts/publish-due-batch.py --deploy\n4. Verify live URL returns HTTP 200.\n\nDo not invent credentials. If Vercel deploy fails, report the missing secret checklist."
 }

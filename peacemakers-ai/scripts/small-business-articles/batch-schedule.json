@@ -1,6 +1,6 @@
 {
   "cluster": "ai-for-small-business",
-  "cadence_days": 7,
+  "cadence_days": 2,
   "timezone": "America/New_York",
   "start_date": "2026-07-07",
   "service_url": "/services/ai-strategy-small-business",
@@ -121,8 +121,567 @@
         110
       ],
       "scheduled_date": "2026-08-31",
-      "status": "pending",
-      "module": "batch7.py"
+      "status": "queued_as_articles",
+      "module": "batch7.py",
+      "note": "Articles scheduled individually in articles[] every other day"
     }
-  ]
+  ],
+  "publish_mode": "every_other_day_article",
+  "article_queue_start": "2026-09-23",
+  "articles": [
+    {
+      "brief": 101,
+      "slug": "ai-for-inventory-management-and-forecasting",
+      "module": "batch7.py",
+      "scheduled_date": "2026-09-23",
+      "status": "published",
+      "published_date": "2026-09-22"
+    },
+    {
+      "brief": 102,
+      "slug": "ai-for-invoice-and-payment-processing",
+      "module": "batch7.py",
+      "scheduled_date": "2026-09-25",
+      "status": "pending"
+    },
+    {
+      "brief": 103,
+      "slug": "ai-powered-business-proposal-generation",
+      "module": "batch7.py",
+      "scheduled_date": "2026-09-27",
+      "status": "pending"
+    },
+    {
+      "brief": 104,
+      "slug": "how-ai-improves-employee-productivity",
+      "module": "batch7.py",
+      "scheduled_date": "2026-09-29",
+      "status": "pending"
+    },
+    {
+      "brief": 105,
+      "slug": "ai-tools-for-market-research-and-competitor-analysis",
+      "module": "batch7.py",
+      "scheduled_date": "2026-10-01",
+      "status": "pending"
+    },
+    {
+      "brief": 106,
+      "slug": "compliance-and-legal-considerations-for-ai-in-small-business",
+      "module": "batch7.py",
+      "scheduled_date": "2026-10-03",
+      "status": "pending"
+    },
+    {
+      "brief": 107,
+      "slug": "ai-for-personalized-marketing-campaigns",
+      "module": "batch7.py",
+      "scheduled_date": "2026-10-06",
+      "status": "pending"
+    },
+    {
+      "brief": 108,
+      "slug": "scaling-ai-solutions-as-your-business-grows",
+      "module": "batch7.py",
+      "scheduled_date": "2026-10-07",
+      "status": "pending"
+    },
+    {
+      "brief": 109,
+      "slug": "integration-of-ai-with-existing-business-software",
+      "module": "batch7.py",
+      "scheduled_date": "2026-10-09",
+      "status": "pending"
+    },
+    {
+      "brief": 110,
+      "slug": "industry-specific-ai-solutions-retail-services-ecommerce",
+      "module": "batch7.py",
+      "scheduled_date": "2026-10-11",
+      "status": "pending"
+    },
+    {
+      "brief": 201,
+      "slug": "chatgpt-for-small-business-owners",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-13",
+      "status": "pending"
+    },
+    {
+      "brief": 202,
+      "slug": "ai-for-google-business-reviews",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-15",
+      "status": "pending"
+    },
+    {
+      "brief": 203,
+      "slug": "ai-phone-answering-for-small-business",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-17",
+      "status": "pending"
+    },
+    {
+      "brief": 204,
+      "slug": "ai-for-appointment-reminders-and-no-shows",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-20",
+      "status": "pending"
+    },
+    {
+      "brief": 205,
+      "slug": "ai-for-local-seo-small-business",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-21",
+      "status": "pending"
+    },
+    {
+      "brief": 206,
+      "slug": "ai-meeting-notes-for-small-business",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-23",
+      "status": "pending"
+    },
+    {
+      "brief": 207,
+      "slug": "ai-for-writing-sops-and-training-guides",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-25",
+      "status": "pending"
+    },
+    {
+      "brief": 208,
+      "slug": "ai-vs-virtual-assistant-for-small-business",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-27",
+      "status": "pending"
+    },
+    {
+      "brief": 209,
+      "slug": "ai-for-lead-qualification",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-29",
+      "status": "pending"
+    },
+    {
+      "brief": 210,
+      "slug": "ai-for-quote-and-estimate-generation",
+      "module": "batch8.py",
+      "scheduled_date": "2026-10-31",
+      "status": "pending"
+    },
+    {
+      "brief": 211,
+      "slug": "ai-for-home-service-businesses",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-03",
+      "status": "pending"
+    },
+    {
+      "brief": 212,
+      "slug": "ai-for-restaurants-and-hospitality",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-04",
+      "status": "pending"
+    },
+    {
+      "brief": 213,
+      "slug": "ai-for-contractors-and-trades",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-06",
+      "status": "pending"
+    },
+    {
+      "brief": 214,
+      "slug": "ai-for-professional-services-firms",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-08",
+      "status": "pending"
+    },
+    {
+      "brief": 215,
+      "slug": "ai-for-cash-flow-forecasting",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-10",
+      "status": "pending"
+    },
+    {
+      "brief": 216,
+      "slug": "ai-for-expense-categorization",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-12",
+      "status": "pending"
+    },
+    {
+      "brief": 217,
+      "slug": "ai-for-vendor-and-supplier-management",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-14",
+      "status": "pending"
+    },
+    {
+      "brief": 218,
+      "slug": "should-i-use-chatgpt-or-specialized-ai-tools",
+      "module": "batch8.py",
+      "scheduled_date": "2026-11-17",
+      "status": "pending"
+    },
+    {
+      "brief": 219,
+      "slug": "ai-for-customer-onboarding",
+      "module": "batch9.py",
+      "scheduled_date": "2026-11-18",
+      "status": "pending"
+    },
+    {
+      "brief": 220,
+      "slug": "ai-for-knowledge-base-and-faqs",
+      "module": "batch9.py",
+      "scheduled_date": "2026-11-20",
+      "status": "pending"
+    },
+    {
+      "brief": 221,
+      "slug": "how-to-prompt-ai-for-business-tasks",
+      "module": "batch9.py",
+      "scheduled_date": "2026-11-22",
+      "status": "pending"
+    },
+    {
+      "brief": 222,
+      "slug": "ai-for-reputation-management",
+      "module": "batch9.py",
+      "scheduled_date": "2026-11-24",
+      "status": "pending"
+    },
+    {
+      "brief": 223,
+      "slug": "ai-content-that-still-sounds-like-your-brand",
+      "module": "batch9.py",
+      "scheduled_date": "2026-11-26",
+      "status": "pending"
+    },
+    {
+      "brief": 224,
+      "slug": "ai-for-hiring-job-descriptions",
+      "module": "batch9.py",
+      "scheduled_date": "2026-11-28",
+      "status": "pending"
+    },
+    {
+      "brief": 225,
+      "slug": "ai-for-employee-onboarding",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-01",
+      "status": "pending"
+    },
+    {
+      "brief": 226,
+      "slug": "when-not-to-use-ai-in-your-business",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-02",
+      "status": "pending"
+    },
+    {
+      "brief": 227,
+      "slug": "ai-for-multi-location-small-businesses",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-04",
+      "status": "pending"
+    },
+    {
+      "brief": 228,
+      "slug": "ai-for-b2b-sales-follow-up",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-06",
+      "status": "pending"
+    },
+    {
+      "brief": 229,
+      "slug": "measuring-ai-adoption-across-your-team",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-08",
+      "status": "pending"
+    },
+    {
+      "brief": 230,
+      "slug": "ai-for-document-organization-and-search",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-10",
+      "status": "pending"
+    },
+    {
+      "brief": 231,
+      "slug": "ai-for-seasonal-demand-planning",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-12",
+      "status": "pending"
+    },
+    {
+      "brief": 232,
+      "slug": "ai-tools-for-solo-entrepreneurs",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-15",
+      "status": "pending"
+    },
+    {
+      "brief": 233,
+      "slug": "building-an-ai-policy-for-employees",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-16",
+      "status": "pending"
+    },
+    {
+      "brief": 234,
+      "slug": "ai-for-customer-winback-campaigns",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-18",
+      "status": "pending"
+    },
+    {
+      "brief": 235,
+      "slug": "ai-for-year-end-business-review",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-20",
+      "status": "pending"
+    },
+    {
+      "brief": 236,
+      "slug": "ai-implementation-roadmap-90-days",
+      "module": "batch9.py",
+      "scheduled_date": "2026-12-22",
+      "status": "pending"
+    },
+    {
+      "brief": 301,
+      "slug": "ai-implementation-tool-stack-for-small-business",
+      "module": "batch10.py",
+      "scheduled_date": "2026-10-05",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 302,
+      "slug": "notion-ai-for-small-business-operations",
+      "module": "batch10.py",
+      "scheduled_date": "2026-10-12",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 303,
+      "slug": "wispr-flow-for-business-dictation-and-discovery",
+      "module": "batch10.py",
+      "scheduled_date": "2026-10-19",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 304,
+      "slug": "apollo-io-for-small-business-lead-research",
+      "module": "batch10.py",
+      "scheduled_date": "2026-10-26",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 305,
+      "slug": "perplexity-ai-for-business-research",
+      "module": "batch10.py",
+      "scheduled_date": "2026-11-02",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 306,
+      "slug": "claude-vs-chatgpt-for-small-business-work",
+      "module": "batch10.py",
+      "scheduled_date": "2026-11-09",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 307,
+      "slug": "zapier-make-n8n-for-small-business-automation",
+      "module": "batch10.py",
+      "scheduled_date": "2026-11-16",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 308,
+      "slug": "using-futurepedia-to-discover-ai-tools",
+      "module": "batch10.py",
+      "scheduled_date": "2026-11-23",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 309,
+      "slug": "calendly-and-scheduling-in-ai-implementations",
+      "module": "batch10.py",
+      "scheduled_date": "2026-11-30",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 310,
+      "slug": "crm-ai-hubspot-and-lightweight-pipelines",
+      "module": "batch10.py",
+      "scheduled_date": "2026-12-07",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 311,
+      "slug": "loom-and-async-video-for-ai-training",
+      "module": "batch10.py",
+      "scheduled_date": "2026-12-14",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 312,
+      "slug": "google-workspace-and-microsoft-365-ai-copilots",
+      "module": "batch10.py",
+      "scheduled_date": "2026-12-21",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 313,
+      "slug": "stripe-and-payments-in-ai-assisted-workflows",
+      "module": "batch11.py",
+      "scheduled_date": "2026-12-28",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 314,
+      "slug": "fireflies-and-meeting-intelligence-tools",
+      "module": "batch11.py",
+      "scheduled_date": "2027-01-04",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 315,
+      "slug": "cursor-and-custom-ai-builds-when-no-code-is-not-enough",
+      "module": "batch11.py",
+      "scheduled_date": "2027-01-11",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 316,
+      "slug": "slack-and-team-ai-assistants",
+      "module": "batch11.py",
+      "scheduled_date": "2027-01-18",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 317,
+      "slug": "airtable-and-structured-ops-data",
+      "module": "batch11.py",
+      "scheduled_date": "2027-01-25",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 318,
+      "slug": "figma-and-canva-ai-for-client-facing-assets",
+      "module": "batch11.py",
+      "scheduled_date": "2027-02-01",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 319,
+      "slug": "security-checklist-for-your-ai-tool-stack",
+      "module": "batch11.py",
+      "scheduled_date": "2027-02-08",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 320,
+      "slug": "measuring-roi-of-your-ai-tool-stack",
+      "module": "batch11.py",
+      "scheduled_date": "2027-02-15",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 321,
+      "slug": "starter-ai-stack-for-service-businesses",
+      "module": "batch11.py",
+      "scheduled_date": "2027-02-22",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 322,
+      "slug": "starter-ai-stack-for-b2b-and-professional-firms",
+      "module": "batch11.py",
+      "scheduled_date": "2027-03-01",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 323,
+      "slug": "how-peacemakers-runs-an-ai-implementation-week-by-week",
+      "module": "batch11.py",
+      "scheduled_date": "2027-03-08",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    },
+    {
+      "brief": 324,
+      "slug": "avoiding-ai-tool-sprawl-after-implementation",
+      "module": "batch11.py",
+      "scheduled_date": "2027-03-15",
+      "status": "pending",
+      "series": "ai-implementation-tool-stack",
+      "cadence": "weekly"
+    }
+  ],
+  "series": [
+    {
+      "id": "ai-implementation-tool-stack",
+      "name": "AI Implementation Tool Stack",
+      "description": "Tools Peacemakers uses during implementations\u2014Notion, Wispr Flow, Apollo, Perplexity, Claude/ChatGPT, Zapier/Make/n8n, and related stack choices\u2014mapped to real business workflows.",
+      "start_date": "2026-10-05",
+      "end_date": "2027-03-15",
+      "article_count": 24,
+      "cadence_days": 7,
+      "cadence": "weekly_monday",
+      "note": "Weekly Mondays starting October 2026. Continuity posts on those Mondays were shifted forward one+ days to avoid collisions."
+    }
+  ],
+  "queue_end_date": "2027-03-15",
+  "tool_stack_start": "2026-10-05"
 }
