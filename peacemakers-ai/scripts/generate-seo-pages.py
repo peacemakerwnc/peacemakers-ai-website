@@ -104,7 +104,7 @@ def nav_block(depth: int) -> str:
     p = depth_prefix(depth)
     return f"""    <header class="site-header">
       <div class="container header-inner">
-        <a class="site-logo" href="{p}index.html" aria-label="Peacemakers AI home">
+        <a class="site-logo" href="/" aria-label="Peacemakers AI home">
           <span class="site-brand">
             <img class="site-brand-mark" src="{p}assets/peacemakers-ai-logo-small.webp" alt="Peacemakers AI logo" width="128" height="128" decoding="async" />
             <span class="site-brand-text">Peacemakers AI</span>
@@ -116,14 +116,14 @@ def nav_block(depth: int) -> str:
         </button>
         <nav id="site-nav" class="site-nav" aria-label="Primary">
           <ul class="nav-list">
-            <li><a href="{p}index.html">Home</a></li>
-            <li><a href="{p}blueprint.html">Services</a></li>
-            <li><a href="{p}industries/index.html">Industries</a></li>
-            <li><a href="{p}locations/index.html">Locations</a></li>
-            <li><a href="{p}about.html">About</a></li>
-            <li><a href="{p}contact.html">Contact</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/blueprint">Services</a></li>
+            <li><a href="/industries">Industries</a></li>
+            <li><a href="/locations">Locations</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
           </ul>
-          <a class="btn btn-primary btn-small" href="{p}contact.html">Contact Peacemakers AI</a>
+          <a class="btn btn-primary btn-small" href="/contact">Contact Peacemakers AI</a>
         </nav>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span aria-hidden="true">Theme</span></button>
       </div>
@@ -135,7 +135,7 @@ def footer_block(depth: int) -> str:
     return f"""    <footer class="site-footer">
       <div class="container footer-grid">
         <div>
-          <a class="site-logo footer-logo" href="{p}index.html" aria-label="Peacemakers AI home">
+          <a class="site-logo footer-logo" href="/" aria-label="Peacemakers AI home">
             <span class="site-brand">
               <img class="site-brand-mark" src="{p}assets/peacemakers-ai-logo-small.webp" alt="Peacemakers AI logo" width="128" height="128" loading="lazy" decoding="async" />
               <span class="site-brand-text">Peacemakers AI</span>
@@ -154,19 +154,19 @@ def footer_block(depth: int) -> str:
         </div>
         <div>
           <h3>Company</h3>
-          <p><a class="footer-domain" href="{p}about.html">About</a></p>
-          <p><a class="footer-domain" href="{p}contact.html">Contact</a></p>
-          <p><a class="footer-domain" href="{p}privacy-policy.html">Privacy Policy</a></p>
-          <p><a class="footer-domain" href="{p}locations/index.html">Locations</a></p>
-          <p><a class="footer-domain" href="{p}industries/index.html">Industries</a></p>
+          <p><a class="footer-domain" href="/about">About</a></p>
+          <p><a class="footer-domain" href="/contact">Contact</a></p>
+          <p><a class="footer-domain" href="/privacy-policy">Privacy Policy</a></p>
+          <p><a class="footer-domain" href="/locations">Locations</a></p>
+          <p><a class="footer-domain" href="/industries">Industries</a></p>
         </div>
         <div>
           <h3>Get Started</h3>
-          <p><a class="footer-domain" href="{p}scorecard.html">Free AI Opportunity Scorecard</a></p>
-          <p><a class="footer-domain" href="{p}blueprint.html">AI Opportunity Blueprint</a></p>
-          <p><a class="footer-domain" href="{p}resources.html">Resources</a></p>
-          <p><a class="footer-domain" href="{p}security.html">Security</a></p>
-          <p><a class="footer-domain" href="{p}ai-consulting-asheville-nc.html">Asheville, NC</a></p>
+          <p><a class="footer-domain" href="/scorecard">Free AI Opportunity Scorecard</a></p>
+          <p><a class="footer-domain" href="/blueprint">AI Opportunity Blueprint</a></p>
+          <p><a class="footer-domain" href="/resources">Resources</a></p>
+          <p><a class="footer-domain" href="/security">Security</a></p>
+          <p><a class="footer-domain" href="/ai-consulting-asheville-nc">Asheville, NC</a></p>
         </div>
       </div>
     </footer>
@@ -267,8 +267,8 @@ def generate_core_pages() -> list[str]:
           <h1>Practical AI Strategy &amp; Automation for Service Businesses</h1>
           <p class="hero-sub">Peacemakers AI is an AI consulting and automation partner for service-based businesses that want measurable results—not hype, tool overload, or disconnected experiments.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="contact.html">Contact Peacemakers AI</a>
-            <a class="btn btn-ghost" href="blueprint.html">Explore the AI Opportunity Blueprint</a>
+            <a class="btn btn-primary" href="/contact">Contact Peacemakers AI</a>
+            <a class="btn btn-ghost" href="/blueprint">Explore the AI Opportunity Blueprint</a>
           </div>
         </div>
       </section>
@@ -278,11 +278,11 @@ def generate_core_pages() -> list[str]:
           <p>We help business owners identify where AI and automation can save time, improve follow-up, simplify reporting, and create real business value. Our work spans AI strategy, automation opportunity discovery, workflow improvement, business process automation, implementation roadmaps, and AI-powered follow-up systems.</p>
           <p>Peacemakers AI is based in Asheville, North Carolina and serves businesses nationwide across the United States. Whether you run a local service company, professional services firm, nonprofit, or growing operator team, we focus on practical implementation you can control.</p>
           <h2>How We Work</h2>
-          <p>We start with your real workflows—not generic AI advice. Many teams begin with the <a class="hero-text-link" href="scorecard.html">Free AI Opportunity Scorecard</a> or move directly into the <a class="hero-text-link" href="blueprint.html">AI Opportunity Blueprint</a> for a full 30/60/90-day implementation roadmap.</p>
+          <p>We start with your real workflows—not generic AI advice. Many teams begin with the <a class="hero-text-link" href="/scorecard">Free AI Opportunity Scorecard</a> or move directly into the <a class="hero-text-link" href="/blueprint">AI Opportunity Blueprint</a> for a full 30/60/90-day implementation roadmap.</p>
           <p>From there, we can support selected workflows through AI Quick Win Sprints, Growth Systems, or ongoing advisory—always with a client-controlled, security-aware approach.</p>
           <h2>Who We Serve</h2>
           <p>We work with HVAC companies, plumbers, law firms, real estate teams, builders, nonprofits, property managers, accounting firms, medical practices, consultants, and other service businesses with manual workflows.</p>
-          <p>Explore <a class="hero-text-link" href="industries/index.html">industry-specific AI automation services</a> or <a class="hero-text-link" href="locations/index.html">locations we serve nationwide</a>.</p>
+          <p>Explore <a class="hero-text-link" href="/industries">industry-specific AI automation services</a> or <a class="hero-text-link" href="/locations">locations we serve nationwide</a>.</p>
         </div>
       </section>
       <section class="section section-cta">
@@ -290,8 +290,8 @@ def generate_core_pages() -> list[str]:
           <h2>Ready to Find Practical AI Opportunities?</h2>
           <p class="cta-sub">Contact Peacemakers AI to discuss workflow automation, business process automation, and a practical AI implementation roadmap for your business.</p>
           <div class="cta-stack">
-            <a class="btn btn-primary" href="contact.html">Contact Peacemakers AI</a>
-            <a class="btn btn-ghost" href="scorecard.html">Get the Free AI Opportunity Scorecard</a>
+            <a class="btn btn-primary" href="/contact">Contact Peacemakers AI</a>
+            <a class="btn btn-ghost" href="/scorecard">Get the Free AI Opportunity Scorecard</a>
           </div>
         </div>
       </section>"""
@@ -333,7 +333,7 @@ def generate_core_pages() -> list[str]:
           </div>
           <div class="cta-stack cta-stack-left">
             <a class="btn btn-primary" href="mailto:{EMAIL}">Email Peacemakers AI</a>
-            <a class="btn btn-ghost" href="scorecard.html">Get the Free AI Opportunity Scorecard</a>
+            <a class="btn btn-ghost" href="/scorecard">Get the Free AI Opportunity Scorecard</a>
             <a class="btn btn-secondary" href="https://calendly.com/james-peacemakersai" data-intro-calendly-link>Book a 15-minute intro call</a>
           </div>
         </div>
@@ -406,7 +406,7 @@ def state_content(state: dict, priority: bool) -> str:
     abbrev = state["abbrev"]
     cities = state.get("cities", [])
     city_links = "\n".join(
-        f'            <li><a class="hero-text-link" href="{state["slug"]}/{c["slug"]}.html">AI consulting in {c["name"]}, {abbrev}</a></li>'
+        f'            <li><a class="hero-text-link" href="/locations/{state["slug"]}/{c["slug"]}">AI consulting in {c["name"]}, {abbrev}</a></li>'
         for c in cities[:12]
     )
     extra = ""
@@ -435,8 +435,8 @@ def state_content(state: dict, priority: bool) -> str:
     if priority:
         long_copy += f"""
           <h2>Why {name} Businesses Choose a Practical Approach</h2>
-          <p>Most operators do not need another subscription. They need clarity on what to automate first, what to ignore, and how to implement without disrupting the team. That is the focus of the <a class="hero-text-link" href="../blueprint.html">AI Opportunity Blueprint</a> and follow-on implementation support.</p>
-          <p>Many teams start with the <a class="hero-text-link" href="../scorecard.html">Free AI Opportunity Scorecard</a> to identify high-value workflow opportunities before committing to a full roadmap.</p>
+          <p>Most operators do not need another subscription. They need clarity on what to automate first, what to ignore, and how to implement without disrupting the team. That is the focus of the <a class="hero-text-link" href="/blueprint">AI Opportunity Blueprint</a> and follow-on implementation support.</p>
+          <p>Many teams start with the <a class="hero-text-link" href="/scorecard">Free AI Opportunity Scorecard</a> to identify high-value workflow opportunities before committing to a full roadmap.</p>
           <h2>Implementation Without Hype</h2>
           <p>Peacemakers AI uses a client-controlled approach: you own your systems, data, approvals, and final decisions. We recommend practical workflows, document the plan, and support implementation where it makes sense.</p>"""
 
@@ -466,13 +466,13 @@ def state_content(state: dict, priority: bool) -> str:
     body = f"""
       <section class="hero section industry-hero">
         <div class="container hero-content">
-          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> · <a href="index.html">Locations</a> · {esc(name)}</nav>
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> · <a href="/locations">Locations</a> · {esc(name)}</nav>
           <p class="eyebrow">{abbrev} · Nationwide Service</p>
           <h1>AI Consulting &amp; Automation Services in {esc(name)}</h1>
           <p class="hero-sub">Practical AI consulting, workflow automation, and implementation roadmaps for service businesses in {esc(name)}.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="../contact.html">Contact Peacemakers AI</a>
-            <a class="btn btn-ghost" href="../scorecard.html">Free AI Opportunity Scorecard</a>
+            <a class="btn btn-primary" href="/contact">Contact Peacemakers AI</a>
+            <a class="btn btn-ghost" href="/scorecard">Free AI Opportunity Scorecard</a>
           </div>
         </div>
       </section>
@@ -531,13 +531,13 @@ def city_content(state: dict, city: dict) -> str:
     body = f"""
       <section class="hero section industry-hero">
         <div class="container hero-content">
-          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a> · <a href="../index.html">Locations</a> · <a href="../{state_slug}.html">{esc(state_name)}</a> · {esc(city_name)}</nav>
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> · <a href="/locations">Locations</a> · <a href="/locations/{state_slug}">{esc(state_name)}</a> · {esc(city_name)}</nav>
           <p class="eyebrow">{esc(city_name)}, {abbrev}</p>
           <h1>AI Consulting &amp; Automation Services in {esc(city_name)}, {abbrev}</h1>
           <p class="hero-sub">Practical AI consulting and workflow automation for service businesses in {esc(city_name)}—backed by a nationwide implementation team based in Asheville, North Carolina.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="../../contact.html">Contact Peacemakers AI</a>
-            <a class="btn btn-ghost" href="../../blueprint.html">AI Opportunity Blueprint</a>
+            <a class="btn btn-primary" href="/contact">Contact Peacemakers AI</a>
+            <a class="btn btn-ghost" href="/blueprint">AI Opportunity Blueprint</a>
           </div>
         </div>
       </section>
@@ -553,7 +553,7 @@ def city_content(state: dict, city: dict) -> str:
             <li>Real estate teams needing faster inquiry response</li>
             <li>Builders, nonprofits, and property managers with document and follow-up load</li>
           </ul>
-          <p>Explore <a class="hero-text-link" href="../../industries/index.html">industry-specific automation guides</a> or return to <a class="hero-text-link" href="../{state_slug}.html">AI consulting in {esc(state_name)}</a>.</p>
+          <p>Explore <a class="hero-text-link" href="/industries">industry-specific automation guides</a> or return to <a class="hero-text-link" href="/locations/{state_slug}">AI consulting in {esc(state_name)}</a>.</p>
         </div>
       </section>
       <section class="section section-alt">
@@ -580,7 +580,7 @@ def generate_location_pages(loc_data: dict) -> list[str]:
     states = loc_data["states"]
 
     state_links = "\n".join(
-        f'            <a class="card industry-link-card" href="{s["slug"]}.html">{s["name"]}</a>'
+        f'            <a class="card industry-link-card" href="/locations/{s["slug"]}">{s["name"]}</a>'
         for s in states
     )
 
@@ -591,8 +591,8 @@ def generate_location_pages(loc_data: dict) -> list[str]:
           <h1>AI Consulting Locations — Nationwide Service</h1>
           <p class="hero-sub">Peacemakers AI is based in Asheville, North Carolina and helps service-based businesses across the United States reduce manual work with practical AI automation.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="../contact.html">Contact Peacemakers AI</a>
-            <a class="btn btn-ghost" href="../ai-consulting-asheville-nc.html">Asheville &amp; Western NC</a>
+            <a class="btn btn-primary" href="/contact">Contact Peacemakers AI</a>
+            <a class="btn btn-ghost" href="/ai-consulting-asheville-nc">Asheville &amp; Western NC</a>
           </div>
         </div>
       </section>
@@ -653,22 +653,22 @@ def industry_page(ind: dict) -> str:
     body = f"""
       <section class="hero section industry-hero">
         <div class="container hero-content">
-          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> · <a href="index.html">Industries</a> · {esc(ind['name'])}</nav>
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> · <a href="/industries">Industries</a> · {esc(ind['name'])}</nav>
           <p class="eyebrow">Industry Solutions</p>
           <h1>AI Automation for {esc(ind['name'])}</h1>
           <p class="hero-sub">{esc(ind['hero'])}</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="../scorecard.html">Free AI Opportunity Scorecard</a>
-            <a class="btn btn-ghost" href="../contact.html">Contact Peacemakers AI</a>
+            <a class="btn btn-primary" href="/scorecard">Free AI Opportunity Scorecard</a>
+            <a class="btn btn-ghost" href="/contact">Contact Peacemakers AI</a>
           </div>
         </div>
       </section>
       <section class="section"><div class="container"><h2>Common Pain Points</h2><div class="grid-3">{pain}</div></div></section>
       <section class="section section-alt"><div class="container"><h2>AI Opportunities</h2><div class="grid-3">{opps}</div></div></section>
       <section class="section"><div class="container"><h2>Example Workflows</h2><div class="grid-3">{examples}</div></div></section>
-      <section class="section section-alt"><div class="container narrow"><h2>Security &amp; Client Control</h2><p>Recommendations are built around your systems, approvals, and data sensitivity standards.</p><a class="hero-text-link" href="../security.html">Read Our AI Security Approach</a></div></section>
+      <section class="section section-alt"><div class="container narrow"><h2>Security &amp; Client Control</h2><p>Recommendations are built around your systems, approvals, and data sensitivity standards.</p><a class="hero-text-link" href="/security">Read Our AI Security Approach</a></div></section>
       <section class="section"><div class="container"><h2>FAQ</h2><div class="grid-2">{''.join(f'<article class="card"><h3>{esc(q)}</h3><p>{esc(a)}</p></article>' for q, a in faqs)}</div>
-      <p><a class="hero-text-link" href="../locations/index.html">See locations we serve</a> · <a class="hero-text-link" href="../blueprint.html">AI Opportunity Blueprint</a></p></div></section>"""
+      <p><a class="hero-text-link" href="/locations">See locations we serve</a> · <a class="hero-text-link" href="/blueprint">AI Opportunity Blueprint</a></p></div></section>"""
 
     return page_shell(
         title=ind["title"],
@@ -684,7 +684,7 @@ def generate_industry_pages(ind_data: dict) -> list[str]:
     urls: list[str] = []
     industries = ind_data["industries"]
     cards = "\n".join(
-        f'            <a class="card industry-link-card" href="{i["slug"]}.html">{esc(i["name"])}</a>'
+        f'            <a class="card industry-link-card" href="/industries/{i["slug"]}">{esc(i["name"])}</a>'
         for i in industries
     )
     hub_body = f"""
@@ -730,24 +730,22 @@ def generate_sitemap(extra_urls: list[str]) -> None:
         "/about",
         "/contact",
         "/privacy-policy",
-        "/scorecard.html",
-        "/blueprint.html",
-        "/early-access.html",
-        "/security.html",
-        "/resources.html",
-        "/ai-consulting-asheville-nc.html",
-        "/ai-consulting-for-service-businesses.html",
-        "/ai-for-home-service-businesses.html",
-        "/ai-for-accounting-firms.html",
-        "/ai-for-law-firms.html",
-        "/ai-for-nonprofits.html",
-        "/ai-for-consultants.html",
-        "/ai-for-real-estate.html",
-        "/local-service-ai-audit.html",
-        "/local-service-ai-checklist.html",
-        "/explainer.html",
-        "/resources/what-is-an-ai-opportunity-blueprint.html",
-        "/blog/ai-for-nonprofits",
+        "/scorecard",
+        "/blueprint",
+        "/early-access",
+        "/security",
+        "/resources",
+        "/ai-consulting-asheville-nc",
+        "/ai-consulting-for-service-businesses",
+        "/ai-for-home-service-businesses",
+        "/ai-for-accounting-firms",
+        "/ai-for-law-firms",
+        "/ai-for-consultants",
+        "/ai-for-real-estate",
+        "/local-service-ai-audit",
+        "/local-service-ai-checklist",
+        "/explainer",
+        "/resources/what-is-an-ai-opportunity-blueprint",
         "/blog/ai-for-nonprofits/can-ai-help-small-nonprofit-do-more-with-less",
         "/blog/ai-for-nonprofits/where-should-a-nonprofit-start-with-ai",
         "/blog/ai-for-nonprofits/how-much-will-ai-tools-cost-my-nonprofit",

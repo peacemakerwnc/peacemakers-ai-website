@@ -53,11 +53,11 @@ def article_head(meta):
 HEADER = """  <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header"><div class="container header-inner">
-      <a class="site-logo" href="/index.html"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
+      <a class="site-logo" href="/"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
       <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span class="nav-toggle-line" aria-hidden="true"></span></button>
       <nav id="site-nav" class="site-nav" aria-label="Primary"><ul class="nav-list">
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/resources.html">Resources</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/resources">Resources</a></li>
         <li><a href="/blog/ai-for-nonprofits">AI for Nonprofits</a></li>
         <li><a href="/services/ai-strategy-nonprofits">Nonprofit Consulting</a></li>
       </ul><a class="btn btn-primary btn-small" href="#" data-calendly-link data-track="calendly_cta">Book a Call</a></nav>
@@ -67,9 +67,9 @@ HEADER = """  <body>
 
 FOOTER = """    </main>
     <footer class="site-footer"><div class="container footer-grid">
-      <div><a class="site-logo footer-logo" href="/index.html"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="" /><span class="site-brand-text">Peacemakers AI</span></span></a></div>
+      <div><a class="site-logo footer-logo" href="/"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="" /><span class="site-brand-text">Peacemakers AI</span></span></a></div>
       <div><h3>Series</h3><p><a class="footer-domain" href="/blog/ai-for-nonprofits">AI for Nonprofits</a></p><p><a class="footer-domain" href="/services/ai-strategy-nonprofits">Nonprofit AI Consulting</a></p></div>
-      <div><h3>More</h3><p><a class="footer-domain" href="/ai-for-nonprofits.html">Industry Page</a></p><p><a class="footer-domain" href="/resources.html">All Resources</a></p></div>
+      <div><h3>More</h3><p><a class="footer-domain" href="/services/ai-strategy-nonprofits">Industry Page</a></p><p><a class="footer-domain" href="/resources">All Resources</a></p></div>
     </div></footer>
     <script src="/script.js" defer></script>
   </body>
@@ -131,7 +131,7 @@ write_article(
     },
     hero(
         "Can AI Really Help My Small Nonprofit Do More With Less?",
-        '<a href="/index.html">Home</a> · <a href="/resources.html">Resources</a> · <a href="/blog/ai-for-nonprofits">AI for Nonprofits</a> · <span>Can AI Help?</span>',
+        '<a href="/">Home</a> · <a href="/resources">Resources</a> · <a href="/blog/ai-for-nonprofits">AI for Nonprofits</a> · <span>Can AI Help?</span>',
     )
     + """
         <p>Small nonprofits are often expected to do everything at once: raise money, serve clients, recruit volunteers, and keep the website updated. AI can help with that pressure by reducing the time spent on routine marketing and content tasks, especially when your team has limited staff and budget.</p>
@@ -187,7 +187,7 @@ write_article(
     },
     hero(
         "Where Should a Nonprofit Start With AI Implementation?",
-        '<a href="/index.html">Home</a> · <a href="/resources.html">Resources</a> · <a href="/blog/ai-for-nonprofits">AI for Nonprofits</a> · <span>Where to Start</span>',
+        '<a href="/">Home</a> · <a href="/resources">Resources</a> · <a href="/blog/ai-for-nonprofits">AI for Nonprofits</a> · <span>Where to Start</span>',
     )
     + """
         <p>For a small nonprofit, the question is not "Which AI tool is the most impressive?" but "Where can AI immediately save us time without risking our mission or overwhelming our team?" The best place to start is with one or two everyday workflows that frustrate staff and do not require deep technical changes—then use AI as a helper, not a replacement.</p>
@@ -242,7 +242,7 @@ write_article(
     },
     hero(
         "How Much Will AI Tools Cost My Nonprofit? A Practical Budget Guide",
-        '<a href="/index.html">Home</a> · <a href="/resources.html">Resources</a> · <a href="/blog/ai-for-nonprofits">AI for Nonprofits</a> · <span>AI Budget</span>',
+        '<a href="/">Home</a> · <a href="/resources">Resources</a> · <a href="/blog/ai-for-nonprofits">AI for Nonprofits</a> · <span>AI Budget</span>',
     )
     + """
         <p>Nonprofits often assume AI is either completely free or painfully expensive. In reality, most small organizations will fall somewhere in the middle: a blend of free tiers, nonprofit discounts, and a few carefully chosen paid licenses that together cost hundreds to a few thousand dollars per year.</p>
@@ -310,11 +310,11 @@ index_html = """<!DOCTYPE html>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header"><div class="container header-inner">
-      <a class="site-logo" href="/index.html"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
+      <a class="site-logo" href="/"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
       <nav id="site-nav" class="site-nav" aria-label="Primary"><ul class="nav-list">
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/resources.html">Resources</a></li>
-        <li><a href="/ai-for-nonprofits.html">Nonprofit Services</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/resources">Resources</a></li>
+        <li><a href="/services/ai-strategy-nonprofits">Nonprofit Services</a></li>
       </ul></nav>
     </div></header>
     <main id="main">
@@ -345,7 +345,7 @@ index_html = """<!DOCTYPE html>
         </aside>
       </div></section>
     </main>
-    <footer class="site-footer"><div class="container"><p><a href="/resources.html">← All Resources</a></p></div></footer>
+    <footer class="site-footer"><div class="container"><p><a href="/resources">← All Resources</a></p></div></footer>
     <script src="/script.js" defer></script>
   </body>
 </html>"""
