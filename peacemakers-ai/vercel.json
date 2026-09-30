@@ -53,6 +53,11 @@
       "source": "/blog/ai-for-nonprofits/",
       "destination": "/services/ai-strategy-nonprofits",
       "permanent": true
+    },
+    {
+      "source": "/books.html",
+      "destination": "/books",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -63,6 +68,10 @@
     {
       "source": "/about",
       "destination": "/about.html"
+    },
+    {
+      "source": "/books",
+      "destination": "/books.html"
     },
     {
       "source": "/contact",
