@@ -29,6 +29,9 @@ def _load_published_slugs():
     for batch in schedule.get("batches", []):
         if batch.get("status") == "published":
             slugs.update(briefs.slugs_for_briefs(batch["briefs"]))
+    for art in schedule.get("articles") or []:
+        if art.get("status") == "published":
+            slugs.add(art["slug"])
     return slugs
 
 
@@ -132,9 +135,82 @@ CATEGORIES = [
             {"brief": 110, "slug": "industry-specific-ai-solutions-retail-services-ecommerce", "title": "Industry-Specific AI Solutions (Retail, Services, E-commerce)", "description": "Tailored use cases across three common small business models."},
         ],
     },
+
+    {
+        "name": "Every-Other-Day Continuity (Fall 2026)",
+        "briefs": list(range(201, 237)),
+        "articles": [
+            {"brief": 201, "slug": "chatgpt-for-small-business-owners", "title": 'ChatGPT for Small Business Owners: Practical Uses That Save Time', "description": 'ChatGPT can help small business owners draft messages, summarize notes, organize checklists, and prepare first…'},
+            {"brief": 202, "slug": "ai-for-google-business-reviews", "title": 'How to Use AI for Google Business Reviews Without Sounding Fake', "description": 'AI can help a small business monitor Google Business reviews, draft courteous replies, and flag urgent complai…'},
+            {"brief": 203, "slug": "ai-phone-answering-for-small-business", "title": 'AI Phone Answering for Small Businesses: When It Helps and When It Hurts', "description": 'AI phone answering can capture after-hours inquiries, answer common questions, and route urgent calls—but it h…'},
+            {"brief": 204, "slug": "ai-for-appointment-reminders-and-no-shows", "title": 'Using AI for Appointment Reminders and Reducing No-Shows', "description": 'AI-assisted appointment reminders can cut no-shows by sending timely confirmations, reschedule options, and fo…'},
+            {"brief": 205, "slug": "ai-for-local-seo-small-business", "title": 'AI for Local SEO: Practical Ways Small Businesses Can Rank Nearby', "description": 'AI can help small businesses improve local SEO by drafting location pages, organizing FAQ content, summarizing…'},
+            {"brief": 206, "slug": "ai-meeting-notes-for-small-business", "title": 'AI Meeting Notes for Small Business Teams That Actually Follow Through', "description": 'AI meeting notes can turn conversations into searchable summaries and action lists, helping small teams follow…'},
+            {"brief": 207, "slug": "ai-for-writing-sops-and-training-guides", "title": 'How to Use AI to Write SOPs and Training Guides Faster', "description": 'AI can turn voice notes, checklists, and observed steps into clear SOP drafts and training guides, cutting doc…'},
+            {"brief": 208, "slug": "ai-vs-virtual-assistant-for-small-business", "title": 'AI vs a Virtual Assistant: What Should a Small Business Use First?', "description": 'Use AI first for repeatable drafting and triage work with clear rules; hire or keep a virtual assistant when t…'},
+            {"brief": 209, "slug": "ai-for-lead-qualification", "title": 'AI for Lead Qualification: Score Inquiries Without Losing Good Customers', "description": 'AI can help qualify leads by organizing inquiry details, flagging fit criteria, and prioritizing follow-up—whi…'},
+            {"brief": 210, "slug": "ai-for-quote-and-estimate-generation", "title": 'AI for Quotes and Estimates: Faster Drafts with Human Pricing Control', "description": 'AI can assemble quote and estimate drafts from approved packages and discovery notes, speeding turnaround—whil…'},
+            {"brief": 211, "slug": "ai-for-home-service-businesses", "title": 'AI for Home Service Businesses: Scheduling, Follow-Up, and Field Notes', "description": 'Home service businesses get the most from AI when they use it for lead response, scheduling support, job-note …'},
+            {"brief": 212, "slug": "ai-for-restaurants-and-hospitality", "title": 'AI for Restaurants and Hospitality: Reservations, Reviews, and Staff Support', "description": 'Restaurants and hospitality businesses can use AI to manage reservation questions, review replies, menu copy d…'},
+            {"brief": 213, "slug": "ai-for-contractors-and-trades", "title": 'AI for Contractors and Trades: Estimates, Change Orders, and Client Updates', "description": 'Contractors and trades can use AI to draft estimates, organize change-order notes, and send clearer client upd…'},
+            {"brief": 214, "slug": "ai-for-professional-services-firms", "title": 'AI for Professional Services Firms: Research, Drafting, and Client Prep', "description": 'Professional services firms can use AI to speed research summaries, first drafts, and meeting prep—while profe…'},
+            {"brief": 215, "slug": "ai-for-cash-flow-forecasting", "title": 'AI for Cash Flow Forecasting in Small Businesses', "description": 'AI can help small businesses forecast cash flow by organizing invoices, bills, and seasonality into clearer sh…'},
+            {"brief": 216, "slug": "ai-for-expense-categorization", "title": 'Using AI for Expense Categorization Without Losing Financial Control', "description": 'AI can speed expense categorization by suggesting categories from merchants and memos, reducing bookkeeping bu…'},
+            {"brief": 217, "slug": "ai-for-vendor-and-supplier-management", "title": 'AI for Vendor and Supplier Management in Growing Small Businesses', "description": 'AI can help small businesses organize supplier information, flag late shipments, and prepare renewal questions…'},
+            {"brief": 218, "slug": "should-i-use-chatgpt-or-specialized-ai-tools", "title": 'Should I Use ChatGPT or Specialized AI Tools for My Business?', "description": 'Use ChatGPT (or similar general assistants) for flexible drafting and analysis across many tasks; choose speci…'},
+            {"brief": 219, "slug": "ai-for-customer-onboarding", "title": 'AI for Customer Onboarding: Clearer Kickoffs Without Extra Admin', "description": 'AI can improve customer onboarding by turning kickoff notes into checklists, welcome sequences, and missing-in…'},
+            {"brief": 220, "slug": "ai-for-knowledge-base-and-faqs", "title": 'Build an AI-Ready Knowledge Base and FAQ for Your Small Business', "description": 'An AI-ready knowledge base turns your approved answers into searchable FAQs and assistant responses, reducing …'},
+            {"brief": 221, "slug": "how-to-prompt-ai-for-business-tasks", "title": 'How to Prompt AI for Business Tasks (Without Getting Generic Output)', "description": 'Good business prompts specify role, audience, goal, constraints, source facts, and output format. That structu…'},
+            {"brief": 222, "slug": "ai-for-reputation-management", "title": 'AI for Reputation Management: Monitor, Respond, and Improve', "description": 'AI can help small businesses monitor mentions and reviews, group complaint themes, and draft responses—while s…'},
+            {"brief": 223, "slug": "ai-content-that-still-sounds-like-your-brand", "title": 'How to Create AI Content That Still Sounds Like Your Brand', "description": 'AI content sounds like your brand when you feed it a voice guide, approved examples, and hard facts—then edit …'},
+            {"brief": 224, "slug": "ai-for-hiring-job-descriptions", "title": 'Using AI to Write Better Job Descriptions for Small Business Hiring', "description": 'AI can help small businesses draft clearer job descriptions from real day-to-day responsibilities, improving a…'},
+            {"brief": 225, "slug": "ai-for-employee-onboarding", "title": 'AI for Employee Onboarding: Faster Ramp Without Cutting Corners', "description": 'AI can speed employee onboarding by turning SOPs into training outlines, checklists, and quiz drafts—while man…'},
+            {"brief": 226, "slug": "when-not-to-use-ai-in-your-business", "title": 'When Not to Use AI in Your Business', "description": 'Skip AI when the process is unclear, stakes are high and irreversible, data is poor, or a human relationship i…'},
+            {"brief": 227, "slug": "ai-for-multi-location-small-businesses", "title": 'AI for Multi-Location Small Businesses: Consistency Without Central Chaos', "description": 'Multi-location businesses can use AI to keep messaging, SOPs, and reporting consistent across sites—while loca…'},
+            {"brief": 228, "slug": "ai-for-b2b-sales-follow-up", "title": 'AI for B2B Sales Follow-Up That Stays Personal', "description": 'AI can keep B2B follow-up consistent by drafting sequenced messages from CRM notes and deal stage—while salesp…'},
+            {"brief": 229, "slug": "measuring-ai-adoption-across-your-team", "title": 'How to Measure AI Adoption Across Your Small Business Team', "description": 'Measure AI adoption by tracking which workflows are used, time saved, quality outcomes, and staff confidence—n…'},
+            {"brief": 230, "slug": "ai-for-document-organization-and-search", "title": 'AI for Document Organization and Search in Small Businesses', "description": 'AI can help small businesses organize and search documents by summarizing files, suggesting folders/tags, and …'},
+            {"brief": 231, "slug": "ai-for-seasonal-demand-planning", "title": 'AI for Seasonal Demand Planning in Small Businesses', "description": 'AI can support seasonal demand planning by highlighting patterns in sales history and helping owners prepare s…'},
+            {"brief": 232, "slug": "ai-tools-for-solo-entrepreneurs", "title": 'Best-First AI Tools for Solo Entrepreneurs', "description": 'Solo entrepreneurs should start with one general assistant plus one workflow tool that removes their biggest w…'},
+            {"brief": 233, "slug": "building-an-ai-policy-for-employees", "title": 'How to Build a Simple AI Policy for Employees', "description": 'A simple AI policy tells employees which tools are approved, what data is off-limits, what must be reviewed by…'},
+            {"brief": 234, "slug": "ai-for-customer-winback-campaigns", "title": 'AI for Customer Win-Back Campaigns That Feel Personal', "description": 'AI can help win back lapsed customers by segmenting inactivity reasons and drafting relevant offers from appro…'},
+            {"brief": 235, "slug": "ai-for-year-end-business-review", "title": 'Using AI for a Year-End Business Review That Drives Next Year’s Plan', "description": 'AI can help owners run a year-end business review by summarizing performance data, grouping themes from notes,…'},
+            {"brief": 236, "slug": "ai-implementation-roadmap-90-days", "title": 'A 90-Day AI Implementation Roadmap for Small Businesses', "description": 'A 90-day AI roadmap focuses on one workflow in days 1–30, measurement and refinement in days 31–60, and a care…'},
+        ],
+    },
+    {
+        "name": "AI Implementation Tool Stack",
+        "briefs": list(range(301, 325)),
+        "articles": [
+            {"brief": 301, "slug": "ai-implementation-tool-stack-for-small-business", "title": 'The AI Implementation Tool Stack We Use with Small Businesses', "description": 'A practical AI implementation stack for small businesses usually combines a knowledge hub (Notion), voice capt…'},
+            {"brief": 302, "slug": "notion-ai-for-small-business-operations", "title": 'Notion AI for Small Business Operations: SOPs, Projects, and a Living Wiki', "description": 'Notion AI works best for small businesses as the living wiki for SOPs, project trackers, and meeting decisions…'},
+            {"brief": 303, "slug": "wispr-flow-for-business-dictation-and-discovery", "title": 'Wispr Flow for Business: Faster Discovery Notes and Cleaner Drafts', "description": 'Wispr Flow turns natural speech into cleaned, formatted text across apps, which makes discovery interviews, fi…'},
+            {"brief": 304, "slug": "apollo-io-for-small-business-lead-research", "title": 'Apollo.io for Small Business Lead Research and Outreach Prep', "description": 'Apollo.io helps small B2B teams find and enrich contacts, prioritize accounts, and prepare outreach—useful in …'},
+            {"brief": 305, "slug": "perplexity-ai-for-business-research", "title": 'Perplexity AI for Business Research: Faster Answers with Sources', "description": 'Perplexity is strongest when a small business needs quick, sourced answers—competitor pages, vendor comparison…'},
+            {"brief": 306, "slug": "claude-vs-chatgpt-for-small-business-work", "title": 'Claude vs ChatGPT for Small Business Work: What We Use When', "description": 'Use Claude when long documents, careful writing, and multi-file reasoning matter; use ChatGPT when you want br…'},
+            {"brief": 307, "slug": "zapier-make-n8n-for-small-business-automation", "title": 'Zapier vs Make vs n8n: Choosing Automation for Small Business AI', "description": 'Choose Zapier for the fastest no-code connections across many apps, Make for visual multi-step scenarios with …'},
+            {"brief": 308, "slug": "using-futurepedia-to-discover-ai-tools", "title": 'Using Futurepedia to Discover AI Tools Without Tool Chaos', "description": 'Futurepedia is useful as a directory to discover category options quickly—but a small business should still fi…'},
+            {"brief": 309, "slug": "calendly-and-scheduling-in-ai-implementations", "title": 'Calendly and Smart Scheduling in AI Implementations', "description": 'Scheduling tools like Calendly reduce back-and-forth and pair well with AI lead triage—when availability rules…'},
+            {"brief": 310, "slug": "crm-ai-hubspot-and-lightweight-pipelines", "title": 'CRM AI for Small Business: HubSpot and Lightweight Pipelines', "description": 'CRM AI helps when your pipeline stages are clear and data entry is consistent. HubSpot and similar CRMs can dr…'},
+            {"brief": 311, "slug": "loom-and-async-video-for-ai-training", "title": 'Loom and Async Video for AI Training Inside Small Businesses', "description": 'Short Loom-style videos accelerate AI adoption by showing exact clicks and prompts, which beats long written m…'},
+            {"brief": 312, "slug": "google-workspace-and-microsoft-365-ai-copilots", "title": 'Google Workspace and Microsoft 365 Copilots in Small Business AI Rollouts', "description": 'If your business already lives in Google Workspace or Microsoft 365, enabling the native Copilot/Duets-style a…'},
+            {"brief": 313, "slug": "stripe-and-payments-in-ai-assisted-workflows", "title": 'Stripe and Payments in AI-Assisted Business Workflows', "description": 'Stripe belongs in AI-assisted workflows as the system of record for charges, invoices, and payment links—while…'},
+            {"brief": 314, "slug": "fireflies-and-meeting-intelligence-tools", "title": 'Fireflies and Meeting Intelligence Tools for Small Business Teams', "description": 'Meeting intelligence tools (Fireflies and similar, including Wispr Notetaker) capture discussions and extract …'},
+            {"brief": 315, "slug": "cursor-and-custom-ai-builds-when-no-code-is-not-enough", "title": 'Cursor and Custom AI Builds: When No-Code Is Not Enough', "description": 'When no-code tools cannot express the workflow safely or economically, a focused custom build (often with AI-a…'},
+            {"brief": 316, "slug": "slack-and-team-ai-assistants", "title": 'Slack and Team AI Assistants Without Notification Chaos', "description": 'Slack AI features and connected assistants help teams summarize threads and find decisions—when channel purpos…'},
+            {"brief": 317, "slug": "airtable-and-structured-ops-data", "title": 'Airtable for Structured Ops Data in AI Implementations', "description": 'Airtable is useful when a small business needs a lightweight database for inventory of workflows, vendors, con…'},
+            {"brief": 318, "slug": "figma-and-canva-ai-for-client-facing-assets", "title": 'Figma and Canva AI for Client-Facing Assets in Small Businesses', "description": 'Canva AI (and Figma for more design-heavy teams) can speed social graphics, one-pagers, and simple decks—when …'},
+            {"brief": 319, "slug": "security-checklist-for-your-ai-tool-stack", "title": 'A Security Checklist for Your Small Business AI Tool Stack', "description": 'Secure an AI stack by inventorying tools, minimizing data shared, enforcing SSO/2FA where possible, reviewing …'},
+            {"brief": 320, "slug": "measuring-roi-of-your-ai-tool-stack", "title": 'How to Measure ROI of Your AI Tool Stack', "description": 'Measure AI stack ROI by combining subscription cost, setup time, hours saved on target workflows, quality/erro…'},
+            {"brief": 321, "slug": "starter-ai-stack-for-service-businesses", "title": 'A Starter AI Stack for Service Businesses (Home, Pro, and Local Services)', "description": 'A strong starter stack for service businesses is usually: Notion for SOPs, Wispr Flow for notes, Claude/ChatGP…'},
+            {"brief": 322, "slug": "starter-ai-stack-for-b2b-and-professional-firms", "title": 'A Starter AI Stack for B2B and Professional Services Firms', "description": 'B2B and professional firms usually start with Claude/ChatGPT for analysis, Perplexity for sourced research, No…'},
+            {"brief": 323, "slug": "how-peacemakers-runs-an-ai-implementation-week-by-week", "title": 'How Peacemakers Runs an AI Implementation Week by Week (and Which Tools Show Up)', "description": 'A typical Peacemakers AI implementation moves from discovery (Wispr Flow + Notion) to research and design (Per…'},
+            {"brief": 324, "slug": "avoiding-ai-tool-sprawl-after-implementation", "title": 'Avoiding AI Tool Sprawl After Implementation', "description": 'Prevent tool sprawl by assigning every tool a job and an owner, setting a quarterly keep/cut review, and requi…'},
+        ],
+    },
 ]
 
-# PUBLISHED_SLUGS is computed from batch-schedule.json at import time.
+# PUBLISHED_SLUGS is computed from article schedule at import time.
 
 
 def article_url(slug):

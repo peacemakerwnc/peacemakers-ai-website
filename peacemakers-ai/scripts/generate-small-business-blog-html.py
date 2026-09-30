@@ -231,23 +231,36 @@ def write_index():
     print("Wrote", path)
 
 
-def published_batch_modules():
-    """Only emit HTML for batches marked published in the schedule."""
+def published_modules_and_slugs():
+    """Return modules to load and the set of slugs allowed to emit as HTML."""
     schedule_path = os.path.join(SB_DIR, "batch-schedule.json")
     with open(schedule_path, encoding="utf-8") as f:
         schedule = json.load(f)
+
+    published = catalog._load_published_slugs()
     modules = set()
     for batch in schedule.get("batches", []):
         if batch.get("status") == "published":
             modules.add(batch.get("module", f"batch{batch['id']}.py"))
-    return modules
+        # Content modules that feed the every-other-day article queue
+        if batch.get("status") == "queued_as_articles":
+            modules.add(batch.get("module", f"batch{batch['id']}.py"))
+    for art in schedule.get("articles") or []:
+        modules.add(art.get("module", ""))
+        if art.get("status") == "published":
+            published.add(art["slug"])
+    modules.discard("")
+    # Always load continuity modules if present
+    for name in ("batch7.py", "batch8.py", "batch9.py", "batch10.py", "batch11.py"):
+        if os.path.exists(os.path.join(SB_DIR, name)):
+            modules.add(name)
+    return modules, published
 
 
 def main():
     os.makedirs(BASE, exist_ok=True)
-    # Refresh published slugs from schedule on each run
-    catalog.PUBLISHED_SLUGS = catalog._load_published_slugs()
-    allowed_modules = published_batch_modules()
+    allowed_modules, published = published_modules_and_slugs()
+    catalog.PUBLISHED_SLUGS = published
 
     articles_written = 0
     for filename in sorted(os.listdir(SB_DIR)):
@@ -262,11 +275,14 @@ def main():
         if not hasattr(batch_mod, "ARTICLES"):
             continue
         for slug, article in batch_mod.ARTICLES.items():
+            if slug not in published:
+                print(f"Skipping unpublished article {slug}")
+                continue
             write_article(article)
             articles_written += 1
 
     if articles_written == 0:
-        print("No batch articles found.", file=sys.stderr)
+        print("No published articles found.", file=sys.stderr)
         sys.exit(1)
 
     write_index()
