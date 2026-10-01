@@ -194,6 +194,11 @@
         border: 1px solid rgba(247,251,255,0.35); backdrop-filter: blur(8px);
       }
       .btn-ghost:hover { background: rgba(247,251,255,0.22); }
+      .btn-line {
+        background: transparent; color: var(--deep);
+        border: 1px solid rgba(14,47,56,0.28);
+      }
+      .btn-line:hover { background: rgba(14,47,56,0.06); }
       .btn-muted {
         background: rgba(14,47,56,0.06); color: var(--deep-soft);
         border: 1px solid var(--mist); cursor: default;
@@ -346,6 +351,8 @@
         <a class="nav-brand" href="#top">Peacemakers Publishing</a>
         <nav class="nav-links" aria-label="Page">
           <a href="#bible-stories-to-color">Bible Stories to Color</a>
+          <a href="#printables">Printables</a>
+          <a href="#review">Leave a review</a>
           <a href="#good-news-to-color">Coming soon</a>
           <a href="#about">About</a>
         </nav>
@@ -365,8 +372,9 @@
           </p>
           <div class="cta-row">
             <a class="btn btn-primary" href="https://www.amazon.com/dp/B0HL2NYYXL" target="_blank" rel="noopener noreferrer">Buy Bible Stories to Color</a>
+            <a class="btn btn-ghost" href="https://www.amazon.com/review/create-review?asin=B0HL2NYYXL" target="_blank" rel="noopener noreferrer">Leave a review</a>
           </div>
-          <p class="hero-also"><a href="#good-news-to-color">Good News to Color — coming soon</a></p>
+          <p class="hero-also"><a href="#printables">Free printables</a> · <a href="#good-news-to-color">Good News to Color — coming soon</a></p>
         </div>
       </section>
 
@@ -391,7 +399,29 @@
           </dl>
           <div class="cta-row">
             <a class="btn btn-primary" href="https://www.amazon.com/dp/B0HL2NYYXL" target="_blank" rel="noopener noreferrer">Buy Bible Stories to Color on Amazon</a>
+            <a class="btn btn-line" href="https://www.amazon.com/review/create-review?asin=B0HL2NYYXL" target="_blank" rel="noopener noreferrer">Leave a review on Amazon</a>
           </div>
+        </div>
+      </section>
+
+      <section id="printables" class="section" aria-labelledby="printables-title">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">Free printables</p>
+            <h2 id="printables-title" class="section-title">Pages to print at home</h2>
+            <p class="section-support">Free printable pages to go with Bible Stories to Color are coming soon on this page. When they are ready, each one will be a file you can print at home. The paperback stays the full book.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="review" class="section" aria-labelledby="review-title">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">Leave a review</p>
+            <h2 id="review-title" class="section-title">If the book helped your family</h2>
+            <p class="section-support">A review is written on Amazon, on the page that opens from this button. A short honest note helps other parents find Bible Stories to Color.</p>
+          </div>
+          <a class="btn btn-primary" href="https://www.amazon.com/review/create-review?asin=B0HL2NYYXL" target="_blank" rel="noopener noreferrer">Leave a review on Amazon</a>
         </div>
       </section>
 
