@@ -234,6 +234,39 @@
       }
       .about-grid { max-width: 42rem; display: grid; gap: 0.9rem; }
 
+      .page-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.15rem;
+        align-items: start;
+      }
+      .page-grid figure {
+        margin: 0;
+        background: #fff;
+        border: 1px solid rgba(14, 47, 56, 0.08);
+        border-radius: 16px;
+        padding: 0.85rem 0.85rem 1rem;
+        box-shadow: 0 12px 32px rgba(14, 47, 56, 0.06);
+      }
+      .page-grid img {
+        width: 100%;
+        height: auto;
+        background: #fff;
+      }
+      .page-grid figcaption {
+        margin: 0.85rem 0.15rem 0;
+        color: var(--deep);
+        font-weight: 650;
+        line-height: 1.35;
+      }
+      .page-grid figcaption span {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--deep-soft);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
       .footer {
         padding: 2.6rem 0 3.1rem; color: var(--deep-soft); font-size: 0.92rem;
       }
@@ -262,7 +295,7 @@
       }
 
       @media (max-width: 900px) {
-        .feature, .inside, .specs { grid-template-columns: 1fr; }
+        .feature, .inside, .specs, .page-grid { grid-template-columns: 1fr; }
         .specs { grid-template-columns: 1fr 1fr; }
         .cover { width: min(100%, 270px); transform: rotate(-1.4deg); }
         .hero-media img { object-position: 72% center; }
@@ -282,6 +315,7 @@
         <a class="nav-brand" href="#top">Peacemakers Publishing</a>
         <nav class="nav-links" aria-label="Page">
           <a href="#the-book">The book</a>
+          <a href="#pages">Pages</a>
           <a href="#inside">Inside</a>
           <a href="#about">About</a>
         </nav>
@@ -334,6 +368,30 @@
             <div class="spec"><dt>Ages</dt><dd>6–10</dd></div>
             <div class="spec"><dt>Format</dt><dd>Paperback</dd></div>
           </dl>
+        </div>
+      </section>
+
+      <section id="pages" class="section">
+        <div class="shell">
+          <div class="section-head">
+            <p class="kicker">Example pages</p>
+            <h2 class="section-title">Three pages from the book</h2>
+            <p class="section-support">Open line drawings from the New Testament adventures, ready for markers and crayons.</p>
+          </div>
+          <div class="page-grid">
+            <figure>
+              <img src="/assets/books/bible-stories-to-color/pages/birth-of-jesus.jpg" alt="Coloring page of Mary, Joseph, and baby Jesus in a manger" width="997" height="890" />
+              <figcaption>The Birth of Jesus<span>Luke 2:1-7</span></figcaption>
+            </figure>
+            <figure>
+              <img src="/assets/books/bible-stories-to-color/pages/jesus-welcomes-the-children.jpg" alt="Coloring page of Jesus welcoming two children" width="981" height="1039" />
+              <figcaption>Jesus Welcomes the Children<span>Mark 10:13-16</span></figcaption>
+            </figure>
+            <figure>
+              <img src="/assets/books/bible-stories-to-color/pages/jesus-calms-the-storm.jpg" alt="Coloring page of Jesus asleep in a boat with his friends" width="997" height="893" />
+              <figcaption>Jesus Calms the Storm<span>Mark 4:35-41</span></figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
