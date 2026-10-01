@@ -67,11 +67,11 @@ def article_head(meta):
 HEADER = f"""  <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header"><div class="container header-inner">
-      <a class="site-logo" href="/index.html"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
+      <a class="site-logo" href="/"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
       <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span class="nav-toggle-line" aria-hidden="true"></span></button>
       <nav id="site-nav" class="site-nav" aria-label="Primary"><ul class="nav-list">
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/resources.html">Resources</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/resources">Resources</a></li>
         <li><a href="/blog/{CLUSTER}">AI for Small Business</a></li>
         <li><a href="/blog/ai-for-nonprofits">AI for Nonprofits</a></li>
       </ul><a class="btn btn-primary btn-small" href="#" data-calendly-link data-track="calendly_cta">Book a Call</a></nav>
@@ -81,9 +81,9 @@ HEADER = f"""  <body>
 
 FOOTER = f"""    </main>
     <footer class="site-footer"><div class="container footer-grid">
-      <div><a class="site-logo footer-logo" href="/index.html"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="" /><span class="site-brand-text">Peacemakers AI</span></span></a></div>
+      <div><a class="site-logo footer-logo" href="/"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="" /><span class="site-brand-text">Peacemakers AI</span></span></a></div>
       <div><h3>Series</h3><p><a class="footer-domain" href="/blog/{CLUSTER}">AI for Small Business</a></p><p><a class="footer-domain" href="{SERVICE}">Small Business AI Consulting</a></p></div>
-      <div><h3>More</h3><p><a class="footer-domain" href="/ai-consulting-for-service-businesses.html">Service Businesses</a></p><p><a class="footer-domain" href="/resources.html">All Resources</a></p></div>
+      <div><h3>More</h3><p><a class="footer-domain" href="/ai-consulting-for-service-businesses">Service Businesses</a></p><p><a class="footer-domain" href="/resources">All Resources</a></p></div>
     </div></footer>
     <script src="/script.js" defer></script>
   </body>
@@ -149,7 +149,7 @@ def write_article(article):
       </div></section>
       <section class="section"><div class="container narrow article-body">
         <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="/index.html">Home</a> · <a href="/resources.html">Resources</a> · <a href="/blog/{CLUSTER}">AI for Small Business</a> · <span>{crumb}</span>
+          <a href="/">Home</a> · <a href="/resources">Resources</a> · <a href="/blog/{CLUSTER}">AI for Small Business</a> · <span>{crumb}</span>
         </nav>
         {body_content}
         {end_cta(article['end_cta_topic'])}
@@ -199,10 +199,10 @@ def write_index():
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header"><div class="container header-inner">
-      <a class="site-logo" href="/index.html"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
+      <a class="site-logo" href="/"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="Peacemakers AI logo" /><span class="site-brand-text">Peacemakers AI</span></span></a>
       <nav id="site-nav" class="site-nav" aria-label="Primary"><ul class="nav-list">
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/resources.html">Resources</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/resources">Resources</a></li>
         <li><a href="/blog/ai-for-nonprofits">AI for Nonprofits</a></li>
       </ul></nav>
     </div></header>
@@ -221,7 +221,7 @@ def write_index():
         </aside>
       </div></section>
     </main>
-    <footer class="site-footer"><div class="container"><p><a href="/resources.html">← All Resources</a></p></div></footer>
+    <footer class="site-footer"><div class="container"><p><a href="/resources">← All Resources</a></p></div></footer>
     <script src="/script.js" defer></script>
   </body>
 </html>"""

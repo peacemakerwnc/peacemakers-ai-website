@@ -2,6 +2,7 @@
   "outputDirectory": ".",
   "framework": null,
   "buildCommand": null,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/:path*",
@@ -12,52 +13,112 @@
         }
       ],
       "destination": "https://www.peacemakersai.com/:path*",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/self-booking-sites",
       "destination": "https://bookdirect.peacemakersai.com/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/self-booking-sites.html",
       "destination": "https://bookdirect.peacemakersai.com/",
-      "permanent": true
-    },
-    {
-      "source": "/locations/:state.html",
-      "destination": "/locations/:state",
-      "permanent": true
-    },
-    {
-      "source": "/locations/:state/:city.html",
-      "destination": "/locations/:state/:city",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/ai-for-nonprofits",
       "destination": "/services/ai-strategy-nonprofits",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/ai-for-nonprofits.html",
       "destination": "/services/ai-strategy-nonprofits",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/blog/ai-for-nonprofits",
       "destination": "/services/ai-strategy-nonprofits",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/blog/ai-for-nonprofits/",
       "destination": "/services/ai-strategy-nonprofits",
-      "permanent": true
+      "statusCode": 301
     },
     {
-      "source": "/books.html",
-      "destination": "/books",
-      "permanent": true
+      "source": "/resources/ai-for-small-business",
+      "destination": "/blog/ai-for-small-business",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/ai-for-small-business/",
+      "destination": "/blog/ai-for-small-business",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/ai-for-small-business/index.html",
+      "destination": "/blog/ai-for-small-business",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/ai-for-small-business/:slug.html",
+      "destination": "/blog/ai-for-small-business/:slug",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/ai-for-nonprofits",
+      "destination": "/services/ai-strategy-nonprofits",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/ai-for-nonprofits/",
+      "destination": "/services/ai-strategy-nonprofits",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/ai-for-nonprofits/index.html",
+      "destination": "/services/ai-strategy-nonprofits",
+      "statusCode": 301
+    },
+    {
+      "source": "/resources/ai-for-nonprofits/:slug.html",
+      "destination": "/blog/ai-for-nonprofits/:slug",
+      "statusCode": 301
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/locations/index",
+      "destination": "/locations",
+      "statusCode": 301
+    },
+    {
+      "source": "/industries/index",
+      "destination": "/industries",
+      "statusCode": 301
+    },
+    {
+      "source": "/locations/index.html",
+      "destination": "/locations",
+      "statusCode": 301
+    },
+    {
+      "source": "/industries/index.html",
+      "destination": "/industries",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*.html",
+      "destination": "/:path*",
+      "statusCode": 301
     }
   ],
   "rewrites": [
@@ -80,6 +141,82 @@
     {
       "source": "/privacy-policy",
       "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/blueprint",
+      "destination": "/blueprint.html"
+    },
+    {
+      "source": "/scorecard",
+      "destination": "/scorecard.html"
+    },
+    {
+      "source": "/security",
+      "destination": "/security.html"
+    },
+    {
+      "source": "/resources",
+      "destination": "/resources.html"
+    },
+    {
+      "source": "/early-access",
+      "destination": "/early-access.html"
+    },
+    {
+      "source": "/explainer",
+      "destination": "/explainer.html"
+    },
+    {
+      "source": "/local-service-ai-audit",
+      "destination": "/local-service-ai-audit.html"
+    },
+    {
+      "source": "/local-service-ai-checklist",
+      "destination": "/local-service-ai-checklist.html"
+    },
+    {
+      "source": "/ai-consulting-asheville-nc",
+      "destination": "/ai-consulting-asheville-nc.html"
+    },
+    {
+      "source": "/ai-consulting-for-service-businesses",
+      "destination": "/ai-consulting-for-service-businesses.html"
+    },
+    {
+      "source": "/ai-for-accounting-firms",
+      "destination": "/ai-for-accounting-firms.html"
+    },
+    {
+      "source": "/ai-for-consultants",
+      "destination": "/ai-for-consultants.html"
+    },
+    {
+      "source": "/ai-for-home-service-businesses",
+      "destination": "/ai-for-home-service-businesses.html"
+    },
+    {
+      "source": "/ai-for-law-firms",
+      "destination": "/ai-for-law-firms.html"
+    },
+    {
+      "source": "/ai-for-real-estate",
+      "destination": "/ai-for-real-estate.html"
+    },
+    {
+      "source": "/audit",
+      "destination": "/audit.html"
+    },
+    {
+      "source": "/design-test",
+      "destination": "/design-test.html"
+    },
+    {
+      "source": "/peacemakers-ai-website",
+      "destination": "/peacemakers-ai-website.html"
+    },
+    {
+      "source": "/resources/what-is-an-ai-opportunity-blueprint",
+      "destination": "/resources/what-is-an-ai-opportunity-blueprint.html"
     },
     {
       "source": "/locations",
