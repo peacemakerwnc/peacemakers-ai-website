@@ -54,6 +54,49 @@
       }
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "@id": "https://www.peacemakersai.com/books#bible-stories-to-color",
+      "name": "Bible Stories to Color: 52 New Testament Adventures with Scripture References and Faith Lessons for Kids Ages 6–10",
+      "description": "A paperback of 52 New Testament coloring stories for ages 6–10. Each story includes a Scripture reference and a simple faith lesson.",
+      "author": {
+        "@type": "Person",
+        "name": "James P Fullen"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Peacemakers Publishing",
+        "url": "https://www.peacemakersai.com/books"
+      },
+      "isbn": "9798176581263",
+      "url": "https://www.amazon.com/dp/B0HL2NYYXL",
+      "mainEntityOfPage": "https://www.peacemakersai.com/books#bible-stories-to-color",
+      "bookFormat": "https://schema.org/Paperback",
+      "inLanguage": "en",
+      "numberOfPages": 112,
+      "datePublished": "2026-09-23",
+      "audience": {
+        "@type": "PeopleAudience",
+        "suggestedMinAge": 6,
+        "suggestedMaxAge": 10
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ASIN",
+        "value": "B0HL2NYYXL"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.amazon.com/dp/B0HL2NYYXL",
+        "price": "9.99",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    }
+    </script>
     <style>
       :root {
         --sky: #d8ecf6;
@@ -89,7 +132,7 @@
       }
       .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
       .nav-brand { font-family: "Fraunces", Georgia, serif; font-weight: 650; font-size: clamp(1.3rem, 2.4vw, 1.7rem); letter-spacing: -0.02em; color: #f7fbff; }
-      .nav-links { display: flex; gap: 1.4rem; font-size: 0.92rem; color: rgba(247,251,255,0.82); }
+      .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.85rem 1.4rem; font-size: 0.92rem; color: rgba(247,251,255,0.82); }
       .nav-links a:hover { color: #fff; }
 
       .hero {
@@ -140,6 +183,12 @@
         background: rgba(14,47,56,0.06); color: var(--deep-soft);
         border: 1px solid var(--mist); cursor: default;
       }
+      .hero-also {
+        margin: 1rem 0 0; max-width: 36ch; font-size: 0.95rem; line-height: 1.45;
+        color: rgba(247,251,255,0.82);
+      }
+      .book-offer { max-width: 40rem; }
+      .book-offer .section-title { text-wrap: balance; }
 
       .section { padding: 4.75rem 0; }
       .section-head { max-width: 38rem; margin-bottom: 2.4rem; }
@@ -277,7 +326,8 @@
       <div class="shell nav-inner">
         <a class="nav-brand" href="#top">Peacemakers Publishing</a>
         <nav class="nav-links" aria-label="Page">
-          <a href="#the-book">The book</a>
+          <a href="#bible-stories-to-color">Bible Stories to Color</a>
+          <a href="#the-book">Good News to Color</a>
           <a href="#inside">Inside</a>
           <a href="#about">About</a>
         </nav>
@@ -296,9 +346,33 @@
           <p class="hero-line">Quiet pages. Bold lines. Faith-filled afternoons.</p>
           <p class="hero-support">A premium coloring and activity paperback for ages 6–10 — made for markers, little hands, and unhurried time together.</p>
           <div class="cta-row">
-            <a class="btn btn-primary" href="#the-book">Explore the book</a>
-            <span class="btn btn-ghost" aria-disabled="true">Amazon listing soon</span>
+            <a class="btn btn-primary" href="https://www.amazon.com/dp/B0HL2NYYXL" target="_blank" rel="noopener noreferrer">Buy Bible Stories to Color</a>
+            <a class="btn btn-ghost" href="#the-book">Explore Good News to Color</a>
           </div>
+          <p class="hero-also">Good News to Color — Amazon listing soon.</p>
+        </div>
+      </section>
+
+      <section id="bible-stories-to-color" class="section" aria-labelledby="bible-stories-title">
+        <div class="shell">
+          <article class="book-offer">
+            <p class="kicker">Available now</p>
+            <h2 id="bible-stories-title" class="section-title">Bible Stories to Color</h2>
+            <p class="section-support">52 New Testament Adventures with Scripture References and Faith Lessons for Kids Ages 6–10</p>
+            <p class="meta">James P Fullen · A Peacemakers Publishing title · Paperback · Ages 6–10 · 112 pages · ISBN 9798176581263</p>
+            <p class="blurb">
+              Fifty-two New Testament coloring stories, from the birth of Jesus through the early Church.
+              Each one pairs a scene to color with a Scripture reference and a simple faith lesson.
+              Pages are single-sided. Published September 23, 2026.
+            </p>
+            <p class="price">
+              $9.99
+              <span>Paperback · In stock on Amazon</span>
+            </p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="https://www.amazon.com/dp/B0HL2NYYXL" target="_blank" rel="noopener noreferrer">Buy Bible Stories to Color on Amazon</a>
+            </div>
+          </article>
         </div>
       </section>
 
