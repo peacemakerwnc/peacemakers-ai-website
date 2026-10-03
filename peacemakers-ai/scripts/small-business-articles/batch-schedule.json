@@ -174,7 +174,8 @@
       "slug": "compliance-and-legal-considerations-for-ai-in-small-business",
       "module": "batch7.py",
       "scheduled_date": "2026-10-03",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-03"
     },
     {
       "brief": 107,
