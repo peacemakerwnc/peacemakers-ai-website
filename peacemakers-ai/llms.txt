@@ -1,0 +1,50 @@
+> Note: llms.txt is a discoverability aid for LLM crawlers — not a substitute for indexable HTML, schema, internal links, or quality content.
+
+# Peacemakers AI
+
+> Peacemakers AI is an AI automation consulting firm based in Asheville, North Carolina. We help service-based businesses nationwide reduce manual work, improve follow-up, and decide where process, current tools, automation, or AI actually helps. Work is remote. We do not assume you need new software.
+
+## How to start
+
+- [Book a 15-minute intro](https://calendly.com/james-peacemakersai): A short fit call for process and next steps — not a free consulting session.
+- [Free AI Opportunity Scorecard](https://www.peacemakersai.com/scorecard): A quick readiness check before buying more tools.
+- [AI Opportunity Blueprint](https://www.peacemakersai.com/blueprint): Paid $3,500 diagnostic. Written recommendations, current-tool fit, and prioritized next steps. Implementation is a separate decision.
+
+## Primary pages
+
+- [AI Automation Consulting for Service Businesses](https://www.peacemakersai.com/ai-consulting-for-service-businesses)
+- [AI Consulting in Asheville, NC](https://www.peacemakersai.com/ai-consulting-asheville-nc)
+- [Security and Client Control](https://www.peacemakersai.com/security)
+- [AI Opportunity Audit for Local Service Businesses](https://www.peacemakersai.com/local-service-ai-audit)
+- [7 AI Workflows for Local Service Businesses](https://www.peacemakersai.com/local-service-ai-checklist)
+- [Locations](https://www.peacemakersai.com/locations)
+- [Industries](https://www.peacemakersai.com/industries)
+
+## Industries
+
+- [AI for Home Service Businesses](https://www.peacemakersai.com/ai-for-home-service-businesses)
+- [AI for Accounting Firms](https://www.peacemakersai.com/ai-for-accounting-firms)
+- [AI for Law Firms](https://www.peacemakersai.com/ai-for-law-firms)
+- [AI for Consultants](https://www.peacemakersai.com/ai-for-consultants)
+- [AI for Real Estate](https://www.peacemakersai.com/ai-for-real-estate)
+- [AI Consulting for Nonprofits](https://www.peacemakersai.com/services/ai-strategy-nonprofits)
+- [HVAC Industry Solutions](https://www.peacemakersai.com/industries/hvac)
+- [Plumbing Industry Solutions](https://www.peacemakersai.com/industries/plumbing)
+- [Property Management Industry Solutions](https://www.peacemakersai.com/industries/property-management)
+- [Roofing Industry Solutions](https://www.peacemakersai.com/industries/roofing)
+
+## Books
+
+- [Bible Stories to Color](https://www.peacemakersai.com/books): Peacemakers Publishing coloring book — 52 New Testament adventures with scripture references and faith lessons for kids ages 6–10. The page links to the Amazon listing.
+
+## Company
+
+- [About Peacemakers AI](https://www.peacemakersai.com/about)
+- [Contact Peacemakers AI](https://www.peacemakersai.com/contact) (email: james@peacemakersai.com)
+- [Resources](https://www.peacemakersai.com/resources)
+- [Privacy Policy](https://www.peacemakersai.com/privacy-policy)
+
+## Optional
+
+- [XML Sitemap](https://www.peacemakersai.com/sitemap.xml)
+- [Robots.txt](https://www.peacemakersai.com/robots.txt)
