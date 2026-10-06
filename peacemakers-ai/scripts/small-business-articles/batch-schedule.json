@@ -182,7 +182,8 @@
       "slug": "ai-for-personalized-marketing-campaigns",
       "module": "batch7.py",
       "scheduled_date": "2026-10-06",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-06"
     },
     {
       "brief": 108,
