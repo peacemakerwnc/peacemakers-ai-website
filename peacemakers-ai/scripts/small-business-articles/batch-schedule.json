@@ -198,7 +198,8 @@
       "slug": "integration-of-ai-with-existing-business-software",
       "module": "batch7.py",
       "scheduled_date": "2026-10-09",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-09"
     },
     {
       "brief": 110,
