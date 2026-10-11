@@ -206,7 +206,8 @@
       "slug": "industry-specific-ai-solutions-retail-services-ecommerce",
       "module": "batch7.py",
       "scheduled_date": "2026-10-11",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-11"
     },
     {
       "brief": 201,
