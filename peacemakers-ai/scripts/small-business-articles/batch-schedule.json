@@ -476,9 +476,10 @@
       "slug": "notion-ai-for-small-business-operations",
       "module": "batch10.py",
       "scheduled_date": "2026-10-12",
-      "status": "pending",
+      "status": "published",
       "series": "ai-implementation-tool-stack",
-      "cadence": "weekly"
+      "cadence": "weekly",
+      "published_date": "2026-10-12"
     },
     {
       "brief": 303,
