@@ -85,7 +85,7 @@ ARTICLES = {
     },
     "notion-ai-for-small-business-operations": {
         "title": 'Notion AI for Small Business Operations: SOPs, Projects, and a Living Wiki',
-        "meta_description": 'Notion AI works best for small businesses as the living wiki for SOPs, project trackers, and meeting decisions—so AI answers are grounded in your actual.',
+        "meta_description": 'Use Notion AI as a living operations hub for SOPs, projects, meeting notes, and searchable company knowledge.',
         "slug": "notion-ai-for-small-business-operations",
         "publish_date": "2026-10-12",
         "category": "AI for Small Business",
@@ -97,15 +97,61 @@ ARTICLES = {
         "mid_cta": {"title": 'Need a Notion ops hub that sticks?', "description": "Map a practical first workflow with clear review steps.", "buttonText": "Book a Free AI Fit Assessment", "buttonHref": "/services/ai-strategy-small-business"},
         "lead_magnet": {"title": "Small Business AI Starter Kit", "description": "Plan a focused first AI workflow.", "buttonText": "Get the Free Starter Kit", "formEndpoint": "/resources/ai-small-business-starter-kit", "page_source": "lm-notion-ai-for-small-business-operations"},
         "end_cta_topic": 'using Notion AI in your operations',
-        "body_html": _body(
-            'Notion AI works best for small businesses as the living wiki for SOPs, project trackers, and meeting decisions—so AI answers are grounded in your actual pages instead of generic advice.',
-            'During implementations we use Notion to hold discovery notes, process maps, pilot checklists, and approved templates. That keeps the client and consultant looking at the same source of truth.',
-            'Notion AI as an operations hub',
-            'Create a simple workspace: Company Wiki, Processes, Projects, and Meeting Notes. Use Notion AI to summarize pages, extract action items, and draft SOP sections from voice notes—then have the process owner verify accuracy before anything becomes policy.',
-            'Do not store payroll files, bank credentials, or unrestricted customer PII in a loosely permissioned workspace. Review AI answers against the linked source page.',
-            'Track time to find an SOP, onboarding questions that still require a manager, and how often outdated pages are corrected.',
-            'Pair Notion with <a href="/blog/ai-for-small-business/wispr-flow-for-business-dictation-and-discovery">Wispr Flow capture</a> and <a href="/blog/ai-for-small-business/ai-for-writing-sops-and-training-guides">SOP writing guidance</a>. For stack context, see the <a href="/blog/ai-for-small-business/ai-implementation-tool-stack-for-small-business">implementation tool stack overview</a>.',
-        ),
+        "body_html": """<p>Notion AI works best for small business operations when Notion is treated as a living company wiki for SOPs, projects, meeting notes, and approved decisions. It becomes useful because AI can summarize and draft from the pages your team actually maintains, not because it magically fixes scattered operations on its own.</p>
+<p>The practical goal is simple: give employees one trustworthy place to find how work gets done, then use Notion AI to speed up the upkeep of that knowledge. For many small businesses, that is more valuable than adding another standalone AI tool.</p>
+
+<h2>What Notion AI should do in a small business</h2>
+<p>Notion AI is strongest when it sits close to the information your team already needs every week. Think of it as a helper inside your operations library. It can summarize meeting notes, turn rough process notes into SOP drafts, create first-pass checklists, rewrite messy instructions in a clearer format, and answer questions from selected workspace context.</p>
+<p>That is different from asking Notion AI to run the business. Owners should not use it as an unreviewed policy maker, compliance advisor, financial controller, or customer commitment engine. The better pattern is human-owned operations with AI-assisted documentation. A manager, owner, or process lead still decides what is correct, what is final, and what should be visible to the team.</p>
+<p>During Peacemakers implementations, Notion often becomes the shared source of truth for discovery notes, process maps, pilot checklists, meeting decisions, and approved templates. That makes the broader <a href="/blog/ai-for-small-business/ai-implementation-tool-stack-for-small-business">AI implementation tool stack</a> easier to manage because each tool has a documented job and each workflow has a home.</p>
+
+<h2>Build the workspace before relying on AI answers</h2>
+<p>The biggest mistake is turning on Notion AI before the workspace has enough structure. If pages are duplicated, outdated, and buried in random folders, AI summaries will simply make the confusion sound polished. Start by creating a small workspace architecture that mirrors how the business operates.</p>
+<p>A simple version can work well:</p>
+<ul>
+  <li><strong>Company Wiki:</strong> policies, team norms, important links, and recurring reference material.</li>
+  <li><strong>Processes:</strong> SOPs, checklists, templates, and role-specific how-to pages.</li>
+  <li><strong>Projects:</strong> current initiatives, owners, due dates, decisions, and status updates.</li>
+  <li><strong>Meeting Notes:</strong> agendas, decisions, action items, and follow-up questions.</li>
+  <li><strong>AI Pilots:</strong> workflow maps, test prompts, review notes, and measurement results.</li>
+</ul>
+<p>This structure does not have to be perfect. It only has to be clear enough that staff know where to put information and where to look first. When a new page is created, assign an owner and a review date. When a process changes, update the SOP before the old instructions spread through chat, email, or memory.</p>
+
+<h2>Use Notion AI for SOPs without losing accountability</h2>
+<p>SOPs are one of the best starting points for Notion AI because most small businesses already have process knowledge trapped in people's heads. Start with one recurring workflow that causes repeated questions, inconsistent results, or onboarding friction. Examples include opening the office, processing a new lead, preparing a client kickoff, handling a refund, updating a job status, or closing out a project.</p>
+<p>Have the process owner write or dictate the rough steps first. If your team captures process details by voice, keep the pilot narrow and follow the same change-management discipline used when you <a href="/blog/ai-for-small-business/implement-ai-without-disrupting-business">implement AI without disrupting the business</a>. Then ask Notion AI to turn the rough material into a structured SOP with purpose, owner, trigger, inputs, steps, exceptions, and quality checks.</p>
+<p>The review step matters. The process owner should test the draft against a real example, correct missing edge cases, and mark the page as approved only after it reflects the way the work should actually happen. That keeps the SOP from becoming AI-generated documentation theater.</p>
+<!--MID_CTA-->
+
+<h2>Turn meetings into decisions, not just transcripts</h2>
+<p>Small teams lose time when decisions live in meeting memories, Slack threads, or someone's notebook. Notion AI can help by converting meeting notes into short summaries, decisions, action items, open questions, and owners. The value is not the summary itself; the value is that the summary lands in the same workspace where projects and SOPs live.</p>
+<p>For example, a weekly operations meeting can produce a note with five sections: agenda, decisions made, action items, blockers, and pages to update. After the meeting, Notion AI can clean the notes and extract tasks. A human still confirms the assignments and dates. If a decision changes a process, link the meeting note to the SOP that needs updating.</p>
+<p>This pairs naturally with a measurement habit because meeting summaries should lead to visible process improvements. The meeting note should not be a dead archive. It should point to the project, policy, client process, or checklist that changed because of the discussion.</p>
+
+<h2>Keep permissions and sensitive data under control</h2>
+<p>A useful Notion workspace can become risky if everyone can see everything or if sensitive data is copied into pages casually. Before expanding Notion AI, decide what information belongs in the workspace and what does not. Payroll files, bank details, passwords, unrestricted customer personally identifiable information, legal disputes, private HR notes, and confidential vendor terms should receive tighter handling than ordinary process documentation.</p>
+<p>Create team spaces or page permissions around real roles. A service manager may need field SOPs and customer handoff templates. A bookkeeper may need finance process pages. A new hire may need onboarding and role-specific checklists, not every strategic note in the company.</p>
+<p>Also set a rule for AI-generated answers: if the answer affects customers, money, employment, compliance, or safety, a human reviews it before action. Notion AI can draft, summarize, and organize. It should not quietly approve refunds, change policies, promise deadlines, or interpret contracts without an accountable person involved.</p>
+
+<h2>Measure whether Notion AI is actually helping</h2>
+<p>Do not measure success by how many pages you created. Measure whether the workspace removes friction from real work. Before the pilot, ask: how long does it take a team member to find the current SOP? How often does a manager answer the same question? How long does onboarding take before someone can complete the task independently? How many project updates are missing owners or next steps?</p>
+<p>After two to four weeks, compare the same signals. Useful metrics include fewer repeat questions, faster SOP lookup, shorter meeting follow-up time, fewer missed action items, and less manager involvement in routine onboarding. Add a quality metric too: are employees following the right process more consistently?</p>
+<p>If the workspace is not helping, resist the urge to add more AI. Fix the page structure, ownership, naming, and review rhythm first. AI performs better when the underlying operating system is clean.</p>
+
+<h2>A simple first-week rollout</h2>
+<p>Start with one workflow, one owner, and one visible improvement. Pick a process that matters but is not dangerous to test: new lead intake, client onboarding, weekly job status updates, appointment prep, or internal handoffs. Create one Notion page for the current process, one page for meeting notes related to that workflow, and one project page for improvements.</p>
+<ol>
+  <li>Document the current workflow in plain language.</li>
+  <li>Ask Notion AI to convert it into a draft SOP and checklist.</li>
+  <li>Have the process owner test the draft against a real example.</li>
+  <li>Publish the approved version and tell the team where it lives.</li>
+  <li>Use the page for one week, then collect corrections and questions.</li>
+</ol>
+<p>Once that first process holds up, repeat the pattern. The compounding benefit comes from building a reliable operations library, not from a single clever prompt. If adoption is the bottleneck, connect the workspace rollout to <a href="/blog/ai-for-small-business/train-my-team-to-use-ai-tools">team AI training</a> so staff know what to trust, what to question, and where approved documentation lives.</p>
+
+<h2>Bottom line</h2>
+<p>Notion AI is a strong fit for small business operations when it helps maintain a living wiki, not when it becomes an ungoverned decision maker. Put the right pages, owners, permissions, and review habits in place first; then let AI summarize, draft, and organize the work your team already understands.</p>
+<p>Start with one workflow, measure whether the team can find and follow the process more easily, and expand only when the workspace is becoming more trustworthy over time.</p>""",
     },
     "wispr-flow-for-business-dictation-and-discovery": {
         "title": 'Wispr Flow for Business: Faster Discovery Notes and Cleaner Drafts',
