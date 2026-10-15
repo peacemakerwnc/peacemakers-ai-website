@@ -222,7 +222,8 @@
       "slug": "ai-for-google-business-reviews",
       "module": "batch8.py",
       "scheduled_date": "2026-10-15",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-15"
     },
     {
       "brief": 203,
