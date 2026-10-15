@@ -1,0 +1,262 @@
+{
+  "version": "0.1.0",
+  "compatibleOs": "pm-os-0.1.0",
+  "carousel": {
+    "account": "startup_rules",
+    "shortcode": "DePVniqGN7p",
+    "title": "12 YouTube courses that are better than an MBA"
+  },
+  "practices": [
+    {
+      "id": "sales",
+      "slide": 2,
+      "title": "How to Sell Better than 99% Of People (4 HOUR ULTIMATE GUIDE)",
+      "creator": "Alex Hormozi",
+      "youtubeId": "JE2_7elAcxM",
+      "duration": "4:43:19",
+      "teaches": [
+        "CLOSER: clarify why they are here, label the problem in their words, overview what they already tried, sell the outcome rather than the machinery, explain concerns, reinforce the decision after they choose",
+        "On a sales conversation, say questions, restatements, and short stories. Keep the pitch under a few minutes",
+        "People buy the destination. Features, modules, and tool names are the plane flight"
+      ],
+      "practice": "On the next Blueprint conversation, open by asking why they took the time and what they want solved. Restate the problem until they agree it is theirs. Ask what they have already tried and how that went. Describe the business result in plain language before naming any tool. Leave price, scope, and the yes with James.",
+      "doNot": [
+        "Do not run a pressure close, memorized objection drill, or income promise",
+        "Do not send a proposal, quote, or client message from this practice",
+        "Do not treat 'it is not their fault' or an 'unlosable frame' as evidence"
+      ],
+      "measure": "The notes contain their goal, their words for the problem, and what they already tried, before any tool is named."
+    },
+    {
+      "id": "communication",
+      "slide": 3,
+      "title": "How To Speak Like The 1% Elite",
+      "creator": "Natalie Dawson",
+      "youtubeId": "VY0r0WV0GAQ",
+      "duration": "15:18",
+      "teaches": [
+        "Drop qualifiers such as 'I think' and 'I feel' when you already mean the statement",
+        "High emotion makes the message sound reactive. Let the pressure pass, then answer from the facts",
+        "Enter a room knowing the target. Leave if you have nothing to add",
+        "Ask for the missing fact: what data supports this, what is the biggest constraint, what would stop this from happening again",
+        "Say the point once, with a steady voice and still hands. Over-explaining asks for validation"
+      ],
+      "practice": "Before a call or a written recommendation, write one sentence: why you are in the room. Replace one qualifier with the direct claim, and only if the evidence supports it. Ask one question that names the missing fact. Stop when the point is said.",
+      "doNot": [
+        "Do not strip uncertainty when the evidence is still CLIENT_REPORTED, INFERRED, or UNKNOWN. Name the evidence class instead of faking certainty",
+        "Do not treat calm delivery as a substitute for a sourced claim"
+      ],
+      "measure": "The draft states the purpose, one direct claim tied to an evidence id, and one question that would change the recommendation."
+    },
+    {
+      "id": "systems",
+      "slide": 4,
+      "title": "How To Think SO Clearly People Assume You're Brilliant",
+      "creator": "Sandeep Swadia",
+      "youtubeId": "mjTgkm-h__M",
+      "duration": "19:57",
+      "slideTitleNote": "The carousel title says Genius. Sandeep's video title says Brilliant. The graphic is Tools of a System Thinker, which matches this talk.",
+      "teaches": [
+        "A system is connected parts that keep producing a pattern. Look for hidden parts, connections, and the pattern that repeats",
+        "Name the system before you act: clear (checklist), complicated (analysis or the right specialist), complex (small tests, course-correct), chaotic (stabilize first)",
+        "Incentives can produce the opposite of the goal. Delayed feedback hides the result of today's action",
+        "DART: deconstruct the parts, analyze whether cause and effect is obvious, discoverable, only visible later, or broken, recognize a similar pattern, test the smallest move",
+        "Mentors, data, and time show whether you are inside the train or on the platform"
+      ],
+      "practice": "Before recommending a change, label the system clear, complicated, complex, or chaotic, and write the DART answers in four lines. Pick the response that matches the label: checklist, specialist analysis, a small experiment, or stabilize first.",
+      "doNot": [
+        "Do not import a checklist into a complex adoption problem, or an experiment into a chaotic safety problem",
+        "Do not treat a binary tool choice as a limit of reality until the current system has been described"
+      ],
+      "measure": "The recommendation names the system type, the repeating pattern, and the smallest next test or checklist."
+    },
+    {
+      "id": "storytelling",
+      "slide": 5,
+      "title": "Give me 18min & I’ll improve your storytelling skills by 183%",
+      "creator": "Philipp Humm",
+      "youtubeId": "YtkrIaONxu0",
+      "duration": "18:34",
+      "teaches": [
+        "PAST zooms into the moment: place, action, speech, thoughts",
+        "Start in the scene with a time and a location. Use action verbs. Quote the line that mattered. Share the raw thought, then pause",
+        "A helicopter summary ('it was hard, then I solved it') leaves the listener outside the story"
+      ],
+      "practice": "When a recommendation needs a human example, rewrite one paragraph with PAST: where you were, what happened next, the exact words, and the thought in that moment. Keep the lesson in one sentence after the scene. Use a real engagement moment James can stand behind, with client names removed.",
+      "doNot": [
+        "Do not invent dialogue, numbers, or a client result to make the story land",
+        "Do not use a story to carry a claim the evidence register does not support"
+      ],
+      "measure": "A reader can see the place, the action, one line of speech, and one thought, and the lesson does not add a new factual claim."
+    },
+    {
+      "id": "negotiation",
+      "slide": 6,
+      "title": "Negotiation skills for life: how to succeed when it matters most",
+      "creator": "Matthias Schranner, TEDxZurich",
+      "youtubeId": "DpmvQm1PMPk",
+      "duration": "13:23",
+      "teaches": [
+        "Under pressure, arguments create counter-arguments. Demands can be negotiated. Right and wrong cannot",
+        "Stay. Say the situation is difficult, pause, thank them for the opening, name the shared interest, then make a demand",
+        "Flight avoids the conflict with a weak compromise or an escalation. Fight talks too much. Both miss the agreement",
+        "Leave the other side a way to agree and keep their standing"
+      ],
+      "practice": "When scope, price, or timeline sticks, write the shared interest and one demand. Offer one face-saving option the other side can accept. Bring that note to James. He decides the commercial terms.",
+      "doNot": [
+        "Do not threaten, bluff, or treat a client like an adversary",
+        "Do not trade away evidence, security, or approval gates to get a yes",
+        "Do not escalate to someone else merely to escape the conversation"
+      ],
+      "measure": "The stuck item has a shared interest, a demand, and a face-saving option, and no argument about who is right."
+    },
+    {
+      "id": "productivity",
+      "slide": 7,
+      "title": "How to Be So Productive it Feels ILLEGAL",
+      "creator": "Dan Martell",
+      "youtubeId": "hSGt_rhu49U",
+      "duration": "18:07",
+      "teaches": [
+        "Focus is a filter. A not-to-do list removes low-value tasks, vices, and energy drains",
+        "Design the start: place, sound, and a routine. Do the hard block before the inbox",
+        "Be easy to find and hard to interrupt. Shorten the deadline. Track a visible streak",
+        "Plan the week from the non-negotiable blocks and from energy, then batch the rest",
+        "Exhaust the body when the mind is noisy. Keep what still gives energy, drop what no longer does"
+      ],
+      "practice": "Write a not-to-do list for the current week. Put the hardest owner task in the first deep-work block, before email and Slack. Theme one day. Record whether that block happened.",
+      "doNot": [
+        "Do not copy the story about removing someone from a team for missing a personal goal",
+        "Do not add tools, apps, or a new weekly system until the not-to-do list and the morning block have been tried"
+      ],
+      "measure": "The week's log shows the hard block done before the inbox, and at least one item that was deliberately not done."
+    },
+    {
+      "id": "study",
+      "slide": 8,
+      "title": "How I Study SMARTER, Not HARDER",
+      "creator": "Andrew Huberman, via the RESPIRE upload that matches the slide clock",
+      "youtubeId": "jMhhaAQK1NQ",
+      "duration": "10:49",
+      "sourceNote": "The slide credits Andrew Huberman and shows 10:49. That clock matches the RESPIRE upload jMhhaAQK1NQ, which is Huberman's study guidance. The long-form source is Huberman Lab, Optimal Protocols for Studying & Learning, ddq8JIMhz7c.",
+      "teaches": [
+        "Schedule two or three study blocks and repeat them until attention shows up at that time",
+        "Study alone, phone away",
+        "Testing is how memory is built, not only how it is graded. Recall, miss, check",
+        "Teach the idea to expose the gap. Sleep after the session"
+      ],
+      "practice": "Pick one client domain or OS standard. Schedule two short blocks. In the second block, close the source and write what you remember, then check it. Explain it once in your own words.",
+      "doNot": [
+        "Do not highlight a transcript and call that study",
+        "Do not treat a reupload as a new source of facts about a vendor"
+      ],
+      "measure": "A closed-book recall note exists, with the misses corrected against the source."
+    },
+    {
+      "id": "automation",
+      "slide": 9,
+      "title": "N8N FULL COURSE 6 HOURS (Build & Sell AI Automations + Agents)",
+      "creator": "Nick Saraev",
+      "youtubeId": "2GZ2SNXWK-c",
+      "duration": "5:58:32",
+      "teaches": [
+        "n8n basics: canvas, triggers, nodes, forms, and app events",
+        "Foundational workflow patterns, then code nodes when the platform needs a function",
+        "Self-hosting versus a hosted plan, and when Make.com is the simpler tool",
+        "AI agent workflows with memory and tools, after a deterministic workflow already works",
+        "Packaging a workflow as a service is a commercial skill, separate from building one"
+      ],
+      "practice": "Name one repeated internal step. Walk the intervention ladder from eliminate through native configuration before opening n8n. If a workflow is still justified, build a deterministic version with a log and a human approval step before any client-facing action.",
+      "doNot": [
+        "Do not sell an automation, send cold email, or connect client credentials from this practice",
+        "Do not put an LLM inside a step a rule can do",
+        "Do not self-host against production data as a tutorial exercise"
+      ],
+      "measure": "The note shows the ladder rungs that were considered, why a workflow was or was not built, and who approves the action it can take."
+    },
+    {
+      "id": "claude",
+      "slide": 10,
+      "title": "The Ultimate Beginner’s Guide to Claude AI",
+      "creator": "Metics Media",
+      "youtubeId": "9oJySubZRSA",
+      "duration": "1:00:49",
+      "teaches": [
+        "Six levels: talk, hand over files, make a real artifact, remember the work, connect apps you already use, let it work while you are away",
+        "A useful prompt has context, task, and format. Refine in the same chat. Start a new chat for a new topic",
+        "Use the faster model for small questions and a stronger model when the job is long or the details matter. Names and prices change",
+        "Connect one folder for one boring job. Read what the tool is allowed to touch"
+      ],
+      "practice": "Place today's task on the six-level ladder and stop at the lowest level that can do it. Write context, task, and format. Refine twice before starting over. Keep client facts out of a general memory.",
+      "doNot": [
+        "Do not turn on training of vendor models with client material",
+        "Do not leave an unattended agent with client files, email, or payment tools",
+        "Do not copy the candle-shop demo. Use the real Peacemakers task"
+      ],
+      "measure": "The session names its level, the prompt has context, task, and format, and no client secret sits in a standing memory."
+    },
+    {
+      "id": "money",
+      "slide": 11,
+      "title": "How To Manage Your Money Like The 1%",
+      "creator": "Mark Tilbury",
+      "youtubeId": "QThz1B8SHmc",
+      "duration": "33:30",
+      "teaches": [
+        "A personal split he calls 25-15-50-10: growth assets, a stability fund, essentials, and a guilt-free reward slice",
+        "Growth starts with broad index funds and a skill that raises income. Automate the transfer on payday",
+        "Stability is months of baseline expenses, liquid, not invested, replaced the moment it is used",
+        "Essentials are what keep you alive and working. Rewards are a capped slice so the plan lasts"
+      ],
+      "practice": "This is James's personal money practice, kept out of client work. List one month of baseline expenses. Set the stability target at five months of that baseline. Automate the growth transfer and the reward transfer on payday if he chooses this split.",
+      "doNot": [
+        "Do not give this split to a client as financial, tax, or investment advice",
+        "Do not treat the video's 10 percent return illustration, sponsor offer, or account list as verified",
+        "Do not put the stability fund in the market"
+      ],
+      "measure": "A personal note states the monthly baseline, the stability target, and whether the payday transfers exist. No client document mentions this split."
+    },
+    {
+      "id": "focus",
+      "slide": 12,
+      "title": "How To Unlock Insane Focus On Command",
+      "creator": "Rian Doris",
+      "youtubeId": "l86xggdQcKQ",
+      "duration": "11:16",
+      "teaches": [
+        "Four pillars: remove blockers, raise proneness, add triggers, ride the cycle",
+        "Flow before phone: the first two or three hours on the highest-priority task",
+        "Triggers that transfer to desk work: a clear goal, fast feedback, and a task slightly harder than current skill",
+        "The cycle is struggle, release, flow, recovery. Most people quit in the first minutes of struggle"
+      ],
+      "practice": "Tomorrow, start the highest-priority owner task before the phone. Define the goal and the feedback in one line. Stay through the uncomfortable opening minutes. Stop while recovery is still possible.",
+      "doNot": [
+        "Do not treat flow as a reason to skip sleep, review, or an approval gate",
+        "Do not stack this on top of a full inbox morning. The phone stays off until the block ends"
+      ],
+      "measure": "The log records the task, whether the phone stayed away, and whether the struggle phase was finished or abandoned."
+    },
+    {
+      "id": "life",
+      "slide": 13,
+      "title": "44 Harsh Truths About The Game Of Life",
+      "creator": "Chris Williamson with Naval Ravikant",
+      "youtubeId": "KyfUysrNaco",
+      "duration": "3:16:19",
+      "teaches": [
+        "Be choosy about desires. A desire is a contract to stay unhappy until it is met",
+        "If you cannot decide on an optional commitment, the answer is no. Inspiration is perishable, so act while it is alive",
+        "Pride blocks error correction. Ten thousand corrections beat ten thousand unmarked hours",
+        "Find work that feels like play to you and looks like work to others. No one beats you at being you",
+        "Stress is two desires pulling apart. Fix the life in front of you. The reason to win a game is to be free of it"
+      ],
+      "practice": "Once a week, list optional commitments. Decline the ones you cannot decide. Pick one desire you are willing to keep, and one correction from the week's work. Act on a live inspiration the same day or write it down and drop it.",
+      "doNot": [
+        "Do not use 'if you cannot decide, the answer is no' to skip a client decision that evidence can settle",
+        "Do not paste these lines into client documents or replace the operating system with them",
+        "Do not schedule your life into a status game of busyness"
+      ],
+      "measure": "The week names one declined optional commitment, one kept desire, and one correction you actually made."
+    }
+  ]
+}
