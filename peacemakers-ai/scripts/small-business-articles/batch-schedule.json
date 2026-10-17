@@ -230,7 +230,8 @@
       "slug": "ai-phone-answering-for-small-business",
       "module": "batch8.py",
       "scheduled_date": "2026-10-17",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-17"
     },
     {
       "brief": 204,
