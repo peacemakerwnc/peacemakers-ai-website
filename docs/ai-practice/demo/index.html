@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Assessment demo · Peacemakers AI</title>
+    <meta
+      name="description"
+      content="A fictional assessment demo. Pick a field document, price it from an editable rate card, and export a PDF only after a person approves it."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <p class="eyebrow">Peacemakers AI · Assessment demo</p>
+        <h1>From the field notes to a draft the reviewer can stand behind</h1>
+      </div>
+      <ul class="chips" aria-label="Safety practices in this demo">
+        <li>Contact block stays on this computer</li>
+        <li>PII redacted before a model call</li>
+        <li>Nothing is saved</li>
+        <li>A person approves the PDF</li>
+      </ul>
+    </header>
+
+    <main>
+      <section class="picker" aria-label="Sample documents">
+        <button type="button" class="sample" data-sample="storm">
+          <span>Contractor</span>
+          <strong>Storm structure inspection</strong>
+          <em>Cape Fear Drainage Co. · fictional</em>
+        </button>
+        <button type="button" class="sample" data-sample="hvac">
+          <span>Home services</span>
+          <strong>HVAC tech notes</strong>
+          <em>Oak Island Comfort Co. · fictional</em>
+        </button>
+        <button type="button" class="sample" data-sample="builder">
+          <span>Home builder</span>
+          <strong>Handwritten selections</strong>
+          <em>Harborline Homes · fictional</em>
+        </button>
+        <label class="upload">
+          <span>Or upload a .txt sample</span>
+          <input id="upload" type="file" accept=".txt,text/plain" />
+        </label>
+      </section>
+
+      <p id="banner" class="banner"></p>
+
+      <section class="workspace">
+        <article class="panel">
+          <header>
+            <h2>Source</h2>
+            <p id="source-meta"></p>
+          </header>
+          <label class="field">
+            Document text
+            <textarea id="source" spellcheck="false"></textarea>
+          </label>
+          <h3>What a model would receive</h3>
+          <pre id="redacted" class="redacted"></pre>
+          <p id="redaction-note" class="note"></p>
+        </article>
+
+        <article class="panel">
+          <header>
+            <h2>Rate card</h2>
+            <p>Edit a number. The total updates. The model does not set prices.</p>
+          </header>
+          <div id="rates"></div>
+          <h3>Priced lines</h3>
+          <div id="lines"></div>
+          <p id="warning" class="warning" hidden></p>
+          <div class="row-actions">
+            <button type="button" id="reprice" class="btn">Reprice from the text</button>
+            <button type="button" id="model" class="btn btn-ghost">Try the model</button>
+          </div>
+          <p id="mode" class="note"></p>
+        </article>
+
+        <article class="panel compare-panel">
+          <header>
+            <h2>Manual draft vs. this worksheet</h2>
+            <p>Times are assumptions for the demo, not measurements.</p>
+          </header>
+          <div class="compare">
+            <div>
+              <p class="kicker">Office draft</p>
+              <p id="manual-total" class="figure"></p>
+              <p id="manual-time" class="sub"></p>
+            </div>
+            <div>
+              <p class="kicker">Rate card</p>
+              <p id="ai-total" class="figure"></p>
+              <p id="ai-time" class="sub"></p>
+            </div>
+          </div>
+          <p id="gap" class="gap"></p>
+          <p id="why" class="note"></p>
+
+          <h3>Local details, printed only if you approve</h3>
+          <div class="local-grid">
+            <label>Name <input id="local-name" type="text" autocomplete="off" /></label>
+            <label>Service location <input id="local-address" type="text" autocomplete="off" /></label>
+          </div>
+          <p class="note">These two fields are not part of the redacted text and are not sent to the model.</p>
+
+          <label class="approve">
+            <input id="approve" type="checkbox" />
+            <span>I reviewed the lines, the rates, and the total. This PDF is a draft for a person to send. It is not a bid until the company says it is.</span>
+          </label>
+          <label class="field compact">
+            Reviewed by
+            <input id="reviewer" type="text" placeholder="Initials" autocomplete="off" />
+          </label>
+          <button type="button" id="export" class="btn btn-primary" disabled>Export the approved PDF</button>
+          <button type="button" id="clear" class="btn btn-text">Clear this session</button>
+
+          <h3>Audit log</h3>
+          <p class="note">In memory only. A refresh clears the document and the log. The log records the event, not the file.</p>
+          <ol id="log" class="log"></ol>
+        </article>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>Fictional companies and fictional prices. Not legal advice. Not a client deliverable until a person at the company approves the real version of the work.</p>
+    </footer>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>

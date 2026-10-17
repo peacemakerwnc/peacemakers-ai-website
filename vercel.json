@@ -11,5 +11,12 @@
       "source": "/peacemakers-ai-website.html",
       "destination": "/peacemakers-ai/peacemakers-ai-website.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/practice-demo",
+      "destination": "/docs/ai-practice/demo/",
+      "permanent": false
+    }
   ]
 }
