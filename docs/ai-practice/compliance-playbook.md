@@ -292,9 +292,9 @@ As of 17 October 2026 there are no client contracts and no E&O or cyber policy. 
 - Does cyber include the cost of regulatory notice, including a North Carolina breach notice under G.S. 75-65?
 - When would a certificate of insurance actually be in hand?
 
-Do not tell a client you are covered until those answers are in writing and a binder exists.
+Do not tell a client you are covered until those answers are in writing and a binder exists. A sourced call list of North Carolina and national brokers is in `nc-insurance-and-legal-shortlist.md`. It is a starting set of published contacts, not a ranking.
 
-**2. North Carolina counsel, the same week, in parallel.** Ask them to draft these documents. Do not paste this playbook into a contract. The topics above are the brief.
+**2. North Carolina counsel, the same week, in parallel.** Ask them to draft these documents. Do not paste this playbook into a contract. The topics above are the brief. The same shortlist has lawyers whose own pages describe SaaS, consulting, and privacy contracts. Confirm the person, not just the firm name, does this work.
 
 - Master services agreement.
 - Statement of work for the $3,500 Blueprint.

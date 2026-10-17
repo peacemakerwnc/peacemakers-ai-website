@@ -7,6 +7,7 @@ The offer is a **$3,500 Blueprint**, then a monthly AI department at **$10,000, 
 | Document | What it is |
 | --- | --- |
 | [compliance-playbook.md](compliance-playbook.md) | Safety and compliance playbook, with sources, the before-first-client list, and the per-engagement checklist |
+| [nc-insurance-and-legal-shortlist.md](nc-insurance-and-legal-shortlist.md) | Brokers and North Carolina lawyers to call before the first paid client. Published contacts only. Not a ranking |
 | [industry-use-cases.md](industry-use-cases.md) | Concrete use cases by industry, with the ones that can be shown in a Blueprint |
 | [demo/](demo/) | Working Blueprint demo. No API key required. See [demo/README.md](demo/README.md) |
 
