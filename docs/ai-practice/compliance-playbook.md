@@ -20,6 +20,8 @@ Owner Ops standards still govern Owner Ops software: AI governance, human approv
 
 Peacemakers AI is a small consultancy. The clients in view are roughly $5–50 million in revenue: builders, contractors, home services, specialty trades, distributors, light manufacturers, property managers, engineering and architecture firms, logistics companies, insurance and title agencies, and multi-location franchises. Most of them are in North Carolina. A few of the laws below can still reach them because of a customer, an applicant, or a vendor in another state.
 
+The offer, as James set it: a **$3,500 Blueprint** is the paid entry. That is the assessment. After it, the monthly AI department is **$10,000, $15,000, or $20,000**. Those figures are fees. They are not a claim about the client's savings.
+
 The practical bar, before the legal detail:
 
 1. Do not say an AI system does something you have not shown, on their documents, with a person checking the output.
@@ -58,6 +60,8 @@ What this means on a Tuesday:
 Insurance companies are supervised by state insurance regulators for GLBA, not by this FTC rule. See the FTC's [GLBA Privacy Rule guide](https://www.ftc.gov/business-guidance/resources/how-comply-privacy-consumer-financial-information-rule-gramm-leach-bliley-act), which says the states enforce the privacy side for insurance providers. An independent agency is not automatically an "insurer." Classify the license, then decide.
 
 A builder, a mechanical contractor, or a distributor is not a financial institution because they extend trade credit to other businesses in the ordinary way. **UNVERIFIED** as a blanket exemption: "significantly engaged" is a facts test in 16 CFR 314.2. If a client runs a captive finance desk, a mortgage-broker affiliate, or a premium-finance side business, stop and classify that affiliate separately.
+
+**Dormant for the current book.** No current client is being treated as an FTC-jurisdiction financial institution, and none of the current work handles title wires. This overlay wakes up if a client is a financial institution under the Safeguards Rule, if counsel concludes a title or settlement company is under that rule, or if the work would handle nonpublic personal information for such a firm. A builder invoice does not wake it up. Wire-instruction changes stay out of scope even while the overlay is dormant.
 
 If a client is covered, Peacemakers is a service provider. The rule expects the covered firm to require its service providers, by contract, to protect customer information. That belongs in the DPA, not in a chat setting.
 
@@ -155,15 +159,26 @@ If a real EU use appears, the extra items are a lawyer's: role (provider vs. dep
 
 Apply these only when the client's actual work triggers them. The use-case file marks data sensitivity so you can see which workflows even get close.
 
+**Dormant for the current book (October 2026).** No current client handles health records, card payments, title wires, or hiring. HIPAA, PCI, the FTC Safeguards Rule (section 2), and the hiring rules below are written down so the next file that crosses a line is not built as a Blueprint quick win. They are not duties on the work in front of you today.
+
+| Overlay | Dormant until |
+| --- | --- |
+| HIPAA | A client is a covered entity or a business associate, or a file contains protected health information ([45 CFR 160.103](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-160/subpart-A/section-160.103)). A business associate agreement comes before any PHI moves. An employer's OSHA log is not this. |
+| PCI | A workflow would see a full card number, an expiration date, or a security code. An invoice total, or a paid/unpaid flag from the accounting system, is not this. |
+| Safeguards Rule | A client is an FTC-jurisdiction financial institution, counsel says a title or settlement company is under [16 CFR Part 314](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314), or the work handles nonpublic personal information for such a firm. |
+| Hiring | A tool would screen, rank, or score applicants or employees, or an automated employment decision tool would be used on a New York City candidate ([NYC Admin. Code § 20-871](https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCadmin/0-0-0-135598)). A checklist of missing forms that does not score people does not wake this up. |
+
 ### HIPAA
 
 **VERIFIED.** HIPAA's privacy, security, and breach rules apply to covered entities and their business associates. Covered entities are health plans, health care clearinghouses, and health care providers who transmit health information electronically in a standard transaction. See [45 CFR 160.103](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-160/subpart-A/section-160.103). A builder, a mechanical contractor, a distributor, and a title company are not covered entities because they have employees. An employer's personnel file and an OSHA log are not PHI in the hands of the employer.
 
 If a client is a medical practice, a group health plan doing more than holding an insured policy, or a vendor that receives PHI to perform a function for a covered entity, then a business associate agreement is required before PHI moves. See 45 CFR 164.502(e) and 164.504(e). OpenAI's [business data page](https://openai.com/business-data/) says a BAA is offered to eligible customers. Anthropic's [API retention page](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention) describes a separate HIPAA-readiness arrangement. Microsoft covers Azure OpenAI under the [Microsoft Products and Services Data Protection Addendum](https://learn.microsoft.com/en-us/legal/cognitive-services/openai/data-privacy), with the product terms saying what is in scope. Eligibility is per product. Do not send PHI until the signed BAA lists the exact service, and do not send it to a consumer login at all.
 
-Peacemakers' current client list does not center on covered entities. The website has a medical-practices page. Treat that as a different engagement with a BAA, a minimum-necessary review, and no PHI in the assessment demo.
+**Dormant.** No current client handles health records. The public site still has a medical-practices page. That page is not a current engagement. If a client is a covered entity or a business associate, or a file contains PHI, stop the Blueprint path: signed BAA naming the exact service, a minimum-necessary review, and no PHI in the demo. Do not send PHI to a consumer login.
 
 ### PCI
+
+**Dormant.** No current client puts card payments into this work. It wakes up the moment a workflow would see a PAN, an expiration date, or a CVV.
 
 Cardholder data does not belong in a prompt. PCI DSS is a contractual standard from the card brands, enforced through the merchant's acquirer, not a North Carolina statute. The PCI Security Standards Council's [document library](https://www.pcisecuritystandards.org/document_library/) is the source of the current version. This pass did not re-download the standard to confirm there is no version newer than PCI DSS v4.0.1. **UNVERIFIED:** the version number a given client must certify against in October 2026. Before any engagement that could see a card number, confirm the version and the client's SAQ type with the person who already files it.
 
@@ -174,6 +189,8 @@ Practical rule regardless of version: do not type, photograph, or upload a full 
 This pass did not find an OSHA rule whose subject is AI tools. **UNVERIFIED** that none exists in a letter of interpretation this search missed. What does exist is the record itself. Injury and illness records under [29 CFR 1904.33](https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1904/subpart-D/section-1904.33) are retained for five years. Employee exposure and medical records under [29 CFR 1910.1020](https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XVII/part-1910/subpart-Z/section-1910.1020) have a much longer retention. Those logs have names and health details. They are a bad thing to paste into a chatbot even though HIPAA usually does not apply to the employer copy. If a client wants a safety summary, aggregate it first (counts, sites, categories) and leave the names out. The ADA's confidentiality rule for medical information, 42 U.S.C. § 12112(d), is the other reason employee medical notes stay out of prompts.
 
 ### Employment and hiring
+
+**Dormant.** No current client uses this work for hiring. It wakes up if a tool would screen, rank, or score applicants or employees, or if an automated employment decision tool would be used on a New York City candidate.
 
 **VERIFIED as statutes that did not disappear.** Title VII (42 U.S.C. § 2000e-2), the ADA (42 U.S.C. § 12112), and the ADEA (29 U.S.C. § 623) still apply to covered employers. A model that ranks résumés is a selection procedure. The employer owns the outcome. "The vendor's tool did it" is not a defense.
 
@@ -247,7 +264,7 @@ These are topics for the North Carolina attorney to draft. They are not clauses 
 
 **MSA.** Who the client is, who Peacemakers is, that the client owns its data and its systems, that Peacemakers is an independent contractor, and that either side can end the relationship and get their materials back. A statement that the client is responsible for the truth of its records and for the decisions it makes from a draft.
 
-**SOW.** The workflow, the data classes, the system of record, what "done" looks like, the human approval step, what Peacemakers will not do (send to customers, move money, change wire instructions, make hiring decisions), the retention and deletion date, and the acceptance test (a named packet of documents, a named reviewer). Price the assessment and the retainer as commercial terms you and the client agree, not as a claim about their savings.
+**SOW.** The workflow, the data classes, the system of record, what "done" looks like, the human approval step, what Peacemakers will not do (send to customers, move money, change wire instructions, make hiring decisions), the retention and deletion date, and the acceptance test (a named packet of documents, a named reviewer). The Blueprint SOW is the $3,500 entry. The monthly SOW names the $10,000, $15,000, and $20,000 tiers. Those are fees, not a claim about the client's savings.
 
 **DPA.** Roles (client as controller, Peacemakers as processor, vendor as subprocessor), the categories of data, the purpose, the subprocessor list (the model vendor, by name), a ban on using the data to train a model, deletion at the end, breach notice to the client on a short clock so they can meet G.S. 75-65, and a duty to help with that notice. If HIPAA applies, the BAA is a separate document, not a sentence inside the MSA.
 
@@ -259,16 +276,42 @@ These are topics for the North Carolina attorney to draft. They are not clauses 
 
 **Acceptable use for the client's staff.** A one-page policy the client adopts: which tool, which data classes are forbidden, no personal logins for company files, no uploading of wire instructions or card numbers, a person reviews external output, and how to report a mistake or a leak. The state government's public-GenAI policy in section 3 is a useful shape. It is not their policy.
 
-**Insurance.** This pass did not find a North Carolina statute that requires an AI consultancy to carry errors-and-omissions or cyber insurance. Carry both anyway, because the MSA will be asked for certificates and because the work can cause a client loss or a data incident. Ask the broker whether the E&O form excludes professional services involving artificial intelligence, and whether the cyber form covers a vendor incident and regulatory notice costs. Get the answer in writing before you represent to a client that you are covered. **UNVERIFIED:** any specific carrier's form language, because none was reviewed.
+**Insurance.** As of this update, Peacemakers has no errors-and-omissions policy and no cyber policy. This pass did not find a North Carolina statute that requires an AI consultancy to carry either one. A client will still ask for a certificate, and the work can cause a loss or a data incident. The questions for the broker, and the order of operations, are in the next section. **UNVERIFIED:** any specific carrier's form language, because none was reviewed.
 
 **The line to put on drafts of templates:** "Draft for review by North Carolina counsel. Not legal advice. Not for signature."
 
+## Before the first paid client
+
+As of 17 October 2026 there are no client contracts and no E&O or cyber policy. Do not invoice the $3,500 Blueprint, and do not accept a client file, until the gate at the end of this list is met. This is the order to put in front of a broker and a North Carolina attorney. It is not legal advice. No premium is stated here, because none was quoted. No number of days is stated, because the broker and the lawyer set their own calendars.
+
+**1. Broker, the same week a paid Blueprint is actually in prospect.** Ask for two coverages: errors-and-omissions (professional liability) and cyber. Ask these questions in writing, and ask about AI exclusions by name:
+
+- Does the E&O form exclude professional services that involve artificial intelligence, algorithms, or software?
+- Does "professional services" or "technology services" match a Blueprint and a monthly AI department, or does the form describe a narrower job?
+- Does the cyber form cover an incident at a model vendor or other subprocessor, or only systems Peacemakers controls?
+- Does cyber include the cost of regulatory notice, including a North Carolina breach notice under G.S. 75-65?
+- When would a certificate of insurance actually be in hand?
+
+Do not tell a client you are covered until those answers are in writing and a binder exists.
+
+**2. North Carolina counsel, the same week, in parallel.** Ask them to draft these documents. Do not paste this playbook into a contract. The topics above are the brief.
+
+- Master services agreement.
+- Statement of work for the $3,500 Blueprint.
+- Statement of work for the monthly AI department, naming the $10,000, $15,000, and $20,000 tiers.
+- Data processing agreement.
+- A short acceptable-use page the client's staff can follow.
+
+Do not ask for a business associate agreement yet. No current client has protected health information. Do not add card-brand contract language until a workflow would see card data. Every draft should carry the line at the end of section 8.
+
+**3. The gate, before the first invoice and before the first client file.** A binder for both policies is in hand, and counsel has returned signature drafts of the MSA, the Blueprint SOW, the monthly SOW, and the DPA. Start the broker and the lawyer the same week. Both are the long pole. The internal data-safety page stays in the repo, off the website, until counsel has seen it and you choose to hand it to someone.
+
 ## 9. Checklist before Peacemakers takes client work
 
-Firm setup, once, then reviewed when a vendor or a law changes.
+Firm setup, once, then reviewed when a vendor or a law changes. The first two items are open on purpose.
 
-- [ ] North Carolina counsel has reviewed the MSA, SOW, and DPA topics in section 8, and the signature copies are the ones counsel returned.
-- [ ] E&O and cyber policies are in force, and the broker has answered the AI-exclusion question in writing.
+- [ ] The "before the first paid client" list is done. It is not done yet: there is no signed MSA, SOW, or DPA, and there is no E&O or cyber policy. Do not invoice the $3,500 Blueprint, and do not accept a client file, until a binder is in hand and North Carolina counsel has returned the signature drafts.
+- [ ] The broker's written answers on AI exclusions, the scope of professional services, subprocessor incidents, and North Carolina notice costs are in the file with the binder.
 - [ ] A password manager is in use. No client file and no API key lives in a personal chatbot, a shared inbox, or this git repository.
 - [ ] The model account you will use for assessments is a business or API account, no-training is confirmed on that account's current page, and zero-retention is either on or you have written down why the 30-day abuse log is acceptable for redacted samples only.
 - [ ] You have a one-page incident note: who calls the client, who calls counsel, where the DOJ breach page is, and a reminder that G.S. 75-65 does not give you a fixed day-count.

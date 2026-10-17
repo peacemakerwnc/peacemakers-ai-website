@@ -5,12 +5,16 @@
 
 These are workflows a $5–50 million company in North Carolina already does by hand. They are not a pipeline and they are not a claim that any named prospect has the problem. Charter Building Group is the reference client for the builder pattern (a designer's handwritten selections become a branded packet, and an architectural-review form gets filled). Charter is not a row in the prospect screen.
 
+The offer is a **$3,500 Blueprint**, then a monthly AI department at **$10,000, $15,000, or $20,000**. The Blueprint is the paid entry. The monthly work is the tier after the client has seen a working draft of one of their own workflows.
+
+HIPAA, card-data rules, the FTC Safeguards Rule, and hiring tools are dormant. No current client handles health records, card payments, title wires, or hiring. The playbook says what would turn each one on. Do not build those workflows inside a Blueprint.
+
 The Koerner Office episode 344, in an unverified local transcript, describes a different firm's assessment: interviews, redacted real documents, and a live demo in which a storm-structure inspection became a price proposal. The transcript's "about an hour," "about five minutes," and "$3,575 versus $3,375" are that episode's story. They are not Peacemakers measurements. Nothing below uses those figures. Every time estimate is an **assumption for a first conversation**, to be replaced by what the client's own people say in the interviews.
 
 Two build levels:
 
-- **Blueprint quick win.** One document type, a rate card or a form, a person reviews, and you can show it in an assessment from redacted samples.
-- **Monthly AI department.** It touches a system of record, several roles, or a permission boundary. It belongs on a retainer, after the quick win has earned the trust.
+- **Blueprint quick win.** One document type, a rate card or a form, a person reviews, and you can show it inside the $3,500 Blueprint from redacted samples.
+- **Monthly AI department.** It touches a system of record, several roles, or a permission boundary. It belongs on the $10,000, $15,000, or $20,000 monthly tier, after the Blueprint has earned the trust.
 
 Data sensitivity follows the playbook: low, moderate, high. High does not go in a model.
 
@@ -332,7 +336,7 @@ Often on NetSuite, which is familiar ground. The win is not "replace NetSuite." 
 - **Human review.** The sales engineer. Configuration errors ship the wrong goods.
 - **Time assumption.** An hour of interpretation on a real spec. The model does not remove the interpretation. It removes the retyping after the engineer has decided. Say it that way.
 - **Sensitivity.** Moderate.
-- **Why it demos.** You can show the line sheet without a NetSuite login. Connecting the import is the retainer, and only after their administrator wants it.
+- **Why it demos.** You can show the line sheet without a NetSuite login. Connecting the import is monthly AI department work, and only after their administrator wants it.
 
 ### Job traveler drafted from the routed quote
 
@@ -663,4 +667,4 @@ The pattern is the same report from many sites, written by people who do not all
 
 ## What to take into a first assessment
 
-Pick one **Show this first** workflow the owner actually recognized on the call. Ask them to send two redacted examples and the rate sheet or form they already use. Build the demo from those, the way the episode described, with the safety steps in the playbook visible: the contact block held back, the redacted text on screen, a rate card they can edit, a person approving the PDF, and no claim that the minutes are anything but their own.
+The paid entry is the **$3,500 Blueprint**. The monthly AI department, if they want it after they have seen their own workflow, is **$10,000, $15,000, or $20,000**. Pick one **Show this first** workflow the owner actually recognized on the call. Ask them to send two redacted examples and the rate sheet or form they already use. Build the demo from those, the way the episode described, with the safety steps in the playbook visible: the contact block held back, the redacted text on screen, a rate card they can edit, a person approving the PDF, and no claim that the minutes are anything but their own. Do not invoice that Blueprint, and do not take the file, until the playbook's before-first-paid-client list is done.

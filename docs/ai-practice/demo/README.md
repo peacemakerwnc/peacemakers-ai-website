@@ -1,6 +1,8 @@
-# Assessment demo
+# Blueprint demo
 
-A working sample of the assessment pattern: a field document in, an editable rate card, a draft PDF out, and a person in the middle.
+A working sample of the Blueprint: a field document in, an editable rate card, a draft PDF out, and a person in the middle.
+
+The offer on the page is the real one. A Blueprint is **$3,500**. The monthly AI department is **$10,000, $15,000, or $20,000**. The dollar figures inside the sample proposals are fictional job prices, not fees.
 
 The companies, people, addresses, and prices are fictional. Cape Fear Drainage Co., Oak Island Comfort Co., and Harborline Homes are not clients.
 

@@ -1,6 +1,10 @@
 # How we keep your data safe
 
-**Peacemakers AI · a page you can hand to a client**
+**INTERNAL · not for the website · not a contract · not legal advice**
+
+This page stays in the repo for James. It is excluded from the site upload. Do not link it from a public page, and do not hand it to a client until North Carolina counsel has seen it and you decide to use it.
+
+**Peacemakers AI · draft in James's voice, for a later client conversation**
 
 You stay in charge of your business. We help you use AI on the paperwork you already have: estimates, selections, inspection notes, forms, and the reports your people retype today. We do that in a way you can explain to a customer, a lender, or your insurance agent.
 
