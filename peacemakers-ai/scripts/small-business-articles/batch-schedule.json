@@ -238,7 +238,8 @@
       "slug": "ai-for-appointment-reminders-and-no-shows",
       "module": "batch8.py",
       "scheduled_date": "2026-10-20",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-20"
     },
     {
       "brief": 205,
