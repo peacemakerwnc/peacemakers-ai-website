@@ -1,0 +1,11 @@
+interface:
+  display_name: Owner practice loop
+  short_description: Score and improve the twelve owner practices
+  default_prompt: Use $owner-practice-loop to apply one carousel practice to the current task, score it, and revise the card if it failed.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
