@@ -246,7 +246,8 @@
       "slug": "ai-for-local-seo-small-business",
       "module": "batch8.py",
       "scheduled_date": "2026-10-21",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-21"
     },
     {
       "brief": 206,
