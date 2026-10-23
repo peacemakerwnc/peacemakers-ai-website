@@ -46,7 +46,9 @@ Heat is 1–10. A 7 or 8 means a specific, cited gap and no real competitor over
 
 ## Top 5 to build first
 
-Do not build these. They are the five concepts most worth a yes/no from James, in this order.
+Do not build these. A deeper pass on 23 October 2026 is in [asheville-top5-deep-dive.md](asheville-top5-deep-dive.md). That note changes the recording order to ENO, Forest Millwork, Deltec, Buchanan, then Green Man, and it narrows each demo. The five writeups below are the first-pass versions. Read the deep dive before anyone records.
+
+They were the five concepts most worth a yes/no from James, in the original heat order.
 
 1. **Green Man Brewery.** The company tells people, in its own FAQ, that the phone may not be answered on weekends and that texting is better. That is a visible gap, the email is public, and no leader was found selling AI or operations consulting. A 90-second recording can show three sample messages (a distributor asking for a holiday allocation, a birthday party for 40, a visitor asking which taproom is open) landing in one queue with a drafted reply. Real: their two Buxton Avenue addresses, published hours, and the weekend-phone sentence. Sample: the three messages and the drafted replies.
 
