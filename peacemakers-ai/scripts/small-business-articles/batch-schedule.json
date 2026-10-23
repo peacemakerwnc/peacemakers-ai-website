@@ -254,7 +254,8 @@
       "slug": "ai-meeting-notes-for-small-business",
       "module": "batch8.py",
       "scheduled_date": "2026-10-23",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-23"
     },
     {
       "brief": 207,
