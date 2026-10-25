@@ -262,7 +262,8 @@
       "slug": "ai-for-writing-sops-and-training-guides",
       "module": "batch8.py",
       "scheduled_date": "2026-10-25",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-25"
     },
     {
       "brief": 208,
