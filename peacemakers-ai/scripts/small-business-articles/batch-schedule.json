@@ -503,9 +503,10 @@
       "slug": "apollo-io-for-small-business-lead-research",
       "module": "batch10.py",
       "scheduled_date": "2026-10-26",
-      "status": "pending",
+      "status": "published",
       "series": "ai-implementation-tool-stack",
-      "cadence": "weekly"
+      "cadence": "weekly",
+      "published_date": "2026-10-26"
     },
     {
       "brief": 305,
