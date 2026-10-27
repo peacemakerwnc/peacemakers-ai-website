@@ -157,6 +157,7 @@ def footer_block(depth: int) -> str:
           <p><a class="footer-domain" href="/about">About</a></p>
           <p><a class="footer-domain" href="/contact">Contact</a></p>
           <p><a class="footer-domain" href="/privacy-policy">Privacy Policy</a></p>
+          <p><a class="footer-domain" href="/terms-of-service">Terms of Service</a></p>
           <p><a class="footer-domain" href="/locations">Locations</a></p>
           <p><a class="footer-domain" href="/industries">Industries</a></p>
         </div>
@@ -352,52 +353,11 @@ def generate_core_pages() -> list[str]:
     )
     urls.append("/contact")
 
-    privacy_body = f"""
-      <section class="hero section industry-hero">
-        <div class="container hero-content">
-          <p class="eyebrow">Privacy</p>
-          <h1>Privacy Policy</h1>
-          <p class="hero-sub">How Peacemakers AI collects, uses, and protects information when you visit or contact us.</p>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container narrow article-body">
-          <p><em>Last updated: July 2026. Business owners should have counsel review this policy before relying on it for compliance purposes.</em></p>
-          <h2>Information We Collect</h2>
-          <p>We may collect information you provide directly (such as name, email, phone, company, and message details), information submitted through forms, and standard technical data such as browser type, device information, and pages visited.</p>
-          <h2>Contact Forms</h2>
-          <p>When you submit a contact or lead form, we use your information to respond, schedule conversations, and provide requested services or resources.</p>
-          <h2>Analytics</h2>
-          <p>We use analytics tools (such as Google Analytics and Microsoft Clarity) to understand site usage and improve performance. These tools may use cookies or similar technologies.</p>
-          <h2>Cookies and Tracking</h2>
-          <p>We use cookies and similar technologies for analytics, performance measurement, and marketing tags managed through Google Tag Manager where applicable.</p>
-          <h2>How Data Is Used</h2>
-          <p>We use information to respond to inquiries, deliver services, improve our website, measure marketing performance, and communicate with prospective and current clients.</p>
-          <h2>Third-Party Tools</h2>
-          <p>We use third-party services such as form providers, scheduling tools, email platforms, analytics, and automation tools. Those providers have their own privacy policies and terms.</p>
-          <h2>Data Sharing</h2>
-          <p>We do not sell personal information. We may share data with service providers who help us operate our business, subject to appropriate safeguards and only as needed.</p>
-          <h2>Data Security</h2>
-          <p>We use reasonable administrative and technical measures to protect information. No method of transmission or storage is completely secure.</p>
-          <h2>Your Rights</h2>
-          <p>Depending on your location, you may have rights to access, correct, delete, or restrict certain processing of your personal information. Contact us to make a request.</p>
-          <h2>Contact Information</h2>
-          <p>Peacemakers AI<br />Email: <a href="mailto:{EMAIL}">{EMAIL}</a><br />Phone: {PHONE_PLACEHOLDER}<br />Based in Asheville, North Carolina. Serving businesses nationwide.</p>
-        </div>
-      </section>"""
-
-    write_page(
-        ROOT / "privacy-policy.html",
-        page_shell(
-            title="Privacy Policy | Peacemakers AI",
-            description="Read the Peacemakers AI privacy policy to learn how information is collected, used, and protected when you visit or contact us.",
-            canonical_path="/privacy-policy",
-            depth=0,
-            body=privacy_body,
-            extra_schema=org_schema(0),
-        ),
-    )
+    # privacy-policy.html and terms-of-service.html are maintained by hand.
+    # Regenerating them from this script would replace the audited legal text
+    # with an older page shell. Keep both URLs in the sitemap only.
     urls.append("/privacy-policy")
+    urls.append("/terms-of-service")
     return urls
 
 
@@ -730,6 +690,7 @@ def generate_sitemap(extra_urls: list[str]) -> None:
         "/about",
         "/contact",
         "/privacy-policy",
+        "/terms-of-service",
         "/scorecard",
         "/blueprint",
         "/early-access",
