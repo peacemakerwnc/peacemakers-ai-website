@@ -10,6 +10,9 @@
 *.log
 node_modules/
 
+# Local Firecrawl scrapes (not source)
+.firecrawl/
+
 # Billing local sealed packets + secrets (README remains trackable)
 billing/inbox/*.json
 billing/clients/**
