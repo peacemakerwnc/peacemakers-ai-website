@@ -278,7 +278,8 @@
       "slug": "ai-for-lead-qualification",
       "module": "batch8.py",
       "scheduled_date": "2026-10-29",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-29"
     },
     {
       "brief": 210,
