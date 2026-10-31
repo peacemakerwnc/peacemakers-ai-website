@@ -22,7 +22,7 @@ That matches the headline already recommended for [linkedin.com/in/james-p-fulle
 
 Put the headline on. Leave Open to Work off. The profile has to read as a man doing his job, not as a search.
 
-**The one thing the other account is for.** `@buildingpeacemakers` is a Catholic homeschooling dad in Weaverville who talks about faith, the homeschool, and practical tools. The kids stay off camera. That account is not the NetSuite account.
+**The one thing the other account is for.** `@buildingpeacemakers` is one Catholic homeschool brand. Faith and the homeschool are the same account, not two rooms. The kids stay off camera. The full niche, enemy, pillars, hooks, and metrics are in [`docs/homeschool-brand-playbook.md`](homeschool-brand-playbook.md). That account is not the NetSuite account.
 
 **Through-line, for James only.** The job is what still works after the launch.
 
@@ -31,20 +31,20 @@ Put the headline on. Leave Open to Work off. The profile has to read as a man do
 - Peacemakers AI ("Practical AI. Better operations.") is the same idea for a small owner: one operation that runs, not a demo.
 - The homeschool and Peacemakers Publishing are the same idea at home: the table and the page, not a performance.
 
-Say that idea in the room you are in. Do not print NetSuite, AI, the Army, faith, and family on one bio. A reader who needs all five explained has not been given one thing to remember. The rooms stay separate so they do not contradict each other.
+Say that idea in the room you are in. LinkedIn, `@buildingpeacemakers`, the company site, and the book page stay separate so they do not contradict each other. On `@buildingpeacemakers`, faith and homeschool are one brand. Do not print NetSuite, the Army, and the company offer on that bio.
 
 **Honest common enemy.** The launch that gets treated as the finish.
 
-Say it in his words: "Go-live is not the finish." On the family account the same idea is "the post is not the household." He stands with the person who still has to do the work next Tuesday — the controller closing the books, the parent at the table. He is the guide. He is not the hero of a movement, and he does not need fans.
+Say it in his words: "Go-live is not the finish." On `@buildingpeacemakers` the enemy is more specific, and it stays charitable: the pressure to perform a finished Catholic homeschool. The sentence and the limits are in the homeschool playbook. He stands with the person who still has to do the work next Tuesday — the controller closing the books, the parent in their own house. He is the guide. He is not the hero of a movement, and he does not need fans.
 
-Do not use her examples. "Hustle culture" is a creator slogan. "The nine-to-five trap" fights the fact that he works at Cirrus and would make a quiet look at other remote roles look like a resignation. "The devil" is not a marketing device. On the faith account, evil can be talked about as faith, in his own words, when the card is actually about that. It is not a growth trick.
+Do not use her examples. "Hustle culture" is a creator slogan. "The nine-to-five trap" fights the fact that he works at Cirrus and would make a quiet look at other remote roles look like a resignation. "The devil" is not a marketing device. On `@buildingpeacemakers`, he talks about evil only as a dad would at prayer, when the card is actually about that. It is not a growth trick, and it is not aimed at other Christians.
 
 **What each place carries**
 
 | Place | Carries | Stays off it |
 | --- | --- | --- |
 | LinkedIn | After go-live NetSuite for finance teams. The Cirrus role, stated accurately: ongoing support, not implementations. SuiteFoundation (2023) and NetSuite AI Foundations (April 2026) as facts. Army veteran as one line, not a series. Weaverville or western North Carolina as where he lives. | Open to Work, "exploring roles," client names, the 6-of-9 review count until he knows Cirrus is comfortable, Blueprint price, homeschool, the kids, book ads, income. |
-| Instagram and TikTok, `@buildingpeacemakers` | Faith, homeschool, and practical AI in plain language. Unscripted walk-and-talks from a card. The rule that the kids are never on camera. | NetSuite client work, Cirrus, recruiting, SuiteSqr counts, prices, "be rich." |
+| Instagram, Facebook, TikTok, and YouTube Shorts, `@buildingpeacemakers` | One Catholic homeschool brand: the prayers and the day, together. Walk-and-talks from a card. AI only as a separate screen recording. The kids never on camera. | NetSuite client work, Cirrus, recruiting, SuiteSqr counts, prices, "be rich," attacks on other families, schools, Catholics, or Protestants. |
 | Peacemakers AI site and company LinkedIn | The firm. One buyer and one ladder, as the consulting log already has them. The live footer line is "Practical AI. Real Results." His practice line for this brand is "Practical AI. Better operations." Do not add a result claim on the personal brand to match the footer. | This playbook does not edit the site. Her enemy frame does not go on the homepage. |
 | Peacemakers Publishing (`books` on the site) | The book that exists: *Bible Stories to Color*, 52 New Testament adventures, scripture and a short lesson, ages 6–10. | A pillar. Mention it when there is a real page to show. Do not turn the dad account into ads. |
 
@@ -94,7 +94,7 @@ Each block is her point in one line, whether it holds, and what James does with 
 
 **Holds for the person. Does not hold for the firm.** The man in the cap agrees with her on personal brands and then draws the line this practice should keep: a company that sells services stays tightly niched. The Gary Vaynerchuk exchange he plays (start wide after Wine Library, because the content finds the audience) was not found as a primary interview. That clip stays unknown outside this Reel. Do not cite Gary. Do not "go wide" on the company because an algorithm might sort it out.
 
-**For James.** He already has more than one life. Forcing them into one niche makes a mush, and posting all of them on LinkedIn makes a man who looks unfocused while he is employed. The fix is rooms, not a single wider niche. LinkedIn stays on after go-live. The family account stays on faith, homeschool, and practical tools. Peacemakers AI stays on its buyer and its ladder (the $3,500 Blueprint, then a monthly tier). "Drop your niche" does not change the offer or the price.
+**For James.** He already has more than one life. Forcing them into one niche makes a mush, and posting all of them on LinkedIn makes a man who looks unfocused while he is employed. The fix is rooms, not a single wider niche. LinkedIn stays on after go-live. The family account stays on Catholic homeschool, faith and the day together. Peacemakers AI stays on its buyer and its ladder (the $3,500 Blueprint, then a monthly tier). "Drop your niche" does not change the offer or the price.
 
 ### 7. Build pillars around you: values, beliefs, skills, and controversial takes
 
@@ -187,11 +187,11 @@ The through-line, used sparingly so it does not become a veteran costume or a se
 - "The part of the Army I still use is what had to work the week after the move."
 - "Sustainment is a dull word. It is also why the books close."
 
-### 4. Faith and the homeschool, kids off camera — `@buildingpeacemakers` only
+### 4. Catholic homeschool — `@buildingpeacemakers` only
 
-He records from a card, on a walk, unscripted. He does not show the kids. Publishing stays a mention when a real page is worth showing, not a fifth pillar.
+Faith and homeschool together. He records from a card, on a walk, unscripted. He does not show the kids. The pillars, the hooks, and this week's walks are in [`docs/homeschool-brand-playbook.md`](homeschool-brand-playbook.md). Publishing stays a mention when a real page is worth showing.
 
-- "The kids stay off this camera. The work is at the table."
+- "The kids stay off this camera. The work is at home."
 - "I film from a card on a walk. If I haven't lived it, I don't say it."
 
 **Not pillars.** Real estate. A certification series. Nonprofit as an identity. Book ads. "Day in the life." Anything that starts with "I'm excited to announce."
@@ -200,11 +200,11 @@ He records from a card, on a walk, unscripted. He does not show the kids. Publis
 
 ## Do this week
 
-Five things. All private unless a line says otherwise. This list is not approval to publish.
+Five things for the LinkedIn side. All private unless a line says otherwise. This list is not approval to publish. The `@buildingpeacemakers` week is in [`docs/homeschool-brand-playbook.md`](homeschool-brand-playbook.md).
 
 1. Set the LinkedIn headline to the sentence at the top of this file. Confirm Open to Work is off. Do not add the Blueprint, a price, or "open to conversations."
 2. Rewrite the About in four sentences: finance teams after go-live; Senior NetSuite Consultant and Platform Manager at Cirrus, ongoing support after another team implements; SuiteFoundation and NetSuite AI Foundations; Army veteran. Location can say Weaverville. Stop. No homeschool, no book, no second pitch.
-3. Write four cards, one sentence each, from the four pillars. Film one walk from one card. Watch it once. Do not post it this week unless you separately decide that exact clip is ready.
+3. Write three LinkedIn cards, from pillars 1–3. Film one walk from one of those cards only if you want a LinkedIn clip. The family walks are in the homeschool playbook. Do not post either until you approve that exact clip.
 4. Write "Go-live is not the finish" at the top of the card stack. Cross off hustle culture, the nine-to-five, and using "the devil" as a marketing line.
 5. On one sheet, label the rooms: LinkedIn, `@buildingpeacemakers`, the company site, the book page. Do not cross-post. If a Reel or Short is already live, read the number that app shows and stop. Do not set up a tracker.
 
