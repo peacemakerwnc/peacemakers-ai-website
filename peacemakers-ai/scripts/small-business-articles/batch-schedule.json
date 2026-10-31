@@ -286,7 +286,8 @@
       "slug": "ai-for-quote-and-estimate-generation",
       "module": "batch8.py",
       "scheduled_date": "2026-10-31",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-10-31"
     },
     {
       "brief": 211,
