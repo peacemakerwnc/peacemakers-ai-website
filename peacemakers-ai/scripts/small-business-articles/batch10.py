@@ -157,7 +157,7 @@ ARTICLES = {
     },
     "perplexity-ai-for-business-research": {
         "title": 'Perplexity AI for Business Research: Faster Answers with Sources',
-        "meta_description": 'Perplexity is strongest when a small business needs quick, sourced answers—competitor pages, vendor comparisons, regulation primers, or market.',
+        "meta_description": 'Use Perplexity AI for sourced business research, vendor comparisons, competitor checks, and market questions without losing human judgment.',
         "slug": "perplexity-ai-for-business-research",
         "publish_date": "2026-11-02",
         "category": "AI for Small Business",
@@ -169,15 +169,86 @@ ARTICLES = {
         "mid_cta": {"title": 'Want research that cites its sources?', "description": "Map a practical first workflow with clear review steps.", "buttonText": "Book a Free AI Fit Assessment", "buttonHref": "/services/ai-strategy-small-business"},
         "lead_magnet": {"title": "Small Business AI Starter Kit", "description": "Plan a focused first AI workflow.", "buttonText": "Get the Free Starter Kit", "formEndpoint": "/resources/ai-small-business-starter-kit", "page_source": "lm-perplexity-ai-for-business-research"},
         "end_cta_topic": 'using Perplexity for business research',
-        "body_html": _body(
-            'Perplexity is strongest when a small business needs quick, sourced answers—competitor pages, vendor comparisons, regulation primers, or market questions—before decisions move into Claude, Notion, or a live customer conversation.',
-            'In implementations we use Perplexity to gather candidates and citations, then verify anything material. It complements ChatGPT/Claude rather than replacing your internal data.',
-            'Perplexity for sourced business research',
-            'Ask a decision-shaped question, review cited links, save the useful excerpts into Notion with source URLs and dates, and only then draft recommendations for the client.',
-            'Treat summaries as leads to verify. Do not paste confidential customer data into research prompts. Confirm pricing and legal claims on primary sources.',
-            'Track research hours saved and how often recommendations needed correction after source checks.',
-            'Use findings inside <a href="/blog/ai-for-small-business/ai-tools-for-market-research-and-competitor-analysis">market research workflows</a> and <a href="/blog/ai-for-small-business/how-to-prompt-ai-for-business-tasks">better prompts</a>. Discover options via <a href="/blog/ai-for-small-business/using-futurepedia-to-discover-ai-tools">Futurepedia discovery</a>.',
-        ),
+        "body_html": """<p>Perplexity AI is useful for small business research when you need fast, sourced answers about competitors, vendors, regulations, market trends, or customer questions. Use it as a research assistant that points you toward evidence, not as the final authority for pricing, legal, financial, or customer-facing decisions.</p>
+<p>The practical workflow is simple: ask a narrow business question, inspect the citations, save the useful source links, and then turn the verified findings into an action plan in your normal tools. That keeps the speed advantage of AI while protecting the judgment and accountability your business still needs.</p>
+
+<h2>Why Perplexity is different from a general chatbot</h2>
+<p>General AI assistants are strong at drafting, summarizing, brainstorming, and reasoning across information you provide. Perplexity is built more like an answer engine: it searches, summarizes, and shows citations so you can inspect where claims came from. That matters for business research because many owners are not just asking "what should I write?" They are asking "what is true enough to act on?"</p>
+<p>For a small team, the difference can save hours. Instead of opening ten browser tabs, copying notes into a document, and trying to remember which claim came from which page, you can start with a sourced overview. You still need to check important details, but you reach the review stage faster.</p>
+<p>Perplexity works best when the question has an outside-world answer: What are local competitors emphasizing? Which scheduling tools integrate with my CRM? What changed in a vendor's pricing? What are common complaints in this market? For internal decisions based on your own SOPs, customer records, or private documents, it should be paired with your approved workspace rather than treated as the source of truth.</p>
+
+<h2>Good business uses for Perplexity AI</h2>
+<p>The highest-value use cases are repeatable research tasks that slow down decisions but do not require confidential inputs. For example, a service business can use Perplexity to compare booking tools, gather examples of competitor service pages, summarize review themes in a niche, or prepare a first-pass brief before a vendor call.</p>
+<p>Owners and operators can also use it to reduce "blank page" research. If you are planning a new service package, entering a new city, evaluating software, or trying to understand a trend, Perplexity can provide a starting map: major players, terms to know, source links, and questions to verify.</p>
+<ul>
+  <li>Vendor shortlists and software category comparisons.</li>
+  <li>Competitor page scans and messaging patterns.</li>
+  <li>Market research summaries before a planning session.</li>
+  <li>Regulatory or compliance primers that point to primary sources.</li>
+  <li>Content research for articles, FAQs, and sales enablement.</li>
+  <li>Customer question research before improving a service page.</li>
+</ul>
+<p>If your team already uses AI for <a href="/blog/ai-for-small-business/ai-tools-for-market-research-and-competitor-analysis">market research and competitor analysis</a>, Perplexity can become the first stop for gathering sources before another assistant drafts the final asset.</p>
+
+<h2>Start with a decision-shaped question</h2>
+<p>The biggest mistake is asking vague questions and accepting broad answers. "Tell me about AI scheduling tools" will produce a generic overview. "Which scheduling tools should a five-person home services company compare if it needs online booking, SMS reminders, Google Calendar sync, and simple CRM handoff?" gives Perplexity a practical job.</p>
+<p>A good Perplexity prompt includes the decision you are trying to make, the audience, the constraints, and the format you need. You can ask it to compare options in a table, list source links, separate facts from assumptions, and flag what should be verified on primary sources.</p>
+<p>For example: "Research three appointment reminder tools for a small dental practice. Compare pricing model, HIPAA considerations, integrations, and setup complexity. Include source links and a final list of questions to ask vendors." That prompt does not ask AI to buy software for you. It asks for structured research that helps a human buyer move faster.</p>
+
+<h2>A simple Perplexity research workflow</h2>
+<p>Use a repeatable workflow so research becomes a business habit instead of a random chat history. First, define the decision. Second, ask Perplexity for a sourced summary. Third, open the most important citations and confirm the claims that could affect money, customers, compliance, or reputation. Fourth, save the useful notes somewhere your team can find them later.</p>
+<p>In a Peacemakers-style implementation, those saved notes usually belong in an operations hub such as Notion, a CRM note, or a project brief. The point is to preserve the research trail. If someone asks later why a vendor was shortlisted or why a recommendation changed, you can point back to sources and dates instead of relying on memory.</p>
+<ol>
+  <li>Write the business decision in one sentence.</li>
+  <li>Ask Perplexity for a sourced overview with links.</li>
+  <li>Inspect the citations for the highest-impact claims.</li>
+  <li>Copy source URLs, dates, and useful excerpts into your workspace.</li>
+  <li>Ask a second pass for risks, missing questions, or alternatives.</li>
+  <li>Turn verified findings into a recommendation, checklist, or next action.</li>
+</ol>
+<p>This pairs well with <a href="/blog/ai-for-small-business/notion-ai-for-small-business-operations">Notion AI for small business operations</a>, because Notion can hold the verified notes while Perplexity handles outside research.</p>
+
+<h2>Where citations help, and where they do not</h2>
+<p>Citations make Perplexity more auditable than a plain AI answer, but they do not remove the need for review. A citation can point to an outdated page, a marketing claim, a forum comment, or a secondary article that misread the original source. The citation is a trailhead, not a guarantee.</p>
+<p>For low-stakes research, scanning sources may be enough. For high-stakes decisions, open the primary source. If you are comparing vendor pricing, check the vendor's pricing page. If you are researching a regulation, check the government or authoritative industry source. If you are preparing public claims, confirm that the source supports the wording you plan to use.</p>
+<p>This is especially important for local SEO, compliance, and industry-specific advice. Search results change quickly, and AI summaries can flatten nuance. Keep your team trained to ask, "Would we be comfortable showing this source to a customer, lawyer, accountant, or vendor?" If not, keep researching.</p>
+
+<h2>Do not paste sensitive business data into research prompts</h2>
+<p>Perplexity is best for external research, not for dumping private customer records or financial details into a prompt. Keep confidential customer notes, credentials, payment data, payroll details, contracts, and sensitive vendor terms out of general research sessions unless your business has approved the tool and its data settings for that purpose.</p>
+<p>You can usually get the benefit without exposing private details. Instead of pasting a customer list, describe the category of problem. Instead of uploading a contract, ask for a general checklist of clauses to review, then have a qualified person inspect the actual agreement. Instead of sharing private revenue numbers, ask what metrics businesses commonly compare in your industry.</p>
+<p>A simple internal rule helps: use Perplexity to research the world outside your business, and use approved internal systems for private business knowledge. When the two need to meet, summarize findings carefully and keep a human accountable for the decision.</p>
+
+<h2>How Perplexity fits with Claude, ChatGPT, and your tool stack</h2>
+<p>Perplexity does not replace Claude, ChatGPT, or your operating system. It plays a specific role in the tool stack: sourced research. After that, another assistant may be better for drafting a proposal, rewriting a page, analyzing a long internal document, or turning notes into an SOP.</p>
+<p>A common workflow looks like this: use Perplexity to gather source-backed context, save the links and notes in Notion, then use Claude or ChatGPT to draft a brief, email, comparison memo, or implementation checklist from verified inputs. That separation keeps each tool in its lane.</p>
+<p>If you are still deciding which assistant belongs where, read <a href="/blog/ai-for-small-business/claude-vs-chatgpt-for-small-business-work">Claude vs ChatGPT for small business work</a>. If your team struggles to get useful output from any assistant, strengthen your prompting habits with <a href="/blog/ai-for-small-business/how-to-prompt-ai-for-business-tasks">how to prompt AI for business tasks</a>.</p>
+
+<h2>Measure whether research is actually improving decisions</h2>
+<p>Do not measure Perplexity by how impressive the answer looks. Measure whether it reduces research time, improves the quality of decisions, and helps your team explain why a recommendation was made. A sourced answer that no one verifies is not a process improvement.</p>
+<p>Start with a small baseline. How long does it currently take to compare vendors, prepare a market brief, or answer a detailed customer question? How often does the team need to redo research because sources were missing? How many decisions stall because nobody has time to gather context?</p>
+<ul>
+  <li>Research hours saved per vendor comparison or planning question.</li>
+  <li>Number of source links captured with each recommendation.</li>
+  <li>Corrections found during source review.</li>
+  <li>Decision turnaround time from question to next action.</li>
+  <li>Team confidence in explaining the recommendation.</li>
+</ul>
+<p>Review those measures for a few weeks. If research gets faster but recommendations need constant correction, improve the prompt and verification process before expanding use.</p>
+
+<h2>Common mistakes to avoid</h2>
+<p>The first mistake is treating Perplexity as a magic answer machine. It is faster than manual search for many tasks, but it can still summarize weak sources or miss business context. The second mistake is asking it to make decisions that belong to an owner, manager, lawyer, accountant, or qualified professional.</p>
+<p>The third mistake is failing to save the work. If useful research remains trapped in a chat thread, the next person repeats the same search. Build the habit of saving verified findings into the place where your team already plans and executes work.</p>
+<ul>
+  <li>Do not accept a summary without opening important citations.</li>
+  <li>Do not use private customer or employee data in casual prompts.</li>
+  <li>Do not confuse a vendor's marketing page with independent proof.</li>
+  <li>Do not let research become a substitute for calling customers or testing offers.</li>
+  <li>Do not keep source-backed findings outside your shared workspace.</li>
+</ul>
+
+<h2>Bottom line</h2>
+<p>Perplexity AI can make small business research faster and more transparent when you use it for sourced questions, citation review, and structured decision prep. It is most valuable when paired with human judgment, a shared workspace, and a clear rule that important claims get verified before action.</p>
+<p>Start with one recurring research workflow, measure time saved and corrections needed, and expand only when the team can explain both the answer and the sources behind it.</p>""",
     },
     "claude-vs-chatgpt-for-small-business-work": {
         "title": 'Claude vs ChatGPT for Small Business Work: What We Use When',
