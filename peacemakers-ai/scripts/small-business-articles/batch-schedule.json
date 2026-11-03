@@ -294,7 +294,8 @@
       "slug": "ai-for-home-service-businesses",
       "module": "batch8.py",
       "scheduled_date": "2026-11-03",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-03"
     },
     {
       "brief": 212,
