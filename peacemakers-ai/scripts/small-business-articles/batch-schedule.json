@@ -302,7 +302,8 @@
       "slug": "ai-for-restaurants-and-hospitality",
       "module": "batch8.py",
       "scheduled_date": "2026-11-04",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-04"
     },
     {
       "brief": 213,
