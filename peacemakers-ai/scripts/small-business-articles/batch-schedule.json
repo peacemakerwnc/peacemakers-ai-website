@@ -310,7 +310,8 @@
       "slug": "ai-for-contractors-and-trades",
       "module": "batch8.py",
       "scheduled_date": "2026-11-06",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-06"
     },
     {
       "brief": 214,
