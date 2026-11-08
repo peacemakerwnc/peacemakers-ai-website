@@ -318,7 +318,8 @@
       "slug": "ai-for-professional-services-firms",
       "module": "batch8.py",
       "scheduled_date": "2026-11-08",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-08"
     },
     {
       "brief": 215,
