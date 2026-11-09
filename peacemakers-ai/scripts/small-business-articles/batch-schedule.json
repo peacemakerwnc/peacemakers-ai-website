@@ -530,9 +530,10 @@
       "slug": "claude-vs-chatgpt-for-small-business-work",
       "module": "batch10.py",
       "scheduled_date": "2026-11-09",
-      "status": "pending",
+      "status": "published",
       "series": "ai-implementation-tool-stack",
-      "cadence": "weekly"
+      "cadence": "weekly",
+      "published_date": "2026-11-09"
     },
     {
       "brief": 307,
