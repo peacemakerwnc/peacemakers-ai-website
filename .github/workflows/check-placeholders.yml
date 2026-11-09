@@ -1,0 +1,16 @@
+name: Placeholder guard
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  no-unfinished-template-markers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reject unfinished template markers in built site output
+        run: python3 peacemakers-ai/scripts/check-no-insert-placeholders.py
