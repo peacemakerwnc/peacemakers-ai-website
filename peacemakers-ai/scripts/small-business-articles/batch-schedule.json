@@ -326,7 +326,8 @@
       "slug": "ai-for-cash-flow-forecasting",
       "module": "batch8.py",
       "scheduled_date": "2026-11-10",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-10"
     },
     {
       "brief": 216,
