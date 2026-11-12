@@ -334,7 +334,8 @@
       "slug": "ai-for-expense-categorization",
       "module": "batch8.py",
       "scheduled_date": "2026-11-12",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-12"
     },
     {
       "brief": 217,
