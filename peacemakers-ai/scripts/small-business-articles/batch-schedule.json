@@ -342,7 +342,8 @@
       "slug": "ai-for-vendor-and-supplier-management",
       "module": "batch8.py",
       "scheduled_date": "2026-11-14",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-14"
     },
     {
       "brief": 218,
