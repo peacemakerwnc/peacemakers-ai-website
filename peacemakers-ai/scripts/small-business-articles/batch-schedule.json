@@ -543,9 +543,10 @@
       "slug": "zapier-make-n8n-for-small-business-automation",
       "module": "batch10.py",
       "scheduled_date": "2026-11-16",
-      "status": "pending",
+      "status": "published",
       "series": "ai-implementation-tool-stack",
-      "cadence": "weekly"
+      "cadence": "weekly",
+      "published_date": "2026-11-16"
     },
     {
       "brief": 308,
