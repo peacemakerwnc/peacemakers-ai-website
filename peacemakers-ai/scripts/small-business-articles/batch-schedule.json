@@ -350,7 +350,8 @@
       "slug": "should-i-use-chatgpt-or-specialized-ai-tools",
       "module": "batch8.py",
       "scheduled_date": "2026-11-17",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-17"
     },
     {
       "brief": 219,
