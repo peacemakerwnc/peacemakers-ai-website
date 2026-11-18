@@ -358,7 +358,8 @@
       "slug": "ai-for-customer-onboarding",
       "module": "batch9.py",
       "scheduled_date": "2026-11-18",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-18"
     },
     {
       "brief": 220,
