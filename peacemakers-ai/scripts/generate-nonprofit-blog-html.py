@@ -69,7 +69,7 @@ FOOTER = """    </main>
     <footer class="site-footer"><div class="container footer-grid">
       <div><a class="site-logo footer-logo" href="/"><span class="site-brand"><img class="site-brand-mark" src="/assets/peacemakers-ai-logo.png" alt="" /><span class="site-brand-text">Peacemakers AI</span></span></a></div>
       <div><h3>Series</h3><p><a class="footer-domain" href="/blog/ai-for-nonprofits">AI for Nonprofits</a></p><p><a class="footer-domain" href="/services/ai-strategy-nonprofits">Nonprofit AI Consulting</a></p></div>
-      <div><h3>More</h3><p><a class="footer-domain" href="/services/ai-strategy-nonprofits">Industry Page</a></p><p><a class="footer-domain" href="/resources">All Resources</a></p></div>
+      <div><h3>More</h3><p><a class="footer-domain" href="/services/ai-strategy-nonprofits">Industry Page</a></p><p><a class="footer-domain" href="/resources">All Resources</a></p><p><a class="footer-domain" href="/privacy-policy">Privacy Policy</a></p><p><a class="footer-domain" href="/terms-of-service">Terms of Service</a></p></div>
     </div></footer>
     <script src="/script.js" defer></script>
   </body>
