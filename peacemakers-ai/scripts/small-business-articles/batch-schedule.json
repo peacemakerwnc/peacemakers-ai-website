@@ -366,7 +366,8 @@
       "slug": "ai-for-knowledge-base-and-faqs",
       "module": "batch9.py",
       "scheduled_date": "2026-11-20",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-20"
     },
     {
       "brief": 221,
