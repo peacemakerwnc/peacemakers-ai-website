@@ -382,7 +382,8 @@
       "slug": "ai-for-reputation-management",
       "module": "batch9.py",
       "scheduled_date": "2026-11-24",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-24"
     },
     {
       "brief": 223,
