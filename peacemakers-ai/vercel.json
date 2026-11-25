@@ -1,7 +1,7 @@
 {
   "outputDirectory": ".",
   "framework": null,
-  "buildCommand": null,
+  "buildCommand": "python3 scripts/check-no-insert-placeholders.py",
   "trailingSlash": false,
   "redirects": [
     {

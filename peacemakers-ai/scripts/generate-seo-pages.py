@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
-"""Generate SEO pages: about, contact, privacy, locations, industries, sitemap."""
+"""Generate SEO pages: about, contact, privacy, locations, industries, sitemap.
+
+Public contact details come from data/site.json. Leave phone, social profile
+URLs, and the Search Console verification token empty until real values exist.
+This generator refuses to publish the unfinished-template marker.
+"""
 
 from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -12,8 +18,14 @@ DATA = ROOT / "data"
 SITE = "https://www.peacemakersai.com"
 EMAIL = "james@peacemakersai.com"
 LINKEDIN = "https://www.linkedin.com/company/peacemakers-ai"
-PHONE_PLACEHOLDER = "[INSERT BUSINESS PHONE]"
-GBP_PLACEHOLDER = "[INSERT GOOGLE BUSINESS PROFILE OR GOOGLE MAPS URL]"
+# Assembled so the source file does not contain the forbidden marker literally.
+NEEDLE = "[" + "INSERT"
+SOCIAL_FIELDS = (
+    ("facebook", "Facebook"),
+    ("instagram", "Instagram"),
+    ("youtube", "YouTube"),
+    ("x", "X"),
+)
 
 PRIORITY_STATES = {
     "north-carolina",
@@ -31,6 +43,117 @@ def load_json(name: str) -> dict:
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
 
+def load_site_config() -> dict:
+    path = DATA / "site.json"
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise SystemExit(f"{path} must be a JSON object")
+    return data
+
+
+SITE_CONFIG = load_site_config()
+
+
+def clean_value(value: object) -> str:
+    text = str(value or "").strip()
+    if not text or NEEDLE in text:
+        return ""
+    return text
+
+
+def site_value(key: str) -> str:
+    return clean_value(SITE_CONFIG.get(key, ""))
+
+
+def reload_site_config() -> None:
+    global SITE_CONFIG, EMAIL, LINKEDIN
+    SITE_CONFIG = load_site_config()
+    email = site_value("email")
+    if email:
+        EMAIL = email
+    linkedin = site_value("linkedin")
+    if linkedin.startswith(("http://", "https://")):
+        LINKEDIN = linkedin
+
+
+def configured_phone() -> str:
+    """Return a publishable phone number, or empty when none is configured."""
+    phone = site_value("phone")
+    digits = re.sub(r"\D", "", phone)
+    if len(digits) < 10:
+        return ""
+    return phone
+
+
+def tel_href(phone: str) -> str:
+    compact: list[str] = []
+    for index, char in enumerate(phone):
+        if char.isdigit() or (char == "+" and index == 0):
+            compact.append(char)
+    return "tel:" + "".join(compact)
+
+
+def contact_path() -> str:
+    path = site_value("contactPath") or "/contact"
+    if not path.startswith("/"):
+        path = "/" + path
+    return path
+
+
+def extra_social_links() -> list[tuple[str, str]]:
+    links: list[tuple[str, str]] = []
+    for key, label in SOCIAL_FIELDS:
+        url = site_value(key)
+        if url.startswith(("http://", "https://")):
+            links.append((label, url))
+    return links
+
+
+def same_as_urls() -> list[str]:
+    urls: list[str] = []
+    for url in [LINKEDIN, *(url for _, url in extra_social_links())]:
+        if url and url not in urls:
+            urls.append(url)
+    return urls
+
+
+def gsc_head() -> str:
+    token = site_value("googleSiteVerification")
+    if token and not any(char.isspace() for char in token) and "<" not in token and ">" not in token:
+        return f'  <meta name="google-site-verification" content="{esc(token)}" />'
+    return "  <!-- GSC: DNS verification active — meta tag not required unless switching methods. -->"
+
+
+def nap_html() -> str:
+    parts = [f'<a href="mailto:{esc(EMAIL)}">{esc(EMAIL)}</a>']
+    phone = configured_phone()
+    if phone:
+        parts.append(f'<a href="{tel_href(phone)}">{esc(phone)}</a>')
+    else:
+        parts.append(f'<a href="{esc(contact_path())}">Contact Peacemakers AI</a>')
+    return "<br />\n            ".join(parts)
+
+
+def social_html() -> str:
+    parts = [
+        f'<a href="{esc(LINKEDIN)}" rel="noopener noreferrer" target="_blank">LinkedIn</a>'
+    ]
+    for label, url in extra_social_links():
+        parts.append(
+            f'<a href="{esc(url)}" rel="noopener noreferrer" target="_blank">{esc(label)}</a>'
+        )
+    return "\n            ".join(parts)
+
+
+def phone_json_field() -> str:
+    phone = configured_phone()
+    if not phone:
+        return ""
+    return f'\n        "telephone": "{esc(phone)}",'
+
+
 def esc(text: str) -> str:
     return (
         text.replace("&", "&amp;")
@@ -38,6 +161,9 @@ def esc(text: str) -> str:
         .replace(">", "&gt;")
         .replace('"', "&quot;")
     )
+
+
+reload_site_config()
 
 
 def depth_prefix(depth: int) -> str:
@@ -58,8 +184,7 @@ def analytics_head() -> str:
   <script>
     window.addEventListener('load',function(){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wgrv405eqy");});
   </script>
-  <!-- GSC: DNS verification active — meta tag not required unless switching methods.
-       [INSERT GOOGLE SEARCH CONSOLE META VERIFICATION TOKEN IF NOT USING DNS] -->"""
+""" + gsc_head()
 
 
 def head_block(
@@ -143,13 +268,10 @@ def footer_block(depth: int) -> str:
           </a>
           <p class="footer-locale">Peacemakers AI | Asheville, North Carolina | Serving businesses nationwide</p>
           <p class="footer-nap">
-            <a href="mailto:{EMAIL}">{EMAIL}</a><br />
-            <!-- TODO: add tel link when phone number is provided -->
-            Phone: {PHONE_PLACEHOLDER}
+            {nap_html()}
           </p>
           <p class="footer-social">
-            <a href="{LINKEDIN}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-            <!-- [INSERT FACEBOOK URL] [INSERT INSTAGRAM URL] [INSERT YOUTUBE URL] [INSERT X URL] -->
+            {social_html()}
           </p>
         </div>
         <div>
@@ -210,8 +332,7 @@ def org_schema(depth: int) -> str:
         "url": "{SITE}",
         "logo": "{SITE}/assets/peacemakers-ai-logo.webp",
         "image": "{SITE}/assets/peacemakers-ai-logo.webp",
-        "email": "{EMAIL}",
-        "telephone": "{PHONE_PLACEHOLDER}",
+        "email": "{EMAIL}",{phone_json_field()}
         "description": "Peacemakers AI provides practical AI consulting, workflow automation, and implementation roadmaps for service-based businesses nationwide.",
         "address": {{
           "@type": "PostalAddress",
@@ -225,7 +346,7 @@ def org_schema(depth: int) -> str:
           {{"@type": "Country", "name": "United States"}}
         ],
         "serviceType": ["AI Consulting", "Business Process Automation", "Workflow Automation", "AI Implementation Roadmaps"],
-        "sameAs": ["{LINKEDIN}"]
+        "sameAs": [{", ".join(f'"{esc(url)}"' for url in same_as_urls())}]
       }}
     </script>"""
 
@@ -252,7 +373,13 @@ def faq_schema(faqs: list[tuple[str, str]]) -> str:
     </script>"""
 
 
+def reject_unfinished_marker(path: Path, text: str) -> None:
+    if NEEDLE in text:
+        raise SystemExit(f"Refusing to write unfinished template marker in {path}")
+
+
 def write_page(path: Path, html: str) -> None:
+    reject_unfinished_marker(path, html)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(html, encoding="utf-8")
 
@@ -309,6 +436,19 @@ def generate_core_pages() -> list[str]:
     )
     urls.append("/about")
 
+    phone = configured_phone()
+    phone_row = (
+        f'<strong>Phone:</strong> <a href="{tel_href(phone)}">{esc(phone)}</a><br />\n              '
+        if phone
+        else ""
+    )
+    gbp = site_value("googleBusinessProfile")
+    gbp_row = (
+        f'<p><strong>Google Business Profile:</strong> <a href="{esc(gbp)}" rel="noopener noreferrer" target="_blank">{esc(gbp)}</a></p>\n            '
+        if gbp.startswith(("http://", "https://"))
+        else ""
+    )
+
     contact_body = f"""
       <section class="hero section industry-hero">
         <div class="container hero-content">
@@ -323,13 +463,11 @@ def generate_core_pages() -> list[str]:
             <h2>Peacemakers AI</h2>
             <p class="footer-nap">
               <strong>Email:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a><br />
-              <strong>Phone:</strong> {PHONE_PLACEHOLDER}<br />
-              <strong>Location:</strong> Based in Asheville, North Carolina / Western NC<br />
+              {phone_row}<strong>Location:</strong> Based in Asheville, North Carolina / Western NC<br />
               <strong>Service area:</strong> Serving businesses nationwide across the United States
             </p>
             <p><strong>LinkedIn:</strong> <a href="{LINKEDIN}" rel="noopener noreferrer" target="_blank">{LINKEDIN}</a></p>
-            <p><strong>Google Business Profile:</strong> {GBP_PLACEHOLDER}</p>
-            <p class="section-intro">Peacemakers AI is a service-area business. We do not display a public storefront address. When your Google Business Profile URL is available, add it here and in schema markup.</p>
+            {gbp_row}<p class="section-intro">Peacemakers AI is a service-area business. We do not display a public storefront address.</p>
           </div>
           <div class="cta-stack cta-stack-left">
             <a class="btn btn-primary" href="mailto:{EMAIL}">Email Peacemakers AI</a>
@@ -351,6 +489,12 @@ def generate_core_pages() -> list[str]:
         ),
     )
     urls.append("/contact")
+
+    privacy_phone = (
+        f'Phone: <a href="{tel_href(phone)}">{esc(phone)}</a><br />'
+        if phone
+        else ""
+    )
 
     privacy_body = f"""
       <section class="hero section industry-hero">
@@ -382,7 +526,7 @@ def generate_core_pages() -> list[str]:
           <h2>Your Rights</h2>
           <p>Depending on your location, you may have rights to access, correct, delete, or restrict certain processing of your personal information. Contact us to make a request.</p>
           <h2>Contact Information</h2>
-          <p>Peacemakers AI<br />Email: <a href="mailto:{EMAIL}">{EMAIL}</a><br />Phone: {PHONE_PLACEHOLDER}<br />Based in Asheville, North Carolina. Serving businesses nationwide.</p>
+          <p>Peacemakers AI<br />Email: <a href="mailto:{EMAIL}">{EMAIL}</a><br />{privacy_phone}Based in Asheville, North Carolina. Serving businesses nationwide.</p>
         </div>
       </section>"""
 
@@ -768,10 +912,104 @@ def generate_sitemap(extra_urls: list[str]) -> None:
         lines.append(f"    <loc>{loc}</loc>")
         lines.append("  </url>")
     lines.append("</urlset>")
-    (ROOT / "sitemap.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    sitemap = "\n".join(lines) + "\n"
+    sitemap_path = ROOT / "sitemap.xml"
+    reject_unfinished_marker(sitemap_path, sitemap)
+    sitemap_path.write_text(sitemap, encoding="utf-8")
+
+
+def apply_site_config_to_html(html: str) -> str:
+    """Drop unfinished template markers from a published page.
+
+    A configured phone is written into a placeholder tel link and JSON-LD
+    telephone field. With no phone, the tel link becomes the /contact CTA
+    and the telephone field is omitted. Email markup is left unchanged.
+    """
+    phone = configured_phone()
+
+    def repl_tel(match: re.Match[str]) -> str:
+        if NEEDLE not in match.group(0):
+            return match.group(0)
+        if phone:
+            return f'<a href="{tel_href(phone)}">{esc(phone)}</a>'
+        return f'<a href="{esc(contact_path())}">Contact Peacemakers AI</a>'
+
+    html = re.sub(
+        r'<a\b[^>]*\bhref=["\']tel:[^"\']*["\'][^>]*>.*?</a>',
+        repl_tel,
+        html,
+        flags=re.S,
+    )
+
+    def repl_comment(match: re.Match[str]) -> str:
+        full = match.group(0)
+        if NEEDLE not in full:
+            return full
+        indent = re.match(r"[ \t]*", full).group(0)
+        newline = "\n" if full.endswith("\n") else ""
+        upper = full.upper()
+        if "SEARCH CONSOLE" in upper or "GSC" in upper:
+            token = site_value("googleSiteVerification")
+            if token and not any(char.isspace() for char in token) and "<" not in token and ">" not in token:
+                return (
+                    f'{indent}<meta name="google-site-verification" content="{esc(token)}" />{newline}'
+                )
+            return (
+                f"{indent}<!-- GSC: DNS verification active — meta tag not required unless switching methods. -->{newline}"
+            )
+        return ""
+
+    html = re.sub(r"[ \t]*<!--.*?-->[ \t]*\n?", repl_comment, html, flags=re.S)
+
+    def repl_telephone(match: re.Match[str]) -> str:
+        raw_value = match.group(1)
+        if NEEDLE not in raw_value:
+            return match.group(0)
+        if not phone:
+            return ""
+        prefix = match.group(0).split('"telephone"', 1)[0]
+        return f'{prefix}"telephone": "{esc(phone)}",'
+
+    html = re.sub(
+        r'\n?[ \t]*"telephone"\s*:\s*"((?:[^"\\]|\\.)*)"\s*,',
+        repl_telephone,
+        html,
+    )
+
+    if NEEDLE not in html:
+        return html
+
+    kept: list[str] = []
+    for line in html.splitlines(keepends=True):
+        if NEEDLE in line:
+            continue
+        kept.append(line)
+    return "".join(kept)
+
+
+def refresh_published_pages() -> int:
+    """Apply site.json contact rules to published HTML without rewriting page copy."""
+    changed = 0
+    for path in sorted(ROOT.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in {".html", ".xml"}:
+            continue
+        if any(part in {"scripts", "__pycache__", ".vercel"} for part in path.parts):
+            continue
+        original = path.read_text(encoding="utf-8")
+        updated = apply_site_config_to_html(original)
+        reject_unfinished_marker(path, updated)
+        if updated != original:
+            path.write_text(updated, encoding="utf-8")
+            changed += 1
+    return changed
 
 
 def main() -> None:
+    reload_site_config()
+    if "--refresh-chrome" in sys.argv:
+        count = refresh_published_pages()
+        print(f"Refreshed shared chrome in {count} files")
+        return
     loc_data = load_json("locations.json")
     ind_data = load_json("industries.json")
     urls: list[str] = []
