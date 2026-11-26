@@ -390,7 +390,8 @@
       "slug": "ai-content-that-still-sounds-like-your-brand",
       "module": "batch9.py",
       "scheduled_date": "2026-11-26",
-      "status": "pending"
+      "status": "published",
+      "published_date": "2026-11-26"
     },
     {
       "brief": 224,
